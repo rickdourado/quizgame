@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Portal de Estudos — Concursos Públicos de TIC</title>
+  <meta name="description" content="Plataforma de estudos para concursos de TIC: Quiz Game gamificado com simulados reais, Fichas de revisão offline e Quadros de Estudos de editais ativos.">
+  <meta name="theme-color" content="#090d16">
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #0f172a;
+      --surface-card: #141e33;
+      --surface-hover: #1b2742;
+      --border: #1e293b;
+      --border-accent: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --quiz-accent: #10b981;
+      --quiz-glow: rgba(16, 185, 129, 0.2);
+      --fichas-accent: #f59e0b;
+      --fichas-glow: rgba(245, 158, 11, 0.2);
+      --ufrrj-accent: #0ea5e9;
+      --ufrrj-glow: rgba(14, 165, 233, 0.2);
+      --transpetro-accent: #a855f7;
+      --transpetro-glow: rgba(168, 85, 247, 0.2);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.06) 0%, transparent 45%);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 16px;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 0 20px;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border-accent);
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #38bdf8;
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: clamp(0.92rem, 3vw, 1.02rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 14px;
+      text-align: center;
+      margin: 20px 0 24px;
+    }
+
+    .stat-item {
+      flex: 1;
+      min-width: 110px;
+    }
+
+    .stat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .stat-lbl {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Seções e Títulos */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+      margin: 28px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-heading span.sec-ico {
+      font-size: 1.25rem;
+    }
+
+    /* Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .app-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .app-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .app-card:active {
+      transform: scale(0.98);
+    }
+
+    /* Card Quiz */
+    .card-quiz {
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    .card-quiz:hover {
+      border-color: var(--quiz-accent);
+      box-shadow: 0 12px 30px var(--quiz-glow);
+    }
+
+    /* Card Fichas */
+    .card-fichas {
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+    .card-fichas:hover {
+      border-color: var(--fichas-accent);
+      box-shadow: 0 12px 30px var(--fichas-glow);
+    }
+
+    /* Card UFRRJ */
+    .card-ufrrj {
+      border-color: rgba(14, 165, 233, 0.25);
+    }
+    .card-ufrrj:hover {
+      border-color: var(--ufrrj-accent);
+      box-shadow: 0 12px 30px var(--ufrrj-glow);
+    }
+
+    /* Card Transpetro */
+    .card-transpetro {
+      border-color: rgba(168, 85, 247, 0.25);
+    }
+    .card-transpetro:hover {
+      border-color: var(--transpetro-accent);
+      box-shadow: 0 12px 30px var(--transpetro-glow);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .card-quiz .icon-box {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .card-fichas .icon-box {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .card-ufrrj .icon-box {
+      background: rgba(14, 165, 233, 0.15);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+    .card-transpetro .icon-box {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .card-title-group h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card-tag {
+      font-size: 0.70rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    .card-quiz .card-tag {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--quiz-accent);
+    }
+    .card-fichas .card-tag {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--fichas-accent);
+    }
+    .card-ufrrj .card-tag {
+      background: rgba(14, 165, 233, 0.15);
+      color: #38bdf8;
+    }
+    .card-transpetro .card-tag {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+    }
+
+    .card-desc {
+      font-size: 0.90rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feature-list li {
+      font-size: 0.84rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-list li::before {
+      content: "•";
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .card-quiz .feature-list li::before { color: var(--quiz-accent); }
+    .card-fichas .feature-list li::before { color: var(--fichas-accent); }
+    .card-ufrrj .feature-list li::before { color: var(--ufrrj-accent); }
+    .card-transpetro .feature-list li::before { color: var(--transpetro-accent); }
+
+    .btn-enter {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card-quiz .btn-enter { background: var(--quiz-accent); color: #042f2e; }
+    .card-quiz .btn-enter:hover { background: #34d399; }
+
+    .card-fichas .btn-enter { background: var(--fichas-accent); color: #451a03; }
+    .card-fichas .btn-enter:hover { background: #fbbf24; }
+
+    .card-ufrrj .btn-enter { background: #0284c7; color: #ffffff; }
+    .card-ufrrj .btn-enter:hover { background: #0ea5e9; }
+
+    .card-transpetro .btn-enter { background: #7c3aed; color: #ffffff; }
+    .card-transpetro .btn-enter:hover { background: #8b5cf6; }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 24px 0 8px;
+    }
+
+    footer a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge-top">
+        <span>⚡</span> Concursos Públicos de TIC
+      </div>
+      <h1>Portal de Estudos</h1>
+      <p class="subtitle">Preparação de alto rendimento para Técnico e Analista de TI. Treino diário, simulados oficiais, cronogramas e revisão relâmpago.</p>
+    </header>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-val">1.279</div>
+        <div class="stat-lbl">Questões Comentadas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">1.303</div>
+        <div class="stat-lbl">Flashcards Anki</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">11</div>
+        <div class="stat-lbl">Disciplinas Ativas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">2</div>
+        <div class="stat-lbl">Editais em Andamento</div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 1: TREINO E REVISÃO -->
+    <div class="section-heading">
+      <span class="sec-ico">🎮</span> Aplicações de Treino & Revisão
+    </div>
+
+    <main class="grid">
+      <!-- Card Quiz Game -->
+      <a href="quiz.html" class="app-card card-quiz">
+        <div>
+          <div class="card-header">
+            <div class="icon-box">🎮</div>
+            <div class="card-title-group">
+              <h2>Quiz Game TIC</h2>
+              <span class="card-tag">Simulado & Prática</span>
+            </div>
+          </div>
+          <p class="card-desc">Treino dinâmico em Verdadeiro ou Falso e Simulado com 5 alternativas na íntegra do edital UFRRJ.</p>
+          <ul class="feature-list">
+            <li>Simulado Oficial UFRRJ com pesos (1, 2 e 3) e cronômetro de 3h</li>
+            <li>Questões por Matéria com seleção livre e feedback imediato</li>
+            <li>Prática Rápida (V/F) e Treino de Pontos Fracos</li>
+            <li>Diagnóstico detalhado de desempenho por assunto e ranking</li>
+          </ul>
+        </div>
+        <div class="btn-enter">
+          Jogar Quiz Game <span>→</span>
+        </div>
+      </a>
+
+      <!-- Card Fichas -->
+      <a href="fichas.html" class="app-card card-fichas">
+        <div>
+          <div class="card-header">
+            <div class="icon-box">📑</div>
+            <div class="card-title-group">
+              <h2>Fichas de Revisão</h2>
+              <span class="card-tag">Leitura & Memorização</span>
+            </div>
+          </div>
+          <p class="card-desc">Material bruto condensado com dicas literais da banca, estratégias de prova e confronto de lei seca.</p>
+          <ul class="feature-list">
+            <li>Todas as 11 disciplinas organizadas por assuntos didáticos</li>
+            <li>Fichas individuais por lei (8.112, LAI, LGPD, Marco Civil, CF/88)</li>
+            <li>Modo Foco e leitura otimizada para celular e tablet</li>
+            <li>Busca instantânea por pegadinhas e mnemônicos</li>
+          </ul>
+        </div>
+        <div class="btn-enter">
+          Abrir Fichas de Revisão <span>→</span>
+        </div>
+      </a>
+    </main>
+
+    <!-- SEÇÃO 2: QUADROS DE ESTUDOS (EDITAIS ATIVOS) -->
+    <div class="section-heading">
+      <span class="sec-ico">📋</span> Quadros de Estudos & Cronogramas (Editais Ativos)
+    </div>
+
+    <div class="grid">
+      <!-- Card Quadro UFRRJ -->
+      <a href="ufrrj_quadro.html" class="app-card card-ufrrj">
+        <div>
+          <div class="card-header">
+            <div class="icon-box">🏛️</div>
+            <div class="card-title-group">
+              <h2>Quadro UFRRJ 2026</h2>
+              <span class="card-tag">Edital 53/2026 · Técnico TI</span>
+            </div>
+          </div>
+          <p class="card-desc">Quadro interativo estilo lousa com cronograma intensivo de 31/10 a 22/11/2026 para Técnico de TI — Infraestrutura.</p>
+          <ul class="feature-list">
+            <li>Contagem regressiva de dias até a prova</li>
+            <li>Distribuição semanal por pesos das disciplinas (1, 2 e 3)</li>
+            <li>Metas de questões diárias e checklist completo de tópicos</li>
+            <li>Progresso salvo automaticamente no navegador (localStorage)</li>
+          </ul>
+        </div>
+        <div class="btn-enter">
+          Abrir Quadro UFRRJ <span>→</span>
+        </div>
+      </a>
+
+      <!-- Card Quadro TRANSPETRO -->
+      <a href="transpetro_quadro.html" class="app-card card-transpetro">
+        <div>
+          <div class="card-header">
+            <div class="icon-box">⚓</div>
+            <div class="card-title-group">
+              <h2>Quadro TRANSPETRO 2026</h2>
+              <span class="card-tag">Edital 2026 · Cesgranrio</span>
+            </div>
+          </div>
+          <p class="card-desc">Plano tático de 31/10 a 06/12/2026 para Análise de Sistemas — Infraestrutura com blocos direcionados Cesgranrio.</p>
+          <ul class="feature-list">
+            <li>Contagem regressiva de dias até a prova Cesgranrio</li>
+            <li>Blocos de 10 a 20 questões/dia por disciplina técnica</li>
+            <li>Cobertura focada em Redes, Nuvem, Linux, SGBD e Governança</li>
+            <li>Progresso salvo automaticamente no navegador (localStorage)</li>
+          </ul>
+        </div>
+        <div class="btn-enter">
+          Abrir Quadro Transpetro <span>→</span>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <p>Desenvolvido para estudo de alto rendimento • Sincronizado com o Obsidian</p>
+    </footer>
+  </div>
+
+</body>
+</html>

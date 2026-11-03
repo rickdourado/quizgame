@@ -1,0 +1,98 @@
+[
+  {
+    "id": "156efb94ea",
+    "enunciado": "A posse e o exercício de agente público em cargo público ficam condicionados à <b>apresentação de declaração de bens e renda</b> segundo a Lei nº 8.429/1992.",
+    "gabarito": "V",
+    "explicacao": "Art. 13 da Lei nº 8.429/1992: a posse e o exercício ficam estritamente condicionados à apresentação de declaração de imposto de renda e proventos (ou autorização de acesso à RFB). A recusa acarreta demissão a bem do serviço público (§ 3º).",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Declaracao_Bens",
+    "tags": "Declaracao_Bens"
+  },
+  {
+    "id": "d4eb59c7ad",
+    "enunciado": "O terceiro particular que não é agente público <b>não pode responder</b> por ato de improbidade administrativa sob a Lei nº 8.429/1992.",
+    "gabarito": "F",
+    "explicacao": "<font color='#b26a00'><b>Correção:</b></font> Art. 3º da LIA: as disposições aplicam-se àquele que, não sendo agente público, <b>induza ou concorra dolosamente</b> para a prática do ato, ou dele se beneficie. Ele responde em coautoria com o agente público.",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Terceiro_Particular",
+    "tags": "Terceiro_Particular"
+  },
+  {
+    "id": "13758a3471",
+    "enunciado": "A sanção de <b>suspensão dos direitos políticos</b> foi integralmente revogada da Lei nº 8.429/1992 pela Reforma da Lei nº 14.230/2021.",
+    "gabarito": "F",
+    "explicacao": "<font color='#b26a00'><b>Correção:</b></font> A suspensão dos direitos políticos continua em vigor: <b>até 14 anos</b> para atos de enriquecimento ilícito (Art. 9º) e <b>até 12 anos</b> para atos de lesão ao erário (Art. 10). Foi extinta apenas para atos contra princípios (Art. 11).",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Sancoes_Politicas",
+    "tags": "Sancoes_Politicas"
+  },
+  {
+    "id": "163bc1b294",
+    "enunciado": "A aplicação e a execução das sanções punitivas da Lei de Improbidade Administrativa exigem <b>sentença judicial transitada em julgado</b>.",
+    "gabarito": "V",
+    "explicacao": "Art. 12, § 9º, e Art. 20 da LIA: as sanções (perda de função, suspensão de direitos políticos, proibição de contratar) só se executam após o trânsito em julgado da decisão condenatória.",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Transito_Julgado",
+    "tags": "Transito_Julgado"
+  },
+  {
+    "id": "b989797556",
+    "enunciado": "A conduta praticada por agente público com culpa grave e negligência inescusável caracteriza ato de improbidade administrativa que causa lesão ao erário.",
+    "gabarito": "F",
+    "explicacao": "<font color='#b26a00'><b>Correção:</b></font> A Lei nº 14.230/2021 <b>extinguiu a modalidade culposa</b> em todas as tipologias da LIA. O Art. 1º, §§ 1º, 2º e 3º exige dolo específico para todos os atos dos arts. 9º, 10 e 11.",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Dolo_Especifico",
+    "tags": "Dolo_Especifico"
+  },
+  {
+    "id": "c44638a61f",
+    "enunciado": "Não configura ato de improbidade administrativa a ação ou omissão decorrente de <b>divergência interpretativa da lei</b> baseada em jurisprudência plausível.",
+    "gabarito": "V",
+    "explicacao": "Art. 1º, § 8º, da Lei nº 8.429/1992: a divergência hermenêutica ou jurisprudencial fundada não configura improbidade, afastando a tipicidade do dolo.",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Divergencia_Interpretativa",
+    "tags": "Divergencia_Interpretativa"
+  },
+  {
+    "id": "27cb8055d0",
+    "enunciado": "O terceiro particular pode figurar isoladamente no polo passivo de uma ação de improbidade administrativa, desacompanhado de agente público.",
+    "gabarito": "F",
+    "explicacao": "<font color='#b26a00'><b>Correção:</b></font> É jurisprudência pacífica e doutrina unânime: o particular <b>não responde sozinho</b> por ato de improbidade. É obrigatório o litisconsórcio passivo com pelo menos um agente público que cometeu a conduta.",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Terceiro_Particular",
+    "tags": "Terceiro_Particular"
+  },
+  {
+    "id": "c20251a214",
+    "enunciado": "A obrigação de ressarcimento ao erário em ato de improbidade administrativa doloso possui natureza de <b>recomposição patrimonial indenizatória</b> e não de sanção punitiva.",
+    "gabarito": "V",
+    "explicacao": "O ressarcimento destina-se a recompor o patrimônio lesado (natureza civil/indenizatória), razão pela qual o STF fixou a tese de sua imprescritibilidade quando decorrente de ato doloso de improbidade (Tema 897).",
+    "disciplina": "legislacao",
+    "assunto": "legislacao-8",
+    "topico": "Legislação",
+    "assunto_original": "Etica Improbidade",
+    "deck": "Concurso::Materias::Legislação::Etica_Improbidade::Ressarcimento_Erario",
+    "tags": "Ressarcimento_Erario"
+  }
+]

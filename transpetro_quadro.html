@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Quadro de Estudos — TRANSPETRO 2026 (Análise de Sistemas — Infraestrutura)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --board:#1e3d2f;
+    --board-dark:#152a20;
+    --wood:#7a4a2b;
+    --wood-dark:#5c3720;
+    --paper:#faf5e6;
+    --paper-shadow:rgba(0,0,0,.35);
+    --ink:#2b2b2b;
+    --chalk:#f4f1e6;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito',sans-serif;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(255,255,255,.03), transparent 40%),
+      radial-gradient(ellipse at 80% 90%, rgba(255,255,255,.03), transparent 40%),
+      var(--board);
+    color:var(--chalk);
+    padding:28px 14px 60px;
+  }
+
+  .frame{
+    max-width:980px;
+    margin:0 auto;
+    border:14px solid var(--wood);
+    border-radius:10px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.02), transparent 12%),
+      var(--board);
+    box-shadow:
+      inset 0 0 0 4px var(--wood-dark),
+      0 18px 40px rgba(0,0,0,.45);
+    padding:26px 26px 34px;
+    position:relative;
+  }
+
+  .frame::before{
+    content:"";
+    position:absolute; inset:14px;
+    border:1px dashed rgba(244,241,230,.15);
+    border-radius:4px;
+    pointer-events:none;
+  }
+
+  header{ text-align:center; margin-bottom:18px; }
+  header h1{
+    font-family:'Kalam',cursive;
+    font-weight:700;
+    font-size:2.4rem;
+    margin:0 0 4px;
+    letter-spacing:.5px;
+    text-shadow: 0 0 6px rgba(244,241,230,.35), 0 0 1px rgba(244,241,230,.6);
+  }
+  header p{
+    font-family:'Kalam',cursive;
+    font-size:1.05rem;
+    margin:0;
+    opacity:.85;
+  }
+
+  .countdown-banner{
+    max-width:900px; margin:0 auto 22px;
+    background:linear-gradient(135deg,#e0574c,#ff8c00);
+    color:#fff;
+    border-radius:10px;
+    padding:18px 22px;
+    text-align:center;
+    font-family:'Kalam',cursive;
+    font-size:1.4rem;
+    font-weight:700;
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+  }
+  .countdown-banner .days{ font-size:2rem; }
+
+  .priority-banner{
+    max-width:900px; margin:0 auto 22px;
+    background:linear-gradient(135deg,#ffd700,#ff8c00);
+    color:#1a1a1a;
+    border-radius:10px;
+    padding:18px 22px;
+    text-align:center;
+    font-family:'Kalam',cursive;
+    font-size:1.1rem;
+    font-weight:700;
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+  }
+  .priority-banner strong{ color:#8b0000; }
+
+  .strategy-banner{
+    max-width:900px; margin:0 auto 22px;
+    background:rgba(244,241,230,.08);
+    border:1px solid rgba(244,241,230,.25);
+    border-radius:10px;
+    padding:18px 22px;
+    font-family:'Kalam',cursive;
+    font-size:.95rem;
+    line-height:1.6;
+    text-align:left;
+  }
+  .strategy-banner h3{ margin:0 0 8px; font-size:1.1rem; text-align:center; }
+  .strategy-banner .phase{ display:flex; gap:8px; align-items:baseline; margin-bottom:4px; }
+  .strategy-banner .phase-label{
+    font-weight:700; min-width:130px; white-space:nowrap;
+  }
+  .strategy-banner .phase-desc{ opacity:.9; }
+
+  .toolbar{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px;
+    margin:18px auto 8px; max-width:760px;
+  }
+
+  .progress-wrap{
+    flex:1 1 320px;
+    background:rgba(244,241,230,.08);
+    border:1px solid rgba(244,241,230,.25);
+    border-radius:30px;
+    padding:6px 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .progress-track{
+    flex:1; height:12px; border-radius:8px;
+    background:rgba(0,0,0,.35);
+    overflow:hidden;
+    border:1px solid rgba(244,241,230,.2);
+  }
+  .progress-fill{
+    height:100%;
+    background:linear-gradient(90deg,#79b96a,#e7b13f);
+    width:0%;
+    transition:width .35s ease;
+  }
+  #progress-label{ font-family:'Kalam',cursive; font-size:.95rem; white-space:nowrap; }
+
+  button.chalkbtn{
+    font-family:'Kalam',cursive;
+    font-size:.95rem;
+    background:rgba(244,241,230,.08);
+    color:var(--chalk);
+    border:1px solid rgba(244,241,230,.35);
+    border-radius:8px;
+    padding:8px 14px;
+    cursor:pointer;
+  }
+  button.chalkbtn:hover{ background:rgba(244,241,230,.18); }
+
+  .sync-panel{
+    max-width:820px; margin:0 auto 22px;
+    background:rgba(244,241,230,.06);
+    border:1px dashed rgba(244,241,230,.3);
+    border-radius:10px;
+    padding:14px 16px;
+    display:none;
+  }
+  .sync-panel.open{ display:block; }
+  .sync-panel p{ margin:0 0 10px; font-size:.85rem; opacity:.85; }
+  .sync-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:10px; }
+  .sync-row:last-child{ margin-bottom:0; }
+  .sync-row input[type=text]{
+    flex:1 1 260px;
+    font-family:monospace;
+    font-size:.78rem;
+    padding:8px 10px;
+    border-radius:6px;
+    border:1px solid rgba(244,241,230,.35);
+    background:rgba(0,0,0,.25);
+    color:var(--chalk);
+  }
+  .sync-label{
+    font-family:'Kalam',cursive; font-size:.95rem; min-width:150px;
+  }
+
+  .legend{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px 12px;
+    margin:14px auto 26px; max-width:820px;
+  }
+  .chip{
+    display:flex; align-items:center; gap:6px;
+    font-size:.78rem; font-weight:700;
+    background:rgba(244,241,230,.06);
+    border:1px solid rgba(244,241,230,.18);
+    border-radius:20px;
+    padding:4px 10px 4px 6px;
+  }
+  .dot{ width:12px; height:12px; border-radius:50%; display:inline-block; }
+
+  .sheet{
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:4px;
+    box-shadow: 0 10px 22px var(--paper-shadow), 0 2px 0 rgba(0,0,0,.15);
+    margin:0 auto 34px;
+    max-width:900px;
+    padding:26px 22px 20px;
+    position:relative;
+  }
+  .sheet:nth-of-type(odd){ transform:rotate(-0.4deg); }
+  .sheet:nth-of-type(even){ transform:rotate(0.4deg); }
+
+  .pin{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    font-size:1.6rem;
+    filter:drop-shadow(0 3px 2px rgba(0,0,0,.4));
+  }
+
+  .sheet h2{
+    font-family:'Kalam',cursive;
+    font-size:1.25rem;
+    margin:2px 0 16px;
+    color:#1e3d2f;
+    border-bottom:2px dashed #c9c1a4;
+    padding-bottom:8px;
+  }
+
+  .day{
+    display:flex; flex-wrap:wrap; align-items:flex-start; gap:10px 14px;
+    padding:9px 0;
+    border-bottom:1px solid #e6dfc6;
+  }
+  .day:last-child{ border-bottom:none; }
+  .day.today{
+    background:rgba(231,177,63,.16);
+    border-radius:8px;
+    padding:9px 8px;
+    box-shadow: inset 0 0 0 1.5px #e7b13f;
+  }
+  .day.past{
+    opacity:.55;
+  }
+
+  .date-badge{
+    font-family:'Kalam',cursive;
+    font-weight:700;
+    font-size:.92rem;
+    min-width:96px;
+    color:#1e3d2f;
+    display:flex; align-items:center; gap:6px;
+  }
+  .today-tag{
+    font-size:.62rem; font-family:'Nunito',sans-serif; font-weight:800;
+    background:#e7b13f; color:#3a2a05; padding:1px 6px; border-radius:10px;
+  }
+
+  .items{
+    flex:1 1 480px;
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .item{
+    display:flex; align-items:center; gap:7px;
+    background:#fff;
+    border:1px solid #e2dbc4;
+    border-left:5px solid var(--item-color, #999);
+    border-radius:6px;
+    padding:6px 10px 6px 8px;
+    font-size:.82rem;
+    font-weight:600;
+    cursor:pointer;
+    user-select:none;
+    transition:opacity .15s, transform .1s;
+  }
+  .item:hover{ transform:translateY(-1px); }
+  .item input{ transform:scale(1.15); cursor:pointer; }
+  .item.checked{ opacity:.5; }
+  .item.checked span.txt{ text-decoration:line-through; }
+  .item span.area{
+    display:block;
+    font-size:0.62rem;
+    font-weight:600;
+    font-style:italic;
+    color:#8a8368;
+    opacity:.8;
+    margin-top:2px;
+    text-decoration:none !important;
+  }
+  .item .txt-wrap{ display:flex; flex-direction:column; }
+
+  .item.wide{ flex:1 1 100%; }
+
+  /* ---- botão copiar (tablet-friendly) ---- */
+  .item .copy-btn{
+    margin-left:auto;
+    flex:0 0 auto;
+    min-width:44px; min-height:44px;
+    display:inline-flex; align-items:center; justify-content:center; gap:4px;
+    font-family:'Nunito',sans-serif; font-size:.78rem; font-weight:800;
+    background:#f1ecd8;
+    color:#1e3d2f;
+    border:1px solid #d6cfb4;
+    border-radius:8px;
+    padding:0 10px;
+    cursor:pointer;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+    transition:background .15s, color .15s;
+  }
+  .item .copy-btn:active{ background:#e2dbc0; }
+  .item .copy-btn.ok{ background:#79b96a; color:#fff; border-color:#79b96a; }
+  .item .copy-btn.err{ background:#e0574c; color:#fff; border-color:#e0574c; }
+  @media (hover:none){ .item:hover{ transform:none; } }
+
+
+  .exam-banner{
+    max-width:900px; margin:0 auto 10px;
+    background:linear-gradient(135deg,#e0574c,#e7b13f);
+    color:#241a05;
+    border-radius:10px;
+    padding:18px 22px;
+    text-align:center;
+    font-family:'Kalam',cursive;
+    font-size:1.3rem;
+    font-weight:700;
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+  }
+
+  footer{
+    text-align:center; font-family:'Kalam',cursive; font-size:.85rem;
+    opacity:.7; margin-top:20px;
+  }
+
+  @media print{
+    body{ background:#fff; color:#000; }
+    .frame{ border:none; box-shadow:none; }
+    .toolbar, .legend, .copy-btn{ display:none !important; }
+    .sheet{ box-shadow:none; break-inside:avoid; transform:none !important; }
+    .day.past{ opacity:1; }
+  }
+</style>
+<style id="portal-nav-css">
+  .portal-top-bar {
+    width: 100%;
+    margin: 0 0 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    z-index: 100;
+  }
+  .portal-top-bar a.ptb-brand {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .portal-top-bar a.ptb-brand:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .portal-top-bar .ptb-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .portal-top-bar a.ptb-btn {
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .portal-top-bar a.ptb-btn:hover {
+    transform: translateY(-1px);
+  }
+  /* Quiz Game (Verde) */
+  .portal-top-bar a.ptb-quiz {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+  }
+  .portal-top-bar a.ptb-quiz:hover, .portal-top-bar a.ptb-quiz.active {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+  }
+  /* Fichas de Revisão (Âmbar) */
+  .portal-top-bar a.ptb-fichas {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.28);
+  }
+  .portal-top-bar a.ptb-fichas:hover, .portal-top-bar a.ptb-fichas.active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+  }
+  /* Plano UFRRJ (Azul Celeste) */
+  .portal-top-bar a.ptb-ufrrj {
+    color: #38bdf8;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(14, 165, 233, 0.28);
+  }
+  .portal-top-bar a.ptb-ufrrj:hover, .portal-top-bar a.ptb-ufrrj.active {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+  }
+  /* Plano Transpetro (Roxo) */
+  .portal-top-bar a.ptb-transpetro {
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.28);
+  }
+  .portal-top-bar a.ptb-transpetro:hover, .portal-top-bar a.ptb-transpetro.active {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: #c084fc;
+  }
+  .portal-top-bar a.ptb-btn.active {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+    font-weight: 800;
+  }
+  @media (max-width: 680px) {
+    .portal-top-bar .ptb-text-extra { display: none !important; }
+    .portal-top-bar a.ptb-btn { font-size: 0.72rem; padding: 4px 7px; gap: 4px; }
+    .portal-top-bar a.ptb-brand { font-size: 0.78rem; }
+  }
+  @media (max-width: 440px) {
+    .portal-top-bar { padding: 6px 10px; gap: 6px; }
+    .portal-top-bar .ptb-actions { gap: 4px; }
+    .portal-top-bar a.ptb-btn { font-size: 0.70rem; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+
+    <div class="portal-top-bar" style="max-width:980px;margin:0 auto 16px auto;">
+      <a href="index.html" class="ptb-brand" title="Voltar ao Portal Principal">
+        <span>🏠</span>
+        <span>Portal<span class="ptb-text-extra"> de Estudos</span></span>
+      </a>
+      <div class="ptb-actions">
+        <a href="quiz.html" class="ptb-btn ptb-quiz" title="Quiz Game TIC (Simulado e Prática)">
+          <span>🎮</span>
+          <span>Quiz<span class="ptb-text-extra"> Game</span></span>
+        </a>
+        <a href="fichas.html" class="ptb-btn ptb-fichas" title="Fichas de Revisão Offline">
+          <span>📑</span>
+          <span>Fichas</span>
+        </a>
+        <a href="ufrrj_quadro.html" class="ptb-btn ptb-ufrrj" title="Quadro e Plano de Estudos UFRRJ 2026">
+          <span>🏛️</span>
+          <span><span class="ptb-text-extra">Plano </span>UFRRJ</span>
+        </a>
+        <a href="transpetro_quadro.html" class="ptb-btn ptb-transpetro active" title="Quadro e Plano de Estudos Transpetro 2026">
+          <span>⚓</span>
+          <span><span class="ptb-text-extra">Plano </span>Transpetro</span>
+        </a>
+      </div>
+    </div>
+<div class="frame">
+  <header>
+    <h1>📌 Quadro de Estudos — TRANSPETRO 2026</h1>
+    <p>Análise de Sistemas — Infraestrutura · Cesgranrio · 10 questões por bloco, máx. 20/dia · 31/10 a 06/12/2026</p>
+  </header>
+
+  <div class="countdown-banner">
+    <span class="days" id="countdown-days">???</span> dias para a prova<br>
+    06/12/2026 (domingo) — Horário e local no Cartão de Confirmação (disponível a partir de 01/12)
+  </div>
+
+  <div class="priority-banner">
+    PRIORIDADE: <strong>os 50 pontos de Específicos decidem o ranking</strong> — mas Português e Inglês precisam de ≥50% (10/20) e nenhuma matéria zerada, senão há eliminação
+  </div>
+
+  <div class="strategy-banner">
+    <h3>Estratégia — 31/10 a 06/12 (junto com a UFRRJ)</h3>
+    <div class="phase"><span class="phase-label" style="color:#a879d1">Fase 1 (31/10-20/11):</span><span class="phase-desc">1º ciclo — 1 bloco específico novo por dia (10 questões, 21 blocos cobrindo os 13 tópicos do edital) + 1 bloco geral (10 questões, alternando Português e Inglês)</span></div>
+    <div class="phase"><span class="phase-label" style="color:#e08a35">UFRRJ (21-23/11):</span><span class="phase-desc">Véspera e pós-prova leves (só bloco geral); 22/11 sem Transpetro</span></div>
+    <div class="phase"><span class="phase-label" style="color:#4f9fd6">Fase 2 (24/11-02/12):</span><span class="phase-desc">2º ciclo — revisão mista (10 questões misturando 2-3 blocos) + bloco geral</span></div>
+    <div class="phase"><span class="phase-label" style="color:#e0574c">Fase 3 (03-05/12):</span><span class="phase-desc">Simulado de 70 questões, revisão dos erros, relâmpago e descanso</span></div>
+    <div class="phase"><span class="phase-label" style="color:#79b96a">Prova (06/12):</span><span class="phase-desc">Prova objetiva com 4h30 de duração</span></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <span id="progress-label">0 / 0 concluídas</span>
+    </div>
+    <button class="chalkbtn" onclick="resetProgress()">🧽 Apagar tudo</button>
+    <button class="chalkbtn" onclick="window.print()">🖨️ Imprimir</button>
+    <button class="chalkbtn" onclick="toggleSyncPanel()">🔄 Transferir para outro PC</button>
+  </div>
+
+  <div class="sync-panel" id="sync-panel">
+    <p>O progresso fica salvo só neste navegador/computador. Para continuar de onde parou em
+    outro PC, use uma das opções abaixo <strong>nos dois computadores</strong>.</p>
+
+    <div class="sync-row">
+      <span class="sync-label">💾 Opção 1 — Arquivo:</span>
+      <button class="chalkbtn" onclick="exportFile()">Baixar progresso (.json)</button>
+      <button class="chalkbtn" onclick="document.getElementById('import-file-input').click()">Carregar progresso (.json)</button>
+      <input type="file" id="import-file-input" accept="application/json" style="display:none">
+    </div>
+
+    <div class="sync-row">
+      <span class="sync-label">🔑 Opção 2 — Código:</span>
+      <button class="chalkbtn" onclick="showCode()">Gerar código</button>
+      <input type="text" id="code-box" placeholder="cole aqui o código de outro PC" readonly onclick="this.removeAttribute('readonly'); this.select();">
+      <button class="chalkbtn" onclick="copyCode()">Copiar</button>
+      <button class="chalkbtn" onclick="applyCodeFromBox()">Aplicar código colado</button>
+    </div>
+    <p id="sync-status" style="margin-top:8px; font-weight:700;"></p>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <div id="sheets"></div>
+</div>
+
+<footer>Marque cada bloco assim que concluir (conceito ou questões). Seu progresso fica salvo neste navegador.</footer>
+
+<script>
+const CATS = {
+  ex:   {label:'Questões — específica (≈10)', color:'#a879d1'},
+  dia:  {label:'Questões — geral: Português / Inglês (≈10)', color:'#6bb5d6'},
+  rev:  {label:'Revisão (≈10)',    color:'#79b96a'},
+  sim:  {label:'Simulado (70 questões)', color:'#e0574c'},
+  desc: {label:'Descanso / UFRRJ / Logística / Prova', color:'#98a3a6'},
+};
+
+const weeks = [
+ {
+  "title": "FASE 1 — 1º Ciclo: Redes, SO e Segurança (31/10 a 09/11)",
+  "days": [
+   {
+    "date": "2026-10-31",
+    "label": "31/10 (sáb)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Redes",
+      "text": "Questões Redes — Modelo OSI, TCP/IP, topologias, equipamentos de conexão e QoS (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Compreensão de textos (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-01",
+    "label": "01/11 (dom)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Redes",
+      "text": "Questões Redes — protocolos de aplicação (DNS, FTP, NFS, TELNET, SMTP, HTTP, LDAP, DHCP, IPSEC, SSH, SNMP, NAT) + noções de IPv6 (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-02",
+    "label": "02/11 (seg)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Linux",
+      "text": "Questões UNIX/Linux — TCP/IP, DHCP, DNS, NIS, CIFS, NFS, impressão, Apache, scripts e integração com Windows (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Ortografia oficial (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-03",
+    "label": "03/11 (ter)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Windows",
+      "text": "Questões Windows 11 — TCP/IP, DHCP, DNS, Active Directory, IIS, Terminal Services, arquivo/impressão, scripts (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-04",
+    "label": "04/11 (qua)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Segurança",
+      "text": "Questões Segurança operacional — Firewall, Proxy, IPS/IDS, DLP, CASB, SIEM, Antivírus, EDR, WAF, vulnerabilidades, backup (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Coesão textual (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-05",
+    "label": "05/11 (qui)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Segurança",
+      "text": "Questões Segurança — malwares e ataques (DDoS, SQL Injection, XSS, CSRF, Path Traversal) + SAST/DAST/IAST (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-06",
+    "label": "06/11 (sex)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Segurança",
+      "text": "Questões Segurança — VPN, MDM, SSO, MFA, gestão de identidade e acesso (RBAC e ABAC) (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Significação das palavras (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-07",
+    "label": "07/11 (sáb)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Storage/Virtualização",
+      "text": "Questões Storage (NAS e SAN) + Virtualização de computação, rede e armazenamento (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-08",
+    "label": "08/11 (dom)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Alto Desempenho",
+      "text": "Questões Concorrência, paralelismo, Cluster, Grid, balanceamento de carga e avaliação de desempenho (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Tempos e modos verbais (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "label": "09/11 (seg)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "DevOps/Contêineres",
+      "text": "Questões DevOps, contêineres, virtualização em nível de SO, microsserviços e Infraestrutura como Código (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "title": "FASE 1 — 1º Ciclo: Infra, Nuvem, Serviços e Dados (10 a 20/11)",
+  "days": [
+   {
+    "date": "2026-11-10",
+    "label": "10/11 (ter)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Nuvem",
+      "text": "Questões Computação em nuvem — conceitos, regiões/zonas, identidade, conformidade, segurança e custos (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Classes de palavras (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "label": "11/11 (qua)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Gerenciamento de Serviços",
+      "text": "Questões ITIL v4 — fundamentos, ciclo de vida, transição e operação de serviços (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-12",
+    "label": "12/11 (qui)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Gerenciamento de Serviços",
+      "text": "Questões COBIT 4.1 — processos do domínio Entrega de Serviço (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Coordenação e subordinação (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-13",
+    "label": "13/11 (sex)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Gerência de Projeto",
+      "text": "Questões Gerência de projeto — ciclo de vida, escopo, planejamento, caminho crítico, folgas, EAP, controle e fechamento (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-14",
+    "label": "14/11 (sáb)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Segurança",
+      "text": "Questões Segurança — resposta a incidentes (NIST SP 800-61), threat intel/hunting, pentest, STRIDE, MITRE ATT&CK (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Pontuação (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-15",
+    "label": "15/11 (dom)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Segurança",
+      "text": "Questões Segurança — ISO 31000, ISO 22301, Sarbanes-Oxley, políticas, classificação da informação e ISO 27002 (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-16",
+    "label": "16/11 (seg)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Segurança",
+      "text": "Questões Criptografia, certificação digital, assinatura digital + segurança em nuvem e IoT (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Concordância verbal e nominal (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-17",
+    "label": "17/11 (ter)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Banco de Dados",
+      "text": "Questões Banco de dados — independência de dados, MER, modelo relacional, SQL, triggers e stored procedures (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-18",
+    "label": "18/11 (qua)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Banco de Dados",
+      "text": "Questões Banco de dados — alta disponibilidade, transações, bloqueios e desempenho (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Regência verbal e nominal (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-19",
+    "label": "19/11 (qui)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Programação",
+      "text": "Questões Programação — algoritmos, estruturas de dados, engenharia de software, HTML/XML, Java e J2EE (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-20",
+    "label": "20/11 (sex)",
+    "items": [
+     {
+      "cat": "ex",
+      "area": "Raciocínio Lógico",
+      "text": "Questões Raciocínio lógico — conectivos, argumentos, lógica sentencial e de predicados, sistemas dedutivos (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Crase (≈10)"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "title": "UFRRJ — Véspera, Prova e Recuperação (21 a 23/11)",
+  "days": [
+   {
+    "date": "2026-11-21",
+    "label": "21/11 (sáb)",
+    "items": [
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+     },
+     {
+      "cat": "desc",
+      "area": "Véspera UFRRJ",
+      "text": "Véspera da prova da UFRRJ — só o bloco geral, foco total na UFRRJ"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-22",
+    "label": "22/11 (dom)",
+    "items": [
+     {
+      "cat": "desc",
+      "area": "UFRRJ",
+      "text": "PROVA DA UFRRJ (nível técnico) — Transpetro liberada hoje"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-23",
+    "label": "23/11 (seg)",
+    "items": [
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Colocação pronominal (≈10)"
+     },
+     {
+      "cat": "desc",
+      "area": "Descanso",
+      "text": "Pós-UFRRJ: dia leve, só o bloco geral"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "title": "FASE 2 — 2º Ciclo: Revisão Mista (24/11 a 02/12)",
+  "days": [
+   {
+    "date": "2026-11-24",
+    "label": "24/11 (ter)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 1, 10, 5: Redes + DevOps/Contêineres + Segurança (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-25",
+    "label": "25/11 (qua)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 2, 11, 16: Redes + Nuvem + Segurança (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Compreensão de textos (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-26",
+    "label": "26/11 (qui)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 3, 12, 17: Linux + Gerenciamento de Serviços + Segurança (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-27",
+    "label": "27/11 (sex)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 4, 13, 18: Windows + Gerenciamento de Serviços + Banco de Dados (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Ortografia oficial (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-28",
+    "label": "28/11 (sáb)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 6, 14, 19: Segurança + Gerência de Projeto + Banco de Dados (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-29",
+    "label": "29/11 (dom)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 7, 15, 20: Segurança + Segurança + Programação (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Coesão textual (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-30",
+    "label": "30/11 (seg)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 8, 21: Storage/Virtualização + Raciocínio Lógico (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-12-01",
+    "label": "01/12 (ter)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 9, 1, 5: Alto Desempenho + Redes + Segurança (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Português",
+      "text": "Questões Português — Significação das palavras (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-12-02",
+    "label": "02/12 (qua)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão mista",
+      "text": "Revisão — blocos 10, 13, 20: DevOps/Contêineres + Gerenciamento de Serviços + Programação (≈10 mistas)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "title": "FASE 3 — Simulado, Erros e Descanso (03 a 05/12)",
+  "days": [
+   {
+    "date": "2026-12-03",
+    "label": "03/12 (qui)",
+    "items": [
+     {
+      "cat": "sim",
+      "area": "Simulado",
+      "text": "Simulado estilo Cesgranrio — 50 específicas + 20 gerais (10 Português + 10 Inglês), cronometrado, sem consulta"
+     },
+     {
+      "cat": "rev",
+      "area": "Correção",
+      "text": "Corrigir o simulado e listar os erros por tópico — vira o roteiro de amanhã"
+     }
+    ]
+   },
+   {
+    "date": "2026-12-04",
+    "label": "04/12 (sex)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Pontos fracos",
+      "text": "Revisão dirigida — refazer SOMENTE as questões erradas no simulado (≈10)"
+     },
+     {
+      "cat": "dia",
+      "area": "Inglês",
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+     }
+    ]
+   },
+   {
+    "date": "2026-12-05",
+    "label": "05/12 (sáb)",
+    "items": [
+     {
+      "cat": "rev",
+      "area": "Revisão",
+      "text": "Revisão relâmpago — fichas rápidas das áreas específicas"
+     },
+     {
+      "cat": "desc",
+      "area": "Logística",
+      "text": "Baixar o cartão de confirmação (disponível desde 01/12), conferir local, horário, documento com foto e caneta"
+     },
+     {
+      "cat": "desc",
+      "area": "Descanso",
+      "text": "Descanso ativo — não estudar à noite, dormir cedo"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "title": "PROVA (06/12)",
+  "days": [
+   {
+    "date": "2026-12-06",
+    "label": "06/12 (dom)",
+    "items": [
+     {
+      "cat": "desc",
+      "area": "PROVA",
+      "text": "PROVA OBJETIVA — confira horário e local no Cartão de Confirmação"
+     },
+     {
+      "cat": "desc",
+      "area": "PROVA",
+      "text": "Duração de 4h30 — documento oficial com foto + caneta azul/preta transparente"
+     }
+    ]
+   }
+  ]
+ }
+];
+
+// ---- render ----
+const sheetsEl = document.getElementById('sheets');
+const legendEl = document.getElementById('legend');
+let totalItems = 0;
+
+Object.entries(CATS).forEach(([key,c])=>{
+  const chip = document.createElement('div');
+  chip.className='chip';
+  chip.innerHTML = `<span class="dot" style="background:${c.color}"></span>${c.label}`;
+  legendEl.appendChild(chip);
+});
+
+// Data local no fuso horário do Brasil (America/Sao_Paulo / UTC-3) para evitar avanço prematuro da tag HOJE às 21h UTC
+function getTodayDateStr() {
+  const d = new Date();
+  try {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(d);
+  } catch (e) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+}
+const todayStr = getTodayDateStr();
+
+// countdown
+{
+  const examDate = new Date('2026-12-06T09:00:00-03:00');
+  const now = new Date();
+  const diffMs = examDate - now;
+  const diffDays = Math.ceil(diffMs / (1000*60*60*24));
+  document.getElementById('countdown-days').textContent = diffDays > 0 ? diffDays : 0;
+}
+
+// get all dates for past detection
+const allDates = [];
+weeks.forEach(w=>w.days.forEach(d=>allDates.push(d.date)));
+const todayIdx = allDates.indexOf(todayStr);
+
+weeks.forEach((week, wi)=>{
+  const sheet = document.createElement('div');
+  sheet.className='sheet';
+  sheet.innerHTML = `<div class="pin">📌</div><h2>${week.title}</h2>`;
+
+  week.days.forEach(day=>{
+    const dayEl = document.createElement('div');
+    let cls = 'day';
+    if(day.date===todayStr) cls += ' today';
+    else {
+      const dIdx = allDates.indexOf(day.date);
+      if(dIdx !== -1 && dIdx < todayIdx) cls += ' past';
+    }
+    dayEl.className = cls;
+
+    const badge = document.createElement('div');
+    badge.className='date-badge';
+    badge.innerHTML = day.label + (day.date===todayStr ? ' <span class="today-tag">HOJE</span>' : '');
+    dayEl.appendChild(badge);
+
+    const itemsWrap = document.createElement('div');
+    itemsWrap.className='items';
+
+    day.items.forEach((it, ii)=>{
+      totalItems++;
+      const id = 'chk_' + day.date + '_' + ii;
+      const label = document.createElement('label');
+      label.className = 'item' + (it.wide ? ' wide' : '');
+      label.style.setProperty('--item-color', CATS[it.cat].color);
+      const areaHtml = it.area ? `<span class="area">(${it.area})</span>` : '';
+      label.innerHTML = `<input type="checkbox" id="${id}"><span class="txt-wrap"><span class="txt">${it.text}</span>${areaHtml}</span>`;
+      const copyBtn = document.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.className = 'copy-btn';
+      copyBtn.setAttribute('aria-label', 'Copiar assunto');
+      copyBtn.innerHTML = '📋 Copiar';
+      copyBtn.addEventListener('click', ev=>{
+        ev.preventDefault();      // não deixa o label marcar/desmarcar o checkbox
+        ev.stopPropagation();
+        copyText(cleanForCopy(it.text), copyBtn);
+      });
+      label.appendChild(copyBtn);
+      itemsWrap.appendChild(label);
+    });
+
+    dayEl.appendChild(itemsWrap);
+    sheet.appendChild(dayEl);
+  });
+
+  sheetsEl.appendChild(sheet);
+});
+
+const examBanner = document.createElement('div');
+examBanner.className='exam-banner';
+examBanner.innerHTML = '🎯 06/12/2026 (dom) · Prova Objetiva — confira horário e local no Cartão de Confirmação!';
+sheetsEl.appendChild(examBanner);
+
+// ---- checkbox state / progress ----
+const STORAGE_PREFIX = 'transpetro_infra_';
+
+function loadState(){
+  document.querySelectorAll('.item input[type=checkbox]').forEach(cb=>{
+    const saved = localStorage.getItem(STORAGE_PREFIX + cb.id);
+    if(saved === '1'){ cb.checked = true; cb.closest('.item').classList.add('checked'); }
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const all = document.querySelectorAll('.item input[type=checkbox]');
+  const checked = document.querySelectorAll('.item input[type=checkbox]:checked');
+  const pct = all.length ? Math.round((checked.length/all.length)*100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `${checked.length} / ${all.length} concluídas (${pct}%)`;
+}
+
+document.addEventListener('change', e=>{
+  if(e.target.matches('.item input[type=checkbox]')){
+    const item = e.target.closest('.item');
+    item.classList.toggle('checked', e.target.checked);
+    localStorage.setItem(STORAGE_PREFIX + e.target.id, e.target.checked ? '1' : '0');
+    updateProgress();
+  }
+});
+
+function resetProgress(){
+  if(!confirm('Apagar todo o progresso marcado?')) return;
+  document.querySelectorAll('.item input[type=checkbox]').forEach(cb=>{
+    cb.checked = false;
+    cb.closest('.item').classList.remove('checked');
+    localStorage.removeItem(STORAGE_PREFIX + cb.id);
+  });
+  updateProgress();
+}
+
+// ---- transferência entre computadores ----
+function toggleSyncPanel(){
+  document.getElementById('sync-panel').classList.toggle('open');
+}
+
+function setSyncStatus(msg, ok){
+  const el = document.getElementById('sync-status');
+  el.textContent = msg;
+  el.style.color = ok ? '#9be38b' : '#ff9b8f';
+}
+
+function getAllCheckboxesInOrder(){
+  return Array.from(document.querySelectorAll('.item input[type=checkbox]'));
+}
+
+// Opção 1: arquivo .json com os ids marcados
+function exportFile(){
+  const checkedIds = getAllCheckboxesInOrder().filter(cb=>cb.checked).map(cb=>cb.id);
+  const data = {
+    app: 'quadro-transpetro-infra',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    totalBlocos: getAllCheckboxesInOrder().length,
+    checkedIds
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'progresso-transpetro-infra.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  setSyncStatus('Arquivo baixado! Leve-o junto (pendrive, e-mail, nuvem) e use "Carregar progresso" no outro PC.', true);
+}
+
+function importFile(file){
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const data = JSON.parse(e.target.result);
+      if(!data || !Array.isArray(data.checkedIds)) throw new Error('formato inválido');
+      if(!confirm(`Este arquivo tem ${data.checkedIds.length} blocos marcados. Isso vai substituir o progresso atual deste computador. Continuar?`)) return;
+      applyCheckedIds(data.checkedIds);
+      setSyncStatus('Progresso importado com sucesso! ✅', true);
+    }catch(err){
+      setSyncStatus('Não consegui ler esse arquivo. Verifique se é o .json exportado pelo próprio quadro.', false);
+    }
+  };
+  reader.readAsText(file);
+}
+
+document.getElementById('import-file-input').addEventListener('change', e=>{
+  if(e.target.files[0]) importFile(e.target.files[0]);
+  e.target.value = '';
+});
+
+function applyCheckedIds(checkedIds){
+  const idSet = new Set(checkedIds);
+  getAllCheckboxesInOrder().forEach(cb=>{
+    const checked = idSet.has(cb.id);
+    cb.checked = checked;
+    cb.closest('.item').classList.toggle('checked', checked);
+    localStorage.setItem(STORAGE_PREFIX + cb.id, checked ? '1' : '0');
+  });
+  updateProgress();
+}
+
+// Opção 2: código compacto (base64 de um bitmap), para copiar/colar sem precisar de arquivo
+function showCode(){
+  const boxes = getAllCheckboxesInOrder();
+  const bits = boxes.map(cb=>cb.checked ? '1':'0').join('');
+  let bytes = [];
+  for(let i=0;i<bits.length;i+=8){
+    bytes.push(parseInt(bits.slice(i,i+8).padEnd(8,'0'), 2));
+  }
+  const binStr = String.fromCharCode(...bytes);
+  const code = btoa(binStr);
+  document.getElementById('code-box').value = code;
+  setSyncStatus('Código gerado. Copie e leve para o outro PC (cole na caixa e clique em "Aplicar").', true);
+}
+
+function copyCode(){
+  const box = document.getElementById('code-box');
+  if(!box.value){ setSyncStatus('Gere o código primeiro.', false); return; }
+  box.select();
+  navigator.clipboard?.writeText(box.value).then(()=>{
+    setSyncStatus('Código copiado! Cole onde quiser guardar (WhatsApp, notas, e-mail).', true);
+  }).catch(()=>{
+    document.execCommand('copy');
+    setSyncStatus('Código copiado!', true);
+  });
+}
+
+function applyCodeFromBox(){
+  const code = document.getElementById('code-box').value.trim();
+  if(!code){ setSyncStatus('Cole um código na caixa primeiro.', false); return; }
+  try{
+    const binStr = atob(code);
+    let bits = '';
+    for(let i=0;i<binStr.length;i++){
+      bits += binStr.charCodeAt(i).toString(2).padStart(8,'0');
+    }
+    const boxes = getAllCheckboxesInOrder();
+    if(!confirm(`Isso vai substituir o progresso atual deste computador pelo código colado. Continuar?`)) return;
+    boxes.forEach((cb, i)=>{
+      const checked = bits[i] === '1';
+      cb.checked = checked;
+      cb.closest('.item').classList.toggle('checked', checked);
+      localStorage.setItem(STORAGE_PREFIX + cb.id, checked ? '1' : '0');
+    });
+    updateProgress();
+    setSyncStatus('Progresso aplicado a partir do código! ✅', true);
+  }catch(err){
+    setSyncStatus('Código inválido — confira se copiou tudo certinho.', false);
+  }
+}
+
+// ---- copiar assunto (funciona em tablet, com fallback) ----
+// Limpa o texto: tira "Questões "/"Revisão — " do início, o "(≈20)" do fim e troca "—" por "-"
+function cleanForCopy(t){
+  return t
+    .replace(/^\s*(Questões|Revisão\s*[—-])\s+/i, '')
+    .replace(/\s*\(\s*≈\s*\d+[^)]*\)\s*$/, '')
+    .replace(/\s*—\s*/g, ' - ')
+    .trim();
+}
+function fallbackCopy(text){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly','');
+  ta.style.position = 'fixed';
+  ta.style.top = '0';
+  ta.style.left = '0';
+  ta.style.opacity = '0';
+  ta.style.fontSize = '16px'; // evita zoom no iOS
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  let ok = false;
+  try{ ok = document.execCommand('copy'); }catch(e){ ok = false; }
+  ta.remove();
+  return ok;
+}
+
+function copyText(text, btn){
+  const done = ok=>{
+    btn.classList.remove('ok','err');
+    btn.classList.add(ok ? 'ok' : 'err');
+    btn.innerHTML = ok ? '✓ Copiado' : '✗ Falhou';
+    clearTimeout(btn._t);
+    btn._t = setTimeout(()=>{
+      btn.classList.remove('ok','err');
+      btn.innerHTML = '📋 Copiar';
+    }, 1600);
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>done(fallbackCopy(text)));
+  }else{
+    done(fallbackCopy(text));
+  }
+}
+
+loadState();
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "95f792c43b",
+    "enunciado": "Concurso::Materias::Legislacao::Lei_8112::Deveres",
+    "gabarito": "F",
+    "explicacao": "<div class='badge badge-pergunta'>VERDADEIRA OU FALSA?</div><br>É dever do servidor público levar as irregularidades de que tiver ciência em razão do cargo ao conhecimento da autoridade superior ou, quando houver suspeita de envolvimento desta, ao conhecimento de outra autoridade competente para apuração.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Geral",
+    "assunto_original": "<div class='badge badge-certa'>VERDADEIRA</div><br>A redação foi dada pela Lei nº 12.527/2011 (LAI) ao art. 116, inciso VI, da Lei nº 8.112/1990, assegurando canal alternativo e seguro de denúncia quando a chefia imediata ou superior for suspeita.",
+    "deck": "Lei_8112",
+    "tags": "<div class='badge badge-certa'>VERDADEIRA</div><br>A redação foi dada pela Lei nº 12.527/2011 (LAI) ao art. 116, inciso VI, da Lei nº 8.112/1990, assegurando canal alternativo e seguro de denúncia quando a chefia imediata ou superior for suspeita."
+  },
+  {
+    "id": "93c141d900",
+    "enunciado": "Concurso::Materias::Legislacao::Lei_8112::Proibicoes",
+    "gabarito": "F",
+    "explicacao": "<div class='badge badge-pergunta'>VERDADEIRA OU FALSA?</div><br>Ao servidor público é proibido atuar como procurador ou intermediário junto a repartições públicas, sem nenhuma ressalva de parentesco ou matéria.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Geral",
+    "assunto_original": "<div class='badge badge-errada'>FALSA</div><br>O art. 117, inciso XI, da Lei nº 8.112/1990 proíbe a atuação como procurador, <font color='#b26a00'><b>salvo quando se tratar de benefícios previdenciários ou assistenciais de parentes até o segundo grau, e de cônjuge ou companheiro</b></font>.",
+    "deck": "Lei_8112",
+    "tags": "<div class='badge badge-errada'>FALSA</div><br>O art. 117, inciso XI, da Lei nº 8.112/1990 proíbe a atuação como procurador, <font color='#b26a00'><b>salvo quando se tratar de benefícios previdenciários ou assistenciais de parentes até o segundo grau, e de cônjuge ou companheiro</b></font>."
+  },
+  {
+    "id": "0af14beb76",
+    "enunciado": "Concurso::Materias::Legislacao::Lei_8112::Penalidades",
+    "gabarito": "F",
+    "explicacao": "<div class='badge badge-pergunta'>VERDADEIRA OU FALSA?</div><br>As penalidades disciplinares de advertência e de suspensão terão seus registros cancelados dos assentamentos funcionais do servidor após o decurso de 3 e 5 anos de efetivo exercício, respectivamente, se não houver nova infração.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Geral",
+    "assunto_original": "<div class='badge badge-certa'>VERDADEIRA</div><br>Determina o art. 131 da Lei nº 8.112/1990 que os cancelamentos operam-se após 3 anos para advertência e 5 anos para suspensão, desde que o servidor não tenha praticado nova infração disciplinar no período.",
+    "deck": "Lei_8112",
+    "tags": "<div class='badge badge-certa'>VERDADEIRA</div><br>Determina o art. 131 da Lei nº 8.112/1990 que os cancelamentos operam-se após 3 anos para advertência e 5 anos para suspensão, desde que o servidor não tenha praticado nova infração disciplinar no período."
+  }
+]
