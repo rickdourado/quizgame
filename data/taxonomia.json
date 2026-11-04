@@ -1896,6 +1896,37 @@
           "pai": null
         }
       ]
+    },
+    {
+      "id": "programacao",
+      "nome": "Programação",
+      "assuntos": [
+        {
+          "id": "programacao-1",
+          "nome": "Algoritmos e Estruturas de Dados (Vetores, Listas, Pilhas, Filas e Árvores)",
+          "pai": null
+        },
+        {
+          "id": "programacao-2",
+          "nome": "Noções de Engenharia de Software (Ciclo de Vida, Requisitos, UML e Testes de Software)",
+          "pai": null
+        },
+        {
+          "id": "programacao-3",
+          "nome": "Linguagens de Marcação: HTML e XML",
+          "pai": null
+        },
+        {
+          "id": "programacao-4",
+          "nome": "Programação Básica e POO em Java (Classes, Objetos, Herança, Polimorfismo e Interfaces)",
+          "pai": null
+        },
+        {
+          "id": "programacao-5",
+          "nome": "Arquitetura Java EE / J2EE (Servlets, JSP, EJB e Servidores de Aplicação Tomcat/JBoss)",
+          "pai": null
+        }
+      ]
     }
   ]
 }
