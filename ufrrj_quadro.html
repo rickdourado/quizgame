@@ -284,6 +284,24 @@
   }
   .item .txt-wrap{ display:flex; flex-direction:column; }
 
+
+  /* ---- assunto no QConcursos ---- */
+  .item span.qc{
+    display:block;
+    font-size:.66rem; font-weight:700; line-height:1.35;
+    color:#1e3d2f;
+    background:#eef5e9;
+    border-left:3px solid #79b96a;
+    border-radius:3px;
+    padding:2px 6px; margin-top:4px;
+    text-decoration:none !important;
+  }
+  .item span.qc b{ color:#4a6b3a; font-weight:800; }
+  .item span.qc.prox{ background:#fdf3d9; border-left-color:#e7b13f; }
+  .item span.qc.prox b{ color:#8a6a10; }
+  .item span.qc.sem{ background:#f6e6e3; border-left-color:#e0574c; color:#7a2e26; font-weight:600; font-style:italic; }
+  .item span.qc.sem b{ color:#a8362b; }
+
   .item.wide{ flex:1 1 100%; }
 
   /* ---- botão copiar (tablet-friendly) ---- */
@@ -554,17 +572,47 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 1",
-      "text": "Questões Redes: TCP/IP, OSI e Máscaras (≈15)"
+      "text": "Questões Redes: TCP/IP, OSI e Máscaras (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "1 - Arquitetura TCP/IP",
+         "16 - Modelo OSI",
+         "29 - Sub-Redes",
+         "39 - Endereçamento IP"
+        ]
+       }
+      ]
      },
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 1",
-      "text": "Questões Infra: VLAN, QoS e Cabeamento (NBR 14565) (≈15)"
+      "text": "Questões Infra: VLAN, QoS e Cabeamento (NBR 14565) (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "33 - VLAN",
+         "23 - QoS",
+         "5 - Cabeamento"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português · 🔗 Transpetro bloco 1",
-      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)"
+      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.1 - Noções Gerais de Compreensão e Interpretação de Texto",
+         "15.4 - Gêneros Textuais"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -575,17 +623,45 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 2",
-      "text": "Questões Serviços: DNS, DHCP, HTTP, SMTP (≈15)"
+      "text": "Questões Serviços: DNS, DHCP, HTTP, SMTP (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "10 - DNS",
+         "21.10 - DHCP",
+         "21.2 - HTTP",
+         "21.8 - SMTP"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões CF/88: Princípios, Direitos e Adm Pública (≈15)"
+      "text": "Questões CF/88: Princípios, Direitos e Adm Pública (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "5 - Constituição Federal de 1988 (Administração Pública e Direitos Fundamentais)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)"
+      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "4 - Equivalências e Negações Lógicas (Leis de De Morgan e Condicional)",
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade..."
+        ]
+       }
+      ]
      }
     ]
    },
@@ -596,17 +672,50 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 3",
-      "text": "Questões Sistemas: Windows Server e Linux (comandos) (≈15)"
+      "text": "Questões Sistemas: Windows Server e Linux (comandos) (≈15)",
+      "qc": [
+       {
+        "d": "Informática",
+        "a": [
+         "2 - Sistema Operacional Microsoft Windows e Windows Server",
+         "3 - Sistema Operacional GNU/Linux (Comandos, Diretórios e Administração)"
+        ]
+       },
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "9 - Administração de Sistemas Operacionais e Serviços de Diretório/Rede"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 14.133/21: Licitações e Contratos (Títulos I/II) (≈15)"
+      "text": "Questões Lei 14.133/21: Licitações e Contratos (Títulos I/II) (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "9 - Governança Pública, Licitações e Estatais (Decreto 9.203/2017 e Lei 13.303/2016)"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português",
-      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)"
+      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.1 - Noções Gerais de Compreensão e Interpretação de Texto",
+         "15.4 - Gêneros Textuais"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -617,17 +726,55 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 4",
-      "text": "Questões Diretórios: AD, LDAP, SAMBA, Radius (≈15)"
+      "text": "Questões Diretórios: AD, LDAP, SAMBA, Radius (≈15)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "9 - Administração de Sistemas Operacionais e Serviços de Diretório/Rede (Linux, Windows, AD, Samba, LDAP)"
+        ]
+       },
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "21.5 - LDAP",
+         "27 - Samba"
+        ]
+       },
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "6 - Gestão de Identidades e Controle de Acesso (IAM, SSO, OAuth 2.0, MFA)  ← p/ Radius"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 8.112/90: Regime e Processo Disciplinar (≈15)"
+      "text": "Questões Lei 8.112/90: Regime e Processo Disciplinar (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "6 - Regime Jurídico dos Servidores Públicos Federais (Lei 8.112/1990)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)"
+      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade, Tautologia, Contradição e Contingência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -638,17 +785,49 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 5",
-      "text": "Questões Proteção: Backup, Recuperação e Certificados (≈15)"
+      "text": "Questões Proteção: Backup, Recuperação e Certificados (≈15)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "4 - Backup, Recuperação de Desastres e Retenção de Dados"
+        ]
+       },
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "7 - Continuidade de Negócios, Resposta a Incidentes, Backup e Recuperação (RPO, RTO)",
+         "3 - Criptografia, Hashes, Assinatura Digital e Certificação ICP-Brasil"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões LGPD (Lei 13.709/2018) aplicada à TI (≈15)"
+      "text": "Questões LGPD (Lei 13.709/2018) aplicada à TI (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "4 - Lei Geral de Proteção de Dados Pessoais - LGPD (Lei 13.709/2018)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português · 🔗 Transpetro bloco 5",
-      "text": "Questões Português — Pontuação e Coesão (≈10)"
+      "text": "Questões Português — Pontuação e Coesão (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "6 - Pontuação",
+         "15.12 - Coesão e coerência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -659,17 +838,49 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 6",
-      "text": "Questões Redes Sem Fio: IEEE 802.11, WPA2, EAP (≈15)"
+      "text": "Questões Redes Sem Fio: IEEE 802.11, WPA2, EAP (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "25 - Redes sem Fio"
+        ]
+       },
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "35 - Segurança de Redes  ← p/ WPA2 e EAP"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 8.112/90: Provimento, Vacância e Vantagens (≈15)"
+      "text": "Questões Lei 8.112/90: Provimento, Vacância e Vantagens (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "6 - Regime Jurídico dos Servidores Públicos Federais (Lei 8.112/1990)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)"
+      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "4 - Equivalências e Negações Lógicas (Leis de De Morgan e Condicional)",
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade..."
+        ]
+       }
+      ]
      }
     ]
    },
@@ -680,17 +891,49 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 7",
-      "text": "Questões Segurança: VPN, IPSec e Criptografia (≈15)"
+      "text": "Questões Segurança: VPN, IPSec e Criptografia (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "38 - Acesso Remoto - VPN (Virtual Private Network)...",
+         "35 - Segurança de Redes"
+        ]
+       },
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "3 - Criptografia, Hashes, Assinatura Digital e Certificação ICP-Brasil"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 8.429/92: Improbidade Administrativa (≈15)"
+      "text": "Questões Lei 8.429/92: Improbidade Administrativa (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "8 - Improbidade Administrativa (Lei 8.429/1992 e Lei 14.230/2021)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português",
-      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)"
+      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.1 - Noções Gerais de Compreensão e Interpretação de Texto",
+         "15.4 - Gêneros Textuais"
+        ]
+       }
+      ]
      }
     ]
    }
@@ -706,17 +949,43 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica",
-      "text": "Questões Roteamento: OSPF, BGP e Equipamentos (≈15)"
+      "text": "Questões Roteamento: OSPF, BGP e Equipamentos (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "21.11 - Protocolos de Roteamento: RIP, BGP e OSPF",
+         "12 - Equipamentos de Redes (Switches, Roteadores, Bridge, hub)"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões LAI (12.527/11) e Ética (Decreto 1.171/94) (≈15)"
+      "text": "Questões LAI (12.527/11) e Ética (Decreto 1.171/94) (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "1 - Lei de Acesso à Informação - LAI (Lei 12.527/2011 e Decretos)",
+         "7 - Código de Ética Profissional do Servidor Público (Decreto 1.171/1994)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)"
+      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade, Tautologia, Contradição e Contingência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -727,17 +996,55 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 9",
-      "text": "Questões Nuvem, IoT e Servidores Web (Apache/Nginx) (≈15)"
+      "text": "Questões Nuvem, IoT e Servidores Web (Apache/Nginx) (≈15)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "7 - Computação em Nuvem (Modelos NIST, IaaS, PaaS, SaaS)...",
+         "8 - Servidores Web e de Aplicação (Apache, IIS, Nginx, Tomcat)..."
+        ]
+       },
+       {
+        "d": "Informática",
+        "a": [
+         "7 - Internet, Navegadores Web, Buscadores e Servidores Web (Apache e Nginx)"
+        ]
+       },
+       {
+        "d": "IoT",
+        "a": [
+         "sem assunto próprio nos .md — use o de Nuvem"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões CF/88: Princípios, Direitos e Adm Pública (≈15)"
+      "text": "Questões CF/88: Princípios, Direitos e Adm Pública (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "5 - Constituição Federal de 1988 (Administração Pública e Direitos Fundamentais)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português",
-      "text": "Questões Português — Concordância Verbal e Nominal (≈10)"
+      "text": "Questões Português — Concordância Verbal e Nominal (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "5.7 - Concordância verbal, Concordância nominal"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -748,17 +1055,43 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 10",
-      "text": "Questões Contêineres: Docker e Kubernetes (≈15)"
+      "text": "Questões Contêineres: Docker e Kubernetes (≈15)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "6 - Contêineres, Orquestração e Clusters (Docker, Kubernetes, Alta Disponibilidade)"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 14.133/21: Licitações e Contratos (Títulos I/II) (≈15)"
+      "text": "Questões Lei 14.133/21: Licitações e Contratos (Títulos I/II) (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "9 - Governança Pública, Licitações e Estatais (Decreto 9.203/2017 e Lei 13.303/2016)"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)"
+      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "4 - Equivalências e Negações Lógicas (Leis de De Morgan e Condicional)",
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade..."
+        ]
+       }
+      ]
      }
     ]
    },
@@ -769,17 +1102,56 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 11",
-      "text": "Questões Nuvem, IoT e Servidores Web (Apache/Nginx) (≈15)"
+      "text": "Questões Nuvem, IoT e Servidores Web (Apache/Nginx) (≈15)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "7 - Computação em Nuvem (Modelos NIST, IaaS, PaaS, SaaS)...",
+         "8 - Servidores Web e de Aplicação (Apache, IIS, Nginx, Tomcat)..."
+        ]
+       },
+       {
+        "d": "Informática",
+        "a": [
+         "7 - Internet, Navegadores Web, Buscadores e Servidores Web (Apache e Nginx)"
+        ]
+       },
+       {
+        "d": "IoT",
+        "a": [
+         "sem assunto próprio nos .md — use o de Nuvem"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões LGPD (Lei 13.709/2018) aplicada à TI (≈15)"
+      "text": "Questões LGPD (Lei 13.709/2018) aplicada à TI (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "4 - Lei Geral de Proteção de Dados Pessoais - LGPD (Lei 13.709/2018)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português",
-      "text": "Questões Português — Pontuação e Coesão (≈10)"
+      "text": "Questões Português — Pontuação e Coesão (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "6 - Pontuação",
+         "15.12 - Coesão e coerência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -790,17 +1162,49 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 12",
-      "text": "Questões Governança TI: IN SGD 94/2022 e 06/2023 (≈15)"
+      "text": "Questões Governança TI: IN SGD 94/2022 e 06/2023 (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "9 - Governança Pública, Licitações e Estatais (Decreto 9.203/2017...)"
+        ],
+        "t": "p"
+       },
+       {
+        "d": "IN SGD",
+        "a": [
+         "sem assunto próprio nos .md — busque 'IN SGD' / 'Contratação de TIC' no QC"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 8.112/90: Regime e Processo Disciplinar (≈15)"
+      "text": "Questões Lei 8.112/90: Regime e Processo Disciplinar (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "6 - Regime Jurídico dos Servidores Públicos Federais (Lei 8.112/1990)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)"
+      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade, Tautologia, Contradição e Contingência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -811,17 +1215,50 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 13",
-      "text": "Questões Governança TI: IN SGD 94/2022 e 06/2023 (≈15)"
+      "text": "Questões Governança TI: IN SGD 94/2022 e 06/2023 (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "9 - Governança Pública, Licitações e Estatais (Decreto 9.203/2017...)"
+        ],
+        "t": "p"
+       },
+       {
+        "d": "IN SGD",
+        "a": [
+         "sem assunto próprio nos .md — busque 'IN SGD' / 'Contratação de TIC' no QC"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 8.429/92: Improbidade Administrativa (≈15)"
+      "text": "Questões Lei 8.429/92: Improbidade Administrativa (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "8 - Improbidade Administrativa (Lei 8.429/1992 e Lei 14.230/2021)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português",
-      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)"
+      "text": "Questões Português — Interpretação e Gêneros Textuais (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.1 - Noções Gerais de Compreensão e Interpretação de Texto",
+         "15.4 - Gêneros Textuais"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -832,17 +1269,45 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica",
-      "text": "Questões Redes: TCP/IP, OSI e Máscaras (≈15)"
+      "text": "Questões Redes: TCP/IP, OSI e Máscaras (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "1 - Arquitetura TCP/IP",
+         "16 - Modelo OSI",
+         "29 - Sub-Redes",
+         "39 - Endereçamento IP"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 8.112/90: Provimento, Vacância e Vantagens (≈15)"
+      "text": "Questões Lei 8.112/90: Provimento, Vacância e Vantagens (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "6 - Regime Jurídico dos Servidores Públicos Federais (Lei 8.112/1990)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)"
+      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "4 - Equivalências e Negações Lógicas (Leis de De Morgan e Condicional)",
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade..."
+        ]
+       }
+      ]
      }
     ]
    }
@@ -858,17 +1323,46 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica",
-      "text": "Questões Serviços: DNS, DHCP, HTTP, SMTP (≈15)"
+      "text": "Questões Serviços: DNS, DHCP, HTTP, SMTP (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "10 - DNS",
+         "21.10 - DHCP",
+         "21.2 - HTTP",
+         "21.8 - SMTP"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões LAI (12.527/11) e Ética (Decreto 1.171/94) (≈15)"
+      "text": "Questões LAI (12.527/11) e Ética (Decreto 1.171/94) (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "1 - Lei de Acesso à Informação - LAI (Lei 12.527/2011 e Decretos)",
+         "7 - Código de Ética Profissional do Servidor Público (Decreto 1.171/1994)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português · 🔗 Transpetro bloco 15",
-      "text": "Questões Português — Pontuação e Coesão (≈10)"
+      "text": "Questões Português — Pontuação e Coesão (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "6 - Pontuação",
+         "15.12 - Coesão e coerência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -879,17 +1373,48 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 16",
-      "text": "Questões Proteção: Backup, Recuperação e Certificados (≈15)"
+      "text": "Questões Proteção: Backup, Recuperação e Certificados (≈15)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "4 - Backup, Recuperação de Desastres e Retenção de Dados"
+        ]
+       },
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "7 - Continuidade de Negócios, Resposta a Incidentes, Backup e Recuperação (RPO, RTO)",
+         "3 - Criptografia, Hashes, Assinatura Digital e Certificação ICP-Brasil"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões CF/88: Princípios, Direitos e Adm Pública (≈15)"
+      "text": "Questões CF/88: Princípios, Direitos e Adm Pública (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "5 - Constituição Federal de 1988 (Administração Pública e Direitos Fundamentais)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)"
+      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade, Tautologia, Contradição e Contingência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -900,17 +1425,49 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica · 🔗 Transpetro bloco 17",
-      "text": "Questões Segurança: VPN, IPSec e Criptografia (≈15)"
+      "text": "Questões Segurança: VPN, IPSec e Criptografia (≈15)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "38 - Acesso Remoto - VPN (Virtual Private Network)...",
+         "35 - Segurança de Redes"
+        ]
+       },
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "3 - Criptografia, Hashes, Assinatura Digital e Certificação ICP-Brasil"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões Lei 14.133/21: Licitações e Contratos (Títulos I/II) (≈15)"
+      "text": "Questões Lei 14.133/21: Licitações e Contratos (Títulos I/II) (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "9 - Governança Pública, Licitações e Estatais (Decreto 9.203/2017 e Lei 13.303/2016)"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Português · 🔗 Transpetro bloco 17",
-      "text": "Questões Português — Concordância Verbal e Nominal (≈10)"
+      "text": "Questões Português — Concordância Verbal e Nominal (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "5.7 - Concordância verbal, Concordância nominal"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -921,17 +1478,49 @@ const weeks = [
      {
       "cat": "esp",
       "area": "Específica",
-      "text": "Questões Sistemas: Windows Server e Linux (comandos) (≈15)"
+      "text": "Questões Sistemas: Windows Server e Linux (comandos) (≈15)",
+      "qc": [
+       {
+        "d": "Informática",
+        "a": [
+         "2 - Sistema Operacional Microsoft Windows e Windows Server",
+         "3 - Sistema Operacional GNU/Linux (Comandos, Diretórios e Administração)"
+        ]
+       },
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "9 - Administração de Sistemas Operacionais e Serviços de Diretório/Rede"
+        ]
+       }
+      ]
      },
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões LGPD (Lei 13.709/2018) aplicada à TI (≈15)"
+      "text": "Questões LGPD (Lei 13.709/2018) aplicada à TI (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "4 - Lei Geral de Proteção de Dados Pessoais - LGPD (Lei 13.709/2018)"
+        ]
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)"
+      "text": "Questões Raciocínio Lógico — Negação e Conectivos (E/OU) (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "4 - Equivalências e Negações Lógicas (Leis de De Morgan e Condicional)",
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade..."
+        ]
+       }
+      ]
      }
     ]
    },
@@ -984,12 +1573,36 @@ const weeks = [
      {
       "cat": "leg",
       "area": "Legislação",
-      "text": "Questões revisão final: 8.112, 14.133 e CF/88 lado a lado (≈15)"
+      "text": "Questões revisão final: 8.112, 14.133 e CF/88 lado a lado (≈15)",
+      "qc": [
+       {
+        "d": "Legislação",
+        "a": [
+         "6 - Regime Jurídico dos Servidores Públicos Federais (Lei 8.112/1990)",
+         "5 - Constituição Federal de 1988 (Administração Pública e Direitos Fundamentais)"
+        ]
+       },
+       {
+        "d": "Legislação",
+        "a": [
+         "9 - Governança Pública, Licitações e Estatais  ← p/ Lei 14.133"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "bas",
       "area": "Raciocínio Lógico · 🔗 Transpetro bloco 21",
-      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (revisão final) (≈10)"
+      "text": "Questões Raciocínio Lógico — Tautologia, Contradição e Contingência (revisão final) (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade, Tautologia, Contradição e Contingência"
+        ]
+       }
+      ]
      }
     ]
    }
@@ -1110,7 +1723,12 @@ weeks.forEach((week, wi)=>{
       label.className = 'item' + (it.wide ? ' wide' : '');
       label.style.setProperty('--item-color', CATS[it.cat].color);
       const areaHtml = it.area ? `<span class="area">(${it.area})</span>` : '';
-      label.innerHTML = `<input type="checkbox" id="${id}"><span class="txt-wrap"><span class="txt">${it.text}</span>${areaHtml}</span>`;
+      const qcHtml = (it.qc||[]).map(q=>{
+        const cls = q.t==='x' ? ' sem' : (q.t==='p' ? ' prox' : '');
+        const tag = q.t==='x' ? '⚠️ ' : (q.t==='p' ? '≈ ' : '🎯 ');
+        return `<span class="qc${cls}">${tag}<b>${q.d}</b> ▸ ${q.a.join(' &nbsp;|&nbsp; ')}</span>`;
+      }).join('');
+      label.innerHTML = `<input type="checkbox" id="${id}"><span class="txt-wrap"><span class="txt">${it.text}</span>${areaHtml}${qcHtml}</span>`;
       const copyBtn = document.createElement('button');
       copyBtn.type = 'button';
       copyBtn.className = 'copy-btn';

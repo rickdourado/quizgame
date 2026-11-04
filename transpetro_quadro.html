@@ -284,6 +284,24 @@
   }
   .item .txt-wrap{ display:flex; flex-direction:column; }
 
+
+  /* ---- assunto no QConcursos ---- */
+  .item span.qc{
+    display:block;
+    font-size:.66rem; font-weight:700; line-height:1.35;
+    color:#1e3d2f;
+    background:#eef5e9;
+    border-left:3px solid #79b96a;
+    border-radius:3px;
+    padding:2px 6px; margin-top:4px;
+    text-decoration:none !important;
+  }
+  .item span.qc b{ color:#4a6b3a; font-weight:800; }
+  .item span.qc.prox{ background:#fdf3d9; border-left-color:#e7b13f; }
+  .item span.qc.prox b{ color:#8a6a10; }
+  .item span.qc.sem{ background:#f6e6e3; border-left-color:#e0574c; color:#7a2e26; font-weight:600; font-style:italic; }
+  .item span.qc.sem b{ color:#a8362b; }
+
   .item.wide{ flex:1 1 100%; }
 
   /* ---- botão copiar (tablet-friendly) ---- */
@@ -554,12 +572,32 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Redes",
-      "text": "Questões Redes — Modelo OSI, TCP/IP, topologias, equipamentos de conexão e QoS (≈10)"
+      "text": "Questões Redes — Modelo OSI, TCP/IP, topologias, equipamentos de conexão e QoS (≈10)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "16 - Modelo OSI",
+         "1 - Arquitetura TCP/IP",
+         "31 - Topologias",
+         "12 - Equipamentos de Redes",
+         "23 - QoS"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Compreensão de textos (≈10)"
+      "text": "Questões Português — Compreensão de textos (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.1 - Noções Gerais de Compreensão e Interpretação de Texto"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -570,12 +608,39 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Redes",
-      "text": "Questões Redes — protocolos de aplicação (DNS, FTP, NFS, TELNET, SMTP, HTTP, LDAP, DHCP, IPSEC, SSH, SNMP, NAT) + noções de IPv6 (≈10)"
+      "text": "Questões Redes — protocolos de aplicação (DNS, FTP, NFS, TELNET, SMTP, HTTP, LDAP, DHCP, IPSEC, SSH, SNMP, NAT) + noções de IPv6 (≈10)",
+      "qc": [
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "10 - DNS",
+         "21 - Protocolo (21.1 FTP · 21.2 HTTP · 21.5 LDAP · 21.8 SMTP · 21.9 SNMP · 21.10 DHCP)",
+         "18 - NAT",
+         "39 - Endereçamento IP  ← p/ IPv6"
+        ]
+       },
+       {
+        "d": "NFS / Telnet / SSH / IPSec",
+        "a": [
+         "sem assunto próprio — fica em '21 - Protocolo'"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "1 - Compreensão e Interpretação de Textos (Reading Comprehension)",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -586,12 +651,42 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Linux",
-      "text": "Questões UNIX/Linux — TCP/IP, DHCP, DNS, NIS, CIFS, NFS, impressão, Apache, scripts e integração com Windows (≈10)"
+      "text": "Questões UNIX/Linux — TCP/IP, DHCP, DNS, NIS, CIFS, NFS, impressão, Apache, scripts e integração com Windows (≈10)",
+      "qc": [
+       {
+        "d": "Informática",
+        "a": [
+         "3 - Sistema Operacional GNU/Linux (Comandos, Diretórios e Administração)"
+        ]
+       },
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "24 - Redes Linux",
+         "27 - Samba"
+        ]
+       },
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "9 - Administração de Sistemas Operacionais e Serviços de Diretório/Rede",
+         "8 - Servidores Web e de Aplicação (Apache...)"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Ortografia oficial (≈10)"
+      "text": "Questões Português — Ortografia oficial (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "1 - Ortografia"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -602,12 +697,43 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Windows",
-      "text": "Questões Windows 11 — TCP/IP, DHCP, DNS, Active Directory, IIS, Terminal Services, arquivo/impressão, scripts (≈10)"
+      "text": "Questões Windows 11 — TCP/IP, DHCP, DNS, Active Directory, IIS, Terminal Services, arquivo/impressão, scripts (≈10)",
+      "qc": [
+       {
+        "d": "Informática",
+        "a": [
+         "2 - Sistema Operacional Microsoft Windows e Windows Server"
+        ]
+       },
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "26 - Redes Windows"
+        ]
+       },
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "9 - Administração de Sistemas Operacionais e Serviços de Diretório/Rede (AD)",
+         "8 - Servidores Web e de Aplicação (IIS)"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "7 - Conectivos, Conjunções e Coesão Textual (Linking Words)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs",
+         "6 - Pronomes, Referenciação, Adjetivos e Advérbios"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -618,12 +744,38 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Segurança",
-      "text": "Questões Segurança operacional — Firewall, Proxy, IPS/IDS, DLP, CASB, SIEM, Antivírus, EDR, WAF, vulnerabilidades, backup (≈10)"
+      "text": "Questões Segurança operacional — Firewall, Proxy, IPS/IDS, DLP, CASB, SIEM, Antivírus, EDR, WAF, vulnerabilidades, backup (≈10)",
+      "qc": [
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "2 - Firewalls, Filtros de Pacotes, IDS/IPS, WAF e Proxy",
+         "4 - Gestão de Vulnerabilidades, Pentest e Testes de Segurança",
+         "7 - Continuidade de Negócios, Resposta a Incidentes, Backup e Recuperação",
+         "8 - Ameaças, Malwares, Engenharia Social e Ataques Cibernéticos  ← p/ Antivírus/EDR"
+        ]
+       },
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "37 - Firewall",
+         "22 - Proxy"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Coesão textual (≈10)"
+      "text": "Questões Português — Coesão textual (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.12 - Coesão e coerência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -634,12 +786,30 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Segurança",
-      "text": "Questões Segurança — malwares e ataques (DDoS, SQL Injection, XSS, CSRF, Path Traversal) + SAST/DAST/IAST (≈10)"
+      "text": "Questões Segurança — malwares e ataques (DDoS, SQL Injection, XSS, CSRF, Path Traversal) + SAST/DAST/IAST (≈10)",
+      "qc": [
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "8 - Ameaças, Malwares, Engenharia Social e Ataques Cibernéticos",
+         "4 - Gestão de Vulnerabilidades, Pentest e Testes de Segurança  ← p/ SAST/DAST/IAST"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "3 - Vocabulário Contextual, Sinônimos, Antônimos e Formação de Palavras",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -650,12 +820,34 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Segurança",
-      "text": "Questões Segurança — VPN, MDM, SSO, MFA, gestão de identidade e acesso (RBAC e ABAC) (≈10)"
+      "text": "Questões Segurança — VPN, MDM, SSO, MFA, gestão de identidade e acesso (RBAC e ABAC) (≈10)",
+      "qc": [
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "6 - Gestão de Identidades e Controle de Acesso (IAM, SSO, OAuth 2.0, MFA)"
+        ]
+       },
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "38 - Acesso Remoto - VPN (Virtual Private Network)..."
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Significação das palavras (≈10)"
+      "text": "Questões Português — Significação das palavras (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.5 - Significação Contextual de Palavras e Expressões. Sinônimos e Antônimos."
+        ]
+       }
+      ]
      }
     ]
    },
@@ -666,12 +858,44 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Storage/Virtualização",
-      "text": "Questões Storage (NAS e SAN) + Virtualização de computação, rede e armazenamento (≈10)"
+      "text": "Questões Storage (NAS e SAN) + Virtualização de computação, rede e armazenamento (≈10)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "2 - Armazenamento de Dados (DAS, NAS, SAN, Fibre Channel, iSCSI...)",
+         "5 - Virtualização de Servidores e Hipervisores (VMware, Hyper-V, KVM)"
+        ]
+       },
+       {
+        "d": "Redes de Computadores",
+        "a": [
+         "4.1 - NAS",
+         "4.2 - SAN"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "5 - Verbos Modais (Modal Verbs)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs"
+        ]
+       },
+       {
+        "d": "Inglês",
+        "a": [
+         "Preposições: sem assunto próprio — use 6 ou 4 acima"
+        ],
+        "t": "p"
+       }
+      ]
      }
     ]
    },
@@ -682,12 +906,37 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Alto Desempenho",
-      "text": "Questões Concorrência, paralelismo, Cluster, Grid, balanceamento de carga e avaliação de desempenho (≈10)"
+      "text": "Questões Concorrência, paralelismo, Cluster, Grid, balanceamento de carga e avaliação de desempenho (≈10)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "6 - Contêineres, Orquestração e Clusters (Docker, Kubernetes, Alta Disponibilidade)"
+        ],
+        "t": "p"
+       },
+       {
+        "d": "Informática",
+        "a": [
+         "1 - Hardware, Arquitetura de Computadores, Memórias e Periféricos  ← p/ paralelismo"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Tempos e modos verbais (≈10)"
+      "text": "Questões Português — Tempos e modos verbais (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "3.2 - Flexão verbal de tempo",
+         "3.3 - Flexão verbal de modo"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -698,12 +947,31 @@ const weeks = [
      {
       "cat": "ex",
       "area": "DevOps/Contêineres",
-      "text": "Questões DevOps, contêineres, virtualização em nível de SO, microsserviços e Infraestrutura como Código (≈10)"
+      "text": "Questões DevOps, contêineres, virtualização em nível de SO, microsserviços e Infraestrutura como Código (≈10)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "6 - Contêineres, Orquestração e Clusters (Docker, Kubernetes...)",
+         "10 - Monitoramento, Gerência de Tráfego e Automação CI/CD (Jenkins, Ansible...)",
+         "5 - Virtualização de Servidores e Hipervisores"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "1 - Compreensão e Interpretação de Textos (Reading Comprehension)",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    }
@@ -719,12 +987,36 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Nuvem",
-      "text": "Questões Computação em nuvem — conceitos, regiões/zonas, identidade, conformidade, segurança e custos (≈10)"
+      "text": "Questões Computação em nuvem — conceitos, regiões/zonas, identidade, conformidade, segurança e custos (≈10)",
+      "qc": [
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "7 - Computação em Nuvem (Modelos NIST, IaaS, PaaS, SaaS) e Armazenamento de Objetos"
+        ]
+       },
+       {
+        "d": "Informática",
+        "a": [
+         "8 - Correio Eletrônico (Webmail, Clientes e Protocolos) e Computação em Nuvem"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Classes de palavras (≈10)"
+      "text": "Questões Português — Classes de palavras (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "2 - Morfologia",
+         "3 - Morfologia - Verbos",
+         "4 - Morfologia - Pronomes"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -735,12 +1027,31 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Gerenciamento de Serviços",
-      "text": "Questões ITIL v4 — fundamentos, ciclo de vida, transição e operação de serviços (≈10)"
+      "text": "Questões ITIL v4 — fundamentos, ciclo de vida, transição e operação de serviços (≈10)",
+      "qc": [
+       {
+        "d": "ITIL",
+        "a": [
+         "sem assunto nos .md enviados — busque 'ITIL' no QC"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "7 - Conectivos, Conjunções e Coesão Textual (Linking Words)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs",
+         "6 - Pronomes, Referenciação, Adjetivos e Advérbios"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -751,12 +1062,33 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Gerenciamento de Serviços",
-      "text": "Questões COBIT 4.1 — processos do domínio Entrega de Serviço (≈10)"
+      "text": "Questões COBIT 4.1 — processos do domínio Entrega de Serviço (≈10)",
+      "qc": [
+       {
+        "d": "COBIT",
+        "a": [
+         "sem assunto nos .md enviados — busque 'COBIT' no QC"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Coordenação e subordinação (≈10)"
+      "text": "Questões Português — Coordenação e subordinação (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "5.8 - Orações coordenadas assindéticas",
+         "5.10 - Orações coordenadas sindéticas",
+         "5.11 - Orações subordinadas adjetivas",
+         "5.12 - Orações subordinadas substantivas",
+         "5.13 - Orações subordinadas adverbiais"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -767,12 +1099,30 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Gerência de Projeto",
-      "text": "Questões Gerência de projeto — ciclo de vida, escopo, planejamento, caminho crítico, folgas, EAP, controle e fechamento (≈10)"
+      "text": "Questões Gerência de projeto — ciclo de vida, escopo, planejamento, caminho crítico, folgas, EAP, controle e fechamento (≈10)",
+      "qc": [
+       {
+        "d": "Gerência de Projetos",
+        "a": [
+         "sem assunto nos .md enviados — busque 'Gerência de Projetos' no QC"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "3 - Vocabulário Contextual, Sinônimos, Antônimos e Formação de Palavras",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -783,12 +1133,30 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Segurança",
-      "text": "Questões Segurança — resposta a incidentes (NIST SP 800-61), threat intel/hunting, pentest, STRIDE, MITRE ATT&CK (≈10)"
+      "text": "Questões Segurança — resposta a incidentes (NIST SP 800-61), threat intel/hunting, pentest, STRIDE, MITRE ATT&CK (≈10)",
+      "qc": [
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "7 - Continuidade de Negócios, Resposta a Incidentes, Backup e Recuperação",
+         "4 - Gestão de Vulnerabilidades, Pentest e Testes de Segurança",
+         "8 - Ameaças, Malwares, Engenharia Social e Ataques Cibernéticos"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Pontuação (≈10)"
+      "text": "Questões Português — Pontuação (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "6 - Pontuação"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -799,12 +1167,38 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Segurança",
-      "text": "Questões Segurança — ISO 31000, ISO 22301, Sarbanes-Oxley, políticas, classificação da informação e ISO 27002 (≈10)"
+      "text": "Questões Segurança — ISO 31000, ISO 22301, Sarbanes-Oxley, políticas, classificação da informação e ISO 27002 (≈10)",
+      "qc": [
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "5 - Gestão de Riscos Cibernéticos, Políticas de Segurança (PSI), Privacidade e Anonimização",
+         "7 - Continuidade de Negócios... (ISO 22301)",
+         "1 - Princípios da Segurança da Informação... e Controle de Ativos  ← p/ classificação da informação"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "5 - Verbos Modais (Modal Verbs)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs"
+        ]
+       },
+       {
+        "d": "Inglês",
+        "a": [
+         "Preposições: sem assunto próprio — use 6 ou 4 acima"
+        ],
+        "t": "p"
+       }
+      ]
      }
     ]
    },
@@ -815,12 +1209,35 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Segurança",
-      "text": "Questões Criptografia, certificação digital, assinatura digital + segurança em nuvem e IoT (≈10)"
+      "text": "Questões Criptografia, certificação digital, assinatura digital + segurança em nuvem e IoT (≈10)",
+      "qc": [
+       {
+        "d": "Cibersegurança",
+        "a": [
+         "3 - Criptografia, Hashes, Assinatura Digital e Certificação ICP-Brasil"
+        ]
+       },
+       {
+        "d": "Infraestrutura",
+        "a": [
+         "7 - Computação em Nuvem...  ← p/ segurança em nuvem"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Concordância verbal e nominal (≈10)"
+      "text": "Questões Português — Concordância verbal e nominal (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "5.7 - Concordância verbal, Concordância nominal"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -831,12 +1248,30 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Banco de Dados",
-      "text": "Questões Banco de dados — independência de dados, MER, modelo relacional, SQL, triggers e stored procedures (≈10)"
+      "text": "Questões Banco de dados — independência de dados, MER, modelo relacional, SQL, triggers e stored procedures (≈10)",
+      "qc": [
+       {
+        "d": "Banco de Dados",
+        "a": [
+         "sem assunto nos .md enviados — busque 'Banco de Dados' no QC"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "1 - Compreensão e Interpretação de Textos (Reading Comprehension)",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -847,12 +1282,29 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Banco de Dados",
-      "text": "Questões Banco de dados — alta disponibilidade, transações, bloqueios e desempenho (≈10)"
+      "text": "Questões Banco de dados — alta disponibilidade, transações, bloqueios e desempenho (≈10)",
+      "qc": [
+       {
+        "d": "Banco de Dados",
+        "a": [
+         "sem assunto nos .md enviados — busque 'Banco de Dados' no QC"
+        ],
+        "t": "x"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Regência verbal e nominal (≈10)"
+      "text": "Questões Português — Regência verbal e nominal (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "5.6 - Regência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -863,12 +1315,31 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Programação",
-      "text": "Questões Programação — algoritmos, estruturas de dados, engenharia de software, HTML/XML, Java e J2EE (≈10)"
+      "text": "Questões Programação — algoritmos, estruturas de dados, engenharia de software, HTML/XML, Java e J2EE (≈10)",
+      "qc": [
+       {
+        "d": "Informática",
+        "a": [
+         "10 - Engenharia de Software, UML, Testes e Linguagens de Programação"
+        ],
+        "t": "p"
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "7 - Conectivos, Conjunções e Coesão Textual (Linking Words)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs",
+         "6 - Pronomes, Referenciação, Adjetivos e Advérbios"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -879,12 +1350,31 @@ const weeks = [
      {
       "cat": "ex",
       "area": "Raciocínio Lógico",
-      "text": "Questões Raciocínio lógico — conectivos, argumentos, lógica sentencial e de predicados, sistemas dedutivos (≈10)"
+      "text": "Questões Raciocínio lógico — conectivos, argumentos, lógica sentencial e de predicados, sistemas dedutivos (≈10)",
+      "qc": [
+       {
+        "d": "Raciocínio Lógico",
+        "a": [
+         "1 - Estruturas Lógicas, Proposições Simples e Compostas",
+         "2 - Lógica de Argumentação",
+         "3 - Lógica Proposicional: Conectivos, Tabelas-Verdade...",
+         "5 - Lógica de Primeira Ordem (Quantificadores e Proposições Categóricas)"
+        ]
+       }
+      ]
      },
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Crase (≈10)"
+      "text": "Questões Português — Crase (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "13 - Crase"
+        ]
+       }
+      ]
      }
     ]
    }
@@ -900,7 +1390,16 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "3 - Vocabulário Contextual, Sinônimos, Antônimos e Formação de Palavras",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      },
      {
       "cat": "desc",
@@ -927,7 +1426,15 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Colocação pronominal (≈10)"
+      "text": "Questões Português — Colocação pronominal (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "4.9 - Colocação Pronominal"
+        ]
+       }
+      ]
      },
      {
       "cat": "desc",
@@ -953,7 +1460,23 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "5 - Verbos Modais (Modal Verbs)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs"
+        ]
+       },
+       {
+        "d": "Inglês",
+        "a": [
+         "Preposições: sem assunto próprio — use 6 ou 4 acima"
+        ],
+        "t": "p"
+       }
+      ]
      }
     ]
    },
@@ -969,7 +1492,15 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Compreensão de textos (≈10)"
+      "text": "Questões Português — Compreensão de textos (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.1 - Noções Gerais de Compreensão e Interpretação de Texto"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -985,7 +1516,16 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "1 - Compreensão e Interpretação de Textos (Reading Comprehension)",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -1001,7 +1541,15 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Ortografia oficial (≈10)"
+      "text": "Questões Português — Ortografia oficial (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "1 - Ortografia"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -1017,7 +1565,17 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)"
+      "text": "Questões Inglês — Itens gramaticais (conectores, tempos verbais, pronomes referenciais) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "7 - Conectivos, Conjunções e Coesão Textual (Linking Words)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs",
+         "6 - Pronomes, Referenciação, Adjetivos e Advérbios"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -1033,7 +1591,15 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Coesão textual (≈10)"
+      "text": "Questões Português — Coesão textual (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.12 - Coesão e coerência"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -1049,7 +1615,16 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)"
+      "text": "Questões Inglês — Vocabulário técnico e falsos cognatos (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "3 - Vocabulário Contextual, Sinônimos, Antônimos e Formação de Palavras",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -1065,7 +1640,15 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Português",
-      "text": "Questões Português — Significação das palavras (≈10)"
+      "text": "Questões Português — Significação das palavras (≈10)",
+      "qc": [
+       {
+        "d": "Língua Portuguesa",
+        "a": [
+         "15.5 - Significação Contextual de Palavras e Expressões. Sinônimos e Antônimos."
+        ]
+       }
+      ]
      }
     ]
    },
@@ -1081,7 +1664,23 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)"
+      "text": "Questões Inglês — Preposições, modais e phrasal verbs em contexto (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "5 - Verbos Modais (Modal Verbs)",
+         "4 - Tempos e Modos Verbais, Voz Passiva e Phrasal Verbs"
+        ]
+       },
+       {
+        "d": "Inglês",
+        "a": [
+         "Preposições: sem assunto próprio — use 6 ou 4 acima"
+        ],
+        "t": "p"
+       }
+      ]
      }
     ]
    }
@@ -1118,7 +1717,16 @@ const weeks = [
      {
       "cat": "dia",
       "area": "Inglês",
-      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)"
+      "text": "Questões Inglês — Compreensão de texto (ideia central e inferência) (≈10)",
+      "qc": [
+       {
+        "d": "Inglês",
+        "a": [
+         "1 - Compreensão e Interpretação de Textos (Reading Comprehension)",
+         "2 - Estratégias de Leitura (Skimming, Scanning e Cognatos)"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -1238,7 +1846,12 @@ weeks.forEach((week, wi)=>{
       label.className = 'item' + (it.wide ? ' wide' : '');
       label.style.setProperty('--item-color', CATS[it.cat].color);
       const areaHtml = it.area ? `<span class="area">(${it.area})</span>` : '';
-      label.innerHTML = `<input type="checkbox" id="${id}"><span class="txt-wrap"><span class="txt">${it.text}</span>${areaHtml}</span>`;
+      const qcHtml = (it.qc||[]).map(q=>{
+        const cls = q.t==='x' ? ' sem' : (q.t==='p' ? ' prox' : '');
+        const tag = q.t==='x' ? '⚠️ ' : (q.t==='p' ? '≈ ' : '🎯 ');
+        return `<span class="qc${cls}">${tag}<b>${q.d}</b> ▸ ${q.a.join(' &nbsp;|&nbsp; ')}</span>`;
+      }).join('');
+      label.innerHTML = `<input type="checkbox" id="${id}"><span class="txt-wrap"><span class="txt">${it.text}</span>${areaHtml}${qcHtml}</span>`;
       const copyBtn = document.createElement('button');
       copyBtn.type = 'button';
       copyBtn.className = 'copy-btn';
