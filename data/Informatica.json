@@ -120,51 +120,51 @@
     "tags": "BackupIncremental"
   },
   {
-    "id": "7f9a73909a",
-    "enunciado": "Concurso::Materias::Informatica::Seguranca::Backup",
-    "gabarito": "F",
-    "explicacao": "<div class='badge badge-pergunta'>VERDADEIRA OU FALSA?</div><br>Na rotina de backup corporativo, o backup incremental copia apenas os arquivos alterados desde o último backup realizado (seja ele completo ou incremental), exigindo na restauração múltiplos conjuntos de mídia sequenciais até a data desejada.",
+    "id": "51d2f0ab27",
+    "enunciado": "Na rotina de backup corporativo, o backup incremental copia apenas os arquivos alterados desde o último backup realizado (seja ele completo ou incremental), exigindo na restauração múltiplos conjuntos de mídia sequenciais até a data desejada.",
+    "gabarito": "V",
+    "explicacao": "O backup incremental copia exclusivamente os arquivos novos ou modificados desde a última execução de qualquer tipo, resultando na cópia mais rápida e econômica em espaço, mas exigindo a fita base e todas as fitas sequenciais na restauração.",
     "disciplina": "informatica",
     "assunto": "nao-classificado",
-    "topico": "Geral",
-    "assunto_original": "<div class='badge badge-certa'>VERDADEIRA</div><br>O backup incremental copia exclusivamente os arquivos novos ou modificados desde a última execução de qualquer tipo, resultando na cópia mais rápida e econômica em espaço, mas exigindo a fita base e todas as fitas sequenciais na restauração.",
-    "deck": "Backup",
-    "tags": "<div class='badge badge-certa'>VERDADEIRA</div><br>O backup incremental copia exclusivamente os arquivos novos ou modificados desde a última execução de qualquer tipo, resultando na cópia mais rápida e econômica em espaço, mas exigindo a fita base e todas as fitas sequenciais na restauração."
+    "topico": "Informatica",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Informatica::Seguranca::Backup",
+    "tags": "Backup"
   },
   {
-    "id": "7f9a73909a",
-    "enunciado": "Concurso::Materias::Informatica::Seguranca::Backup",
-    "gabarito": "F",
-    "explicacao": "<div class='badge badge-pergunta'>VERDADEIRA OU FALSA?</div><br>Diferente do backup incremental, o backup diferencial copia os arquivos modificados a partir de uma referência fixa (o último backup completo), exigindo na restauração apenas dois conjuntos de mídia: a cópia completa inicial e a cópia diferencial mais recente.",
+    "id": "f243529145",
+    "enunciado": "Diferente do backup incremental, o backup diferencial copia os arquivos modificados a partir de uma referência fixa (o último backup completo), exigindo na restauração apenas dois conjuntos de mídia: a cópia completa inicial e a cópia diferencial mais recente.",
+    "gabarito": "V",
+    "explicacao": "O backup diferencial acumula as modificações em relação ao último Full. Por isso, a restauração é extremamente ágil e necessita somente de duas mídias: a referência inicial (Full) e a última fita diferencial gravada.",
     "disciplina": "informatica",
     "assunto": "nao-classificado",
-    "topico": "Geral",
-    "assunto_original": "<div class='badge badge-certa'>VERDADEIRA</div><br>O backup diferencial acumula as modificações em relação ao último Full. Por isso, a restauração é extremamente ágil e necessita somente de duas mídias: a referência inicial (Full) e a última fita diferencial gravada.",
-    "deck": "Backup",
-    "tags": "<div class='badge badge-certa'>VERDADEIRA</div><br>O backup diferencial acumula as modificações em relação ao último Full. Por isso, a restauração é extremamente ágil e necessita somente de duas mídias: a referência inicial (Full) e a última fita diferencial gravada."
+    "topico": "Informatica",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Informatica::Seguranca::Backup",
+    "tags": "Backup"
   },
   {
-    "id": "7f9a73909a",
-    "enunciado": "Concurso::Materias::Informatica::Seguranca::Backup",
+    "id": "3bbc42e782",
+    "enunciado": "O backup diferencial limpa o bit de arquivo (archive bit) dos arquivos copiados, indicando ao sistema operacional que eles já foram salvos e não precisam ser duplicados na próxima rotina diferencial.",
     "gabarito": "F",
-    "explicacao": "<div class='badge badge-pergunta'>VERDADEIRA OU FALSA?</div><br>O backup diferencial limpa o bit de arquivo (archive bit) dos arquivos copiados, indicando ao sistema operacional que eles já foram salvos e não precisam ser duplicados na próxima rotina diferencial.",
+    "explicacao": "O backup diferencial <font color='#b26a00'><b>não limpa o bit de arquivo</b></font> (mantém em 1). Quem limpa o archive bit é o backup Completo e o Incremental. O diferencial mantém o bit ativo para que a próxima execução continue acumulando todas as alterações desde o último Full.",
     "disciplina": "informatica",
     "assunto": "nao-classificado",
-    "topico": "Geral",
-    "assunto_original": "<div class='badge badge-errada'>FALSA</div><br>O backup diferencial <font color='#b26a00'><b>não limpa o bit de arquivo</b></font> (mantém em 1). Quem limpa o archive bit é o backup Completo e o Incremental. O diferencial mantém o bit ativo para que a próxima execução continue acumulando todas as alterações desde o último Full.",
-    "deck": "Backup",
-    "tags": "<div class='badge badge-errada'>FALSA</div><br>O backup diferencial <font color='#b26a00'><b>não limpa o bit de arquivo</b></font> (mantém em 1). Quem limpa o archive bit é o backup Completo e o Incremental. O diferencial mantém o bit ativo para que a próxima execução continue acumulando todas as alterações desde o último Full."
+    "topico": "Informatica",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Informatica::Seguranca::Backup",
+    "tags": "Backup"
   },
   {
-    "id": "7f9a73909a",
-    "enunciado": "Concurso::Materias::Informatica::Seguranca::Backup",
-    "gabarito": "F",
-    "explicacao": "<div class='badge badge-pergunta'>VERDADEIRA OU FALSA?</div><br>O software corporativo de backup em rede Bacula suporta nativamente os algoritmos de compressão GZIP e LZO em seus clientes e rotinas de armazenamento.",
+    "id": "0b7805a2ec",
+    "enunciado": "O software corporativo de backup em rede Bacula suporta nativamente os algoritmos de compressão GZIP e LZO em seus clientes e rotinas de armazenamento.",
+    "gabarito": "V",
+    "explicacao": "O Bacula integra nativamente a compressão GZIP (para máxima redução de espaço em disco) e LZO (algoritmo otimizado para velocidade em tempo real e baixíssimo uso de CPU durante a transmissão de dados na rede).",
     "disciplina": "informatica",
     "assunto": "nao-classificado",
-    "topico": "Geral",
-    "assunto_original": "<div class='badge badge-certa'>VERDADEIRA</div><br>O Bacula integra nativamente a compressão GZIP (para máxima redução de espaço em disco) e LZO (algoritmo otimizado para velocidade em tempo real e baixíssimo uso de CPU durante a transmissão de dados na rede).",
-    "deck": "Backup",
-    "tags": "<div class='badge badge-certa'>VERDADEIRA</div><br>O Bacula integra nativamente a compressão GZIP (para máxima redução de espaço em disco) e LZO (algoritmo otimizado para velocidade em tempo real e baixíssimo uso de CPU durante a transmissão de dados na rede)."
+    "topico": "Informatica",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Informatica::Seguranca::Backup",
+    "tags": "Backup"
   }
 ]
