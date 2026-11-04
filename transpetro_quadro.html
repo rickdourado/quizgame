@@ -654,10 +654,21 @@ const weeks = [
       "text": "Questões UNIX/Linux — TCP/IP, DHCP, DNS, NIS, CIFS, NFS, impressão, Apache, scripts e integração com Windows (≈10)",
       "qc": [
        {
-        "d": "Informática",
+        "d": "Sistemas Operacionais",
         "a": [
-         "3 - Sistema Operacional GNU/Linux (Comandos, Diretórios e Administração)"
+         "26 - Unix",
+         "18 - Linux",
+         "6 - Comandos",
+         "3 - Apache",
+         "8 - Configuração de rede"
         ]
+       },
+       {
+        "d": "Sistemas Operacionais",
+        "a": [
+         "22 - Sistemas de arquivos  ← p/ NFS/CIFS"
+        ],
+        "t": "p"
        },
        {
         "d": "Redes de Computadores",
@@ -667,10 +678,9 @@ const weeks = [
         ]
        },
        {
-        "d": "Infraestrutura",
+        "d": "Informática",
         "a": [
-         "9 - Administração de Sistemas Operacionais e Serviços de Diretório/Rede",
-         "8 - Servidores Web e de Aplicação (Apache...)"
+         "3 - Sistema Operacional GNU/Linux (Comandos, Diretórios e Administração)"
         ]
        }
       ]
@@ -700,10 +710,20 @@ const weeks = [
       "text": "Questões Windows 11 — TCP/IP, DHCP, DNS, Active Directory, IIS, Terminal Services, arquivo/impressão, scripts (≈10)",
       "qc": [
        {
-        "d": "Informática",
+        "d": "Sistemas Operacionais",
         "a": [
-         "2 - Sistema Operacional Microsoft Windows e Windows Server"
+         "28 - Windows",
+         "1 - Administração de usuários (AD - Active Directory)",
+         "32 - Terminal Services",
+         "8 - Configuração de rede"
         ]
+       },
+       {
+        "d": "Sistemas Operacionais",
+        "a": [
+         "28.6 - Windows 10  ← p/ Windows 11 · 29 - Servidor Web ← p/ IIS"
+        ],
+        "t": "p"
        },
        {
         "d": "Redes de Computadores",
@@ -712,10 +732,9 @@ const weeks = [
         ]
        },
        {
-        "d": "Infraestrutura",
+        "d": "Informática",
         "a": [
-         "9 - Administração de Sistemas Operacionais e Serviços de Diretório/Rede (AD)",
-         "8 - Servidores Web e de Aplicação (IIS)"
+         "2 - Sistema Operacional Microsoft Windows e Windows Server"
         ]
        }
       ]
@@ -747,13 +766,21 @@ const weeks = [
       "text": "Questões Segurança operacional — Firewall, Proxy, IPS/IDS, DLP, CASB, SIEM, Antivírus, EDR, WAF, vulnerabilidades, backup (≈10)",
       "qc": [
        {
-        "d": "Cibersegurança",
+        "d": "Segurança da Informação",
         "a": [
-         "2 - Firewalls, Filtros de Pacotes, IDS/IPS, WAF e Proxy",
-         "4 - Gestão de Vulnerabilidades, Pentest e Testes de Segurança",
-         "7 - Continuidade de Negócios, Resposta a Incidentes, Backup e Recuperação",
-         "8 - Ameaças, Malwares, Engenharia Social e Ataques Cibernéticos  ← p/ Antivírus/EDR"
+         "13 - Firewall em Segurança da Informação",
+         "30 - Sistemas de Prevenção-Detecção de Intrusão (30.1 IPS · 30.2 IDS)",
+         "33 - Análise de Vulnerabilidade e Gestão de Riscos",
+         "6 - Backup em Segurança da Informação",
+         "12 - DMZ"
         ]
+       },
+       {
+        "d": "Segurança da Informação",
+        "a": [
+         "19 - Malware  ← p/ Antivírus/EDR · 10 - Controles de segurança ← p/ DLP/CASB/SIEM"
+        ],
+        "t": "p"
        },
        {
         "d": "Redes de Computadores",
@@ -789,11 +816,18 @@ const weeks = [
       "text": "Questões Segurança — malwares e ataques (DDoS, SQL Injection, XSS, CSRF, Path Traversal) + SAST/DAST/IAST (≈10)",
       "qc": [
        {
-        "d": "Cibersegurança",
+        "d": "Segurança da Informação",
         "a": [
-         "8 - Ameaças, Malwares, Engenharia Social e Ataques Cibernéticos",
-         "4 - Gestão de Vulnerabilidades, Pentest e Testes de Segurança  ← p/ SAST/DAST/IAST"
+         "2 - Ataques e ameaças",
+         "19 - Malware"
         ]
+       },
+       {
+        "d": "Segurança da Informação",
+        "a": [
+         "33 - Análise de Vulnerabilidade e Gestão de Riscos  ← p/ SAST/DAST/IAST"
+        ],
+        "t": "p"
        }
       ]
      },
@@ -823,15 +857,23 @@ const weeks = [
       "text": "Questões Segurança — VPN, MDM, SSO, MFA, gestão de identidade e acesso (RBAC e ABAC) (≈10)",
       "qc": [
        {
-        "d": "Cibersegurança",
+        "d": "Segurança da Informação",
         "a": [
-         "6 - Gestão de Identidades e Controle de Acesso (IAM, SSO, OAuth 2.0, MFA)"
+         "31 - VPN (Virtual Private Network)",
+         "4 - Autenticação"
         ]
+       },
+       {
+        "d": "Segurança da Informação",
+        "a": [
+         "10 - Controles de segurança  ← p/ IAM, RBAC/ABAC, MDM · 7 - Biometria ← p/ MFA"
+        ],
+        "t": "p"
        },
        {
         "d": "Redes de Computadores",
         "a": [
-         "38 - Acesso Remoto - VPN (Virtual Private Network)..."
+         "38 - Acesso Remoto - VPN..."
         ]
        }
       ]
@@ -861,17 +903,15 @@ const weeks = [
       "text": "Questões Storage (NAS e SAN) + Virtualização de computação, rede e armazenamento (≈10)",
       "qc": [
        {
-        "d": "Infraestrutura",
+        "d": "Sistemas Operacionais",
         "a": [
-         "2 - Armazenamento de Dados (DAS, NAS, SAN, Fibre Channel, iSCSI...)",
-         "5 - Virtualização de Servidores e Hipervisores (VMware, Hyper-V, KVM)"
+         "27 - Virtualização"
         ]
        },
        {
         "d": "Redes de Computadores",
         "a": [
-         "4.1 - NAS",
-         "4.2 - SAN"
+         "4 - Armazenamento de Dados em Redes de Computadores (4.1 NAS · 4.2 SAN · 4.3 RAID)"
         ]
        }
       ]
@@ -909,16 +949,20 @@ const weeks = [
       "text": "Questões Concorrência, paralelismo, Cluster, Grid, balanceamento de carga e avaliação de desempenho (≈10)",
       "qc": [
        {
-        "d": "Infraestrutura",
+        "d": "Sistemas Operacionais",
         "a": [
-         "6 - Contêineres, Orquestração e Clusters (Docker, Kubernetes, Alta Disponibilidade)"
-        ],
-        "t": "p"
+         "20 - Processos",
+         "25 - Threads",
+         "9 - Deadlock",
+         "5 - Clusters",
+         "33 - Grid - Computação em Grade",
+         "10 - Desempenho"
+        ]
        },
        {
-        "d": "Informática",
+        "d": "Sistemas Operacionais",
         "a": [
-         "1 - Hardware, Arquitetura de Computadores, Memórias e Periféricos  ← p/ paralelismo"
+         "4 - Arquitetura de Computadores  ← p/ paralelismo"
         ],
         "t": "p"
        }
@@ -950,12 +994,17 @@ const weeks = [
       "text": "Questões DevOps, contêineres, virtualização em nível de SO, microsserviços e Infraestrutura como Código (≈10)",
       "qc": [
        {
-        "d": "Infraestrutura",
+        "d": "Sistemas Operacionais",
         "a": [
-         "6 - Contêineres, Orquestração e Clusters (Docker, Kubernetes...)",
-         "10 - Monitoramento, Gerência de Tráfego e Automação CI/CD (Jenkins, Ansible...)",
-         "5 - Virtualização de Servidores e Hipervisores"
+         "27 - Virtualização"
         ]
+       },
+       {
+        "d": "DevOps / IaC / Microsserviços",
+        "a": [
+         "sem assunto nos .md enviados — busque 'DevOps' no QC"
+        ],
+        "t": "x"
        }
       ]
      },
@@ -990,9 +1039,9 @@ const weeks = [
       "text": "Questões Computação em nuvem — conceitos, regiões/zonas, identidade, conformidade, segurança e custos (≈10)",
       "qc": [
        {
-        "d": "Infraestrutura",
+        "d": "Sistemas Operacionais",
         "a": [
-         "7 - Computação em Nuvem (Modelos NIST, IaaS, PaaS, SaaS) e Armazenamento de Objetos"
+         "30 - Cloud Computing"
         ]
        },
        {
@@ -1000,6 +1049,13 @@ const weeks = [
         "a": [
          "8 - Correio Eletrônico (Webmail, Clientes e Protocolos) e Computação em Nuvem"
         ]
+       },
+       {
+        "d": "Segurança da Informação",
+        "a": [
+         "29 - Segurança na Internet  ← p/ segurança em nuvem"
+        ],
+        "t": "p"
        }
       ]
      },
@@ -1030,11 +1086,19 @@ const weeks = [
       "text": "Questões ITIL v4 — fundamentos, ciclo de vida, transição e operação de serviços (≈10)",
       "qc": [
        {
-        "d": "ITIL",
+        "d": "Governança de TI",
         "a": [
-         "sem assunto nos .md enviados — busque 'ITIL' no QC"
+         "18.3 - ITIL 4",
+         "18 - ITIL",
+         "18.1 - ITIL v. 3  ← p/ ciclo de vida, transição e operação"
+        ]
+       },
+       {
+        "d": "Governança de TI",
+        "a": [
+         "13 - Gerência de Serviços"
         ],
-        "t": "x"
+        "t": "p"
        }
       ]
      },
@@ -1065,11 +1129,11 @@ const weeks = [
       "text": "Questões COBIT 4.1 — processos do domínio Entrega de Serviço (≈10)",
       "qc": [
        {
-        "d": "COBIT",
+        "d": "Governança de TI",
         "a": [
-         "sem assunto nos .md enviados — busque 'COBIT' no QC"
-        ],
-        "t": "x"
+         "7.1 - COBIT v. 4.1",
+         "7 - COBIT"
+        ]
        }
       ]
      },
@@ -1102,9 +1166,17 @@ const weeks = [
       "text": "Questões Gerência de projeto — ciclo de vida, escopo, planejamento, caminho crítico, folgas, EAP, controle e fechamento (≈10)",
       "qc": [
        {
+        "d": "Governança de TI",
+        "a": [
+         "22 - Planejamento e Gestão de Sistemas de TI  ← p/ gerência de projetos",
+         "12 - Gerência de Processos"
+        ],
+        "t": "p"
+       },
+       {
         "d": "Gerência de Projetos",
         "a": [
-         "sem assunto nos .md enviados — busque 'Gerência de Projetos' no QC"
+         "assunto específico (PMBOK/EAP) não consta nos .md — busque 'Gerência de Projetos' no QC"
         ],
         "t": "x"
        }
@@ -1136,12 +1208,18 @@ const weeks = [
       "text": "Questões Segurança — resposta a incidentes (NIST SP 800-61), threat intel/hunting, pentest, STRIDE, MITRE ATT&CK (≈10)",
       "qc": [
        {
-        "d": "Cibersegurança",
+        "d": "Segurança da Informação",
         "a": [
-         "7 - Continuidade de Negócios, Resposta a Incidentes, Backup e Recuperação",
-         "4 - Gestão de Vulnerabilidades, Pentest e Testes de Segurança",
-         "8 - Ameaças, Malwares, Engenharia Social e Ataques Cibernéticos"
+         "2 - Ataques e ameaças",
+         "33 - Análise de Vulnerabilidade e Gestão de Riscos"
         ]
+       },
+       {
+        "d": "Segurança da Informação",
+        "a": [
+         "24 - Planos de contingência  ← p/ resposta a incidentes"
+        ],
+        "t": "p"
        }
       ]
      },
@@ -1170,12 +1248,20 @@ const weeks = [
       "text": "Questões Segurança — ISO 31000, ISO 22301, Sarbanes-Oxley, políticas, classificação da informação e ISO 27002 (≈10)",
       "qc": [
        {
-        "d": "Cibersegurança",
+        "d": "Segurança da Informação",
         "a": [
-         "5 - Gestão de Riscos Cibernéticos, Políticas de Segurança (PSI), Privacidade e Anonimização",
-         "7 - Continuidade de Negócios... (ISO 22301)",
-         "1 - Princípios da Segurança da Informação... e Controle de Ativos  ← p/ classificação da informação"
+         "22 - Norma ISO 27001",
+         "16 - ISO 27002",
+         "25 - Políticas de Segurança de Informação",
+         "23 - Plano de Continuidade de Negócios (ISO 22301)"
         ]
+       },
+       {
+        "d": "Segurança da Informação",
+        "a": [
+         "21 - Norma 27005 / 33 - Análise de Vulnerabilidade e Gestão de Riscos  ← p/ ISO 31000 · 9 - Conceitos Básicos ← p/ classificação da informação"
+        ],
+        "t": "p"
        }
       ]
      },
@@ -1212,15 +1298,19 @@ const weeks = [
       "text": "Questões Criptografia, certificação digital, assinatura digital + segurança em nuvem e IoT (≈10)",
       "qc": [
        {
-        "d": "Cibersegurança",
+        "d": "Segurança da Informação",
         "a": [
-         "3 - Criptografia, Hashes, Assinatura Digital e Certificação ICP-Brasil"
+         "11 - Criptografia",
+         "1 - Assinatura Digital",
+         "8 - Certificação Digital em Segurança da Informação",
+         "5 - Autoridade Certificadora (AC)",
+         "15 - Infra estrutura de Chaves Publicas (PKI)"
         ]
        },
        {
-        "d": "Infraestrutura",
+        "d": "Segurança da Informação",
         "a": [
-         "7 - Computação em Nuvem...  ← p/ segurança em nuvem"
+         "29 - Segurança na Internet  ← p/ nuvem e IoT"
         ],
         "t": "p"
        }
