@@ -1606,5 +1606,101 @@
     "assunto_original": "Estruturas Logicas",
     "deck": "Concurso::Materias::Raciocinio::Estruturas_Logicas::Sentencas_Imperativas",
     "tags": "Estruturas_Logicas"
+  },
+  {
+    "id": "6f276851a5",
+    "enunciado": "A negação lógica da proposição condicional 'Se o paciente segue a dieta, então ele emagrece' é expressa por 'O paciente segue a dieta e não emagrece'.",
+    "gabarito": "V",
+    "explicacao": "A negação da condicional segue a regra do MANÉ: mantém-se a primeira proposição atômica e nega-se a segunda, unindo-as pelo conectivo de conjunção 'e' ($p \\land \\sim q$).",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T03 Logica Proposicional",
+    "deck": "Concurso::Materias::Raciocinio::T03_Logica_Proposicional::Negacao_Condicional",
+    "tags": "Logica_Proposicional"
+  },
+  {
+    "id": "4d5f22cb66",
+    "enunciado": "Para negar a condicional 'Se chove, então não vou à praia', deve-se manter a primeira proposição e negar a segunda, resultando logicamente em 'Chove e vou à praia'.",
+    "gabarito": "V",
+    "explicacao": "Pela regra do MANÉ, a negação de $p \\to \\sim q$ é $p \\land \\sim(\\sim q)$, o que equivale exatamente a manter a primeira ('Chove') e afirmativar a segunda ('e vou à praia').",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T03 Logica Proposicional",
+    "deck": "Concurso::Materias::Raciocinio::T03_Logica_Proposicional::Negacao_Condicional",
+    "tags": "Logica_Proposicional"
+  },
+  {
+    "id": "08c1d5c4d7",
+    "enunciado": "A negação lógica da afirmação categórica 'Algum candidato se inscreveu para o cargo errado' equivale a 'Todo candidato se inscreveu para o cargo certo'.",
+    "gabarito": "V",
+    "explicacao": "A negação de 'Algum é' é 'Nenhum é' ou 'Todo NÃO é'. Dizer que 'Nenhum candidato se inscreveu para o cargo errado' equivale logicamente a 'Todo candidato se inscreveu para o cargo certo'.",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T04 Primeira Ordem",
+    "deck": "Concurso::Materias::Raciocinio::T04_Primeira_Ordem::Quantificadores",
+    "tags": "Logica_Primeira_Ordem"
+  },
+  {
+    "id": "2b70cbc0e5",
+    "enunciado": "Pelas Leis de De Morgan, a negação lógica da disjunção 'O suspeito A estava sozinho, ou o suspeito A estava com o suspeito B' é 'O suspeito A não estava sozinho, ou o suspeito A não estava com o suspeito B'.",
+    "gabarito": "F",
+    "explicacao": "A Lei de De Morgan exige que, além de negar as proposições simples, ocorra a troca obrigatória de conectivo: o 'ou' <font color='#b26a00'><b>deve ser transformado em 'e'</b></font> ($\\sim p \\land \\sim q$).",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T03 Logica Proposicional",
+    "deck": "Concurso::Materias::Raciocinio::T03_Logica_Proposicional::Leis_De_Morgan",
+    "tags": "Logica_Proposicional"
+  },
+  {
+    "id": "a9f7628271",
+    "enunciado": "A negação lógica da conjunção 'Pedro é médico e Paulo é advogado' corresponde formalmente a 'Pedro não é médico ou Paulo não é advogado'.",
+    "gabarito": "V",
+    "explicacao": "Pela Lei de De Morgan, a negação de uma conjunção $\\sim(p \\land q)$ é obtida negando-se individualmente cada componente e alternando o conectivo para disjunção inclusiva 'ou' ($\\sim p \\lor \\sim q$).",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T03 Logica Proposicional",
+    "deck": "Concurso::Materias::Raciocinio::T03_Logica_Proposicional::Leis_De_Morgan",
+    "tags": "Logica_Proposicional"
+  },
+  {
+    "id": "8ad6a777ab",
+    "enunciado": "A proposição condicional $p \\to q$ é logicamente equivalente à sua contrapositiva $\\sim q \\to \\sim p$, bem como à forma disjuntiva $\\sim p \\lor q$.",
+    "gabarito": "V",
+    "explicacao": "A equivalência da condicional pode ser dada pela contrapositiva (inverte e nega ambas as parcelas) ou pela regra do NEYMAR (nega a primeira OU mantém a segunda: $\\sim p \\lor q$).",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T03 Logica Proposicional",
+    "deck": "Concurso::Materias::Raciocinio::T03_Logica_Proposicional::Equivalencias",
+    "tags": "Equivalencias_Logicas"
+  },
+  {
+    "id": "6b72672a7c",
+    "enunciado": "Uma proposição composta cuja coluna final na tabela-verdade apresente exclusivamente valores lógicos verdadeiros para qualquer combinação é denominada contingência.",
+    "gabarito": "F",
+    "explicacao": "A proposição composta que resulta sempre em verdadeiro para todas as linhas é chamada de <font color='#b26a00'><b>tautologia</b></font>. Contingência ocorre apenas quando há mistura de valores verdadeiros e falsos.",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T01 Estruturas Logicas",
+    "deck": "Concurso::Materias::Raciocinio::T01_Estruturas_Logicas::Tabela_Verdade",
+    "tags": "Tabelas_Verdade"
+  },
+  {
+    "id": "54dcad2325",
+    "enunciado": "Para negar logicamente o quantificador universal afirmativo 'Todo A é B', é suficiente e necessário utilizar a negação 'Nenhum A é B'.",
+    "gabarito": "F",
+    "explicacao": "Negar 'Todo' com 'Nenhum' é o erro mais clássico de prova. A negação correta do quantificador universal exige apenas uma exceção: <font color='#b26a00'><b>PEA + NÃO (Pelo menos um / Existe / Algum não é)</b></font>.",
+    "disciplina": "raciocinio-logico",
+    "assunto": "nao-classificado",
+    "topico": "Raciocinio",
+    "assunto_original": "T04 Primeira Ordem",
+    "deck": "Concurso::Materias::Raciocinio::T04_Primeira_Ordem::Quantificadores",
+    "tags": "Logica_Primeira_Ordem"
   }
 ]
