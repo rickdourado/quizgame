@@ -2856,6 +2856,18 @@
     "tags": "Cesgranrio_Transpetro"
   },
   {
+    "id": "e4be6e8940",
+    "enunciado": "O protocolo OSPF baseia-se no algoritmo de vetor de distâncias de Bellman-Ford para calcular a rota mais curta com base no número de saltos entre roteadores.",
+    "gabarito": "F",
+    "explicacao": "O OSPF é um protocolo de <font color='#b26a00'><b>estado de enlace (Link-State) baseado no algoritmo de Dijkstra</b></font>, utilizando custo proporcional à largura de banda —  quem usa saltos e Bellman-Ford é o RIP.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Cesgranrio",
+    "deck": "Concurso::Materias::Redes::Cesgranrio::Roteamento",
+    "tags": "Cesgranrio_Transpetro"
+  },
+  {
     "id": "326bfc4b7a",
     "enunciado": "Aplicações de voz em tempo real (VoIP) e transmissão de videoconferência preferem o protocolo UDP ao TCP devido à intolerância a atrasos decorrentes de retransmissões.",
     "gabarito": "V",
@@ -2877,6 +2889,18 @@
     "topico": "Redes",
     "assunto_original": "Cesgranrio",
     "deck": "Concurso::Materias::Redes::Cesgranrio::DHCP",
+    "tags": "Cesgranrio_Transpetro"
+  },
+  {
+    "id": "eeef507e53",
+    "enunciado": "As notificações do tipo SNMP Trap exigem confirmação expressa de recebimento enviada pelo gerente ao agente gerenciado.",
+    "gabarito": "F",
+    "explicacao": "A notificação SNMP Trap é enviada via UDP porta 162 de forma não confiável e <font color='#b26a00'><b>sem confirmação de recebimento</b></font> —  a notificação confirmada com ACK é o SNMP InformRequest.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Cesgranrio",
+    "deck": "Concurso::Materias::Redes::Cesgranrio::SNMP",
     "tags": "Cesgranrio_Transpetro"
   },
   {
@@ -2976,6 +3000,18 @@
     "tags": "Samba"
   },
   {
+    "id": "02788ca1e0",
+    "enunciado": "Na especificação formal das operações do protocolo LDAP (RFC 4511), a finalização formal de uma sessão de diretório e o encerramento da conexão TCP são realizados por meio da operação Close.",
+    "gabarito": "F",
+    "explicacao": "A operação protocolar do LDAP para encerramento de sessão e desconexão chama-se exclusivamente <font color='#b26a00'><b>Unbind</b></font> —  a primitiva Close não existe na RFC.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "UFRRJ Infraestrutura",
+    "deck": "Concurso::Materias::Redes::UFRRJ_Infraestrutura::LDAP",
+    "tags": "LDAP"
+  },
+  {
     "id": "3fb448cf79",
     "enunciado": "No protocolo LDAP, uma sessão cliente-servidor é iniciada e autenticada através da operação Bind e formalmente encerrada pela operação Unbind.",
     "gabarito": "V",
@@ -2992,6 +3028,18 @@
     "enunciado": "Na arquitetura do LDAP, o Distinguished Name (DN) é o caminho absoluto e completo que identifica de forma única uma entrada na árvore, enquanto o Relative Distinguished Name (RDN) identifica o nó apenas em relação ao seu nó pai imediato.",
     "gabarito": "V",
     "explicacao": "O DN representa o caminho hierárquico unívoco até a raiz (ex.: cn=Ana,ou=TI,dc=org), enquanto o RDN é o componente local mais à esquerda (cn=Ana).",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "UFRRJ Infraestrutura",
+    "deck": "Concurso::Materias::Redes::UFRRJ_Infraestrutura::LDAP",
+    "tags": "LDAP"
+  },
+  {
+    "id": "863a54de0a",
+    "enunciado": "No protocolo LDAP, o termo RDN (Relative Distinguished Name) define o caminho hierárquico completo e global de uma entrada na DIT, desde o nó folha até a raiz.",
+    "gabarito": "F",
+    "explicacao": "O caminho completo até a raiz é o <font color='#b26a00'><b>DN (Distinguished Name)</b></font> —  o RDN identifica o elemento apenas relativamente ao nível do seu nó pai imediato.",
     "disciplina": "redes",
     "assunto": "nao-classificado",
     "topico": "Redes",
@@ -3058,5 +3106,149 @@
     "assunto_original": "UFRRJ Infraestrutura",
     "deck": "Concurso::Materias::Redes::UFRRJ_Infraestrutura::LDAP",
     "tags": "LDAP"
+  },
+  {
+    "id": "648d3be00b",
+    "enunciado": "No padrão Bluetooth (IEEE 802.15.1), a rede básica primária formada por um dispositivo mestre e até sete escravos ativos é a Piconet, ao passo que a união interconectada de duas ou mais piconets é denominada Scatternet.",
+    "gabarito": "V",
+    "explicacao": "A arquitetura do Bluetooth define a Piconet com 1 master e até 7 slaves ativos. Quando dispositivos conectam múltiplas piconets compartilhando membros, a topologia resultante é chamada de Scatternet.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Topologias",
+    "deck": "Concurso::Materias::Redes::Topologias::Bluetooth",
+    "tags": "Bluetooth"
+  },
+  {
+    "id": "4b5f4f7f01",
+    "enunciado": "O protocolo de correio eletrônico IMAP utiliza por padrão a porta TCP 993 para conexões em texto claro e a porta TCP 143 para conexões seguras sob túnel SSL/TLS.",
+    "gabarito": "F",
+    "explicacao": "As portas estão invertidas: o IMAP em texto claro opera na porta TCP <font color='#b26a00'><b>143</b></font>, enquanto a versão segura criptografada (IMAPS) utiliza a porta TCP <font color='#b26a00'><b>993</b></font>.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Protocolos",
+    "deck": "Concurso::Materias::Redes::Protocolos::Correio_Eletronico",
+    "tags": "Correio_Eletronico"
+  },
+  {
+    "id": "db49fe19cd",
+    "enunciado": "Um firewall de filtro de pacotes stateless inspeciona o conteúdo das mensagens na camada de aplicação e armazena o histórico da sessão para validar pacotes de resposta.",
+    "gabarito": "F",
+    "explicacao": "O firewall de filtro de pacotes é stateless e opera apenas nas camadas 3 e 4, analisando <font color='#b26a00'><b>isoladamente cabeçalhos de IPs e portas sem guardar estado de conexão</b></font> nem inspecionar payloads da camada de aplicação.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Redes::Seguranca::Firewall",
+    "tags": "Firewall"
+  },
+  {
+    "id": "c5babd6bcd",
+    "enunciado": "Redes locais sem fio (WLANs) implementam o protocolo CSMA/CA como método de acesso ao meio porque a detecção de colisão via CSMA/CD é inviável devido à impossibilidade prática de transmissão e recepção simultâneas pelo rádio.",
+    "gabarito": "V",
+    "explicacao": "A doutrina estabelece que o CSMA/CD não pode ser usado no Wi-Fi por três razões físicas: o rádio é half-duplex, há o problema do nó oculto e a atenuação do sinal impede detectar colisões na outra ponta.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Padroes IEEE",
+    "deck": "Concurso::Materias::Redes::Padroes_IEEE::CSMA_CA",
+    "tags": "CSMA_CA"
+  },
+  {
+    "id": "93f158a043",
+    "enunciado": "O endereço físico de enlace (MAC Address) gravado na interface de rede possui tamanho padronizado de 48 bits, o que corresponde exatamente a 6 bytes de extensão.",
+    "gabarito": "V",
+    "explicacao": "O MAC Address possui 48 bits, equivalendo matematicamente a exatamente 6 bytes ($48 / 8 = 6$), tipicamente expresso por 12 dígitos hexadecimais organizados em pares.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Camada Enlace",
+    "deck": "Concurso::Materias::Redes::Camada_Enlace::MAC_Address",
+    "tags": "MAC_Address"
+  },
+  {
+    "id": "564c005099",
+    "enunciado": "O padrão Wi-Fi 6 (IEEE 802.11ax) introduziu a técnica de BSS Coloring (Coloração do BSS) para rotular redes no mesmo canal e viabilizar o reuso espacial de transmissões concorrentes.",
+    "gabarito": "V",
+    "explicacao": "O BSS Coloring atribui identificadores numéricos às redes vizinhas. Se o sinal concorrente tiver cor diferente e estiver abaixo do limiar de interferência, o roteador pode transmitir por cima, mitigando a lentidão do OBSS.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Padroes IEEE",
+    "deck": "Concurso::Materias::Redes::Padroes_IEEE::WiFi_6",
+    "tags": "WiFi_6"
+  },
+  {
+    "id": "e286d5c870",
+    "enunciado": "Durante o encaminhamento de pacotes por roteadores em uma rede TCP/IP, os endereços IP de origem e destino permanecem inalterados, enquanto os endereços MAC são reescritos a cada salto de enlace.",
+    "gabarito": "V",
+    "explicacao": "O endereço IP é a referência lógica de ponta a ponta e viaja inalterado até o destino final. Já o cabeçalho Ethernet com os endereços MAC é descartado e reconstruído a cada salto (hop-by-hop) pelo roteador intermediário.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Roteamento",
+    "deck": "Concurso::Materias::Redes::Roteamento::Hop_by_Hop",
+    "tags": "Hop_by_Hop"
+  },
+  {
+    "id": "40960e71e7",
+    "enunciado": "Na multiplexação óptica WDM, o CWDM utiliza lasers de altíssima precisão com controle térmico rigoroso devido ao espaçamento reduzido entre canais em relação ao DWDM.",
+    "gabarito": "F",
+    "explicacao": "É o inverso: o <font color='#b26a00'><b>DWDM</b></font> é que utiliza lasers caros e resfriados com espaçamentos milimétricos, enquanto o CWDM utiliza espaçamentos largos de 20 nm com lasers não resfriados de baixo custo.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Meios Fisicos",
+    "deck": "Concurso::Materias::Redes::Meios_Fisicos::WDM",
+    "tags": "WDM"
+  },
+  {
+    "id": "8bf426c038",
+    "enunciado": "Transceptores ópticos Gigabit Ethernet do padrão 1000BASE-SX operam sobre fibra monomodo e cobrem distâncias metropolitanas de até 40 km.",
+    "gabarito": "F",
+    "explicacao": "O padrão 1000BASE-SX utiliza fibra <font color='#b26a00'><b>multimodo</b></font> e atinge alcances curtos de até <font color='#b26a00'><b>550 metros</b></font>. O alcance de 40 km sobre fibra monomodo é típico do padrão 1000BASE-EX.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Meios Fisicos",
+    "deck": "Concurso::Materias::Redes::Meios_Fisicos::Transceptores",
+    "tags": "Transceptores"
+  },
+  {
+    "id": "42015443ca",
+    "enunciado": "Conforme a norma ISO 27005, a atividade de comunicação e consulta constitui uma das quatro abordagens primárias para o tratamento de riscos de segurança da informação.",
+    "gabarito": "F",
+    "explicacao": "As quatro opções clássicas de tratamento na ISO 27005 são <font color='#b26a00'><b>Evitar, Mitigar, Transferir e Aceitar</b></font>. A comunicação é uma atividade transversal de governança e monitoramento, não uma forma de tratar riscos.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Redes::Seguranca::Gestao_Riscos",
+    "tags": "Gestao_Riscos"
+  },
+  {
+    "id": "2a952a37fb",
+    "enunciado": "A partir da especificação do protocolo WPA2, a utilização do algoritmo de criptografia simétrica AES tornou-se obrigatória por meio do protocolo CCMP.",
+    "gabarito": "V",
+    "explicacao": "O WPA2 aposentou a fragilidade do TKIP e consolidou o AES como padrão nativo e obrigatório de cifragem simétrica através do protocolo de encapsulamento CCMP.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Redes::Seguranca::WiFi_Criptografia",
+    "tags": "WiFi_Criptografia"
+  },
+  {
+    "id": "24ce32a2a4",
+    "enunciado": "O protocolo Wi-Fi Protected Setup (WPS) foi criado com a finalidade primária de implementar autenticação forte corporativa via certificados digitais X.509 em redes públicas.",
+    "gabarito": "F",
+    "explicacao": "O WPS foi projetado para <font color='#b26a00'><b>simplificar a conexão doméstica de dispositivos sem digitar senhas longas</b></font> (via botão Push Button ou PIN), não tendo relação com certificados corporativos e apresentando falhas graves no modo PIN.",
+    "disciplina": "redes",
+    "assunto": "nao-classificado",
+    "topico": "Redes",
+    "assunto_original": "Seguranca",
+    "deck": "Concurso::Materias::Redes::Seguranca::WPS",
+    "tags": "WPS"
   }
 ]
