@@ -1,0 +1,122 @@
+[
+  {
+    "id": "6e48c15489",
+    "enunciado": "O backup <b>incremental</b> copia apenas os arquivos alterados desde a última operação de backup e limpa o atributo de arquivamento (marca-os como copiados).",
+    "gabarito": "V",
+    "explicacao": "O backup incremental copia exclusivamente o que foi modificado ou criado desde a última rotina (seja ela completa ou outro incremental) e redefine o <i>archive bit</i> para indicar que o arquivo já foi salvo.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Backup",
+    "deck": "Concurso::Materias::Ciberseguranca::Backup::Tipos",
+    "tags": "Backup"
+  },
+  {
+    "id": "c78c4b4143",
+    "enunciado": "O backup <b>diferencial</b> limpa o atributo de arquivamento dos arquivos copiados, permitindo uma restauração mais rápida do que o backup incremental.",
+    "gabarito": "F",
+    "explicacao": "O backup diferencial <font color='#b26a00'><b>NÃO limpa o atributo de arquivamento</b></font>. Ele copia cumulativamente tudo o que foi alterado desde o último backup completo. Por isso a restauração exige apenas o Full + o último diferencial.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Backup",
+    "deck": "Concurso::Materias::Ciberseguranca::Backup::Tipos",
+    "tags": "Backup"
+  },
+  {
+    "id": "2039f321a5",
+    "enunciado": "Sistemas com arranjo <b>RAID 1 (espelhamento)</b> substituem integralmente a necessidade de rotinas de backup, pois protegem contra ataques de ransomware.",
+    "gabarito": "F",
+    "explicacao": "O RAID entrega apenas <font color='#b26a00'><b>disponibilidade física de hardware</b></font> contra queima mecânica de disco. Ele não protege contra exclusão lógica acidental nem contra ransomware, pois replica os arquivos corrompidos em tempo real.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Backup",
+    "deck": "Concurso::Materias::Ciberseguranca::Backup::Politicas",
+    "tags": "Backup"
+  },
+  {
+    "id": "bcf44e9ebc",
+    "enunciado": "A <b>Regra 3-2-1 de backup</b> prescreve manter 3 cópias dos dados, em 2 tipos de mídias diferentes, sendo pelo menos 1 cópia mantida externamente e isolada (offsite).",
+    "gabarito": "V",
+    "explicacao": "A diretriz clássica da Regra 3-2-1 exige 3 cópias no total (1 primária e 2 cópias de segurança), em 2 mídias de tecnologias distintas, com 1 cópia offsite isolada (air gap) para mitigar desastres físicos e ataques de ransomware.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Backup",
+    "deck": "Concurso::Materias::Ciberseguranca::Backup::Regra321",
+    "tags": "Backup"
+  },
+  {
+    "id": "4285f6608e",
+    "enunciado": "O <b>Plano de Continuidade de Negócios (BCP)</b> é o documento estratégico que orienta a recuperação das operações críticas da organização após incidentes graves.",
+    "gabarito": "V",
+    "explicacao": "O BCP (Business Continuity Plan) define os procedimentos e estratégias para manter ou restabelecer as operações essenciais do negócio durante e após desastres ou interrupções severas de serviços.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Continuidade",
+    "deck": "Concurso::Materias::Ciberseguranca::Continuidade::BCP",
+    "tags": "Continuidade"
+  },
+  {
+    "id": "3a6d0e71c1",
+    "enunciado": "Na estrutura da ICP-Brasil, a Autoridade Certificadora Raiz (AC Raiz) emite certificados digitais diretamente para os usuários finais e servidores web.",
+    "gabarito": "F",
+    "explicacao": "A AC Raiz (operada pelo ITI) emite certificados <font color='#b26a00'><b>exclusivamente para Autoridades Certificadoras subordinadas</b></font> (de 1º nível). Quem emite certificados para usuários finais e servidores são as ACs intermediárias/finais.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Certificacao",
+    "deck": "Concurso::Materias::Ciberseguranca::Certificacao::ICPBrasil",
+    "tags": "Certificacao"
+  },
+  {
+    "id": "08cf0f3db6",
+    "enunciado": "Em uma Infraestrutura de Chaves Públicas (PKI), a <b>chave privada</b> do servidor web é transmitida ao navegador do cliente durante o handshake TLS para verificação.",
+    "gabarito": "F",
+    "explicacao": "A chave privada <font color='#b26a00'><b>NUNCA é transmitida pela rede</b></font>. O servidor apenas comprova matematicamente a posse da chave privada por meio de uma operação criptográfica, enviando ao cliente apenas sua chave pública no certificado digital.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Criptografia",
+    "deck": "Concurso::Materias::Ciberseguranca::Criptografia::PKI",
+    "tags": "Criptografia"
+  },
+  {
+    "id": "0659450d01",
+    "enunciado": "O certificado digital do tipo <b>A3</b> da ICP-Brasil é armazenado em arquivo de software no computador, possuindo validade máxima de 1 ano.",
+    "gabarito": "F",
+    "explicacao": "O certificado armazenado em software com validade de 1 ano é o <font color='#b26a00'><b>Tipo A1</b></font>. O certificado do Tipo A3 é gerado e armazenado em hardware dedicado (Smartcard ou Token USB inviolável) com validade de até 5 anos.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Certificacao",
+    "deck": "Concurso::Materias::Ciberseguranca::Certificacao::Tipos",
+    "tags": "Certificacao"
+  },
+  {
+    "id": "c307915959",
+    "enunciado": "Na arquitetura do software de backup Bacula, o <b>Storage Daemon (SD)</b> é responsável por gravar fisicamente os dados nos dispositivos e mídias de armazenamento.",
+    "gabarito": "V",
+    "explicacao": "O Storage Daemon (SD) executa a leitura e gravação física nas mídias de backup (disco, fita, nuvem). O agendamento e controle ficam com o Director (DIR), e a coleta dos arquivos no cliente fica com o File Daemon (FD).",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Backup",
+    "deck": "Concurso::Materias::Ciberseguranca::Backup::Bacula",
+    "tags": "Backup"
+  },
+  {
+    "id": "e1da810d54",
+    "enunciado": "A exibição do ícone de cadeado de segurança (HTTPS) no navegador garante categoricamente que o website é confiável e isento de páginas de phishing ou malwares.",
+    "gabarito": "F",
+    "explicacao": "O HTTPS garante apenas a <font color='#b26a00'><b>criptografia do canal e a titularidade do domínio</b></font>. Cibercriminosos podem obter certificados SSL/TLS válidos para hospedar páginas maliciosas de phishing criptografadas.",
+    "disciplina": "informatica",
+    "assunto": "nao-classificado",
+    "topico": "Ciberseguranca",
+    "assunto_original": "Criptografia",
+    "deck": "Concurso::Materias::Ciberseguranca::Criptografia::HTTPS",
+    "tags": "Criptografia"
+  }
+]
