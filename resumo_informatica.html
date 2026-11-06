@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Noções de Informática — Resumo Consolidado TIC</title>
+  <meta name="theme-color" content="#0b1120">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #0f172a;
+      --surface-card: #152036;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-strong: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --code-bg: #090d16;
+      --font-size: 16px;
+    }
+    body.light-mode {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-card: #f1f5f9;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --text-strong: #0f172a;
+      --text-muted: #475569;
+      --code-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      font-size: var(--font-size);
+      line-height: 1.7;
+      transition: background 0.2s, color 0.2s;
+    }
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #38bdf8);
+      width: 0%;
+      z-index: 9999;
+    }
+    .top-Wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 16px 0;
+    }
+    .reader-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+    }
+    body.light-mode .reader-toolbar {
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .toolbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tb-btn {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .tb-btn:hover {
+      border-color: var(--accent);
+    }
+    .tb-pdf {
+      background: rgba(16, 185, 129, 0.14);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .disc-select {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      max-width: 260px;
+    }
+    .search-input {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      width: 190px;
+    }
+    .layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 28px;
+      padding: 24px 16px 60px;
+      align-items: start;
+    }
+    .sidebar {
+      position: sticky;
+      top: 68px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 14px;
+    }
+    .sidebar-header {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toc-filter {
+      width: 100%;
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+    .toc-link {
+      display: block;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.80rem;
+      padding: 5px 8px;
+      border-radius: 6px;
+      line-height: 1.35;
+      margin-bottom: 2px;
+      transition: all 0.12s;
+    }
+    .toc-link:hover {
+      background: var(--surface-card);
+      color: var(--text-strong);
+    }
+    .toc-h1 {
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      border-left: 3px solid var(--accent);
+      padding-left: 8px;
+    }
+    .toc-h2 {
+      padding-left: 18px;
+      font-size: 0.76rem;
+    }
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 36px;
+      min-width: 0;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+    .hero-banner {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 26px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+    .hero-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    /* Tipografia do Conteúdo Markdown */
+    .md-body h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-strong);
+      margin: 36px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      line-height: 1.3;
+    }
+    .md-body h1:first-child {
+      margin-top: 0;
+    }
+    .md-body h2 {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin: 28px 0 12px;
+      line-height: 1.35;
+    }
+    body.light-mode .md-body h2 {
+      color: #0284c7;
+    }
+    .md-body h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin: 20px 0 8px;
+    }
+    .md-body h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 16px 0 6px;
+    }
+    .md-body p {
+      margin-bottom: 14px;
+    }
+    .md-body ul, .md-body ol {
+      margin: 0 0 16px 24px;
+    }
+    .md-body li {
+      margin-bottom: 6px;
+    }
+    .md-body strong {
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.88em;
+      color: #f472b6;
+    }
+    body.light-mode .md-body code {
+      color: #be185d;
+    }
+    .md-body pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 14px 0 18px;
+    }
+    .md-body pre code {
+      background: transparent;
+      padding: 0;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+    .md-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+    .md-body blockquote {
+      border-left: 4px solid #64748b;
+      background: var(--surface-card);
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 14px 0;
+      color: var(--text-muted);
+    }
+    /* Tabelas Responsivas */
+    .md-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 22px;
+      font-size: 0.9rem;
+      display: block;
+      overflow-x: auto;
+    }
+    .md-body th, .md-body td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+    }
+    .md-body th {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    /* Callouts Estilo Obsidian */
+    .callout {
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 18px 0;
+      border-left: 5px solid #38bdf8;
+      background: var(--surface-card);
+    }
+    .callout-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-strong);
+    }
+    .callout-body p:last-child { margin-bottom: 0; }
+    .callout-resumo { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.08); }
+    .callout-pegadinha { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.09); }
+    .callout-alerta { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.09); }
+    .callout-dica { border-left-color: #10b981; background: rgba(16, 185, 129, 0.09); }
+    .callout-memorizar { border-left-color: #a855f7; background: rgba(168, 85, 247, 0.09); }
+    .callout-conexao { border-left-color: #14b8a6; background: rgba(20, 184, 166, 0.09); }
+
+    .mobile-toc-btn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+    }
+    mark.hl {
+      background: #facc15;
+      color: #0f172a;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        display: none;
+        position: fixed;
+        inset: 60px 16px 76px 16px;
+        z-index: 99;
+        max-height: none;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      }
+      .sidebar.open { display: block; }
+      .mobile-toc-btn { display: inline-flex; align-items: center; gap: 6px; }
+      .content-card { padding: 20px 16px; }
+    }
+  </style>
+<style id="portal-nav-css">
+  .portal-top-bar {
+    width: 100%;
+    margin: 0 0 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    z-index: 100;
+  }
+  .portal-top-bar a.ptb-brand {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .portal-top-bar a.ptb-brand:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .portal-top-bar .ptb-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .portal-top-bar a.ptb-btn {
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .portal-top-bar a.ptb-btn:hover {
+    transform: translateY(-1px);
+  }
+  /* Quiz Game (Verde) */
+  .portal-top-bar a.ptb-quiz {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+  }
+  .portal-top-bar a.ptb-quiz:hover, .portal-top-bar a.ptb-quiz.active {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+  }
+  /* Fichas de Revisão (Âmbar) */
+  .portal-top-bar a.ptb-fichas {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.28);
+  }
+  .portal-top-bar a.ptb-fichas:hover, .portal-top-bar a.ptb-fichas.active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+  }
+  /* Plano UFRRJ (Azul Celeste) */
+  .portal-top-bar a.ptb-ufrrj {
+    color: #38bdf8;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(14, 165, 233, 0.28);
+  }
+  .portal-top-bar a.ptb-ufrrj:hover, .portal-top-bar a.ptb-ufrrj.active {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+  }
+  /* Plano Transpetro (Roxo) */
+  .portal-top-bar a.ptb-transpetro {
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.28);
+  }
+  .portal-top-bar a.ptb-transpetro:hover, .portal-top-bar a.ptb-transpetro.active {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: #c084fc;
+  }
+  /* Resumos Consolidados (Rosa/Ciano) */
+  .portal-top-bar a.ptb-resumos {
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.12);
+    border: 1px solid rgba(244, 114, 182, 0.28);
+  }
+  .portal-top-bar a.ptb-resumos:hover, .portal-top-bar a.ptb-resumos.active {
+    background: rgba(244, 114, 182, 0.25);
+    border-color: #f472b6;
+  }
+  .portal-top-bar a.ptb-btn.active {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+    font-weight: 800;
+  }
+  @media (max-width: 680px) {
+    .portal-top-bar .ptb-text-extra { display: none !important; }
+    .portal-top-bar a.ptb-btn { font-size: 0.72rem; padding: 4px 7px; gap: 4px; }
+    .portal-top-bar a.ptb-brand { font-size: 0.78rem; }
+  }
+  @media (max-width: 440px) {
+    .portal-top-bar { padding: 6px 10px; gap: 6px; }
+    .portal-top-bar .ptb-actions { gap: 4px; }
+    .portal-top-bar a.ptb-btn { font-size: 0.70rem; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+  <div class="top-Wrapper">    <div class="portal-top-bar">
+      <a href="index.html" class="ptb-brand" title="Voltar ao Portal Principal">
+        <span>🏠</span>
+        <span>Portal<span class="ptb-text-extra"> de Estudos</span></span>
+      </a>
+      <div class="ptb-actions">
+        <a href="quiz.html" class="ptb-btn ptb-quiz" title="Quiz Game TIC (Simulado e Prática)">
+          <span>🎮</span>
+          <span>Quiz<span class="ptb-text-extra"> Game</span></span>
+        </a>
+        <a href="fichas.html" class="ptb-btn ptb-fichas" title="Fichas de Revisão Offline">
+          <span>📑</span>
+          <span>Fichas</span>
+        </a>
+        <a href="resumos.html" class="ptb-btn ptb-resumos active" title="Cadernos e Resumos Consolidados por Disciplina">
+          <span>📚</span>
+          <span>Resumos</span>
+        </a>
+        <a href="ufrrj_quadro.html" class="ptb-btn ptb-ufrrj" title="Quadro e Plano de Estudos UFRRJ 2026">
+          <span>🏛️</span>
+          <span><span class="ptb-text-extra">Plano </span>UFRRJ</span>
+        </a>
+        <a href="transpetro_quadro.html" class="ptb-btn ptb-transpetro" title="Quadro e Plano de Estudos Transpetro 2026">
+          <span>⚓</span>
+          <span><span class="ptb-text-extra">Plano </span>Transpetro</span>
+        </a>
+      </div>
+    </div>
+</div>
+
+  <div class="reader-toolbar">
+    <div class="toolbar-inner">
+      <div class="toolbar-left">
+        <a href="resumos.html" class="tb-btn" title="Voltar para Todos os Resumos">📚 Resumos</a>
+        <select class="disc-select" onchange="if(this.value) location.href=this.value" aria-label="Trocar Disciplina">
+          <option value="resumo_portugues.html">📝 Língua Portuguesa</option>
+<option value="resumo_ingles.html">🌐 Língua Inglesa</option>
+<option value="resumo_raciocinio_logico.html">🧮 Raciocínio Lógico</option>
+<option value="resumo_legislacao.html">⚖️ Legislação (Proteção de Dados, Transparência e Regime Jurídico)</option>
+<option value="resumo_informatica.html" selected>💻 Noções de Informática</option>
+<option value="resumo_governanca_ti.html">📊 Gestão e Governança de Tecnologia da Informação</option>
+<option value="resumo_redes.html">🌐 Redes de Computadores</option>
+<option value="resumo_infraestrutura.html">🖥️ Suporte e Infraestrutura</option>
+<option value="resumo_banco_de_dados.html">🗄️ Banco de Dados</option>
+<option value="resumo_atualidades_ia.html">🤖 Atualidades e Inteligência Artificial</option>
+<option value="resumo_ciberseguranca.html">🛡️ Cibersegurança</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <input type="search" id="doc-search" class="search-input" placeholder="🔍 Buscar no texto..." oninput="highlightSearch(this.value)">
+        <button class="tb-btn" onclick="changeFont(-1)" title="Diminuir Fonte">A-</button>
+        <button class="tb-btn" onclick="changeFont(1)" title="Aumentar Fonte">A+</button>
+        <button class="tb-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar Tema Claro/Escuro">☀️/🌙</button>
+        <a href="pdfs/Informatica_Consolidado.pdf" class="tb-btn tb-pdf" target="_blank" title="Baixar versão em PDF">📥 PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span>📑 Índice de Tópicos (7)</span>
+      </div>
+      <input type="search" class="toc-filter" placeholder="Filtrar tópicos..." oninput="filterToc(this.value)">
+      <nav id="toc-list">
+        <a href="#informatica-t01-hardware-e-arquitetura-basica" class="toc-link toc-h1" onclick="closeMobileToc()">Informática — T01: Hardware e Arquitetura Básica</a>
+<a href="#1-do-que-se-trata" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-por-que-isso-cai-em-prova" class="toc-link toc-h2" onclick="closeMobileToc()">2. Por que isso cai em prova?</a>
+<a href="#3-como-as-partes-se-conectam" class="toc-link toc-h2" onclick="closeMobileToc()">3. Como as partes se conectam?</a>
+<a href="#4-pegadinhas-classicas-de-banca" class="toc-link toc-h2" onclick="closeMobileToc()">4. Pegadinhas clássicas de banca</a>
+<a href="#5-perifericos-de-entrada-teclado-abnt2-e-teclas-especiais" class="toc-link toc-h2" onclick="closeMobileToc()">5. Periféricos de Entrada: Teclado ABNT2 e Teclas Especiais</a>
+<a href="#6-perifericos-de-saida-monitores-resolucoes-e-impressoras" class="toc-link toc-h2" onclick="closeMobileToc()">6. Periféricos de Saída: Monitores, Resoluções e Impressoras</a>
+<a href="#7-o-que-separa-quem-acerta-de-quem-erra" class="toc-link toc-h2" onclick="closeMobileToc()">7. O que separa quem acerta de quem erra?</a>
+<a href="#6-onde-eu-erraria-e-por-que" class="toc-link toc-h2" onclick="closeMobileToc()">6. Onde eu erraria e por quê?</a>
+<a href="#7-como-memorizar-sem-decorar" class="toc-link toc-h2" onclick="closeMobileToc()">7. Como memorizar sem decorar?</a>
+<a href="#8-o-que-revisar-e-quando" class="toc-link toc-h2" onclick="closeMobileToc()">8. O que revisar e quando?</a>
+<a href="#9-licao-para-outras-materias" class="toc-link toc-h2" onclick="closeMobileToc()">9. Lição para outras matérias</a>
+<a href="#informatica-t02-sistemas-operacionais-windows-e-linux" class="toc-link toc-h1" onclick="closeMobileToc()">Informática — T02: Sistemas Operacionais (Windows e Linux)</a>
+<a href="#1-do-que-se-trata_1" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-por-que-isso-cai-em-prova_1" class="toc-link toc-h2" onclick="closeMobileToc()">2. Por que isso cai em prova?</a>
+<a href="#3-microsoft-windows-10-e-11-pontos-criticos" class="toc-link toc-h2" onclick="closeMobileToc()">3. Microsoft Windows (10 e 11) — Pontos Críticos</a>
+<a href="#4-gnulinux-estrutura-de-diretorios-e-comandos" class="toc-link toc-h2" onclick="closeMobileToc()">4. GNU/Linux — Estrutura de Diretórios e Comandos</a>
+<a href="#5-como-memorizar-sem-decorar" class="toc-link toc-h2" onclick="closeMobileToc()">5. Como memorizar sem decorar?</a>
+<a href="#6-o-que-revisar-e-quando" class="toc-link toc-h2" onclick="closeMobileToc()">6. O que revisar e quando?</a>
+<a href="#informatica-t03-suites-de-escritorio-office-e-libreoffice" class="toc-link toc-h1" onclick="closeMobileToc()">Informática — T03: Suítes de Escritório (Office e LibreOffice)</a>
+<a href="#1-processadores-de-texto-word-vs-writer" class="toc-link toc-h2" onclick="closeMobileToc()">1. Processadores de Texto: Word vs Writer</a>
+<a href="#2-planilhas-eletronicas-excel-vs-calc" class="toc-link toc-h2" onclick="closeMobileToc()">2. Planilhas Eletrônicas: Excel vs Calc</a>
+<a href="#3-apresentacoes-powerpoint-vs-impress" class="toc-link toc-h2" onclick="closeMobileToc()">3. Apresentações: PowerPoint vs Impress</a>
+<a href="#4-o-que-memorizar-para-a-prova" class="toc-link toc-h2" onclick="closeMobileToc()">4. O que memorizar para a prova?</a>
+<a href="#informatica-t04-redes-de-computadores-internet-e-navegadores" class="toc-link toc-h1" onclick="closeMobileToc()">Informática — T04: Redes de Computadores, Internet e Navegadores</a>
+<a href="#1-do-que-se-trata_2" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-protocolos-essenciais-da-internet" class="toc-link toc-h2" onclick="closeMobileToc()">2. Protocolos Essenciais da Internet</a>
+<a href="#3-navegadores-web-browsers-chrome-firefox-e-edge" class="toc-link toc-h2" onclick="closeMobileToc()">3. Navegadores Web (Browsers: Chrome, Firefox e Edge)</a>
+<a href="#4-limpeza-de-dados-de-navegacao-vs-navegacao-anonima" class="toc-link toc-h2" onclick="closeMobileToc()">4. Limpeza de Dados de Navegação vs Navegação Anônima</a>
+<a href="#5-ferramentas-de-busca-na-internet-operadores-avancados-do-google" class="toc-link toc-h2" onclick="closeMobileToc()">5. Ferramentas de Busca na Internet (Operadores Avançados do Google)</a>
+<a href="#6-servidores-web-proxy-reverso-e-balanceamento-de-carga" class="toc-link toc-h2" onclick="closeMobileToc()">6. Servidores Web, Proxy Reverso e Balanceamento de Carga</a>
+<a href="#informatica-t05-correio-eletronico-e-computacao-em-nuvem" class="toc-link toc-h1" onclick="closeMobileToc()">Informática — T05: Correio Eletrônico e Computação em Nuvem</a>
+<a href="#1-correio-eletronico-campos-de-destinatarios" class="toc-link toc-h2" onclick="closeMobileToc()">1. Correio Eletrônico: Campos de Destinatários</a>
+<a href="#2-protocolos-de-e-mail-a-trinca-de-ouro" class="toc-link toc-h2" onclick="closeMobileToc()">2. Protocolos de E-mail: A Trinca de Ouro</a>
+<a href="#3-computacao-em-nuvem-cloud-computing" class="toc-link toc-h2" onclick="closeMobileToc()">3. Computação em Nuvem (Cloud Computing)</a>
+<a href="#informatica-t06-seguranca-da-informacao-e-protecao-contra-ameacas" class="toc-link toc-h1" onclick="closeMobileToc()">Informática — T06: Segurança da Informação e Proteção contra Ameaças</a>
+<a href="#1-principios-basicos-de-seguranca-cidan" class="toc-link toc-h2" onclick="closeMobileToc()">1. Princípios Básicos de Segurança (CIDAN)</a>
+<a href="#2-o-zoologico-dos-malwares-codigos-maliciosos" class="toc-link toc-h2" onclick="closeMobileToc()">2. O Zoológico dos Malwares (Códigos Maliciosos)</a>
+<a href="#3-golpes-e-engenharia-social" class="toc-link toc-h2" onclick="closeMobileToc()">3. Golpes e Engenharia Social</a>
+<a href="#4-mecanismos-de-defesa-firewall-vs-antivirus" class="toc-link toc-h2" onclick="closeMobileToc()">4. Mecanismos de Defesa: Firewall vs Antivírus</a>
+<a href="#5-copias-de-seguranca-backup-a-trinca-fundamental" class="toc-link toc-h2" onclick="closeMobileToc()">5. Cópias de Segurança (Backup): A Trinca Fundamental</a>
+<a href="#informatica-t07-engenharia-de-software-uml-ciclos-de-vida-e-programacao" class="toc-link toc-h1" onclick="closeMobileToc()">Informática T07 — Engenharia de Software, UML, Ciclos de Vida e Programação</a>
+<a href="#1-modelos-de-processo-prescritivos-de-software" class="toc-link toc-h2" onclick="closeMobileToc()">1. Modelos de Processo Prescritivos de Software</a>
+<a href="#2-diagramas-da-uml-25-classificacao-estrutural-vs-comportamental" class="toc-link toc-h2" onclick="closeMobileToc()">2. Diagramas da UML 2.5: Classificação Estrutural vs Comportamental</a>
+<a href="#3-testes-de-software-caixa-preta-vs-caixa-branca" class="toc-link toc-h2" onclick="closeMobileToc()">3. Testes de Software: Caixa-Preta vs Caixa-Branca</a>
+<a href="#4-fundamentos-de-programacao-python-mutabilidade-e-referencia" class="toc-link toc-h2" onclick="closeMobileToc()">4. Fundamentos de Programação Python: Mutabilidade e Referência</a>
+      </nav>
+    </aside>
+
+    <main class="content-card">
+      <div class="hero-banner">
+        <span class="hero-tag">💻 SO · Redes · Segurança Básica</span>
+        <h1 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text-strong);">Noções de Informática</h1>
+        <div class="hero-meta">
+          <span>📖 <strong>7</strong> tópicos principais</span>
+          <span>⏱️ Leitura estimada: <strong>~30 min</strong> (6,064 palavras)</span>
+          <span>🔄 Atualizado em: <strong>06/11/2026</strong></span>
+        </div>
+      </div>
+
+      <article class="md-body" id="md-article">
+        <h1 id="nocoes-de-informatica">Noções de Informática</h1>
+<blockquote>
+<p><strong>Repositório Central de Concursos de TIC</strong> · UFRRJ &amp; Transpetro 2026</p>
+<p><strong>Caderno Consolidado de Noções de Informática</strong> — teoria completa, mnemônicos e pegadinhas de prova.
+Gerado automaticamente em 06/11/2026.</p>
+</blockquote>
+<hr />
+<h1 id="informatica-t01-hardware-e-arquitetura-basica">Informática — T01: Hardware e Arquitetura Básica</h1>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Visão Geral</div>
+  <div class="callout-body"><p>O hardware é a parte física tangível do computador: placas, chips, fios e periféricos. Para concursos públicos gerais, a banca não quer que você projete um circuito integrado; ela quer testar se você sabe a diferença entre memórias voláteis e não voláteis, a hierarquia de velocidade, os tipos de periféricos e os barramentos modernos.</p></div>
+</div>
+<hr />
+<h2 id="1-do-que-se-trata">1. Do que se trata?</h2>
+<p>Pense no computador como um escritório de trabalho:
+- A <strong>CPU (Processador)</strong> é o trabalhador: quem faz os cálculos, toma decisões lógicas e executa as instruções dos programas.
+- A <strong>Memória RAM</strong> é a mesa de trabalho: espaçosa e rápida, mas tudo o que está em cima dela desaparece quando você desliga a luz (volátil).
+- O <strong>Armazenamento Secundário (SSD/HD)</strong> é o armário de arquivos: mais lento para acessar do que a mesa, mas tudo o que você guarda ali continua guardado mesmo após desligar a energia (não volátil).
+- A <strong>Memória Cache e os Registradores</strong> são o bloco de notas de bolso e a memória de curto prazo do trabalhador: minúsculos, caros e extremamente rápidos.</p>
+<hr />
+<h2 id="2-por-que-isso-cai-em-prova">2. Por que isso cai em prova?</h2>
+<p>Bancas como FGV, Cebraspe e FCC adoram cobrar a fronteira entre o que é volátil e não volátil, e testar se o candidato confunde armazenamento primário com secundário. Outro prato cheio são os tipos de portas (USB-C, HDMI) e as pegadinhas com memórias flash (SSD vs HD magnético).</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Memória RAM vs Memória ROM</div>
+  <div class="callout-body"><p>- <strong>RAM (Random Access Memory):</strong> É volátil! Perde todo o conteúdo ao desligar o equipamento. É de leitura e escrita.
+- <strong>ROM (Read Only Memory):</strong> É NÃO volátil! Guarda os dados de fábrica essenciais para inicializar a máquina (BIOS/UEFI). Na prova, a banca tenta dizer que a RAM guarda o sistema operacional quando o PC está desligado. Falso!</p></div>
+</div>
+<hr />
+<h2 id="3-como-as-partes-se-conectam">3. Como as partes se conectam?</h2>
+<h3 id="a-hierarquia-das-memorias-piramide-de-velocidade-e-custo">A Hierarquia das Memórias (Pirâmide de Velocidade e Custo)</h3>
+<p>Do mais rápido/caro/menor para o mais lento/barato/maior:</p>
+<ol>
+<li><strong>Registradores:</strong> dentro do núcleo da CPU (velocidade máxima).</li>
+<li><strong>Memória Cache (L1, L2, L3):</strong> memória estática (SRAM), intermediária entre CPU e RAM.</li>
+<li><strong>Memória Principal (RAM):</strong> memória dinâmica (DRAM), onde os programas em execução ficam carregados.</li>
+<li><strong>Armazenamento Secundário (SSD, NVMe, HD):</strong> memória de massa, não volátil.</li>
+<li><strong>Armazenamento Terciário / Offline:</strong> fitas magnéticas, cartões de memória, pen drives externos.</li>
+</ol>
+<pre><code>            ▲  Registradores (Topo: + rápido, + caro, - capacidade)
+           / \   Cache (L1, L2, L3)
+          /   \    Memória RAM
+         /     \     SSD / NVMe
+        /_______\      HD Magnético / Fitas (Base: - rápido, - caro, + capacidade)
+</code></pre>
+<hr />
+<h2 id="4-pegadinhas-classicas-de-banca">4. Pegadinhas clássicas de banca</h2>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> SSD não tem partes móveis!</div>
+  <div class="callout-body"><p>O HD tradicional possui discos magnéticos giratórios e um braço mecânico de leitura/gravação. O <strong>SSD (Solid State Drive)</strong> utiliza memória flash semicondutora (chips de silício).
+Consequências que caem em prova:
+1. O SSD é silencioso e resistente a quedas físicas.
+2. O SSD consome menos energia e tem tempo de acesso a dados muito inferior ao do HD.
+3. <strong>Não se desfragmenta SSD!</strong> A desfragmentação em SSD apenas gasta ciclos de gravação das células flash sem ganho de desempenho.</p>
+<p><strong>⚠️ Dispositivos de Entrada vs Saída vs Mistos</strong>
+- <strong>Apenas Entrada:</strong> Teclado, mouse, scanner, microfone, webcam, leitor de código de barras.
+- <strong>Apenas Saída:</strong> Monitor tradicional, impressora comum, fones de ouvido, caixas de som, projetor.
+- <strong>Mistos (Entrada e Saída / Híbridos):</strong> Tela sensível ao toque (<em>touchscreen</em>), impressora multifuncional (imprime e digitaliza), modem, headset (fone + microfone na mesma conexão), pendrive.</p></div>
+</div>
+<hr />
+<h2 id="5-perifericos-de-entrada-teclado-abnt2-e-teclas-especiais">5. Periféricos de Entrada: Teclado ABNT2 e Teclas Especiais</h2>
+<h3 id="51-o-padrao-brasileiro-abnt2">5.1 O Padrão Brasileiro ABNT2</h3>
+<ul>
+<li><strong>A diferença mestra:</strong> O teclado <strong>ABNT2</strong> possui a tecla <strong><code>AltGr</code></strong> (<em>Alternate Graphic</em>, no lado direito da barra de espaço) e a tecla dedicada do <strong><code>ç</code></strong>.</li>
+<li><strong>A função do <code>AltGr</code>:</strong> Permite acionar o <strong>terceiro caractere</strong> de teclas que possuem três símbolos gravados (ex.: <code>AltGr + E</code> = <code>€</code>, <code>AltGr + 1</code> = <code>¹</code>, <code>AltGr + W</code> = <code>?</code> em alguns modelos, <code>§</code>, <code>ª</code>, <code>º</code>).</li>
+</ul>
+<h3 id="52-tipos-de-teclas-do-teclado">5.2 Tipos de Teclas do Teclado</h3>
+<ul>
+<li><strong>Teclas Modificadoras:</strong> <code>Ctrl</code>, <code>Alt</code>, <code>Shift</code>. Sozinhas não realizam ação direta; modificam o comportamento de outra tecla pressionada em conjunto (<code>Ctrl + C</code>, <code>Shift + Letra</code>).</li>
+<li><strong>Teclas de Alternância (<em>Toggle Keys</em>):</strong> <code>Caps Lock</code> (Fixa), <code>Num Lock</code> (Trava Numérica) e <code>Scroll Lock</code> (Trava de Rolagem).</li>
+<li>Cada toque <strong>liga ou desliga</strong> um estado permanente (geralmente acompanhado por uma luz LED indicadora no teclado).</li>
+</ul>
+<hr />
+<h2 id="6-perifericos-de-saida-monitores-resolucoes-e-impressoras">6. Periféricos de Saída: Monitores, Resoluções e Impressoras</h2>
+<h3 id="61-padroes-de-resolucao-de-tela">6.1 Padrões de Resolução de Tela</h3>
+<p>A resolução indica a quantidade de pixels horizontais × verticais:</p>
+<table>
+<thead>
+<tr>
+<th>Padrão</th>
+<th>Resolução (Largura × Altura em Pixels)</th>
+<th>Apelido Comercial em Prova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HD</strong></td>
+<td>1280 × 720</td>
+<td>720p</td>
+</tr>
+<tr>
+<td><strong>Full HD (FHD)</strong></td>
+<td><strong>1920 × 1080</strong></td>
+<td>1080p</td>
+</tr>
+<tr>
+<td><strong>Quad HD (QHD)</strong></td>
+<td>2560 × 1440</td>
+<td>1440p / 2K</td>
+</tr>
+<tr>
+<td><strong>4K UHD (Ultra HD)</strong></td>
+<td><strong>3840 × 2160</strong></td>
+<td><strong>4K UHD</strong> (padrão-ouro em provas)</td>
+</tr>
+<tr>
+<td><strong>8K UHD-2</strong></td>
+<td>7680 × 4320</td>
+<td>8K</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> 4K Cinema (4096) vs 4K UHD Doméstico (3840)</div>
+  <div class="callout-body"><p>O cinema digital adota 4096 × 2160. Porém, em concursos e monitores comerciais de informática, a medida exata do padrão <strong>4K UHD</strong> é <strong>3840 × 2160 pixels</strong>.</p></div>
+</div>
+<h3 id="62-tecnologias-de-impressao">6.2 Tecnologias de Impressão</h3>
+<ul>
+<li><strong>Impressora a Laser:</strong> Utiliza eletrostática, feixe de laser e <strong>Toner</strong> (pó magnético seco de carbono e polímero). O pó é fundido no papel por um rolo aquecido (<em>fusor</em>). Alta velocidade e excelente nitidez em texto.</li>
+<li><strong>Jato de Tinta (<em>Inkjet</em>):</strong> Dispara microgotas de tinta líquida contidas em cartuchos ou tanques. Ideal para imagens coloridas.</li>
+<li><strong>Térmica:</strong> Utiliza calor direto sobre papel termossensível (não usa tinta). Padrão em cupons fiscais e recibos bancários.</li>
+<li><strong>Matricial:</strong> Utiliza fita entintada e agulhas mecânicas. Única que permite imprimir com cópia carbono (formulários contínuos).</li>
+</ul>
+<hr />
+<h2 id="7-o-que-separa-quem-acerta-de-quem-erra">7. O que separa quem acerta de quem erra?</h2>
+<p>Quem erra decora siglas soltas. Quem acerta compreende a função no sistema:
+- <strong>Barramentos e Portas de Conexão:</strong>
+  - <strong>USB (Universal Serial Bus):</strong> Permite conexão <em>Plug and Play</em> e <em>Hot Swappable</em> (conectar e desconectar com o computador ligado sem precisar reiniciar).
+  - <strong>HDMI e DisplayPort:</strong> Transmitem áudio e vídeo digitais em alta definição simultaneamente.
+  - <strong>Thunderbolt:</strong> Desenvolvida pela Intel/Apple, utiliza conector USB-C e oferece altíssima taxa de transferência (até 40 Gbps) para monitores e storages externos.
+  - <strong>VGA e DVI:</strong> Padrões legados; o VGA transmite apenas sinal de vídeo analógico.</p>
+<hr />
+<h2 id="6-onde-eu-erraria-e-por-que">6. Onde eu erraria e por quê?</h2>
+<p>O erro mais comum é confundir <strong>tamanho de arquivo</strong> e ordens de grandeza:
+- <code>1 Byte = 8 bits</code>
+- <code>1 KB (Kilobyte) ≈ 1.000 Bytes</code> (ou 1.024 em base binária)
+- <code>1 MB (Megabyte) ≈ 1 milhão de Bytes</code>
+- <code>1 GB (Gigabyte) ≈ 1 bilhão de Bytes</code>
+- <code>1 TB (Terabyte) ≈ 1 trilhão de Bytes</code></p>
+<p>A banca adora colocar que uma foto de celular ocupa 5 GB (quando na verdade ocupa 3 a 5 MB) ou que um pen drive comum tem 64 KB (quando tem 64 GB).</p>
+<hr />
+<h2 id="7-como-memorizar-sem-decorar">7. Como memorizar sem decorar?</h2>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Mnemônico das Memórias Voláteis</div>
+  <div class="callout-body"><p><strong>R-C-R</strong>: <strong>R</strong>AM, <strong>C</strong>ache, <strong>R</strong>egistradores.
+Se tem "R" ou "C" na CPU/RAM, desliga a luz e foi embora! As outras (HD, SSD, Pen drive, ROM) seguram o dado no escuro.</p></div>
+</div>
+<hr />
+<h2 id="8-o-que-revisar-e-quando">8. O que revisar e quando?</h2>
+<ul>
+<li>Véspera de prova: tabela de periféricos (atenção para multifuncional e touchscreen) e a diferença entre RAM e ROM.</li>
+<li>Não perca tempo decorando velocidades exatas de clock em GHz, pois bancas não cobram dados que mudam a cada trimestre comercial.</li>
+</ul>
+<hr />
+<h2 id="9-licao-para-outras-materias">9. Lição para outras matérias</h2>
+<p>A divisão de papéis em hardware (processador faz a computação, barramento transporta, memória retém) é a mesma estrutura lógica que se repete em Redes (roteador processa, enlace transporta, buffer retém) e em Bancos de Dados (SGBD calcula, log/disco persiste).</p>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> RESUMO</div>
+  <div class="callout-body"><p><strong>Classificação de Volatilidade:</strong>
+- <strong>Voláteis (perdem os dados sem energia):</strong> Registradores da CPU, Memória Cache (L1, L2, L3) e Memória RAM (DRAM/SRAM).
+- <strong>Não-voláteis (preservam os dados):</strong> Memória ROM (BIOS/UEFI), NVRAM, Disco Rígido (HDD), SSD (NAND Flash), Cartões de Memória e Pendrives.</p></div>
+</div>
+<hr />
+<h1 id="informatica-t02-sistemas-operacionais-windows-e-linux">Informática — T02: Sistemas Operacionais (Windows e Linux)</h1>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Visão Geral</div>
+  <div class="callout-body"><p>O Sistema Operacional (SO) é o software básico que gerencia todos os recursos de hardware e fornece a interface para o usuário e seus aplicativos. Para concursos, o foco absoluto é o confronto prático entre o ecossistema Microsoft Windows (10 e 11) e os conceitos essenciais de GNU/Linux (estrutura de diretórios, permissões e comandos de terminal).</p></div>
+</div>
+<hr />
+<h2 id="1-do-que-se-trata_1">1. Do que se trata?</h2>
+<p>Sem o sistema operacional, o computador é apenas um amontoado inerte de metal e plástico. O SO atua como o maestro da orquestra:
+- Decide quem usa o processador e por quanto tempo (escalonamento).
+- Organiza onde cada arquivo mora no disco (sistema de arquivos: NTFS no Windows, Ext4 no Linux).
+- Garante que um programa travado não derrube a máquina inteira (modo protegido e gerência de memória).</p>
+<hr />
+<h2 id="2-por-que-isso-cai-em-prova_1">2. Por que isso cai em prova?</h2>
+<p>Bancas como FGV, Cebraspe e FCC exploram atalhos de teclado do Windows que o usuário médio desconhece, regras de nomes de arquivos, e adoram colocar comandos de Linux para assustar quem só usa mouse.</p>
+<hr />
+<h2 id="3-microsoft-windows-10-e-11-pontos-criticos">3. Microsoft Windows (10 e 11) — Pontos Críticos</h2>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Permissões de Compartilhamento vs. Segurança NTFS</div>
+  <div class="callout-body"><p>No acesso remoto/via rede a pastas compartilhadas no Windows, aplicam-se simultaneamente as permissões de Compartilhamento e as permissões de segurança NTFS.
+- <strong>Regra de Ouro:</strong> Entre Compartilhamento e NTFS, <strong>prevalece sempre a permissão mais restritiva</strong>.
+- Se Compartilhamento = <em>Leitura</em> e NTFS = <em>Controle Total</em>, o acesso final pela rede será estritamente de <strong>Leitura</strong>.
+- Lembre-se: o console <code>services.msc</code> possui a aba <strong>Recuperação</strong> para programar reinício automático de serviços em caso de falha, e o Visualizador de Eventos (<code>eventvwr.msc</code>) destina-se à auditoria de logs passados, não a métricas de consumo de CPU/disco em tempo real (que pertencem ao <code>perfmon.msc</code> e <code>resmon.exe</code>).</p></div>
+</div>
+<h3 id="atalhos-que-as-bancas-mais-cobram">Atalhos que as bancas mais cobram:</h3>
+<ul>
+<li><code>Win + D</code>: Minimiza todas as janelas e exibe a Área de Trabalho (pressionar novamente restaura).</li>
+<li><code>Win + E</code>: Abre o <strong>Explorador de Arquivos</strong> (<em>File Explorer</em>).</li>
+<li><code>Win + L</code>: Bloqueia o computador (<em>Lock</em>) ou troca de usuário.</li>
+<li><code>Win + V</code>: Abre o histórico da área de transferência (permite colar múltiplos itens copiados).</li>
+<li><code>Ctrl + Shift + Esc</code>: Abre direto o <strong>Gerenciador de Tarefas</strong> sem passar por tela intermediária.</li>
+<li><code>Alt + Tab</code>: Alterna rapidamente entre as janelas abertas.</li>
+<li><code>F2</code>: Renomeia o arquivo ou pasta selecionada.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Caracteres proibidos em nomes de arquivos no Windows</div>
+  <div class="callout-body"><p>O Windows NÃO aceita os seguintes 9 caracteres em nomes de arquivos ou pastas:
+<code>\ / : * ? " &lt; &gt; |</code>
+<strong>Mnemônico:</strong> <code>BASES</code> + <code>ASPAS</code> + <code>MENOR/MAIOR</code> + <code>PIPE/INTERROGAÇÃO/ASTERISCO</code>.
+Pense em emojis de bonequinhos: <code>\ / : * ? " &lt; &gt; |</code>.</p>
+<p><strong>🔴 Lixeira do Windows</strong>
+- Arquivos excluídos com a tecla <code>Delete</code> vão para a Lixeira e podem ser restaurados.
+- Arquivos excluídos com <code>Shift + Delete</code> são <strong>excluídos permanentemente</strong> sem passar pela Lixeira!
+- Arquivos excluídos de unidades de rede ou de mídias removíveis (pen drives) <strong>NÃO vão para a lixeira local</strong>: são excluídos diretamente.</p></div>
+</div>
+<hr />
+<h2 id="4-gnulinux-estrutura-de-diretorios-e-comandos">4. GNU/Linux — Estrutura de Diretórios e Comandos</h2>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Bit Especial SUID e Comando passwd</div>
+  <div class="callout-body"><p>Por que um usuário comum consegue alterar sua senha se o arquivo de senhas (<code>/etc/shadow</code>) só pode ser alterado pelo <code>root</code>?
+- Resposta de prova: Graças ao <strong>bit especial SUID</strong> (<em>Set User ID</em>) ativo no executável <code>/usr/bin/passwd</code> (<code>-rwsr-xr-x</code>).
+- O bit SUID faz com que o comando seja executado temporariamente com os privilégios do <strong>proprietário do arquivo</strong> (root), e não com as permissões restritas do usuário comum que o chamou.</p>
+<p><strong>🔴 Comandos de Diagnóstico e Serviços no Linux</strong>
+- <strong>Espaço em disco:</strong> <code>df -h</code> (<em>disk free</em>) reporta a visão geral dos sistemas de arquivos montados e partições; <code>du -sh</code> (<em>disk usage</em>) reporta o espaço ocupado por arquivos e pastas individuais.
+- <strong>Rede moderna:</strong> O comando <code>ifconfig</code> está obsoleto (<em>deprecated</em>); o padrão atual nas distribuições modernas é o comando <code>ip</code> do pacote <code>iproute2</code> (<code>ip addr</code>, <code>ip link</code>).
+- <strong>systemd:</strong> <code>systemctl start</code> apenas ativa o serviço na sessão presente; para torná-lo persistente e iniciá-lo automaticamente durante o boot, o comando indispensável é <strong><code>systemctl enable</code></strong>.</p></div>
+</div>
+<p>O Linux organiza tudo sob uma única raiz chamada <code>/</code> (<em>root</em>). Não existem letras de unidade como <code>C:</code> ou <code>D:</code>.</p>
+<h3 id="diretorios-essenciais">Diretórios Essenciais:</h3>
+<ul>
+<li><code>/</code> (raiz): topo da hierarquia.</li>
+<li><code>/bin</code>: binários executáveis essenciais de comandos do sistema (<code>ls</code>, <code>cp</code>, <code>cat</code>).</li>
+<li><code>/sbin</code>: binários de administração do sistema (usados pelo superusuário <em>root</em>).</li>
+<li><code>/home</code>: diretórios pessoais dos usuários comuns (ex.: <code>/home/maria</code>).</li>
+<li><code>/root</code>: diretório pessoal exclusivo do superusuário (<em>root</em>).</li>
+<li><code>/etc</code>: arquivos de <strong>configuração</strong> do sistema e dos serviços.</li>
+<li><code>/var</code>: arquivos variáveis (logs, filas de impressão, e-mails).</li>
+<li><code>/tmp</code>: arquivos temporários (limpos na reinicialização).</li>
+<li><code>/dev</code>: arquivos especiais que representam dispositivos de hardware (discos, terminais).</li>
+</ul>
+<h3 id="comandos-de-terminal-fundamentais">Comandos de Terminal Fundamentais:</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>O que faz</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ls</code></td>
+<td>Lista arquivos e diretórios (<code>ls -l</code> detalha, <code>ls -a</code> mostra ocultos)</td>
+<td><code>ls -la</code></td>
+</tr>
+<tr>
+<td><code>cd</code></td>
+<td>Muda de diretório</td>
+<td><code>cd /home/user</code></td>
+</tr>
+<tr>
+<td><code>pwd</code></td>
+<td>Exibe o diretório atual de trabalho (<em>Print Working Directory</em>)</td>
+<td><code>pwd</code></td>
+</tr>
+<tr>
+<td><code>mkdir</code></td>
+<td>Cria novo diretório</td>
+<td><code>mkdir pasta</code></td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>Remove arquivos (<code>rm -r</code> remove diretórios recursivamente)</td>
+<td><code>rm -rf pasta</code></td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>Copia arquivos ou diretórios</td>
+<td><code>cp arq.txt arq_bkp.txt</code></td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>Move ou renomeia arquivos</td>
+<td><code>mv antigo.txt novo.txt</code></td>
+</tr>
+<tr>
+<td><code>cat</code></td>
+<td>Concatena e exibe o conteúdo de um arquivo na tela</td>
+<td><code>cat log.txt</code></td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>Filtra linhas que contêm determinado padrão/texto</td>
+<td><code>grep "erro" log.txt</code></td>
+</tr>
+<tr>
+<td><code>chmod</code></td>
+<td>Altera permissões de arquivos/pastas</td>
+<td><code>chmod 755 script.sh</code></td>
+</tr>
+<tr>
+<td><code>man</code></td>
+<td>Abre o manual de ajuda de qualquer comando</td>
+<td><code>man ls</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Case Sensitive no Linux</div>
+  <div class="callout-body"><p>O Linux é <strong>sensível a maiúsculas e minúsculas</strong> (<em>case-sensitive</em>). No mesmo diretório podem coexistir <code>Edital.txt</code>, <code>edital.txt</code> e <code>EDITAL.TXT</code> como 3 arquivos totalmente diferentes. No Windows, esses nomes são considerados o mesmo arquivo.</p></div>
+</div>
+<hr />
+<h2 id="5-como-memorizar-sem-decorar">5. Como memorizar sem decorar?</h2>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Mnemônico das Permissões do Linux</div>
+  <div class="callout-body"><p><strong>R-W-X</strong>:
+- <strong>R</strong>ead (Ler) = 4
+- <strong>W</strong>rite (Escrever/Alterar) = 2
+- e<strong>X</strong>ecute (Executar) = 1
+Se somar tudo: <code>4 + 2 + 1 = 7</code> (permissão total).
+<code>r-x</code> = <code>4 + 0 + 1 = 5</code> (ler e executar).</p></div>
+</div>
+<hr />
+<h2 id="6-o-que-revisar-e-quando">6. O que revisar e quando?</h2>
+<ul>
+<li>No Windows: atalhos <code>Win + ...</code>, regra do <code>Shift + Delete</code> e caracteres inválidos.</li>
+<li>No Linux: finalidade de <code>/etc</code> (configuração), <code>/home</code> (usuários) e a trinca de comandos <code>ls</code>, <code>pwd</code>, <code>grep</code>.</li>
+</ul>
+<hr />
+<h1 id="informatica-t03-suites-de-escritorio-office-e-libreoffice">Informática — T03: Suítes de Escritório (Office e LibreOffice)</h1>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Visão Geral</div>
+  <div class="callout-body"><p>As suítes de escritório são o tema mais recorrente em provas gerais de concursos. A disputa clássica é entre a suíte proprietária da Microsoft (<strong>Office: Word, Excel, PowerPoint</strong>) e a suíte livre multiplataforma (<strong>LibreOffice: Writer, Calc, Impress</strong>). O segredo para pontuar alto é dominar fórmulas de planilhas e não cair nas pegadinhas de atalhos e extensões nativas.</p></div>
+</div>
+<hr />
+<h2 id="1-processadores-de-texto-word-vs-writer">1. Processadores de Texto: Word vs Writer</h2>
+<table>
+<thead>
+<tr>
+<th>Recurso / Item</th>
+<th>Microsoft Word</th>
+<th>LibreOffice Writer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Extensão padrão</strong></td>
+<td><code>.docx</code></td>
+<td><code>.odt</code> (OpenDocument Text)</td>
+</tr>
+<tr>
+<td><strong>Negrito</strong></td>
+<td><code>Ctrl + N</code></td>
+<td><code>Ctrl + B</code> (<em>Bold</em>)</td>
+</tr>
+<tr>
+<td><strong>Itálico</strong></td>
+<td><code>Ctrl + I</code></td>
+<td><code>Ctrl + I</code></td>
+</tr>
+<tr>
+<td><strong>Sublinhado</strong></td>
+<td><code>Ctrl + S</code></td>
+<td><code>Ctrl + U</code> (<em>Underline</em>)</td>
+</tr>
+<tr>
+<td><strong>Salvar</strong></td>
+<td><code>Ctrl + B</code> (<em>Backup</em>)</td>
+<td><code>Ctrl + S</code> (<em>Save</em>)</td>
+</tr>
+<tr>
+<td><strong>Novo documento</strong></td>
+<td><code>Ctrl + O</code></td>
+<td><code>Ctrl + N</code> (<em>New</em>)</td>
+</tr>
+<tr>
+<td><strong>Abrir documento</strong></td>
+<td><code>Ctrl + A</code></td>
+<td><code>Ctrl + O</code> (<em>Open</em>)</td>
+</tr>
+<tr>
+<td><strong>Alinhar ao centro</strong></td>
+<td><code>Ctrl + E</code></td>
+<td><code>Ctrl + E</code></td>
+</tr>
+<tr>
+<td><strong>Justificar</strong></td>
+<td><code>Ctrl + J</code></td>
+<td><code>Ctrl + J</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A armadilha do <code>Ctrl + S</code> e <code>Ctrl + B</code></div>
+  <div class="callout-body"><p>- No <strong>Word em português</strong>: <code>Ctrl + S</code> é <strong>Sublinhado</strong> e <code>Ctrl + B</code> é <strong>Salvar</strong>.
+- No <strong>Writer (mesmo em português)</strong>: ele adota atalhos universais em inglês! <code>Ctrl + S</code> é <strong>Salvar</strong> (<em>Save</em>) e <code>Ctrl + B</code> é <strong>Negrito</strong> (<em>Bold</em>). A banca adora inverter isso!</p></div>
+</div>
+<h3 id="quebra-de-pagina-vs-quebra-de-secao">Quebra de Página vs Quebra de Seção:</h3>
+<ul>
+<li><strong>Quebra de Página (<code>Ctrl + Enter</code>):</strong> Apenas empurra o texto seguinte para o início da próxima página. A numeração e a orientação de página continuam idênticas.</li>
+<li><strong>Quebra de Seção:</strong> Permite alterar as regras de formatação entre partes do mesmo documento (ex.: uma página em modo Paisagem no meio de páginas em Retrato, ou cabeçalho e rodapé diferentes entre capítulos).</li>
+</ul>
+<hr />
+<h2 id="2-planilhas-eletronicas-excel-vs-calc">2. Planilhas Eletrônicas: Excel vs Calc</h2>
+<p>Toda fórmula em planilha começa obrigatoriamente com o sinal de igualdade (<code>=</code>).</p>
+<h3 id="referencias-de-celulas">Referências de Células:</h3>
+<ul>
+<li><strong>Relativa (<code>A1</code>):</strong> Ao arrastar a fórmula para baixo ou para o lado, as linhas e colunas mudam automaticamente (<code>A1</code> vira <code>A2</code>, <code>B1</code>, etc.).</li>
+<li><strong>Absoluta (<code>$A$1</code>):</strong> O símbolo do cifrão <code>$</code> "tranca" o elemento que vem logo à sua direita. Não muda nunca ao arrastar.</li>
+<li><strong>Mista (<code>$A1</code> ou <code>A$1</code>):</strong> <code>$A1</code> tranca a coluna A e deixa a linha livre; <code>A$1</code> deixa a coluna livre e tranca a linha 1.</li>
+</ul>
+<h3 id="funcoes-mais-cobradas">Funções mais cobradas:</h3>
+<ul>
+<li><code>=SOMA(A1:A5)</code>: Soma todos os valores no intervalo contínuo de A1 até A5.</li>
+<li><code>=SOMA(A1;A5)</code>: Soma <strong>apenas</strong> duas células isoladas: A1 e A5 (atenção ao ponto e vírgula <code>;</code>).</li>
+<li><code>=MÉDIA(A1:A10)</code>: Média aritmética dos valores. Células de texto ou vazias são ignoradas; células com valor zero entram na conta!</li>
+<li><code>=SE(teste_lógico; valor_se_verdadeiro; valor_se_falso)</code>:</li>
+<li>Exemplo: <code>=SE(B2&gt;=7; "Aprovado"; "Reprovado")</code></li>
+<li><code>=CONT.SE(intervalo; critério)</code>: Conta quantas células atendem a uma condição (ex.: <code>=CONT.SE(A1:A20; "&gt;50")</code>).</li>
+<li><code>=PROCV(valor_procurado; matriz_tabela; número_índice_coluna; [procurar_intervalo])</code>: Busca um valor na <strong>primeira coluna</strong> de uma tabela e retorna o dado correspondente em outra coluna à direita.</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> Dois pontos <code>:</code> vs Ponto e vírgula <code>;</code></div>
+  <div class="callout-body"><p>- <code>:</code> significa <strong>"ATÉ"</strong> (intervalo contínuo). Ex.: <code>A1:B3</code> pega 6 células.
+- <code>;</code> significa <strong>"E"</strong> (separador de argumentos ou células isoladas). Ex.: <code>A1;B3</code> pega apenas 2 células.</p></div>
+</div>
+<hr />
+<h2 id="3-apresentacoes-powerpoint-vs-impress">3. Apresentações: PowerPoint vs Impress</h2>
+<ul>
+<li><strong>Extensões nativas:</strong> <code>.pptx</code> (PowerPoint) e <code>.odp</code> (Impress).</li>
+<li><strong>Atalhos de apresentação:</strong></li>
+<li><code>F5</code>: Inicia a apresentação de slides <strong>desde o primeiro slide</strong>.</li>
+<li><code>Shift + F5</code>: Inicia a apresentação <strong>a partir do slide atual</strong> selecionado.</li>
+<li><code>Esc</code>: Interrompe a apresentação e retorna ao modo de edição.</li>
+<li><strong>Transição vs Animação:</strong></li>
+<li><strong>Transição:</strong> É o efeito visual que ocorre na <strong>passagem de um slide para o outro</strong>.</li>
+<li><strong>Animação:</strong> É o efeito aplicado a <strong>objetos internos de um slide</strong> (textos, imagens, formas surgindo, girando ou desaparecendo).</li>
+</ul>
+<hr />
+<h2 id="4-o-que-memorizar-para-a-prova">4. O que memorizar para a prova?</h2>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Tabela de Extensões Nativas</div>
+  <div class="callout-body"><p>- Texto: Word = <code>.docx</code> | Writer = <code>.odt</code> (OpenDocument Text)
+- Planilha: Excel = <code>.xlsx</code> | Calc = <code>.ods</code> (OpenDocument Spreadsheet)
+- Apresentação: PowerPoint = <code>.pptx</code> | Impress = <code>.odp</code> (OpenDocument Presentation)
+Mnemônico ODF: T=Text, S=Spreadsheet, P=Presentation!</p>
+<p><strong>⚠️ PEGADINHA</strong>
+<strong>Atalho no Microsoft PowerPoint:</strong>
+- <code>Ctrl + M</code>: Adiciona um <strong>Novo Slide</strong> à apresentação atual.
+- <code>Ctrl + O</code>: Cria uma <strong>Nova Apresentação</strong> (arquivo em branco).
+- <code>Shift + F5</code>: Inicia os slides a partir do <strong>slide selecionado/atual</strong>.</p></div>
+</div>
+<hr />
+<h1 id="informatica-t04-redes-de-computadores-internet-e-navegadores">Informática — T04: Redes de Computadores, Internet e Navegadores</h1>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Visão Geral</div>
+  <div class="callout-body"><p>Noções de redes para concursos gerais focam na perspectiva do usuário: a distinção entre Internet, Intranet e Extranet, os protocolos das aplicações mais comuns (web, arquivos e correio) e o comportamento dos navegadores modernos (privacidade, histórico, cookies e atalhos).</p></div>
+</div>
+<hr />
+<h2 id="1-do-que-se-trata_2">1. Do que se trata?</h2>
+<p>A Internet é a gigantesca rede pública mundial de computadores interconectados que utilizam a família de protocolos TCP/IP.
+- <strong>Intranet:</strong> Rede corporativa interna privada, restrita aos funcionários de uma organização, que utiliza <strong>exatamente a mesma tecnologia e protocolos da Internet</strong> (TCP/IP, HTTP, e-mail interno).
+- <strong>Extranet:</strong> Extensão controlada da Intranet para parceiros externos, fornecedores, clientes ou funcionários em trabalho remoto via acesso autorizado (muitas vezes por VPN).</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Intranet usa protocolos próprios?</div>
+  <div class="callout-body"><p>Não! A Intranet utiliza a <strong>mesma arquitetura e os mesmos protocolos da Internet</strong> (HTTP, HTTPS, FTP, DNS). A única diferença é o controle de acesso e o escopo de uso (privado vs público).</p></div>
+</div>
+<hr />
+<h2 id="2-protocolos-essenciais-da-internet">2. Protocolos Essenciais da Internet</h2>
+<table>
+<thead>
+<tr>
+<th>Protocolo</th>
+<th>Nome / Significado</th>
+<th>Função Principal</th>
+<th>Porta Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HTTP</strong></td>
+<td>HyperText Transfer Protocol</td>
+<td>Transferência de páginas web sem criptografia (texto puro)</td>
+<td>80</td>
+</tr>
+<tr>
+<td><strong>HTTPS</strong></td>
+<td>HTTP Secure</td>
+<td>Navegação web segura com criptografia (SSL/TLS)</td>
+<td>443</td>
+</tr>
+<tr>
+<td><strong>FTP</strong></td>
+<td>File Transfer Protocol</td>
+<td>Transferência e download/upload de arquivos</td>
+<td>20 / 21</td>
+</tr>
+<tr>
+<td><strong>DNS</strong></td>
+<td>Domain Name System</td>
+<td>Converte nomes legíveis (<code>google.com</code>) em endereços IP numéricos</td>
+<td>53</td>
+</tr>
+<tr>
+<td><strong>DHCP</strong></td>
+<td>Dynamic Host Configuration</td>
+<td>Atribui dinamicamente endereços IP e configurações de rede aos hosts</td>
+<td>67 / 68</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-navegadores-web-browsers-chrome-firefox-e-edge">3. Navegadores Web (Browsers: Chrome, Firefox e Edge)</h2>
+<h3 id="atalhos-criticos">Atalhos Críticos:</h3>
+<ul>
+<li><code>Ctrl + T</code>: Abre uma nova aba/guia.</li>
+<li><code>Ctrl + W</code> ou <code>Ctrl + F4</code>: Fecha a aba ativa.</li>
+<li><code>Ctrl + Shift + T</code>: Reabre a última aba que foi fechada acidentalmente.</li>
+<li><code>Ctrl + H</code>: Abre o Histórico de navegação.</li>
+<li><code>Ctrl + J</code>: Abre o painel de Downloads.</li>
+<li><code>Ctrl + D</code>: Adiciona a página atual aos Favoritos (<em>Bookmark</em>).</li>
+<li><code>F5</code> ou <code>Ctrl + R</code>: Recarrega a página.</li>
+<li><code>Ctrl + F5</code>: Recarrega forçando a limpeza do cache local daquela página.</li>
+<li><code>Ctrl + Shift + Del</code>: Abre a janela para <strong>Limpar Dados de Navegação</strong> (<em>Clear Browsing Data</em>).</li>
+</ul>
+<hr />
+<h2 id="4-limpeza-de-dados-de-navegacao-vs-navegacao-anonima">4. Limpeza de Dados de Navegação vs Navegação Anônima</h2>
+<h3 id="41-o-que-a-limpeza-de-dados-ctrl-shift-del-apaga">4.1 O que a Limpeza de Dados (<code>Ctrl + Shift + Del</code>) Apaga:</h3>
+<ul>
+<li><strong>Histórico de navegação:</strong> URLs e títulos das páginas acessadas.</li>
+<li><strong>Cookies e dados de sites:</strong> Arquivos de texto que mantêm sessões e preferências.</li>
+<li><strong>Cache (Imagens e arquivos em cache):</strong> Cópia local de elementos visuais para acelerar carregamentos futuros.</li>
+<li><strong>Senhas salvas e dados de preenchimento automático (<em>Autofill</em>):</strong> Nomes, e-mails, endereços e telefones memorizados.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> O que a limpeza de dados NÃO apaga:</div>
+  <div class="callout-body"><p>A limpeza de navegação <strong>não exclui os arquivos baixados</strong> da pasta <code>Downloads</code> do sistema operacional nem exclui os sites salvos nos <strong>Favoritos</strong> (<em>Bookmarks</em>).</p></div>
+</div>
+<h3 id="42-a-grande-pegadinha-da-navegacao-anonima-privativa">4.2 A Grande Pegadinha da Navegação Anônima / Privativa</h3>
+<p>Atalhos:
+- Google Chrome: <code>Ctrl + Shift + N</code> (Nova janela anônima)
+- Mozilla Firefox e Edge: <code>Ctrl + Shift + P</code> (Nova janela privativa / InPrivate)</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> O que a Navegação Anônima REALMENTE faz?</div>
+  <div class="callout-body"><p>- <strong>O que ela NÃO salva no computador local:</strong>
+- Não salva o histórico de páginas visitadas.
+- Não salva cookies e dados de formulários após fechar a janela.
+- Não mantém o login ativo após fechar a janela anônima.
+- <strong>O que ela NÃO FAZ (pegadinha clássica de prova):</strong>
+- <strong>Não torna o usuário invisível na Internet!</strong>
+- O provedor de acesso, o administrador da rede corporativa/escola e os sites visitados <strong>continuam sabendo quem você é e registrando seu IP</strong>.
+- Arquivos baixados e favoritos criados durante a sessão anônima <strong>permanecem salvos no disco!</strong></p></div>
+</div>
+<hr />
+<h2 id="5-ferramentas-de-busca-na-internet-operadores-avancados-do-google">5. Ferramentas de Busca na Internet (Operadores Avançados do Google)</h2>
+<ul>
+<li><code>"termo exato"</code>: Busca a expressão exata na mesma ordem de palavras.</li>
+<li><code>site:dominio</code>: Restringe a busca a um site ou domínio específico (ex.: <code>concurso site:gov.br</code>).</li>
+<li><code>filetype:tipo</code>: Busca arquivos de um formato específico (ex.: <code>edital filetype:pdf</code>).</li>
+<li><code>-palavra</code> (sinal de menos colado): Exclui páginas que contenham a palavra (ex.: <code>jaguar -carro</code>).</li>
+<li><code>OR</code> (em maiúsculas): Busca uma palavra OU outra (ex.: <code>FGV OR Cebraspe</code>).</li>
+</ul>
+<hr />
+<h2 id="6-servidores-web-proxy-reverso-e-balanceamento-de-carga">6. Servidores Web, Proxy Reverso e Balanceamento de Carga</h2>
+<p>Em provas de TIC e noções aprofundadas de infraestrutura, a arquitetura de entrega web é cobrada em três conceitos-chave:</p>
+<h3 id="61-nginx-vs-apache-http-server">6.1 NGINX vs. Apache HTTP Server</h3>
+<ul>
+<li><strong>NGINX:</strong> Arquitetura <strong>assíncrona e orientada a eventos</strong> (<em>event-driven</em>). Utiliza poucos processos trabalhadores (<em>workers</em>) para gerenciar milhares de conexões simultâneas com consumo mínimo de memória. Líder absoluto em alta concorrência e como proxy reverso.</li>
+<li><strong>Apache:</strong> Modelo clássico baseado em processos/threads (MPMs). Cria um processo/thread para cada cliente conectado, consumindo mais memória por requisição.</li>
+</ul>
+<h3 id="62-proxy-direto-forward-proxy-vs-proxy-reverso-reverse-proxy">6.2 Proxy Direto (<em>Forward Proxy</em>) vs. Proxy Reverso (<em>Reverse Proxy</em>)</h3>
+<ul>
+<li><strong>Forward Proxy (ex: Squid):</strong> Instalado do lado do <strong>cliente</strong> (rede corporativa). Esconde o IP dos usuários internos, controla sites acessados e faz cache de navegação. Protege quem <em>consome</em> a Internet.</li>
+<li><strong>Reverse Proxy (ex: NGINX, HAProxy):</strong> Instalado do lado do <strong>servidor</strong> (data center). Recebe as requisições da Internet pública, esconde os servidores de aplicação internos, realiza terminação criptográfica SSL/TLS e balanceia a carga entre instâncias. Protege quem <em>fornece</em> o serviço.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Persistência de Sessão no NGINX (ip_hash)</div>
+  <div class="callout-body"><p>Quando um balanceador de carga NGINX distribui requisições entre servidores de backend sem sincronização de sessão na aplicação, os usuários sofrem perda de login.
+A solução nativa no NGINX sem mexer no código da aplicação é a diretiva <strong><code>ip_hash;</code></strong> dentro do bloco <code>upstream { ... }</code>, que garante afinidade de sessão direcionando sempre o mesmo IP cliente para a mesma máquina servidora.</p></div>
+</div>
+<hr />
+<h1 id="informatica-t05-correio-eletronico-e-computacao-em-nuvem">Informática — T05: Correio Eletrônico e Computação em Nuvem</h1>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Visão Geral</div>
+  <div class="callout-body"><p>Dois temas cotidianos com armadilhas frequentes em concurso: o funcionamento do e-mail (regras dos campos <code>Para</code>, <code>Cc</code> e <code>Cco</code>, e os protocolos de transporte) e os conceitos e modelos da computação em nuvem (<em>Cloud Computing</em>).</p></div>
+</div>
+<hr />
+<h2 id="1-correio-eletronico-campos-de-destinatarios">1. Correio Eletrônico: Campos de Destinatários</h2>
+<ul>
+<li><strong>Para (<code>To</code>):</strong> Destinatário principal da mensagem. Seu endereço é visível para todos que receberem o e-mail.</li>
+<li><strong>Cc (Com Cópia / <em>Carbon Copy</em>):</strong> Destinatário secundário/informativo. Também é visível para todos.</li>
+<li><strong>Cco / Bcc (Cópia Oculta / <em>Blind Carbon Copy</em>):</strong> Destinatário secreto.</li>
+<li><strong>Quem está no <code>Cco</code> vê todo mundo</strong> (vê quem está no <code>Para</code>, no <code>Cc</code> e a si mesmo).</li>
+<li><strong>Ninguém vê quem está no <code>Cco</code>!</strong> Os destinatários em <code>Para</code> e <code>Cc</code> não sabem da existência do <code>Cco</code>.</li>
+<li><strong>Dois destinatários em <code>Cco</code> NÃO veem um ao outro!</strong> Se você colocar João e Maria no <code>Cco</code>, João não vê Maria e Maria não vê João.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A armadilha do "Responder a Todos"</div>
+  <div class="callout-body"><p>Se uma pessoa que estava em <code>Para</code> ou <code>Cc</code> clica em <strong>"Responder a Todos"</strong>, a resposta vai para quem enviou o e-mail e para todos que estavam em <code>Para</code> e <code>Cc</code>.
+<strong>A resposta NÃO vai para quem estava em <code>Cco</code></strong>, porque o remetente da resposta nem sabe que essa pessoa recebeu o e-mail original!
+Agora, se a pessoa que estava oculta em <code>Cco</code> resolver clicar em "Responder a Todos", sua resposta chegará a todos e ela <strong>revelará publicamente sua identidade</strong>.</p></div>
+</div>
+<hr />
+<h2 id="2-protocolos-de-e-mail-a-trinca-de-ouro">2. Protocolos de E-mail: A Trinca de Ouro</h2>
+<table>
+<thead>
+<tr>
+<th>Protocolo</th>
+<th>Direção</th>
+<th>Função Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SMTP</strong></td>
+<td><strong>ENVIO</strong></td>
+<td><em>Simple Mail Transfer Protocol</em>. É o carteiro que leva a carta da sua máquina para o servidor.</td>
+</tr>
+<tr>
+<td><strong>POP3</strong></td>
+<td><strong>RECEBIMENTO</strong></td>
+<td>Baixa as mensagens do servidor para a máquina local e, por padrão, <strong>remove do servidor</strong>.</td>
+</tr>
+<tr>
+<td><strong>IMAP</strong></td>
+<td><strong>RECEBIMENTO / SINCRONIZAÇÃO</strong></td>
+<td>Mantém as mensagens armazenadas no servidor e sincroniza pastas e status (lido/não lido) em tempo real entre múltiplos dispositivos.</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Mnemônico do SMTP</div>
+  <div class="callout-body"><p><strong>S-M-T-P</strong>: <strong>S</strong>ua <strong>M</strong>ensagem <strong>T</strong>á <strong>P</strong>artindo! (Protocolo exclusivo de <strong>ENVIO</strong>).
+O POP3 "puxa" para o PC; o IMAP "espelha" no servidor.</p></div>
+</div>
+<hr />
+<h2 id="3-computacao-em-nuvem-cloud-computing">3. Computação em Nuvem (<em>Cloud Computing</em>)</h2>
+<p>A computação em nuvem é a entrega sob demanda de poder computacional, armazenamento de banco de dados, aplicações e outros recursos de TI por meio da Internet, sob modelo de pagamento conforme o uso.</p>
+<h3 id="modelos-de-servico-a-piramide-da-nuvem">Modelos de Serviço (A Pirâmide da Nuvem):</h3>
+<ol>
+<li><strong>IaaS (Infraestrutura como Serviço):</strong> O provedor entrega a infraestrutura básica bruta: servidores virtuais, redes, armazenamento e roteadores. O cliente gerencia o sistema operacional, softwares e dados (ex.: Amazon EC2, Azure VMs, Google Compute Engine).</li>
+<li><strong>PaaS (Plataforma como Serviço):</strong> O provedor entrega o ambiente de desenvolvimento pronto: sistema operacional, banco de dados e runtime. O desenvolvedor apenas envia e executa seu código (ex.: Heroku, Google App Engine).</li>
+<li><strong>SaaS (Software como Serviço):</strong> O software final pronto para uso direto pelo usuário através do navegador web. O cliente não gerencia nada da infraestrutura (ex.: Gmail, Google Drive, Microsoft 365 na web, Trello, Dropbox).</li>
+</ol>
+<h3 id="modelos-de-implantacao">Modelos de Implantação:</h3>
+<ul>
+<li><strong>Nuvem Pública:</strong> Pertence ao provedor e os recursos são compartilhados por múltiplos clientes.</li>
+<li><strong>Nuvem Privada:</strong> Exclusiva para uma única organização (seja mantida internamente ou por terceiro).</li>
+<li><strong>Nuvem Comunitária:</strong> Compartilhada por organizações que possuem requisitos ou missões afins (ex.: rede entre tribunais de justiça).</li>
+<li><strong>Nuvem Híbrida:</strong> Combinação integrada de duas ou mais nuvens (pública + privada) que se comunicam entre si.</li>
+</ul>
+<hr />
+<h1 id="informatica-t06-seguranca-da-informacao-e-protecao-contra-ameacas">Informática — T06: Segurança da Informação e Proteção contra Ameaças</h1>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Visão Geral</div>
+  <div class="callout-body"><p>Segurança da Informação é o tema mais cobrado de toda a disciplina. As bancas exigem conhecimento dos princípios básicos (CIDAN), a capacidade de diferenciar claramente as famílias de códigos maliciosos (<em>malware</em>) e os procedimentos de defesa (firewall, antivírus, autenticação e tipos de backup).</p></div>
+</div>
+<hr />
+<h2 id="1-principios-basicos-de-seguranca-cidan">1. Princípios Básicos de Segurança (CIDAN)</h2>
+<ul>
+<li><strong>Confidencialidade:</strong> Garante que a informação seja acessível <strong>apenas por pessoas ou entidades autorizadas</strong>. Quebra-se com vazamentos e interceptações. Mecanismo típico: <em>Criptografia</em>.</li>
+<li><strong>Integridade:</strong> Garante que a informação não seja alterada ou corrompida de forma indevida ou não autorizada. Mecanismo típico: <em>Hash</em> (resumo criptográfico).</li>
+<li><strong>Disponibilidade:</strong> Garante que a informação e os sistemas estejam acessíveis sempre que os usuários legítimos precisarem. Quebra-se com ataques de negação de serviço (DoS/DDoS) ou corte de energia.</li>
+<li><strong>Autenticidade:</strong> Garante a identidade real do autor ou emissor da informação (certeza de quem é quem).</li>
+<li><strong>Não Repúdio (Irretratabilidade):</strong> Impede que um autor negue a autoria de uma ação ou mensagem enviada. Mecanismo típico: <em>Assinatura Digital</em>.</li>
+</ul>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Mnemônico dos Princípios</div>
+  <div class="callout-body"><p><strong>C-I-D-A-N</strong>: <strong>C</strong>onfidencialidade, <strong>I</strong>ntegridade, <strong>D</strong>isponibilidade, <strong>A</strong>utenticidade e <strong>N</strong>ão Repúdio.</p></div>
+</div>
+<hr />
+<h2 id="2-o-zoologico-dos-malwares-codigos-maliciosos">2. O Zoológico dos Malwares (Códigos Maliciosos)</h2>
+<table>
+<thead>
+<tr>
+<th>Ameaça</th>
+<th>Característica Principal</th>
+<th>Como age?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vírus</strong></td>
+<td><strong>Necessita de um hospedeiro</strong> e de execução humana explícita</td>
+<td>Anexa-se a arquivos legítimos (<code>.exe</code>, <code>.docx</code>) e se espalha quando o usuário abre o arquivo infectado.</td>
+</tr>
+<tr>
+<td><strong>Worm (Verme)</strong></td>
+<td><strong>Autossuficiente e autônomo</strong> (não precisa de hospedeiro)</td>
+<td>Propaga-se automaticamente explorando vulnerabilidades na rede, sem precisar de ação do usuário, consumindo largura de banda.</td>
+</tr>
+<tr>
+<td><strong>Trojan (Cavalo de Troia)</strong></td>
+<td><strong>Disfarçado de programa útil</strong></td>
+<td>Entra como um jogo, protetor de tela ou utilitário grátis, mas secretamente abre portas para invasores (<em>backdoors</em>).</td>
+</tr>
+<tr>
+<td><strong>Spyware</strong></td>
+<td><strong>Espião silencioso</strong></td>
+<td>Monitora e rouba dados e hábitos do usuário.</td>
+</tr>
+<tr>
+<td>↳ <em>Keylogger</em></td>
+<td>Captura tudo o que é digitado no teclado físico</td>
+<td>Rouba senhas e mensagens.</td>
+</tr>
+<tr>
+<td>↳ <em>Screenlogger</em></td>
+<td>Captura a tela ao redor do clique do mouse</td>
+<td>Burlava teclados virtuais de bancos.</td>
+</tr>
+<tr>
+<td><strong>Ransomware</strong></td>
+<td><strong>Sequestrador digital</strong></td>
+<td>Criptografa os arquivos do disco e <strong>exige resgate</strong> (geralmente em criptomoedas) para fornecer a chave de descriptografia.</td>
+</tr>
+<tr>
+<td><strong>Bot / Botnet</strong></td>
+<td>Computador zumbi controlado remotamente</td>
+<td>Faz a máquina obedecer a comandos de um invasor para realizar ataques conjuntos (como DDoS).</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Vírus vs Worm</div>
+  <div class="callout-body"><p>- <strong>Vírus precisa de hospedeiro e do clique do usuário.</strong>
+- <strong>Worm NÃO precisa de hospedeiro nem de ação do usuário</strong> — ele rasteja sozinho pelos cabos de rede através de falhas de segurança.</p></div>
+</div>
+<hr />
+<h2 id="3-golpes-e-engenharia-social">3. Golpes e Engenharia Social</h2>
+<ul>
+<li><strong>Engenharia Social:</strong> Técnica de persuasão e manipulação psicológica para induzir pessoas a revelarem senhas, clicarem em links nocivos ou instalarem programas maliciosos.</li>
+<li><strong>Phishing ("Pescaria"):</strong> Mensagens falsas (e-mails, SMS, WhatsApp) que imitam instituições confiáveis (bancos, órgãos do governo) com links fraudulentos para roubar credenciais.</li>
+<li><strong>Spoofing (Mascaramento/Falsificação):</strong> Técnica de forjar o remetente de um pacote ou e-mail (ex.: IP Spoofing, E-mail Spoofing) para se passar por uma fonte confiável.</li>
+</ul>
+<hr />
+<h2 id="4-mecanismos-de-defesa-firewall-vs-antivirus">4. Mecanismos de Defesa: Firewall vs Antivírus</h2>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> Firewall NÃO é Antivírus!</div>
+  <div class="callout-body"><p>- <strong>Firewall:</strong> É uma <strong>porta de controle de tráfego de rede</strong>. Ele analisa portas e pacotes que entram e saem do computador, bloqueando acessos não autorizados. <strong>O Firewall NÃO analisa o conteúdo de vírus em arquivos baixados nem remove malwares do disco!</strong>
+- <strong>Antivírus:</strong> Analisa arquivos no disco e na memória RAM, detectando e eliminando códigos maliciosos através de assinaturas e heurística.</p></div>
+</div>
+<hr />
+<h2 id="5-copias-de-seguranca-backup-a-trinca-fundamental">5. Cópias de Segurança (Backup): A Trinca Fundamental</h2>
+<ol>
+<li><strong>Backup Completo (<em>Full</em>):</strong> Copia <strong>todos</strong> os arquivos selecionados. Mais demorado para fazer, mas o mais rápido e simples para restaurar (precisa apenas dele próprio).</li>
+<li><strong>Backup Incremental:</strong> Copia apenas os arquivos criados ou alterados <strong>desde o último backup (seja ele full ou incremental)</strong>. Mais rápido para gerar, mas a restauração exige o último Full + <strong>todos</strong> os incrementais em sequência. Desmarca o atributo de arquivamento.</li>
+<li><strong>Backup Diferencial:</strong> Copia todos os arquivos alterados <strong>desde o último backup Completo (<em>Full</em>)</strong>. O tempo de restauração exige apenas o Full + <strong>o último Diferencial</strong>. Não desmarca o atributo de arquivamento.</li>
+</ol>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Regra 3-2-1 de Backup</div>
+  <div class="callout-body"><p>Ter <strong>3 cópias</strong> dos dados, em <strong>2 tipos de mídias diferentes</strong>, com pelo menos <strong>1 cópia fora da empresa/casa</strong> (nuvem ou local remoto).</p></div>
+</div>
+<h3 id="copias-de-seguranca-backup-taxonomia-mecanica-e-restauracao">Cópias de Segurança (Backup) — Taxonomia, Mecânica e Restauração</h3>
+<p>O backup corporativo organiza-se em três modalidades essenciais, diferenciadas pelo tempo de execução, consumo de armazenamento e número de mídias exigidas na recuperação de desastres:</p>
+<table>
+<thead>
+<tr>
+<th>Modalidade</th>
+<th>O que é copiado?</th>
+<th>Tempo de Cópia</th>
+<th>Espaço em Disco</th>
+<th>Mídias para Restaurar</th>
+<th>Bit de Arquivo (Archive Bit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Completo (Full)</strong></td>
+<td>Todos os dados selecionados, ignorando histórico</td>
+<td>Lento</td>
+<td>Alto</td>
+<td><strong>1 mídia</strong> (apenas o próprio Full)</td>
+<td><strong>Reseta para 0</strong> (limpa)</td>
+</tr>
+<tr>
+<td><strong>Incremental</strong></td>
+<td>Apenas dados alterados desde o <strong>último backup qualquer</strong> (Full ou Incremental)</td>
+<td><strong>Mais rápido</strong></td>
+<td><strong>Mais baixo</strong></td>
+<td><strong>Todas as mídias</strong> (Full + todos os incrementais sequenciais)</td>
+<td><strong>Reseta para 0</strong> (limpa)</td>
+</tr>
+<tr>
+<td><strong>Diferencial</strong></td>
+<td>Apenas dados alterados desde o <strong>último backup Full</strong></td>
+<td>Intermediário</td>
+<td>Intermediário</td>
+<td><strong>Apenas 2 mídias</strong> (Último Full + Diferencial do dia)</td>
+<td><strong>Mantém 1</strong> (NÃO limpa)</td>
+</tr>
+<tr>
+<td><strong>Espelhamento (Mirror)</strong></td>
+<td>Réplica exata em tempo real (qualquer mudança original reflete na cópia)</td>
+<td>Contínuo</td>
+<td>Médio/Alto</td>
+<td>Cópia idêntica direta</td>
+<td>Não se aplica</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p><strong>Armadilha da Restauração vs. Cópia:</strong> As bancas amam afirmar que o Backup Incremental é o mais ágil em tudo. Cuidado! O Incremental é o mais rápido para <strong>gravar/copiar</strong>, mas é o mais lento e arriscado para <strong>restaurar</strong>, pois se uma única fita intermediária da cadeia falhar, toda a restauração posterior fica corrompida. Para restauração rápida sem gastar o espaço de múltiplos Fulls, a estratégia de eleição é o <strong>Backup Diferencial</strong> (apenas 2 mídias).</p>
+<p><strong>🧠 MEMORIZAR</strong>
+<strong>O Segredo do Archive Bit (Bit de Arquivo):</strong>
+- <strong>Full e Incremental:</strong> São "disciplinados" — após copiar, <strong>limpam</strong> o bit de arquivo (0), avisando que o arquivo já foi salvo.
+- <strong>Diferencial:</strong> É "acumulador" — copia os arquivos, mas <strong>NÃO limpa</strong> o bit de arquivo (1). Por isso, no dia seguinte ele copia tudo de novo desde o último Full!</p>
+<p><strong>🔴 ALERTA</strong>
+<strong>Ferramentas Corporativas — Bacula:</strong> Em provas técnicas de TIC, o Bacula suporta nativamente compressão de dados via <strong>GZIP</strong> (alta taxa de compactação) e <strong>LZO</strong> (algoritmo ultraveloz em tempo real com baixíssimo impacto sobre a CPU do File Daemon).</p></div>
+</div>
+<hr />
+<h1 id="informatica-t07-engenharia-de-software-uml-ciclos-de-vida-e-programacao">Informática T07 — Engenharia de Software, UML, Ciclos de Vida e Programação</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> Escopo do Tópico</div>
+  <div class="callout-body"><p>Cobre os fundamentos de desenvolvimento de sistemas e engenharia de software recorrentes em provas de TIC:
+- Modelos de ciclo de vida (Cascata vs Iterativo/Incremental).
+- Diagramas da UML 2.5 (Casos de Uso, Classes, Sequência, Atividades).
+- Engenharia de Requisitos (Funcionais, Não-Funcionais e Elicitação).
+- Testes de Software (Caixa-Preta vs Caixa-Branca; Níveis de Teste).
+- Fundamentos de Programação Python (Mutabilidade, Referência de Memória e Estruturas).</p></div>
+</div>
+<hr />
+<h2 id="1-modelos-de-processo-prescritivos-de-software">1. Modelos de Processo Prescritivos de Software</h2>
+<h3 id="o-modelo-cascata-classico-sequencial">O Modelo Cascata (Clássico / Sequencial)</h3>
+<ul>
+<li><strong>Como funciona:</strong> Fases rigidamente lineares e sequenciais (Comunicação → Planejamento → Modelagem → Construção → Implantação).</li>
+<li><strong>A regra de ouro:</strong> Uma fase só se inicia quando a anterior estiver <strong>completamente concluída e aprovada</strong>.</li>
+<li><strong>Maior fragilidade em prova:</strong> A versão de software funcional só fica disponível nas <strong>fases finais</strong> do ciclo de vida. Caso o cliente mude de ideia ou os requisitos iniciais estejam errados, o retrabalho é desastroso e caríssimo.</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> Quando usar o Modelo Cascata?</div>
+  <div class="callout-body"><p>Apenas quando os <strong>requisitos forem amplamente estáveis, bem definidos e sem expectativa de mudanças</strong>. Se o cenário exigir flexibilidade, prefira modelos ágeis ou iterativos/evolutivos.</p></div>
+</div>
+<hr />
+<h2 id="2-diagramas-da-uml-25-classificacao-estrutural-vs-comportamental">2. Diagramas da UML 2.5: Classificação Estrutural vs Comportamental</h2>
+<p>A UML divide seus 14 diagramas em duas grandes categorias:</p>
+<table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Finalidade</th>
+<th>Principais Diagramas Cobrados em Prova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Estruturais</strong></td>
+<td>Representam a anatomia estática do sistema (classes, objetos, nós físicos).</td>
+<td><strong>Diagrama de Classes</strong>, de Objetos, de Componentes, de Implantação (<em>Deployment</em>), de Pacotes.</td>
+</tr>
+<tr>
+<td><strong>Comportamentais</strong></td>
+<td>Representam a dinâmica, os fluxos e as interações no tempo.</td>
+<td><strong>Casos de Uso</strong>, <strong>Diagrama de Atividades</strong>, de Estados (<em>State Machine</em>), de <strong>Sequência</strong> e de Comunicação.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="21-diagrama-de-casos-de-uso-use-cases">2.1 Diagrama de Casos de Uso (Use Cases)</h3>
+<ul>
+<li><strong>Atores:</strong> Atores não são apenas humanos; sistemas externos, banco de dados ou temporizadores de hardware também podem atuar como atores.</li>
+<li><strong>Relacionamento &lt;<include>&gt; (Inclusão Obrigatória):</strong></li>
+<li>O caso de uso base <strong>sempre executa</strong> o caso de uso incluído para poder se concretizar.</li>
+<li>Exemplo: <em>Efetuar Pagamento</em> &lt;<include>&gt; <em>Validar Senha</em>.</li>
+<li><strong>Relacionamento &lt;<extend>&gt; (Extensão Condicional / Opcional):</strong></li>
+<li>O caso de uso estendido só executa se uma <strong>condição específica (ponto de extensão)</strong> for satisfeita.</li>
+<li>Exemplo: <em>Comprar Passagem</em> &lt;<extend>&gt; <em>Contratar Seguro Viagem</em>.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Seta do Include vs Seta do Extend</div>
+  <div class="callout-body"><p>- No <code>&lt;&lt;include&gt;&gt;</code>: A seta pontilhada aponta do <strong>caso de uso base</strong> para o <strong>caso de uso incluído</strong> (<code>Base --&gt; Incluído</code>).
+- No <code>&lt;&lt;extend&gt;&gt;</code>: A seta pontilhada aponta do <strong>caso de uso que estende (opcional)</strong> para o <strong>caso de uso base</strong> (<code>Extensão --&gt; Base</code>). A banca adora inverter o sentido dessa seta!</p></div>
+</div>
+<h3 id="22-diagrama-de-atividades">2.2 Diagrama de Atividades</h3>
+<ul>
+<li>Focado na modelagem do fluxo de trabalho procedural e da lógica orientada a dados.</li>
+<li>Elementos-chave: nós iniciais, nós finais, decisões/ramificações (<em>decision nodes</em>), barras de sincronização (<em>fork</em> para paralelismo e <em>join</em> para sincronização).</li>
+</ul>
+<hr />
+<h2 id="3-testes-de-software-caixa-preta-vs-caixa-branca">3. Testes de Software: Caixa-Preta vs Caixa-Branca</h2>
+<h3 id="31-tecnicas-de-teste">3.1 Técnicas de Teste</h3>
+<ul>
+<li><strong>Teste de Caixa-Preta (Funcional / Comportamental):</strong></li>
+<li>O testador <strong>não conhece o código-fonte interno</strong>. Avalia se para determinada entrada (<em>input</em>) o sistema devolve a saída correta (<em>output</em>) segundo a especificação.</li>
+<li>Técnicas típicas: Particionamento em Classes de Equivalência, Análise do Valor Limite, Tabela de Decisão.</li>
+<li><strong>Teste de Caixa-Branca (Estrutural):</strong></li>
+<li>O testador <strong>tem acesso integral ao código-fonte</strong>. Testa fluxos lógicos, condições, laços e caminhos de execução interna.</li>
+<li>Técnicas típicas: Cobertura de Instruções (<em>Statement Coverage</em>), Cobertura de Ramos (<em>Branch Coverage</em>), Teste de Caminhos Básicos (Complexidade Ciclomática de McCabe).</li>
+</ul>
+<h3 id="32-niveis-de-teste-piramide-de-testes">3.2 Níveis de Teste (Pirâmide de Testes)</h3>
+<ol>
+<li><strong>Teste de Unidade (Unitário):</strong> Testa a menor porção de código isolada (métodos, funções, classes). Realizado geralmente pelo próprio desenvolvedor.</li>
+<li><strong>Teste de Integração:</strong> Testa a interação e comunicação entre módulos acoplados ou com APIs/bancos de dados.</li>
+<li><strong>Teste de Sistema:</strong> Testa o sistema completo integrado sob condições operacionais simuladas.</li>
+<li><strong>Teste de Aceitação:</strong> Validação final pelo usuário ou cliente para homologação do software.</li>
+</ol>
+<hr />
+<h2 id="4-fundamentos-de-programacao-python-mutabilidade-e-referencia">4. Fundamentos de Programação Python: Mutabilidade e Referência</h2>
+<p>Uma das armadilhas preferidas das bancas em questões com trechos de código Python:</p>
+<table>
+<thead>
+<tr>
+<th>Objeto / Tipo</th>
+<th>É Mutável?</th>
+<th>Comportamento ao Passar como Argumento de Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>int, float, bool</strong></td>
+<td><strong>Imutável</strong></td>
+<td>O valor não muda fora da função; nova alocação é criada se reatribuído.</td>
+</tr>
+<tr>
+<td><strong>str, tuple</strong></td>
+<td><strong>Imutável</strong></td>
+<td>Não permite alteração de elementos internos via índice.</td>
+</tr>
+<tr>
+<td><strong>list, dict, set</strong></td>
+<td><strong>MUTÁVEL</strong></td>
+<td><strong>Passagem por atribuição de referência de objeto</strong>. Se você alterar a lista dentro da função (<code>lista.append()</code>, <code>lista[0] = x</code>), a lista original externa <strong>também será modificada</strong>!</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Cópia Rasa (<em>Shallow Copy</em>) vs Referência em Python</div>
+  <div class="callout-body"><p>Se você fizer <code>b = a</code> em Python onde <code>a</code> é uma lista, você <strong>não criou uma nova lista</strong>: criou apenas outro nome apontando para o mesmíssimo endereço de memória.
+Qualquer alteração feita em <code>b</code> se refletirá instantaneamente em <code>a</code>. Para criar uma cópia independente, use <code>b = a.copy()</code> ou <code>b = list(a)</code>.</p></div>
+</div>
+      </article>
+    </main>
+  </div>
+
+  <button class="mobile-toc-btn" onclick="toggleMobileToc()">📑 Sumário</button>
+
+  <script>
+    // Barra de progresso de leitura
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // Tema claro / escuro
+    if (localStorage.getItem('resumo_theme') === 'light') {
+      document.body.classList.add('light-mode');
+    }
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('resumo_theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+
+    // Controle de fonte
+    let curFont = parseInt(localStorage.getItem('resumo_font') || '16', 10);
+    document.documentElement.style.setProperty('--font-size', curFont + 'px');
+    function changeFont(delta) {
+      curFont = Math.min(22, Math.max(13, curFont + delta));
+      document.documentElement.style.setProperty('--font-size', curFont + 'px');
+      localStorage.setItem('resumo_font', curFont);
+    }
+
+    // Filtro do Sumário Lateral
+    function filterToc(q) {
+      const term = q.toLowerCase().trim();
+      document.querySelectorAll('#toc-list .toc-link').forEach(a => {
+        a.style.display = a.textContent.toLowerCase().includes(term) ? 'block' : 'none';
+      });
+    }
+
+    // Menu mobile
+    function toggleMobileToc() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    function closeMobileToc() {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    // Busca rápida por parágrafos/seções
+    function highlightSearch(q) {
+      const term = q.trim().toLowerCase();
+      const article = document.getElementById('md-article');
+      const blocks = article.querySelectorAll('p, li, h1, h2, h3, td, .callout');
+      if (!term) {
+        blocks.forEach(b => b.style.opacity = '1');
+        return;
+      }
+      let firstMatch = null;
+      blocks.forEach(b => {
+        const match = b.textContent.toLowerCase().includes(term);
+        b.style.opacity = match ? '1' : '0.22';
+        if (match && !firstMatch) firstMatch = b;
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Banco de Dados — Resumo Consolidado TIC</title>
+  <meta name="theme-color" content="#0b1120">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #0f172a;
+      --surface-card: #152036;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-strong: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #6366f1;
+      --code-bg: #090d16;
+      --font-size: 16px;
+    }
+    body.light-mode {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-card: #f1f5f9;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --text-strong: #0f172a;
+      --text-muted: #475569;
+      --code-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      font-size: var(--font-size);
+      line-height: 1.7;
+      transition: background 0.2s, color 0.2s;
+    }
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #38bdf8);
+      width: 0%;
+      z-index: 9999;
+    }
+    .top-Wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 16px 0;
+    }
+    .reader-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+    }
+    body.light-mode .reader-toolbar {
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .toolbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tb-btn {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .tb-btn:hover {
+      border-color: var(--accent);
+    }
+    .tb-pdf {
+      background: rgba(16, 185, 129, 0.14);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .disc-select {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      max-width: 260px;
+    }
+    .search-input {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      width: 190px;
+    }
+    .layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 28px;
+      padding: 24px 16px 60px;
+      align-items: start;
+    }
+    .sidebar {
+      position: sticky;
+      top: 68px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 14px;
+    }
+    .sidebar-header {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toc-filter {
+      width: 100%;
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+    .toc-link {
+      display: block;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.80rem;
+      padding: 5px 8px;
+      border-radius: 6px;
+      line-height: 1.35;
+      margin-bottom: 2px;
+      transition: all 0.12s;
+    }
+    .toc-link:hover {
+      background: var(--surface-card);
+      color: var(--text-strong);
+    }
+    .toc-h1 {
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      border-left: 3px solid var(--accent);
+      padding-left: 8px;
+    }
+    .toc-h2 {
+      padding-left: 18px;
+      font-size: 0.76rem;
+    }
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 36px;
+      min-width: 0;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+    .hero-banner {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 26px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+    .hero-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    /* Tipografia do Conteúdo Markdown */
+    .md-body h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-strong);
+      margin: 36px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      line-height: 1.3;
+    }
+    .md-body h1:first-child {
+      margin-top: 0;
+    }
+    .md-body h2 {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin: 28px 0 12px;
+      line-height: 1.35;
+    }
+    body.light-mode .md-body h2 {
+      color: #0284c7;
+    }
+    .md-body h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin: 20px 0 8px;
+    }
+    .md-body h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 16px 0 6px;
+    }
+    .md-body p {
+      margin-bottom: 14px;
+    }
+    .md-body ul, .md-body ol {
+      margin: 0 0 16px 24px;
+    }
+    .md-body li {
+      margin-bottom: 6px;
+    }
+    .md-body strong {
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.88em;
+      color: #f472b6;
+    }
+    body.light-mode .md-body code {
+      color: #be185d;
+    }
+    .md-body pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 14px 0 18px;
+    }
+    .md-body pre code {
+      background: transparent;
+      padding: 0;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+    .md-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+    .md-body blockquote {
+      border-left: 4px solid #64748b;
+      background: var(--surface-card);
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 14px 0;
+      color: var(--text-muted);
+    }
+    /* Tabelas Responsivas */
+    .md-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 22px;
+      font-size: 0.9rem;
+      display: block;
+      overflow-x: auto;
+    }
+    .md-body th, .md-body td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+    }
+    .md-body th {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    /* Callouts Estilo Obsidian */
+    .callout {
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 18px 0;
+      border-left: 5px solid #38bdf8;
+      background: var(--surface-card);
+    }
+    .callout-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-strong);
+    }
+    .callout-body p:last-child { margin-bottom: 0; }
+    .callout-resumo { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.08); }
+    .callout-pegadinha { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.09); }
+    .callout-alerta { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.09); }
+    .callout-dica { border-left-color: #10b981; background: rgba(16, 185, 129, 0.09); }
+    .callout-memorizar { border-left-color: #a855f7; background: rgba(168, 85, 247, 0.09); }
+    .callout-conexao { border-left-color: #14b8a6; background: rgba(20, 184, 166, 0.09); }
+
+    .mobile-toc-btn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+    }
+    mark.hl {
+      background: #facc15;
+      color: #0f172a;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        display: none;
+        position: fixed;
+        inset: 60px 16px 76px 16px;
+        z-index: 99;
+        max-height: none;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      }
+      .sidebar.open { display: block; }
+      .mobile-toc-btn { display: inline-flex; align-items: center; gap: 6px; }
+      .content-card { padding: 20px 16px; }
+    }
+  </style>
+<style id="portal-nav-css">
+  .portal-top-bar {
+    width: 100%;
+    margin: 0 0 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    z-index: 100;
+  }
+  .portal-top-bar a.ptb-brand {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .portal-top-bar a.ptb-brand:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .portal-top-bar .ptb-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .portal-top-bar a.ptb-btn {
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .portal-top-bar a.ptb-btn:hover {
+    transform: translateY(-1px);
+  }
+  /* Quiz Game (Verde) */
+  .portal-top-bar a.ptb-quiz {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+  }
+  .portal-top-bar a.ptb-quiz:hover, .portal-top-bar a.ptb-quiz.active {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+  }
+  /* Fichas de Revisão (Âmbar) */
+  .portal-top-bar a.ptb-fichas {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.28);
+  }
+  .portal-top-bar a.ptb-fichas:hover, .portal-top-bar a.ptb-fichas.active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+  }
+  /* Plano UFRRJ (Azul Celeste) */
+  .portal-top-bar a.ptb-ufrrj {
+    color: #38bdf8;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(14, 165, 233, 0.28);
+  }
+  .portal-top-bar a.ptb-ufrrj:hover, .portal-top-bar a.ptb-ufrrj.active {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+  }
+  /* Plano Transpetro (Roxo) */
+  .portal-top-bar a.ptb-transpetro {
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.28);
+  }
+  .portal-top-bar a.ptb-transpetro:hover, .portal-top-bar a.ptb-transpetro.active {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: #c084fc;
+  }
+  /* Resumos Consolidados (Rosa/Ciano) */
+  .portal-top-bar a.ptb-resumos {
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.12);
+    border: 1px solid rgba(244, 114, 182, 0.28);
+  }
+  .portal-top-bar a.ptb-resumos:hover, .portal-top-bar a.ptb-resumos.active {
+    background: rgba(244, 114, 182, 0.25);
+    border-color: #f472b6;
+  }
+  .portal-top-bar a.ptb-btn.active {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+    font-weight: 800;
+  }
+  @media (max-width: 680px) {
+    .portal-top-bar .ptb-text-extra { display: none !important; }
+    .portal-top-bar a.ptb-btn { font-size: 0.72rem; padding: 4px 7px; gap: 4px; }
+    .portal-top-bar a.ptb-brand { font-size: 0.78rem; }
+  }
+  @media (max-width: 440px) {
+    .portal-top-bar { padding: 6px 10px; gap: 6px; }
+    .portal-top-bar .ptb-actions { gap: 4px; }
+    .portal-top-bar a.ptb-btn { font-size: 0.70rem; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+  <div class="top-Wrapper">    <div class="portal-top-bar">
+      <a href="index.html" class="ptb-brand" title="Voltar ao Portal Principal">
+        <span>🏠</span>
+        <span>Portal<span class="ptb-text-extra"> de Estudos</span></span>
+      </a>
+      <div class="ptb-actions">
+        <a href="quiz.html" class="ptb-btn ptb-quiz" title="Quiz Game TIC (Simulado e Prática)">
+          <span>🎮</span>
+          <span>Quiz<span class="ptb-text-extra"> Game</span></span>
+        </a>
+        <a href="fichas.html" class="ptb-btn ptb-fichas" title="Fichas de Revisão Offline">
+          <span>📑</span>
+          <span>Fichas</span>
+        </a>
+        <a href="resumos.html" class="ptb-btn ptb-resumos active" title="Cadernos e Resumos Consolidados por Disciplina">
+          <span>📚</span>
+          <span>Resumos</span>
+        </a>
+        <a href="ufrrj_quadro.html" class="ptb-btn ptb-ufrrj" title="Quadro e Plano de Estudos UFRRJ 2026">
+          <span>🏛️</span>
+          <span><span class="ptb-text-extra">Plano </span>UFRRJ</span>
+        </a>
+        <a href="transpetro_quadro.html" class="ptb-btn ptb-transpetro" title="Quadro e Plano de Estudos Transpetro 2026">
+          <span>⚓</span>
+          <span><span class="ptb-text-extra">Plano </span>Transpetro</span>
+        </a>
+      </div>
+    </div>
+</div>
+
+  <div class="reader-toolbar">
+    <div class="toolbar-inner">
+      <div class="toolbar-left">
+        <a href="resumos.html" class="tb-btn" title="Voltar para Todos os Resumos">📚 Resumos</a>
+        <select class="disc-select" onchange="if(this.value) location.href=this.value" aria-label="Trocar Disciplina">
+          <option value="resumo_portugues.html">📝 Língua Portuguesa</option>
+<option value="resumo_ingles.html">🌐 Língua Inglesa</option>
+<option value="resumo_raciocinio_logico.html">🧮 Raciocínio Lógico</option>
+<option value="resumo_legislacao.html">⚖️ Legislação (Proteção de Dados, Transparência e Regime Jurídico)</option>
+<option value="resumo_informatica.html">💻 Noções de Informática</option>
+<option value="resumo_governanca_ti.html">📊 Gestão e Governança de Tecnologia da Informação</option>
+<option value="resumo_redes.html">🌐 Redes de Computadores</option>
+<option value="resumo_infraestrutura.html">🖥️ Suporte e Infraestrutura</option>
+<option value="resumo_banco_de_dados.html" selected>🗄️ Banco de Dados</option>
+<option value="resumo_atualidades_ia.html">🤖 Atualidades e Inteligência Artificial</option>
+<option value="resumo_ciberseguranca.html">🛡️ Cibersegurança</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <input type="search" id="doc-search" class="search-input" placeholder="🔍 Buscar no texto..." oninput="highlightSearch(this.value)">
+        <button class="tb-btn" onclick="changeFont(-1)" title="Diminuir Fonte">A-</button>
+        <button class="tb-btn" onclick="changeFont(1)" title="Aumentar Fonte">A+</button>
+        <button class="tb-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar Tema Claro/Escuro">☀️/🌙</button>
+        <a href="pdfs/Banco_de_Dados_Consolidado.pdf" class="tb-btn tb-pdf" target="_blank" title="Baixar versão em PDF">📥 PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span>📑 Índice de Tópicos (9)</span>
+      </div>
+      <input type="search" class="toc-filter" placeholder="Filtrar tópicos..." oninput="filterToc(this.value)">
+      <nav id="toc-list">
+        <a href="#banco-de-dados-t01-introducao-e-modelos-de-dados" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T01 — Introdução e Modelos de Dados</a>
+<a href="#1-definicoes" class="toc-link toc-h2" onclick="closeMobileToc()">1. Definições</a>
+<a href="#2-modelos-de-banco-de-dados" class="toc-link toc-h2" onclick="closeMobileToc()">2. Modelos de Banco de Dados</a>
+<a href="#3-etapas-de-um-projeto-de-banco-de-dados" class="toc-link toc-h2" onclick="closeMobileToc()">3. Etapas de um Projeto de Banco de Dados</a>
+<a href="#4-data-lake-e-o-perigo-do-data-swamp" class="toc-link toc-h2" onclick="closeMobileToc()">4. Data Lake e o perigo do Data Swamp</a>
+<a href="#5-curadoria-de-dados-data-stewards" class="toc-link toc-h2" onclick="closeMobileToc()">5. Curadoria de dados (data stewards)</a>
+<a href="#banco-de-dados-t01-modelagem-de-dados-der" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T01 — Modelagem de Dados (DER)</a>
+<a href="#1-modelo-conceitual" class="toc-link toc-h2" onclick="closeMobileToc()">1. Modelo Conceitual</a>
+<a href="#2-cardinalidade" class="toc-link toc-h2" onclick="closeMobileToc()">2. Cardinalidade</a>
+<a href="#3-chaves" class="toc-link toc-h2" onclick="closeMobileToc()">3. Chaves</a>
+<a href="#4-especializacaogeneralizacao-totalidade-disjuncao" class="toc-link toc-h2" onclick="closeMobileToc()">4. Especialização/Generalização — totalidade × disjunção</a>
+<a href="#5-entidade-forte-fraca-e-o-relacionamento-identificador" class="toc-link toc-h2" onclick="closeMobileToc()">5. Entidade forte × fraca e o relacionamento identificador</a>
+<a href="#banco-de-dados-t02-abordagem-relacional" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T02 — Abordagem Relacional</a>
+<a href="#1-do-que-se-trata" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-vocabulario-que-cai-em-prova" class="toc-link toc-h2" onclick="closeMobileToc()">2. Vocabulário que cai em prova</a>
+<a href="#3-chave-primaria-x-chave-estrangeira" class="toc-link toc-h2" onclick="closeMobileToc()">3. Chave primária x chave estrangeira</a>
+<a href="#4-dependencia-funcional-o-passo-a-passo-de-prova" class="toc-link toc-h2" onclick="closeMobileToc()">4. Dependência funcional — o passo a passo de prova</a>
+<a href="#5-chaves-candidatas-o-fecho-na-mao" class="toc-link toc-h2" onclick="closeMobileToc()">5. Chaves candidatas — o fecho na mão</a>
+<a href="#6-entidade-forte-x-entidade-fraca" class="toc-link toc-h2" onclick="closeMobileToc()">6. Entidade forte x entidade fraca</a>
+<a href="#7-integridade-referencial" class="toc-link toc-h2" onclick="closeMobileToc()">7. Integridade referencial</a>
+<a href="#8-onde-eu-erraria-e-por-que" class="toc-link toc-h2" onclick="closeMobileToc()">8. Onde eu erraria e por quê?</a>
+<a href="#9-como-memorizar-sem-decorar" class="toc-link toc-h2" onclick="closeMobileToc()">9. Como memorizar sem decorar?</a>
+<a href="#10-o-que-revisar-e-quando" class="toc-link toc-h2" onclick="closeMobileToc()">10. O que revisar e quando?</a>
+<a href="#11-licao-para-outras-materias" class="toc-link toc-h2" onclick="closeMobileToc()">11. Lição para outras matérias</a>
+<a href="#banco-de-dados-t03-normalizacao" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T03 — Normalização</a>
+<a href="#1-do-que-se-trata_1" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-por-que-cai-em-prova" class="toc-link toc-h2" onclick="closeMobileToc()">2. Por que cai em prova?</a>
+<a href="#3-as-tres-formas-normais-que-dominam-a-prova" class="toc-link toc-h2" onclick="closeMobileToc()">3. As três formas normais que dominam a prova</a>
+<a href="#4-as-pegadinhas-classicas" class="toc-link toc-h2" onclick="closeMobileToc()">4. As pegadinhas clássicas</a>
+<a href="#5-a-cadeia-que-a-fgv-ama-dependencia-transitiva" class="toc-link toc-h2" onclick="closeMobileToc()">5. A cadeia que a FGV ama: dependência transitiva</a>
+<a href="#6-anomalias-o-motivo-da-existencia" class="toc-link toc-h2" onclick="closeMobileToc()">6. Anomalias: o motivo da existência</a>
+<a href="#7-onde-eu-erraria-e-por-que" class="toc-link toc-h2" onclick="closeMobileToc()">7. Onde eu erraria e por quê?</a>
+<a href="#8-como-memorizar-sem-decorar" class="toc-link toc-h2" onclick="closeMobileToc()">8. Como memorizar sem decorar?</a>
+<a href="#9-o-que-revisar-e-quando" class="toc-link toc-h2" onclick="closeMobileToc()">9. O que revisar e quando?</a>
+<a href="#10-licao-para-outras-materias" class="toc-link toc-h2" onclick="closeMobileToc()">10. Lição para outras matérias</a>
+<a href="#banco-de-dados-t06-modelagem-dimensional" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T06 — Modelagem Dimensional</a>
+<a href="#1-do-que-se-trata_2" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-star-schema-esquema-estrela-puro-e-classico" class="toc-link toc-h2" onclick="closeMobileToc()">2. Star Schema (Esquema Estrela) — puro e clássico</a>
+<a href="#3-snowflake-schema-floco-de-neve" class="toc-link toc-h2" onclick="closeMobileToc()">3. Snowflake Schema (Floco de Neve)</a>
+<a href="#4-fatos-e-granularidade" class="toc-link toc-h2" onclick="closeMobileToc()">4. Fatos e granularidade</a>
+<a href="#5-desnormalizacao-o-pacote-de-beneficio-com-a-conta-na-mao" class="toc-link toc-h2" onclick="closeMobileToc()">5. Desnormalização — o pacote de benefício com a conta na mão</a>
+<a href="#6-como-memorizar-sem-decorar" class="toc-link toc-h2" onclick="closeMobileToc()">6. Como memorizar sem decorar?</a>
+<a href="#7-o-que-revisar-e-quando" class="toc-link toc-h2" onclick="closeMobileToc()">7. O que revisar e quando?</a>
+<a href="#banco-de-dados-t07-09-sql-ddl-e-dml" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T07-09 — SQL, DDL e DML</a>
+<a href="#1-do-que-se-trata_3" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-os-subgrupos-o-mapa-que-nunca-pode-sair-da-cabeca" class="toc-link toc-h2" onclick="closeMobileToc()">2. Os subgrupos — o mapa que nunca pode sair da cabeça</a>
+<a href="#21-a-matriz-que-salva-90-das-questoes-novas" class="toc-link toc-h2" onclick="closeMobileToc()">2.1 A matriz que salva 90% das questões novas</a>
+<a href="#22-as-quatro-viagens-da-banca-e-como-nao-cair" class="toc-link toc-h2" onclick="closeMobileToc()">2.2 As quatro viagens da banca (e como não cair)</a>
+<a href="#23-ordem-importa-primeiro-ddl-depois-dml" class="toc-link toc-h2" onclick="closeMobileToc()">2.3 Ordem importa: &quot;primeiro DDL, depois DML&quot;</a>
+<a href="#24-comando-inexistente-a-armadilha-preferida" class="toc-link toc-h2" onclick="closeMobileToc()">2.4 Comando inexistente: a armadilha preferida</a>
+<a href="#25-triggers-dml-em-tabela-ddl-em-banco" class="toc-link toc-h2" onclick="closeMobileToc()">2.5 Triggers: DML em tabela, DDL em banco</a>
+<a href="#3-drop-x-truncate-x-delete-o-trio-que-a-fgv-roteia" class="toc-link toc-h2" onclick="closeMobileToc()">3. DROP x TRUNCATE x DELETE — o trio que a FGV roteia</a>
+<a href="#31-constraints-as-regras-declarativas-de-integridade" class="toc-link toc-h2" onclick="closeMobileToc()">3.1 Constraints — as regras declarativas de integridade</a>
+<a href="#32-insert-into-a-sintaxe-certa-de-inserir" class="toc-link toc-h2" onclick="closeMobileToc()">3.2 INSERT INTO — a sintaxe certa de inserir</a>
+<a href="#4-ordem-logica-de-execucao-do-select" class="toc-link toc-h2" onclick="closeMobileToc()">4. Ordem lógica de execução do SELECT</a>
+<a href="#41-ordenar-limitar-o-trio-que-parece-a-mesma-coisa" class="toc-link toc-h2" onclick="closeMobileToc()">4.1 Ordenar × limitar — o trio que parece a mesma coisa</a>
+<a href="#42-joins-quem-preserva-as-linhas-de-quem" class="toc-link toc-h2" onclick="closeMobileToc()">4.2 Joins — quem preserva as linhas de quem</a>
+<a href="#5-agregacoes-e-contagem" class="toc-link toc-h2" onclick="closeMobileToc()">5. Agregações e contagem</a>
+<a href="#6-gatilhos-old-e-new" class="toc-link toc-h2" onclick="closeMobileToc()">6. Gatilhos: OLD e NEW</a>
+<a href="#7-view-procedure-e-trigger-o-trio-de-objetos" class="toc-link toc-h2" onclick="closeMobileToc()">7. View, Procedure e Trigger — o trio de objetos</a>
+<a href="#8-indices-e-o-otimizador-performance" class="toc-link toc-h2" onclick="closeMobileToc()">8. Índices e o otimizador (performance)</a>
+<a href="#81-a-triade-da-exclusao-no-sql" class="toc-link toc-h2" onclick="closeMobileToc()">8.1 A Tríade da Exclusão no SQL</a>
+<a href="#82-divisao-relacional-em-sql-a-div-b" class="toc-link toc-h2" onclick="closeMobileToc()">8.2 Divisão Relacional em SQL ($A \div B$)</a>
+<a href="#83-restricoes-de-tabela-e-valores-padrao" class="toc-link toc-h2" onclick="closeMobileToc()">8.3 Restrições de Tabela e Valores Padrão</a>
+<a href="#9-onde-eu-erraria-e-por-que" class="toc-link toc-h2" onclick="closeMobileToc()">9. Onde eu erraria e por quê?</a>
+<a href="#10-o-que-revisar-e-quando_1" class="toc-link toc-h2" onclick="closeMobileToc()">10. O que revisar e quando?</a>
+<a href="#11-licao-para-outras-materias_1" class="toc-link toc-h2" onclick="closeMobileToc()">11. Lição para outras matérias</a>
+<a href="#banco-de-dados-t10-propriedades-acid-das-transacoes" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T10 — Propriedades ACID das Transações</a>
+<a href="#1-do-que-se-trata_4" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-por-que-cai-em-prova_1" class="toc-link toc-h2" onclick="closeMobileToc()">2. Por que cai em prova?</a>
+<a href="#3-como-as-partes-se-conectam" class="toc-link toc-h2" onclick="closeMobileToc()">3. Como as partes se conectam?</a>
+<a href="#4-pegadinhas-classicas" class="toc-link toc-h2" onclick="closeMobileToc()">4. Pegadinhas clássicas</a>
+<a href="#5-o-que-separa-quem-acerta-de-quem-erra" class="toc-link toc-h2" onclick="closeMobileToc()">5. O que separa quem acerta de quem erra?</a>
+<a href="#6-onde-eu-erraria-e-por-que" class="toc-link toc-h2" onclick="closeMobileToc()">6. Onde eu erraria e por quê?</a>
+<a href="#7-como-memorizar-sem-decorar" class="toc-link toc-h2" onclick="closeMobileToc()">7. Como memorizar sem decorar?</a>
+<a href="#8-o-que-revisar-e-quando" class="toc-link toc-h2" onclick="closeMobileToc()">8. O que revisar e quando?</a>
+<a href="#9-licao-para-outras-materias" class="toc-link toc-h2" onclick="closeMobileToc()">9. Lição para outras matérias</a>
+<a href="#banco-de-dados-t10-sgbd-arquitetura-ansisparc" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T10 — SGBD: Arquitetura ANSI/SPARC</a>
+<a href="#1-tres-niveis-de-arquitetura" class="toc-link toc-h2" onclick="closeMobileToc()">1. Três Níveis de Arquitetura</a>
+<a href="#2-independencia-de-dados" class="toc-link toc-h2" onclick="closeMobileToc()">2. Independência de Dados</a>
+<a href="#banco-de-dados-t11-banco-de-dados-nosql" class="toc-link toc-h1" onclick="closeMobileToc()">Banco de Dados T11 — Banco de dados NoSQL</a>
+<a href="#1-do-que-se-trata_5" class="toc-link toc-h2" onclick="closeMobileToc()">1. Do que se trata?</a>
+<a href="#2-por-que-cai-em-prova_2" class="toc-link toc-h2" onclick="closeMobileToc()">2. Por que cai em prova?</a>
+<a href="#3-como-as-partes-se-conectam_1" class="toc-link toc-h2" onclick="closeMobileToc()">3. Como as partes se conectam?</a>
+<a href="#4-as-pegadinhas-classicas_1" class="toc-link toc-h2" onclick="closeMobileToc()">4. As pegadinhas clássicas</a>
+<a href="#5-o-que-separa-quem-acerta-de-quem-erra_1" class="toc-link toc-h2" onclick="closeMobileToc()">5. O que separa quem acerta de quem erra?</a>
+<a href="#6-onde-eu-erraria-e-por-que_1" class="toc-link toc-h2" onclick="closeMobileToc()">6. Onde eu erraria e por quê?</a>
+<a href="#7-como-memorizar-sem-decorar_1" class="toc-link toc-h2" onclick="closeMobileToc()">7. Como memorizar sem decorar?</a>
+<a href="#8-o-que-revisar-e-quando_1" class="toc-link toc-h2" onclick="closeMobileToc()">8. O que revisar e quando?</a>
+<a href="#9-licao-para-outras-materias_1" class="toc-link toc-h2" onclick="closeMobileToc()">9. Lição para outras matérias</a>
+      </nav>
+    </aside>
+
+    <main class="content-card">
+      <div class="hero-banner">
+        <span class="hero-tag">🗄️ SQL · Normalização · Transações · NoSQL</span>
+        <h1 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text-strong);">Banco de Dados</h1>
+        <div class="hero-meta">
+          <span>📖 <strong>9</strong> tópicos principais</span>
+          <span>⏱️ Leitura estimada: <strong>~54 min</strong> (10,852 palavras)</span>
+          <span>🔄 Atualizado em: <strong>06/11/2026</strong></span>
+        </div>
+      </div>
+
+      <article class="md-body" id="md-article">
+        <h1 id="banco-de-dados">Banco de Dados</h1>
+<blockquote>
+<p><strong>Repositório Central de Concursos de TIC</strong> · UFRRJ &amp; Transpetro 2026</p>
+<p><strong>Caderno Consolidado de Banco de Dados</strong> — teoria completa, mnemônicos e pegadinhas de prova.
+Gerado automaticamente em 06/11/2026.</p>
+</blockquote>
+<hr />
+<h1 id="banco-de-dados-t01-introducao-e-modelos-de-dados">Banco de Dados T01 — Introdução e Modelos de Dados</h1>
+<h2 id="1-definicoes">1. Definições</h2>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>Definição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Banco de Dados (BD)</strong></td>
+<td>Manutenção de registros — equivalente a um <strong>armário de arquivos</strong></td>
+</tr>
+<tr>
+<td><strong>SGBD</strong></td>
+<td>Sistema de Gerenciamento de Banco de Dados</td>
+</tr>
+<tr>
+<td><strong>SQL</strong></td>
+<td>Linguagem de consulta. <strong>NÃO</strong> é software</td>
+</tr>
+<tr>
+<td><strong>SQL Server</strong></td>
+<td>Aqui sim temos o <strong>software</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-modelos-de-banco-de-dados">2. Modelos de Banco de Dados</h2>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Conceitual</strong></td>
+<td>Descrição <strong>abstrata</strong> — o <strong>primeiro</strong> modelo a ser feito</td>
+</tr>
+<tr>
+<td><strong>Lógico</strong></td>
+<td>Representação da <strong>estrutura</strong></td>
+</tr>
+<tr>
+<td><strong>Físico</strong></td>
+<td>Descrição <strong>interna</strong> dos dados — o modelo de <strong>baixo nível</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Tudo parte da <strong>análise de requisitos</strong> (é dela que sai o modelo conceitual).</li>
+<li>O <strong>conceitual</strong> é o de <strong>alto nível</strong> e oferece conceitos <strong>próximos dos usuários</strong>; é representado pelo modelo <strong>Entidade-Relacionamento</strong> (DER).</li>
+<li>O <strong>relacional</strong> é um dos modelos do lógico; já o <strong>físico</strong> é o projeto de baixo nível que o SGBD executa.</li>
+</ul>
+<p><strong>O modelo lógico é composto por:</strong>
+- Modelo em <strong>rede</strong>
+- Modelo <strong>hierárquico</strong>
+- Modelo <strong>relacional</strong>
+- Modelo <strong>relacional a objetos</strong> (objeto-relacional)</p>
+<hr />
+<h2 id="3-etapas-de-um-projeto-de-banco-de-dados">3. Etapas de um Projeto de Banco de Dados</h2>
+<pre><code>Cenário → Engenharia de Requisitos → Modelo Conceitual → Modelo Lógico → Modelo Físico → BD acessado pelo SGBD
+</code></pre>
+<hr />
+<h2 id="4-data-lake-e-o-perigo-do-data-swamp">4. Data Lake e o perigo do Data Swamp</h2>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data Lake</strong></td>
+<td>Repositório bruto (estruturado + não estruturado) antes da curadoria</td>
+</tr>
+<tr>
+<td><strong>Data Swamp</strong></td>
+<td>Lake <strong>sem governança</strong>: sem catálogo de metadados, qualidade, linhagem e curadoria → dados difíceis de achar/confiar; vira <strong>passivo</strong>, não ativo</td>
+</tr>
+<tr>
+<td><strong>Data Silo</strong></td>
+<td>Dados isolados entre áreas/sistemas</td>
+</tr>
+<tr>
+<td><strong>Dark Data</strong></td>
+<td>Armazenados mas <strong>não utilizados</strong></td>
+</tr>
+<tr>
+<td><strong>Data Mart</strong></td>
+<td>Subconjunto voltado a uma área de negócio</td>
+</tr>
+<tr>
+<td><strong>Data Mesh</strong></td>
+<td>Arquitetura descentralizada orientada a <strong>domínios</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>Banca monta a questão como "o que surge quando o lake cresce sem governança" → <strong>Data Swamp</strong>. Não confundir com <em>dark data</em> (guardado e esquecido) nem <em>silo</em> (isolamento entre áreas — o swamp é falta de curadoria no próprio lake).</p></div>
+</div>
+<hr />
+<h2 id="5-curadoria-de-dados-data-stewards">5. Curadoria de dados (data stewards)</h2>
+<p>Na governança de dados, quem <strong>documenta, mantém e garante qualidade</strong> para uso analítico é o <strong>curador de dados</strong> (data steward) — papel <strong>organizacional/de negócio</strong>, não técnico:</p>
+<table>
+<thead>
+<tr>
+<th>Papel</th>
+<th>O que faz</th>
+<th>NÃO é responsável por</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Curador de dados</strong></td>
+<td>Documenta metadados, regras e definições; garante qualidade e prontidão analítica</td>
+<td>Infraestrutura de banco</td>
+</tr>
+<tr>
+<td>Cientista de dados</td>
+<td>Analisa e modela</td>
+<td>Governança/documentação</td>
+</tr>
+<tr>
+<td>Consumidor</td>
+<td>Só usa os dados</td>
+<td>Qualidade</td>
+</tr>
+<tr>
+<td>DBA</td>
+<td>Infraestrutura técnica (backup, performance, segurança)</td>
+<td>Qualidade conceitual e uso analítico</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p>"Quem <strong>documenta e mantém</strong> os dados prontos para análise" = <strong>curador</strong>. A palavra "analítico" no enunciado é anzol para <strong>cientista de dados</strong> — mas a atividade descrita é de curadoria, não de modelagem.</p></div>
+</div>
+<hr />
+<h1 id="banco-de-dados-t01-modelagem-de-dados-der">Banco de Dados T01 — Modelagem de Dados (DER)</h1>
+<h2 id="1-modelo-conceitual">1. Modelo Conceitual</h2>
+<ul>
+<li><strong>Entidade</strong>: conjunto de <strong>objetos do mundo real</strong> sobre os quais se quer manter informações no banco (Produto, Cliente, Carro, Contrato, Conta...) — representada por um <strong>RETÂNGULO</strong></li>
+<li><strong>Atributo</strong>: propriedade ou característica que <strong>descreve</strong> uma entidade — também chamado de <strong>campo</strong> (ex.: CARRO → Modelo, Marca, Cor, Categoria, Consumo, Valor)</li>
+<li><strong>Relacionamento</strong>: conjunto de <strong>associações de ocorrências</strong> entre entidades (representado por um losango no DER)</li>
+</ul>
+<p><strong>Exemplo:</strong> <code>Empregado</code> —◊— <code>Departamento</code></p>
+<p><strong>DER</strong> é a modelagem <strong>conceitual</strong> usada para representar entidades e relacionamentos de domínio.</p>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>O modelo <strong>Entidade-Relacionamento</strong> foi criado por <strong>Peter Chen</strong>. É a representação gráfica do modelo <strong>conceitual</strong> — alto nível, conceitos próximos dos usuários — e é a <strong>primeira</strong> etapa de modelagem depois da análise de requisitos.</p></div>
+</div>
+<hr />
+<h2 id="2-cardinalidade">2. Cardinalidade</h2>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1:1</strong> (um para um)</td>
+<td>Entidade em A associada ao máximo a uma em B, e vice-versa</td>
+</tr>
+<tr>
+<td><strong>1:n</strong> (um para muitos)</td>
+<td>Entidade em A associada a várias em B; B associada ao máximo a uma em A</td>
+</tr>
+<tr>
+<td><strong>n:n</strong> (muitos para muitos)</td>
+<td>Entidade em A associada a várias em B, e vice-versa</td>
+</tr>
+</tbody>
+</table>
+<h3 id="consequencias-praticas">Consequências práticas</h3>
+<ul>
+<li><strong>1:1</strong> → em regra, <strong>fusão das tabelas</strong> numa única relação (também dá para deixar a FK de um dos lados com restrição de unicidade).</li>
+<li><strong>1:n</strong> → a <strong>FK vai para o lado N</strong>.</li>
+<li><strong>n:n</strong> → é criada uma <strong>tabela intermediária</strong> (associativa).</li>
+<li><strong>NÃO confundir 1:N com N:N.</strong></li>
+</ul>
+<h3 id="notacao-de-cardinalidade-minima">Notação de cardinalidade mínima</h3>
+<ul>
+<li>Mínima <strong>0</strong> → participação <strong>opcional</strong></li>
+<li>Mínima <strong>1</strong> → participação <strong>obrigatória</strong></li>
+<li>Máxima <strong>1</strong> → 1 ou N (0 não é)</li>
+</ul>
+<hr />
+<h2 id="3-chaves">3. Chaves</h2>
+<ul>
+<li><strong>Chave artificial sem significado</strong> → <strong>chave surrogada</strong></li>
+<li>Ligações entre fatos e dimensões são feitas por <strong>chaves estrangeiras</strong> no contexto relacional/dimensional.</li>
+</ul>
+<hr />
+<h2 id="4-especializacaogeneralizacao-totalidade-disjuncao">4. Especialização/Generalização — totalidade × disjunção</h2>
+<p>Quando uma <strong>superclasse</strong> se fatia em <strong>subclasses</strong> (o clássico: PESSOA → PROFESSOR, ALUNO, FUNCIONARIO_ADMINISTRATIVO), o DER impõe <strong>duas restrições independentes</strong>. A pegadinha é que a banca conta com você decidir as duas de uma vez só, quando são duas perguntas diferentes:</p>
+<table>
+<thead>
+<tr>
+<th>Restrição</th>
+<th>Pergunta de bolso</th>
+<th>Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Totalidade</strong></td>
+<td>A instância da superclasse <strong>precisa</strong> cair em alguma subclasse?</td>
+<td><strong>Total</strong> (sim) × <strong>Parcial</strong> (não — pode ficar só na superclasse)</td>
+</tr>
+<tr>
+<td><strong>Disjunção × sobreposição</strong></td>
+<td>A instância pode assumir <strong>mais de um</strong> papel ao mesmo tempo?</td>
+<td><strong>Disjunta</strong> (não pode) × <strong>Sobreposta</strong> (pode)</td>
+</tr>
+</tbody>
+</table>
+<p>Na questão da universidade: a regra 1 ("toda PESSOA deve ser, pelo menos, um ALUNO, ou um PROFESSOR, ou um FUNCIONARIO_ADMINISTRATIVO") resolve a <strong>totalidade</strong> — é total. A regra 2 ("pode ser ALUNO e PROFESSOR ao mesmo tempo, mas não pode ser PROFESSOR e FUNCIONARIO_ADMINISTRATIVO") resolve a disjunção — e ela <strong>não é uniforme</strong>: um par é permitido, outro é proibido.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>Pela leitura clássica, bastaria haver <strong>um</strong> par simultâneo permitido para classificar tudo como <strong>sobreposta</strong> (a alternativa "Total e Sobreposta" estava lá esperando). A FGV, porém, aceitou <strong>"Total e Mista (parcialmente Disjunta e parcialmente Sobreposta)"</strong> — rótulo que a doutrina formal nem sempre usa. Lição: quando o enunciado traz <strong>pares permitidos e pares proibidos</strong> ao mesmo tempo e a banca oferece a categoria "mista", é ela que está sendo testada — a alternativa <em>mais correta</em> ganha da alternativa <em>mais elegante</em>.</p>
+<p><strong>💡 DICA</strong>
+Decisão em dois passos, nessa ordem: <strong>(1)</strong> olhe só a regra de completude → total ou parcial; <strong>(2)</strong> olhe só a simultaneidade → disjunta, sobreposta ou <strong>mista</strong> (par permitido <strong>e</strong> par proibido convivendo). Nunca decida as duas restrições com a mesma frase.</p></div>
+</div>
+<hr />
+<h2 id="5-entidade-forte-fraca-e-o-relacionamento-identificador">5. Entidade forte × fraca e o relacionamento identificador</h2>
+<p>Pensa em duas empresas: uma que <strong>se banca sozinha</strong> e outra que <strong>só existe por causa do contrato com a primeira</strong>.</p>
+<ul>
+<li><strong>Entidade forte</strong>: possui atributo ou conjunto de atributos capaz de identificá-la unicamente — a chave primária é <strong>dela</strong>.</li>
+<li><strong>Entidade fraca</strong>: não possui. A propriedade identificadora nasce da combinação da <strong>chave parcial</strong> (atributo discriminador) com a <strong>chave primária de outra entidade</strong>.</li>
+</ul>
+<p>O vínculo entre as duas pode ser de dois jeitos:</p>
+<table>
+<thead>
+<tr>
+<th>Relacionamento</th>
+<th>O que acontece</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identificador</strong></td>
+<td>A PK da entidade-pai <strong>entra na PK</strong> da entidade-filha — a filha depende do pai para <strong>existir</strong></td>
+<td>PK de DEPARTAMENTO compõe a PK de FUNCIONARIO_DEPENDENTE</td>
+</tr>
+<tr>
+<td><strong>Não identificador</strong></td>
+<td>A filha <strong>não depende em sua totalidade</strong> do pai: cada uma tem identificador próprio, e a FK só referencia</td>
+<td>A FK do pai vai para a filha sem compor a PK</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-conexao">
+  <div class="callout-title"><span class="callout-icon">🔗</span> CONEXAO</div>
+  <div class="callout-body"><p>O <strong>grafismo</strong> desse conceito está em <code>Banco_T02_Abordagem_Relacional</code>: na notação IDEF1X, relacionamento identificador = <strong>linha sólida</strong>; não identificador = <strong>linha tracejada</strong>. Aqui fica o conceito (quem depende de quem), lá fica o traço que a banca desenha. Junte os dois e a questão vira decoreba visual.</p>
+<p>Fontes: https://www.devmedia.com.br/tecnologias-de-banco-de-dados-e-modelagem-de-dados-parte-final/2106 · https://cursos.alura.com.br/forum/topico-relacionamento-identificador-vs-nao-identificador-320668</p></div>
+</div>
+<hr />
+<h1 id="banco-de-dados-t02-abordagem-relacional">Banco de Dados T02 — Abordagem Relacional</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Edital Dataprev 2026 — <strong>Banco de Dados, tópico 2: Abordagem relacional</strong> (+ ganchos do tópico 4, integridade referencial). Questões-fonte na íntegra, todas em <code>docs/Questões/Banco_de_Questões.md</code>: (V-F/V-F) (normalização município/órgão/auditor) (varredura de dependência funcional) (integridade referencial × domínio/entidade/transacional) e (fecho de atributos).</p></div>
+</div>
+<h2 id="1-do-que-se-trata">1. Do que se trata?</h2>
+<p>Pensa na planilha mais arrumada que você já viu: cada linha é uma ocorrência, cada coluna é uma característica, e nenhuma célula guarda "duas coisas" ao mesmo tempo. Essa é a essência do <strong>modelo relacional</strong> — os dados vivem em <strong>relações</strong> (tabelas) com regras rígidas de integridade, e não ficam soltos no arquivo.</p>
+<h2 id="2-vocabulario-que-cai-em-prova">2. Vocabulário que cai em prova</h2>
+<p>A FGV adora cobrar a nomenclatura: o mesmo objeto tem três nomes, e a banca mistura tudo na alternativa.</p>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>Sinônimos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Relação</strong></td>
+<td>Tabela</td>
+</tr>
+<tr>
+<td><strong>Tupla</strong></td>
+<td>Linha, registro</td>
+</tr>
+<tr>
+<td><strong>Atributo</strong></td>
+<td>Coluna, campo</td>
+</tr>
+<tr>
+<td><strong>Domínio</strong></td>
+<td>Conjunto de valores <strong>permitidos</strong> para o atributo</td>
+</tr>
+<tr>
+<td><strong>Cardinalidade</strong></td>
+<td>Quantidade de ocorrências no relacionamento</td>
+</tr>
+<tr>
+<td><strong>Superchave</strong></td>
+<td>Qualquer conjunto que identifique unicamente a tupla</td>
+</tr>
+<tr>
+<td><strong>Chave candidata</strong></td>
+<td>Superchave <strong>mínima</strong></td>
+</tr>
+<tr>
+<td><strong>Chave primária (PK)</strong></td>
+<td>Chave candidata <strong>escolhida</strong> — identifica a tupla</td>
+</tr>
+<tr>
+<td><strong>Chave estrangeira (FK)</strong></td>
+<td>Coluna que referencia a PK de outra relação</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Tudo que a dica de prova precisa: <strong>PK</strong> é a "escolhida oficialmente"; <strong>candidata</strong> é a mínima; <strong>superchave</strong> não precisa ser mínima. "FK aponta pra quem manda na outra tabela."</p></div>
+</div>
+<h2 id="3-chave-primaria-x-chave-estrangeira">3. Chave primária x chave estrangeira</h2>
+<p>A pegadinha clássica conta com você mantendo dados repetidos nas tabelas. A saída é sempre a mesma receita de normalização:</p>
+<ul>
+<li><strong>Chave primária</strong> — identifica a linha <strong>dela mesma</strong> (não nula, única).</li>
+<li><strong>Chave estrangeira</strong> — carrega a identidade de <strong>outra</strong> relação, criando o vínculo.</li>
+</ul>
+<h2 id="4-dependencia-funcional-o-passo-a-passo-de-prova">4. Dependência funcional — o passo a passo de prova</h2>
+<p>Antes de qualquer forma normal, você precisa saber <strong>ler uma dependência funcional numa tabela</strong>: uma coluna _C_2 depende funcionalmente de _C_1 (escrito _C_1 → _C_2) quando, <strong>para qualquer linha da tabela, a cada valor de _C_1 aparece sempre o mesmo valor de _C_2</strong>. Pensa no garçom: mesma mesa, mesmo pedido anotado — se uma vez a mesma mesa aparecer com dois pedidos diferentes no bloco, a "dependência" quebrou.</p>
+<p><strong>Passo a passo para resolver a questão analisando a tabela:</strong></p>
+<ol>
+<li>Olhe para a alternativa (A), que indica <em>A</em> → <em>B</em>.</li>
+<li>Verifique os valores da coluna A: se o valor "1" na coluna A estiver associado ao valor "2" na coluna B em uma determinada linha, confira se <strong>todas as vezes</strong> que o "1" aparecer na coluna A, o "2" também aparecerá na coluna B.</li>
+<li>Se você encontrar uma linha com A="1" e B="2", e outra linha diferente com A="1" e B="3", a dependência funcional foi quebrada — logo, a afirmação <em>A</em> → <em>B</em> é falsa. Aplique essa <strong>varredura visual</strong> em todas as alternativas até encontrar aquela em que a regra se mantém intacta para todas as instâncias da tabela.</li>
+</ol>
+<p>Nas instâncias dessa questão: <strong>A → B</strong> é verdadeira (T1: A=1 → B=3; A=2 → B=2; A=4 → B=2 — cada A determina um único B); <strong>A → C</strong> é falsa (T3: A=1 → C=100 e C=110 — o mesmo A determina dois C); <strong>B → A</strong> é falsa (T1: B=2 → A=2 e A=4); <strong>C → A</strong> é falsa (T3: C=100 → A=1 e A=2); <strong>E → C</strong> é falsa (T3: E=12 → C=100 e C=110). Resumindo: <strong>cada valor de X existe apenas um valor correspondente de Y.</strong> (T1 e T3 referenciam as tabelas exibidas na imagem do enunciado.)</p>
+<p><strong>Dica de prova — varredura em três tempos:</strong> <strong>(1)</strong> pega a alternativa; <strong>(2)</strong> procura na coluna do determinante um valor repetido; <strong>(3)</strong> vê se o correspondente mudou. Mudou → quebrou → falsa. E repare nas alternativas da banca: duas das falsas são a <strong>seta invertida</strong> (B → A e C → A) — a FGV testa se você lê a dependência da esquerda para a direita.</p>
+<h2 id="5-chaves-candidatas-o-fecho-na-mao">5. Chaves candidatas — o fecho na mão</h2>
+<p>Achar chave candidata no calor da prova tem um macete: <strong>observe quais atributos não aparecem no lado direito de nenhuma dependência funcional</strong> — esses obrigatoriamente têm de entrar em qualquer chave candidata. A partir daí, é só "fechar" conjuntos de atributos até achar quem determina tudo.</p>
+<p>Exemplo com F = {D → A, A → B, BC → DE} e a relação R(A, B, C, D, E): o <strong>C</strong> não apareceu no lado direito de nada, então toda candidata precisa dele. Teste o fecho ($) das combinações:</p>
+<table>
+<thead>
+<tr>
+<th>Teste</th>
+<th>Fecho</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>$C</strong></td>
+<td>{C} — nenhuma dependência tem só C à esquerda</td>
+<td>não deriva mais nada → <strong>não é chave</strong></td>
+</tr>
+<tr>
+<td><strong>$AC</strong></td>
+<td>{A,C} → A → B → {A,B,C} → BC → DE → <strong>{A,B,C,D,E}</strong></td>
+<td><strong>chave candidata</strong></td>
+</tr>
+<tr>
+<td><strong>$DC</strong></td>
+<td>{D,C} → D → A → {A,C,D} → A → B → {A,B,C,D} → BC → DE → <strong>{A,B,C,D,E}</strong></td>
+<td><strong>chave candidata</strong></td>
+</tr>
+<tr>
+<td><strong>$BC</strong></td>
+<td>{B,C} → BC → DE → {B,C,D,E} → D → A → <strong>{A,B,C,D,E}</strong></td>
+<td>também fecha tudo</td>
+</tr>
+</tbody>
+</table>
+<p>Detalhe fino: a alternativa oficial (C) cita <strong>{AC} e {DC}</strong>, mas o fecho mostra que <strong>{BC} também é minimal e determina tudo</strong> — o gabarito comentado registra a mesma conta (BC+ = ABCDE). Não encerre a busca na primeira chave que aparecer: teste as combinações mínimas, é para isso que serve o fecho.</p>
+<p>Amarração com formas normais (detalhe em <code>Banco_T03_Normalizacao</code>): a relação está na <strong>3FN</strong> e <strong>não</strong> na BCNF, porque em A → B e D → A os determinantes A e D <strong>não são superchaves</strong> — na BCNF todo determinante tem de ser superchave; na 3FN basta o determinante ser superchave <strong>ou</strong> o dependente ser atributo primo.</p>
+<h2 id="6-entidade-forte-x-entidade-fraca">6. Entidade forte x entidade fraca</h2>
+<ul>
+<li><strong>Forte</strong>: tem atributos próprios capazes de identificá-la (a PK é dela).</li>
+<li><strong>Fraca</strong>: não tem; a identificação nasce da combinação da <strong>chave parcial</strong> (discriminador) com a <strong>PK de outra entidade</strong>.</li>
+</ul>
+<h3 id="notacao-idef1x-linha-solida-tracejada">Notação IDEF1X: linha sólida × tracejada</h3>
+<p>Na notação IDEF1X o <strong>relacionamento identificador</strong> (a FK entra na PK da entidade filha — filha fraca) é desenhado com <strong>linha sólida</strong>; o <strong>não identificador</strong> (a FK não participa da PK — filha forte) usa <strong>linha tracejada</strong>. É a "pegada" visual de forte × fraca.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Sólido = "vida presa ao pai" (identificador); tracejado = "guarda a chave do pai só de referência" (não identificador). Se a banca mostrar o desenho em vez do texto, é esse par que ela quer.</p></div>
+</div>
+<h2 id="7-integridade-referencial">7. Integridade referencial</h2>
+<p>Quem integra a prática com o conceito: a FK <strong>só aceita valores que existam na PK referenciada</strong> (ou NULL). Foi isso que a banca cobrou na modelagem das fiscalizações:</p>
+<ul>
+<li><code>MUNICIPIO</code> (PK) ← <code>ORGAO</code> tem FK para <code>MUNICIPIO</code> (cada órgão pertence a um único município).</li>
+<li><code>FISCALIZACAO</code> guarda <strong>apenas</strong> <code>id_orgao</code> e <code>id_auditor</code> como FKs — o município é alcançado <strong>indiretamente</strong> pelo órgão. Menos redundância, mesma consulta.</li>
+</ul>
+<h3 id="o-guarda-roupa-das-integridades">O guarda-roupa das integridades</h3>
+<p>São <strong>cinco</strong> e a banca vive embaralhando os nomes:</p>
+<table>
+<thead>
+<tr>
+<th>Integridade</th>
+<th>Cuida de...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Entidade</strong></td>
+<td>PK: identificação única e <strong>não nula</strong> de cada tupla</td>
+</tr>
+<tr>
+<td><strong>Referencial</strong></td>
+<td>FK só aponta para valor que <strong>existe</strong> na PK (ou NULL)</td>
+</tr>
+<tr>
+<td><strong>Domínio</strong></td>
+<td><strong>Valores permitidos</strong> (tipo/faixa) de um atributo</td>
+</tr>
+<tr>
+<td><strong>Semântica</strong></td>
+<td><strong>Regras de negócio</strong> que o modelo conceitual define</td>
+</tr>
+<tr>
+<td><strong>Transacional</strong></td>
+<td>Estados do dado no meio de uma <strong>transação</strong> (consistência ACID)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>"Campo que só aceita número" é <strong>domínio</strong>; "chave única não nula" é <strong>entidade</strong>. A troca dessas duas é o blefe preferido da FGV. E se o enunciado falar em "valor que deve existir como chave em outra tabela", é <strong>referencial</strong> — não entidade, não domínio. Integridade <strong>transacional</strong> é o nome bonito do ACID — quem vê "estados de transação" deve pensar em commit/rollback, não em FK.</p>
+<p><strong>🔗 CONEXAO</strong>
+Essa "pergunta pelo outro lado" é o mesmo raciocínio do <strong>star schema</strong> (T06): tabela associativa / fato guarda as <strong>chaves</strong>, e você junta por joins. Se um dia a mesa ficar quente, procure sempre o <strong>identificador</strong>, nunca o texto do nome repetido.</p></div>
+</div>
+<h2 id="8-onde-eu-erraria-e-por-que">8. Onde eu erraria e por quê?</h2>
+<p>Eu tenderia a marcar "restrição de entidade" quando o campo aceitasse só número — afinal "o tipo está restringido"... Mas restrição de tipo é <strong>domínio</strong>. A palavra "entidade" só aparece quando falamos da <strong>identificação da tupla</strong> (PK não nula). Guarde: <em>tipo → domínio; chave → entidade</em>. Outra que pega todo mundo: <strong>inverter forte × fraca</strong> e chamar de "forte" a entidade que usa a chave alheia (4ª assertiva) — a fraca é a que não se identifica sozinha; a tabela de relacionamento identificador × não identificador está em <code>Banco_T01_Modelagem_DER</code>, seção 5. E na varredura de dependência funcional eu pararia na primeira alternativa que "parecesse certa" — a receita é varrer <strong>todas</strong>, tupla por tupla, porque a falsa costuma ser a mesma regra com a seta ao contrário.</p>
+<h2 id="9-como-memorizar-sem-decorar">9. Como memorizar sem decorar?</h2>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>"Relação é a família, a linha é o filho, a coluna é o traço."</strong> A mesa (tabela) chamada relação, cada filho (registro) único na PK, e o traço (atributo) herdado do domínio. Entidade <strong>forte</strong> paga a própria conta; <strong>fraca</strong> depende do CNPJ do pai (PK alheia + senha parcial).</p></div>
+</div>
+<h2 id="10-o-que-revisar-e-quando">10. O que revisar e quando?</h2>
+<ul>
+<li>A <strong>terminologia relação/tupla/atributo</strong> e a <strong>classificação forte × fraca</strong> são cobradas quase todos os anos em questões de V/F (FGV 2026/TJ-SC).</li>
+<li>Reforce a <strong>integridade referencial</strong> junto com modelagem e com SQL de joins (T07).</li>
+<li><strong>Varredura de dependência funcional</strong> e <strong>fecho de atributos para achar chave candidata</strong> são os dois procedimentos de "mão na massa" do tópico — a FGV tem cobrado o cálculo, não só a definição.</li>
+</ul>
+<h2 id="11-licao-para-outras-materias">11. Lição para outras matérias</h2>
+<p>O mesmo padrão do "nome repetido que gera inconsistência" aparece em <strong>Raciocínio Lógico</strong> (deduplicação de premissas), <strong>Governança</strong> (mestre-dados/qualidade da informação) e <strong>Infra</strong> (índices e estatísticas de custo). Em qualquer matéria: <em>redundância mal planejada = inconsistência; centralização em tabela de referência = sanidade.</em></p>
+<hr />
+<h1 id="banco-de-dados-t03-normalizacao">Banco de Dados T03 — Normalização</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Edital Dataprev 2026 — <strong>Banco de Dados, tópico 3: Normalização das estruturas de dados</strong>. Questões-fonte na íntegra: (1FN) (2FN) (3FN) (3FN × 2FN com PK simples) e (1FN e anomalia de atualização) no <code>Banco_de_Questões.md</code>.</p></div>
+</div>
+<h2 id="1-do-que-se-trata_1">1. Do que se trata?</h2>
+<p>Normalização é a disciplina de <strong>organizar as prateleiras da despensa relacional</strong>: cada informação é guardada <strong>uma única vez</strong>, no lugar certo. O objetivo não é "deixar bonito" — é <strong>matar as anomalias</strong> que nascem do mau planejamento de tabelas.</p>
+<h2 id="2-por-que-cai-em-prova">2. Por que cai em prova?</h2>
+<p>A FGV cobra normalização de três jeitos: (a) <strong>definição pura</strong> de cada forma normal, (b) <strong>análise de dependência funcional</strong> (qual cadeia viola qual FN) e (c) <strong>identificar o que cada FN elimina</strong>. É o tópico com mais questões FGV recentes entre as 20 de Banco de Dados: 1FN, 2FN e 3FN aparecem literalmente.</p>
+<h2 id="3-as-tres-formas-normais-que-dominam-a-prova">3. As três formas normais que dominam a prova</h2>
+<table>
+<thead>
+<tr>
+<th>Forma</th>
+<th>Elimina</th>
+<th>Exigência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1FN</strong></td>
+<td>Grupos repetitivos / valores não atômicos</td>
+<td>Cada campo = <strong>um único valor atômico e indivisível</strong></td>
+</tr>
+<tr>
+<td><strong>2FN</strong></td>
+<td><strong>Dependência parcial</strong> (de parte da chave composta)</td>
+<td>Todo atributo não-chave depende da <strong>chave inteira</strong></td>
+</tr>
+<tr>
+<td><strong>3FN</strong></td>
+<td><strong>Dependência transitiva</strong></td>
+<td>Atributo não-chave depende <strong>só da chave</strong>, e não de outro não-chave</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Os exemplos que a banca costuma desenhar:</strong></p>
+<ul>
+<li>Endereço guardado numa <strong>única string</strong> (rua + número + CEP) → campo composto, não atômico → viola a <strong>1FN</strong>.</li>
+<li><code>Telefone1</code>, <code>Telefone2</code>, <code>Telefone3</code> na mesma tabela → <strong>grupo repetitivo</strong> (coluna repetida para o mesmo tipo de dado) → viola a <strong>1FN</strong>.</li>
+<li>Vetor/lista dentro de uma célula → mesma coisa, viola a <strong>1FN</strong>.</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Resumo da despensa: <strong>1FN = sem caixa com dois itens</strong>; <strong>2FN = sem filho que só dependa de metade do pai (chave composta)</strong>; <strong>3FN = sem sobrinho mandando no primo (não-chave → não-chave)</strong>.</p></div>
+</div>
+<h2 id="4-as-pegadinhas-classicas">4. As pegadinhas clássicas</h2>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>- <strong>"Chave simples na 1FN já está na 2FN"</strong> — verdadeiro: sem chave composta não há dependência parcial para eliminar.
+- <strong>"3FN não cuida de chave composta"</strong> — depende: o alvo da 3FN é a dependência <strong>transitiva</strong>, não a parcial. A 2FN é que cuida de chave composta.
+- <strong>Índice único, chave estrangeira e primária NÃO definem forma normal</strong> — elemento estrutural confunde o candidato (/C).</p></div>
+</div>
+<h2 id="5-a-cadeia-que-a-fgv-ama-dependencia-transitiva">5. A cadeia que a FGV ama: dependência transitiva</h2>
+<p>Obrigatório reconhecer o padrão <code>PK → não-chave X → não-chave Y</code>:</p>
+<ul>
+<li>Enunciado FGV 2026/NAV Brasil: <code>ID_Veiculo (PK) → ID_Fabricante</code> e <code>ID_Fabricante → Nome_Fabricante</code>.</li>
+<li><code>Nome_Fabricante</code> depende da chave <strong>por intermédio</strong> de outro atributo não-chave → <strong>violação da 3FN</strong>.</li>
+<li>Solução: tirar <code>Nome_Fabricante</code> de <code>TB_VEICULO</code>, deixar só <code>ID_Fabricante</code> (FK) e criar <code>TB_FABRICANTE (ID_Fabricante PK, Nome_Fabricante)</code>.</li>
+</ul>
+<p><strong>Definição formal (a que a banca parafraseia):</strong> uma tabela está na <strong>3FN</strong> quando está na <strong>2FN</strong> e <strong>nenhum atributo não-chave depende transitivamente da chave primária</strong>. Dito ao contrário: todo atributo não-chave deve depender <strong>diretamente</strong> da chave, e <strong>de mais nada</strong>.</p>
+<p><strong>O contraponto que a FGV monta:</strong> <code>ID_PROJETO (PK) → ID_DEPARTAMENTO → NOME_DEPARTAMENTO</code>. Como <code>NOME_DEPARTAMENTO</code> depende de <code>ID_DEPARTAMENTO</code>, que <strong>não é chave primária nem candidata</strong>, temos dependência transitiva → <strong>3FN</strong>. E se a chave fosse composta por <code>(ID_PROJETO, ID_DEPARTAMENTO)</code>? Aí seria <strong>2FN</strong>: <code>ID_PROJETO → NOME_PROJETO</code> e <code>ID_DEPARTAMENTO → NOME_DEPARTAMENTO</code> seriam duas dependências parciais (atributos não-chave dependendo de só metade da chave).</p>
+<p><strong>Pegadinha de banca:</strong> repare no aviso do enunciado: "<strong>ID_DEPARTAMENTO não é chave primária</strong>". É a banca te tirando da 2FN — dependência parcial <strong>só existe com chave composta</strong>, e essa relação tem PK simples (só <code>ID_PROJETO</code>). Quem lê "um atributo depende do outro" e marca 2FN sem checar a PK cai direito.</p>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> RESUMO</div>
+  <div class="callout-body"><p>Nos aquecer pro padrão: <strong>dependência parcial → 2FN</strong>; <strong>dependência transitiva → 3FN</strong>; <strong>multivalorado/atômico → 1FN</strong>; <strong>BCNF</strong> é só a versão mais rígida da 3FN para chaves candidatas sobrepostas — distrator clássico.</p></div>
+</div>
+<h2 id="6-anomalias-o-motivo-da-existencia">6. Anomalias: o motivo da existência</h2>
+<p>Normalização existe para <strong>extinguir</strong>:</p>
+<ul>
+<li><strong>Anomalia de inserção</strong> — não consigo gravar a informação sem gravar a vizinha.</li>
+<li><strong>Anomalia de exclusão</strong> — excluir um registro leva junto um dado que eu queria manter.</li>
+<li><strong>Anomalia de atualização</strong> — corrigir um valor exige alterar vários lugares (risco de divergência de grafia, como no ).</li>
+</ul>
+<p><strong>Caso de prova:</strong> tabela <code>PROJETOS_AUTORES</code> com PK composta <code>(Título_PL, Cod_Autor)</code> e o atributo <code>Nome_Autor</code> dependendo só de <code>Cod_Autor</code>, ou seja, de <strong>parte da chave</strong> — dependência parcial, então a tabela nem chega à 2FN (está na 1FN). Se a tarefa for alterar o <code>Nome_Autor</code> de um autor específico, várias linhas mudam de uma vez, sem inserir nem remover nada: <strong>anomalia de atualização</strong>. Não é inserção (nada entrou) nem exclusão (nada saiu) — é "correção espalhada", o defeito clássico da redundância sem controle.</p>
+<p>Tem discordância nos comentários da questão: um colega argumenta que, <strong>segundo Codd</strong>, a tabela nem estaria na 1FN, porque toda linha precisa ser única e identificável por uma chave — e a instância teria duas tuplas com a mesma combinação de <code>(Título_PL, Cod_Autor)</code>. O gabarito oficial, contudo, é <strong>1FN + anomalia de atualização</strong> — na dúvida, é esse que vale.</p>
+<div class="callout callout-conexao">
+  <div class="callout-title"><span class="callout-icon">🔗</span> CONEXAO</div>
+  <div class="callout-body"><p>Em <strong>Redes</strong> você viu o mesmo dilema lógico: dados duplicados em vários roteadores geram loop de inconsistência; centralizar a "fonte da verdade" (SPF/IGP) é análogo a normalizar a tabela. A redundância com controle é ok; redundância espalhada é bug.</p></div>
+</div>
+<h2 id="7-onde-eu-erraria-e-por-que">7. Onde eu erraria e por quê?</h2>
+<p>Eu marcaria "índice único sobre a chave primária" como se fosse 1FN — porque soa técnico e "de banco". Mas 1FN não fala de implementação física: é sobre a <strong>célula</strong> (atómica) e sobre <strong>caixas repetidas</strong> na mesma coluna. Se a alternativa menciona índice, PK, FK — é distrator. Outro tropeço: ver "endereço" ou "telefone1/telefone2" na achar que é caso de chave composta, quando o problema é <strong>atômico/grupo repetitivo</strong> (1FN).</p>
+<h2 id="8-como-memorizar-sem-decorar">8. Como memorizar sem decorar?</h2>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>P. A. T.</strong> — <strong>P</strong>arcial (2FN) → <strong>A</strong>tômico (1FN) → <strong>T</strong>ransitiva (3FN). E a regra de bolso: <em>1FN não cuida de chave, 3FN não cuida de chave composta.</em> Chave compostas são território da 2FN. Régua da normalização: <strong>1FN</strong> = só valores atômicos, sem grupos repetitivos; <strong>2FN</strong> = depende de <strong>TODA</strong> a chave; <strong>3FN</strong> = depende <strong>APENAS</strong> da chave.</p>
+<p><strong>💡 DICA</strong>
+<strong>A Escada de Codd em uma frase por degrau:</strong>
+- <strong>1FN</strong> → pergunta-chave: "o valor da célula é atômico e único?" Se falar em índice, PK ou FK, é distrator — 1FN é conceito lógico, não físico.
+- <strong>2FN</strong> → pergunta-chave: "a chave primária é <strong>composta</strong>?" Se for simples, a tabela já está automaticamente na 2FN.
+- <strong>3FN</strong> → pergunta-chave: "algum não-chave depende de <strong>outro</strong> não-chave?" Se sim, é dependência transitiva → viola 3FN.
+- <strong>BCNF</strong> → é a 3FN mais rigorosa: todo determinante deve ser chave candidata. Distrator clássico da FGV — a questão descreve 3FN simples e a alternativa errada oferece "BCNF" como resposta.</p>
+<p><strong>💡 DICA</strong>
+<strong>4FN e 5FN</strong> raramente caem como gabarito, mas aparecem como distratores. Lembrete rápido: <strong>4FN</strong> elimina <strong>dependências multivaloradas</strong> (quando um atributo determina <em>múltiplos</em> valores independentes de outro); <strong>5FN</strong> elimina <strong>dependências de junção</strong>. Se o enunciado não citar explicitamente esses termos, a resposta quase certamente é 1FN/2FN/3FN.</p>
+<p><strong>🔴 ALERTA</strong>
+<strong>Chaves candidatas</strong> são todas as colunas (ou combinações) que poderiam ser chave primária. Para calcular: com <em>n</em> atributos e <em>k</em> dependências funcionais, verifique quais combinações determinam todos os outros. A banca gosta de dar um conjunto de DFs e pedir qual chave candidata é válida — teste cada alternativa: ela determina <strong>todos</strong> os outros atributos diretamente?</p></div>
+</div>
+<h2 id="9-o-que-revisar-e-quando">9. O que revisar e quando?</h2>
+<p>A sequência 1FN→2FN→3FN cai em <strong>quase toda prova de banco relacional</strong> (FGV 2026: NAV Brasil, MPE-ES, TJ-SC, TCE-PE, AL-RO; FGV 2022: Prefeitura de Manaus). Revise rápido com as 5 questões de formas normais do banco antes de simulado. A tendência recente é cobrar a <strong>dependência funcional concreta</strong>, não só a definição decorada.</p>
+<p><strong>Alerta de banca:</strong> em a FGV publicou <strong>gabarito preliminar C</strong> (BCNF) e o <strong>oficial passou para E</strong> (dependência transitiva). Lição: escolha pela <strong>descrição da dependência</strong>, não pelo rótulo da forma normal citado na alternativa.</p>
+<p>A <strong>desnormalização</strong> (o outro lado da moeda, com trade-off de leitura × integridade) está em <strong>T06 — Modelagem dimensional</strong>.</p>
+<h2 id="10-licao-para-outras-materias">10. Lição para outras matérias</h2>
+<p>O mesmo <em>refactoring</em> aparece em <strong>Raciocínio Lógico</strong>: quando duas premissas têm a "mesma informação" em duas condições diferentes, você <strong>extrai a relação transitiva</strong> (como a 3FN extrai a tabela). Em <strong>Governança</strong>, é o prato do dia do gerenciamento de qualidade de dados: <em>single source of truth</em> é normalização com outro nome.</p>
+<hr />
+<h1 id="banco-de-dados-t06-modelagem-dimensional">Banco de Dados T06 — Modelagem Dimensional</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Edital Dataprev 2026 — <strong>Banco de Dados, tópico 6: Modelagem dimensional</strong>. Questões-fonte na íntegra: (Star Schema — dimensões) (desnormalização em DW) e (esquema em estrela × filtrar/agrupar/agregar, CESPE 2025/PC-DF) no <code>Banco_de_Questões.md</code>.</p></div>
+</div>
+<h2 id="1-do-que-se-trata_2">1. Do que se trata?</h2>
+<p>A modelagem dimensional é o "mapa do Data Warehouse": uma <strong>tabela de fatos</strong> no centro (o que aconteceu — vendas, fiscalizações, vínculos) rodeada de <strong>tabelas de dimensões</strong> (quem, onde, quando, o quê). Nada a ver com banco transacional supernormalizado: aqui a régua é <strong>leitura rápida</strong>, não economia de armazenamento.</p>
+<h2 id="2-star-schema-esquema-estrela-puro-e-classico">2. Star Schema (Esquema Estrela) — puro e clássico</h2>
+<ul>
+<li><strong>Dimensões desnormalizadas</strong>, ligadas <strong>diretamente à tabela fato</strong>, em <strong>um único nível lógico plano</strong>.</li>
+<li>A ligação é feita por <strong>chaves estrangeiras na tabela fato</strong> que referenciam as chaves das dimensões — nada de hierarquia externa.</li>
+<li>Foco em <strong>otimização de consultas e leitura de informações</strong>: como não há sub-tabela para descer, o <strong>número de JOINs cai</strong> e a leitura fica curta e previsível.</li>
+</ul>
+<h3 id="21-por-que-o-esquema-em-estrela-existe-as-tres-operacoes">2.1 Por que o esquema em estrela existe: as três operações</h3>
+<p>O motivo de o estrela ser o padrão em data warehouse é que ele foi desenhado para <strong>exatamente três operações analíticas</strong> — e a banca vai descrever as três:</p>
+<table>
+<thead>
+<tr>
+<th>Operação</th>
+<th>O que faz</th>
+<th>Onde aparece no SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Filtrar</strong> (<em>slice</em>)</td>
+<td>Restringe o recorte — "só vendas de 2025"</td>
+<td><code>WHERE</code> sobre a dimensão</td>
+</tr>
+<tr>
+<td><strong>Agrupar</strong> (<em>dice</em>)</td>
+<td>Escolhe por qual eixo fatiar — "por região"</td>
+<td><code>GROUP BY</code> sobre a dimensão</td>
+</tr>
+<tr>
+<td><strong>Agregar</strong> (<em>measure</em>)</td>
+<td>Calcula o número — <code>SUM</code>, <code>AVG</code>, <code>COUNT</code></td>
+<td>Fração da medida da tabela fato</td>
+</tr>
+</tbody>
+</table>
+<p>Estrutura do modelo: a <strong>tabela fato</strong> guarda as <strong>métricas/medidas</strong> numéricas (vendas, receita, quantidade); as <strong>tabelas de dimensão</strong> guardam os <strong>atributos descritivos</strong> que dão contexto ao fato (<strong>tempo</strong>, <strong>produto</strong>, <strong>cliente</strong>, <strong>localização</strong>).</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Guarde o tripé com as palavras do enunciado: <em>filtrar</em> = <code>WHERE</code>, <em>agrupar</em> = <code>GROUP BY</code>, <em>agregar</em> = função de agregação. Se a questão afirmar que <strong>os atributos das tabelas fato e dimensão</strong> podem ser usados para as três coisas, está <strong>certo</strong> — porque a dimensão é justamente o eixo que dá sentido aos números. Se disser que só a <em>tabela fato</em> filtra, ou que a dimensão <em>armazena</em> as medidas, está errado: quem guarda medida é a <strong>fato</strong>.</p>
+<p><strong>⚠️ PEGADINHA</strong>
+A inversão clássica é trocar os papéis: <strong>fato = medida, dimensão = atributo</strong>. A banca escreve "atributos das tabelas fato e dimensão podem ser usados para filtrar, agrupar e agregar os fatos" e quem lê rápido entende "a medida filtra" e marca errado. A medida <strong>é o que se agrega</strong>; o atributo da dimensão <strong>é o que filtra e agrupa</strong>.</p></div>
+</div>
+<h2 id="3-snowflake-schema-floco-de-neve">3. Snowflake Schema (Floco de Neve)</h2>
+<ul>
+<li>Dimensões <strong>altamente normalizadas</strong>, quebradas em <strong>ramificações hierárquicas em cadeia</strong>.</li>
+<li>Ligação entre <strong>fatos e dimensões</strong> por <strong>chaves estrangeiras</strong> no contexto relacional/dimensional.</li>
+<li>Por ser mais normalizado, tende a exigir <strong>mais operações de JOIN</strong> nas consultas.</li>
+<li>Custo: <strong>maior consumo de memória e menor desempenho</strong> de leitura.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>A FGV descreve floco de neve e pergunta "qual a característica do <strong>estrela puro</strong>?": dimensões <strong>desnormalizadas e planas</strong>, ligadas direto na fato. Quando a alternativa falar em "forte normalização + ramificações em cadeia", é <strong>snowflake</strong> — distrator clássico.</p></div>
+</div>
+<h2 id="4-fatos-e-granularidade">4. Fatos e granularidade</h2>
+<p>A <strong>tabela de fatos</strong> guarda as <strong>chaves das dimensões</strong> + medidas numéricas. A <strong>granularidade</strong> (= o que cada linha da fato representa) é o ponto fino que decide a resposta certa:</p>
+<ul>
+<li><code>GROUP BY ID_SERVIDOR HAVING COUNT(DISTINCT ID_ORGAO) &gt;= 2</code> → cada linha = um <strong>servidor</strong> em órgãos distintos (acumulação de cargos).</li>
+<li>Inverter para <code>GROUP BY ID_ORGAO</code> → cada linha = um <strong>órgão</strong> com ≥ 2 servidores.</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> ALERTA</div>
+  <div class="callout-body"><p>Mesmo SQL, granularidades opostas = respostas opostas. A dimensão "quem" na linha manda na interpretação (gancho com, em SQL/DDL/DML).</p></div>
+</div>
+<h2 id="5-desnormalizacao-o-pacote-de-beneficio-com-a-conta-na-mao">5. Desnormalização — o pacote de benefício com a conta na mão</h2>
+<p>A <strong>desnormalização</strong> é a introdução <strong>intencional</strong> de redundância para atingir um objetivo de desempenho. Em DW/OLAP ela serve para:</p>
+<ul>
+<li><strong>Otimizar tempo de resposta</strong> em consultas complexas e relatórios.</li>
+<li><strong>Simplificar o SQL</strong>: menos <em>joins</em> entre tabelas = menos processamento.</li>
+<li><strong>Facilitar o uso pelo negócio</strong> — é o pilar da modelagem dimensional (Kimball), com tabelas fato e dimensão.</li>
+<li>Em <strong>NoSQL/documentos</strong>, reduz dependências: o registro vira um bloco único, sem consulta interna e externa.</li>
+</ul>
+<p>O trade-off é sempre o mesmo pacote:</p>
+<table>
+<thead>
+<tr>
+<th>Ganha</th>
+<th>Paga</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leitura/consulta analítica mais rápida (menos JOINs)</td>
+<td>Mais <strong>espaço em armazenamento</strong> (dado repetido)</td>
+</tr>
+<tr>
+<td>SQL mais simples para o analista</td>
+<td>Risco de <strong>anomalia de atualização</strong> (atualizar em N lugares)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>A <strong>desnormalização não serve principalmente para escrita</strong> — no DW, o foco é leitura; ambiente desnormalizado costuma ser <strong>pior</strong> para <em>inserts/updates</em>.</li>
+<li>A <strong>3FN é ótima para OLTP</strong> (integridade, escrita) e <strong>não é a escolha ideal para DW</strong>, que exigiria muitos <em>joins</em> nas agregações.</li>
+<li><strong>Não é exclusiva de NoSQL</strong> nem inviável em SQL — é prática consolidada em SGBDRs (Oracle, SQL Server, PostgreSQL).</li>
+<li>Dimensão <strong>plana e consolidada = star schema</strong>; normalizar dimensão = <strong>snowflake</strong>.</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> ALERTA</div>
+  <div class="callout-body"><p>As desvantagens que a banca cobra como "consequências da desnormalização": <strong>redundância e desperdício de espaço</strong>, <strong>risco de inconsistência</strong> (atualização falha em um dos lugares e some a "fonte única da verdade"), <strong>complexidade de manutenção/governança</strong> (ilhas de informação — <em>data silos</em>), <strong>piora do CRUD</strong> e até <strong>impacto em Machine Learning</strong> (dado redundante é dado ruim — <em>"garbage in, garbage out"</em>). Efeito colateral de projeto bem intencional, não bug.</p>
+<p><strong>💡 DICA</strong>
+<strong>Gatilho para questões de OLTP × OLAP:</strong>
+- Cenário <strong>OLTP</strong>: 3FN, integridade, poucos JOINs de escrita → prioridade é a <strong>corretude</strong> dos dados.
+- Cenário <strong>DW/BI</strong>: desnormalização, star schema, joins reduzidos → prioridade é a <strong>velocidade de leitura</strong>.
+- Se a alternativa disser que a desnormalização otimiza <strong>escritas</strong> (inserts/updates), está <strong>errada</strong> — o benefício é na <strong>leitura analítica</strong>.
+- <strong>Dimensão plana/consolidada = star schema; dimensão normalizada em camadas = snowflake.</strong> Quando a questão descrever "dimensão única, plana, sem relacionamentos hierárquicos externos", é <strong>estrela</strong> — não floco.</p>
+<p><strong>🔗 CONEXAO</strong>
+É o <strong>mesmo dilema OLTP × DW</strong> que a FGV gosta de inverter: no transacional, normalização protege integridade; no analítico, desnormalização protege a leitura. E é o mesmo trade-off de <strong>Infraestrutura</strong>: disco barato + leitura veloz (estrela desnormalizada) versus espaço/fidelidade (floco normalizado). Abordagem Inmon (consolidação normalizada, mais lenta no início) × Kimball (dimensional, mais rápida no início) é o "quem paga antes, quem paga depois". O <em>single source of truth</em> (T03) vive só no <strong>floco</strong>; no estrela, repete-se sem medo.</p></div>
+</div>
+<h2 id="6-como-memorizar-sem-decorar">6. Como memorizar sem decorar?</h2>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>Estrela = pizza direto no prato</strong> (uma fatia, sem etapas); <strong>floco = bolo em camadas</strong> (cada camada é uma subdimensão normalizada). Fato = o centro; dimensões = a borda; granularidade = o tamanho da fatia.</p></div>
+</div>
+<h2 id="7-o-que-revisar-e-quando">7. O que revisar e quando?</h2>
+<ul>
+<li><strong>Fato × dimensão e as três operações (filtrar/agrupar/agregar)</strong> — o enunciado "certo ou errado" do esquema em estrela é a forma mais provável de o tema cair; basta saber quem guarda medida e quem guarda atributo.</li>
+<li><strong>Dimensões × fatos</strong> e a distinção <strong>estrela × floco</strong> aparecem com frequência em provas de DW da FGV (2026/NAV Brasil).</li>
+<li><strong>Desnormalização em DW</strong> é a pergunta "qual o objetivo e qual o custo?" — resposta: menos <em>joins</em>, mais leitura, mais espaço e mais risco de anomalia.</li>
+<li>Revise <strong>junto com normalização (T03)</strong> — a banca adora contrapor "desnormalizado no DW" com "normalizado no transacional".</li>
+<li><strong>Junção com T07-9</strong>: quase metade das 39 questões novas do bloco cita modelagem dimensional só no cabeçalho do enunciado, mas o que está sendo cobrado é a classificação DDL/DML/DQL. Não confunda: o "modelagem dimensional" do enunciado é cenário, não assunto.</li>
+</ul>
+<hr />
+<h1 id="banco-de-dados-t07-09-sql-ddl-e-dml">Banco de Dados T07-09 — SQL, DDL e DML</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Edital Dataprev 2026 — <strong>Banco de Dados, tópicos 7 (SQL), 8 (DDL) e 9 (DML)</strong>. Questões-fonte na íntegra: (DDL/DML/DCL) e (DROP TABLE) (HAVING) (COUNT) (plano de execução) (estatísticas do otimizador) (índice composto) (OLD/NEW) (CREATE VIEW) (view/procedure/trigger) (LIMIT/OFFSET) (DISTINCT × UNIQUE) (constraints) (ORDER BY) (LEFT JOIN) (índice × full scan) (INSERT INTO) (densidade/fragmentação) no <code>Banco_de_Questões.md</code>.</p>
+<p><strong>Bloco novo (39 questões incorporadas em 28/09/2026)</strong> — quase todas de classificação de linguagens: Este arquivo foi ampliado para absorvê-las.</p></div>
+</div>
+<h2 id="1-do-que-se-trata_3">1. Do que se trata?</h2>
+<p>SQL é a linguagem universal de conversa com o banco. A pegadinha da vida real é que <strong>uma única linguagem "fala quatro dialetos"</strong>: um dialeto define a estrutura (DDL), outro mexe no conteúdo (DML), outro controla acesso (DCL) e outro gerencia transação (DTL). A prova cobra exatamente <em>"qual comando pertence a qual dialeto?"</em>.</p>
+<h2 id="2-os-subgrupos-o-mapa-que-nunca-pode-sair-da-cabeca">2. Os subgrupos — o mapa que nunca pode sair da cabeça</h2>
+<table>
+<thead>
+<tr>
+<th>Subgrupo</th>
+<th>O que faz</th>
+<th>Comandos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DDL</strong> (Definition)</td>
+<td>Estrutura / metadados</td>
+<td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code>, <code>RENAME</code></td>
+</tr>
+<tr>
+<td><strong>DML</strong> (Manipulation)</td>
+<td>Conteúdo</td>
+<td><code>DELETE</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>SELECT</code> (p/ muitos autores)</td>
+</tr>
+<tr>
+<td><strong>DQL</strong> (Query)</td>
+<td>Consulta</td>
+<td><code>SELECT</code> <strong>(apenas leitura)</strong></td>
+</tr>
+<tr>
+<td><strong>DCL</strong> (Control)</td>
+<td>Permissões</td>
+<td><code>GRANT</code>, <code>REVOKE</code>, <code>DENY</code></td>
+</tr>
+<tr>
+<td><strong>DTL</strong> (Transaction)</td>
+<td>Transações</td>
+<td><code>BEGIN</code>, <code>COMMIT</code>, <code>ROLLBACK</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p><strong>DDL</strong> explica o que é o quarto; <strong>DML</strong> faz a mudança; <strong>DCL</strong> decide quem tem a chave; <strong>DTL</strong> garante "ou fecha tudo, ou não fecha nada". cobrou o trio mais famoso: <code>CREATE TABLE → DDL</code>, <code>INSERT INTO → DML</code>, <code>GRANT → DCL</code>.</p>
+<p><strong>⚠️ PEGADINHA</strong>
+<code>COMMIT</code> e <code>ROLLBACK</code> <strong>não</strong> são DDL — são <strong>DTL</strong>. A banca já vendeu "comandos DDL do tipo COMMIT/ROLLBACK" como distrator. E o <code>SELECT</code>, se a prova tiver DQL, vai <strong>no DQL</strong>; se não tiver, coloque no DML sem pestanejar.</p></div>
+</div>
+<h2 id="21-a-matriz-que-salva-90-das-questoes-novas">2.1 A matriz que salva 90% das questões novas</h2>
+<p>Das 39 questões incorporadas, <strong>25 são só isto</strong>: "classifique estes comandos". Você não precisa decorar 25 respostas — precisa de <strong>uma pergunta de desempate</strong> e de <strong>uma matriz</strong>. A pergunta é sempre a mesma:</p>
+<blockquote>
+<p><em>Esse comando muda o <strong>conteúdo</strong> da tabela, muda a <strong>estrutura</strong> dela, muda <strong>quem pode acessar</strong>, ou controla a <strong>transação</strong>?</em></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Família</th>
+<th>Agente sobre o quê?</th>
+<th>Questão que cobra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CREATE TABLE</code> / <code>CREATE INDEX</code></td>
+<td><strong>DDL</strong></td>
+<td>estrutura</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ALTER TABLE</code> / <code>ALTER DATABASE</code></td>
+<td><strong>DDL</strong></td>
+<td>estrutura</td>
+<td></td>
+</tr>
+<tr>
+<td><code>DROP TABLE</code> / <code>DROP INDEX</code></td>
+<td><strong>DDL</strong></td>
+<td>estrutura</td>
+<td></td>
+</tr>
+<tr>
+<td><code>TRUNCATE TABLE</code></td>
+<td><strong>DDL</strong></td>
+<td>conteúdo (mas sem <code>WHERE</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>INSERT</code></td>
+<td><strong>DML</strong></td>
+<td>conteúdo</td>
+<td></td>
+</tr>
+<tr>
+<td><code>UPDATE</code></td>
+<td><strong>DML</strong></td>
+<td>conteúdo</td>
+<td></td>
+</tr>
+<tr>
+<td><code>DELETE FROM</code></td>
+<td><strong>DML</strong></td>
+<td>conteúdo</td>
+<td></td>
+</tr>
+<tr>
+<td><code>SELECT</code></td>
+<td><strong>DQL</strong> (ou DML)</td>
+<td>nada — só lê</td>
+<td></td>
+</tr>
+<tr>
+<td><code>GRANT</code> / <code>REVOKE</code></td>
+<td><strong>DCL</strong></td>
+<td>permissões</td>
+<td></td>
+</tr>
+<tr>
+<td><code>COMMIT</code> / <code>ROLLBACK</code></td>
+<td><strong>DTL</strong> (ou TCL)</td>
+<td>transação</td>
+<td></td>
+</tr>
+<tr>
+<td><code>SAVEPOINT</code> / <code>ROLLBACK TO</code></td>
+<td><strong>DTL</strong></td>
+<td>transação</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>O teste mais limpo é o da <strong>tríade em sequência</strong>: criar tabela → inserir registro → conceder permissão é, respectivamente, <strong>DDL, DML, DCL</strong>. Repare que essa questão também funciona como teste de "o que <strong>não</strong> é": <code>GRANT SELECT</code> é DCL, <strong>não</strong> DQL — ler dado e <em>dar</em> permissão de leitura são coisas diferentes.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>Estrutura = DDL · Conteúdo = DML · Permissão = DCL · Transação = DTL.</strong> Quatro palavras, quatro famílias. Se você só lembrar dessa linha, já mata e.</p>
+<p><strong>🔴 ALERTA</strong>
+<code>ALTER TABLE</code> é sempre DDL, mas <strong>executar sem erro</strong> tem um segundo filtro: a alteração pode impor <strong>nova</strong> exigência sobre dados já gravados, e aí ela falha. O par que resolve é: <strong>remover</strong> restrição é seguro (elimina uma exigência), <strong>adicionar</strong> <code>UNIQUE</code> a coluna com valores repetidos <strong>quebra</strong> (viola a restrição no momento). Esse raciocínio — <em>afrouxar sempre pode; apertar exige dado compatível</em> — vale para qualquer <code>ALTER</code>, não só para esse item.</p></div>
+</div>
+<h2 id="22-as-quatro-viagens-da-banca-e-como-nao-cair">2.2 As quatro viagens da banca (e como não cair)</h2>
+<p>O edital não diz qual taxonomia usar, então cada banca adota a sua. A prova real é: <strong>a alternativa certa é sempre a que segue a convenção que o enunciado ou a banca usaram</strong> — e a grande maioria adota "SELECT é DQL, DML é INSERT/UPDATE/DELETE".</p>
+<p><strong>Viagem 1 — <code>SELECT</code> é DML ou DQL?</strong>
+Autores antigos (Elmasri &amp; Navathe) e a maioria das bancas regionais tratam <code>SELECT</code> como DML. Bancas que inventaram a categoria DQL o isolam. Em e a resposta veio <strong>separando</strong> os dois: "SELECT pertence à DQL" foi aceito, e a alternativa que misturou <code>SELECT</code> com <code>CREATE</code> foi derrubada. Ou seja: <strong>separar nunca é erro; juntar com DDL é sempre erro.</strong></p>
+<p><strong>Viagem 2 — <code>COMMIT</code> é DML?</strong>
+Nunca. É controle de transação (DTL/TCL). e existiram só para matar quem generalizou "comandos SQL = DML".</p>
+<p><strong>Viagem 3 — <code>TRUNCATE</code> é DML?</strong>
+Não, é DDL — apaga o conteúdo mas é comando de definição, e é por isso que não aceita <code>WHERE</code>. Confundir "apaga dados" com "é DML" é o erro que a banca mais gosta.</p>
+<p><strong>Viagem 4 — <code>DENY</code> é DCL?</strong>
+<code>DENY</code> é do SQL Server (T-SQL) e <strong>não faz parte do SQL padrão</strong>. Quando a banca lista <code>GRANT</code>, <code>REVOKE</code> e <code>DENY</code> como trio DCL, ela está descrevendo o SQL Server — mas em item que fala "linguagem SQL ANSI", <code>DENY</code> não pode ser contado como padrão. <code>REVOKE</code> e <code>GRANT</code> são padrão; <code>DENY</code> é dialeto.</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> ALERTA</div>
+  <div class="callout-body"><p>Essas quatro viagens explicam por que duas questões quase idênticas têm gabaritos diferentes. <strong>Não é contradição da banca — é taxonomia diferente sendo aplicada.</strong> Em prova, copie a convenção do enunciado: se ele nomear "DQL", respeite o DQL; se listar só "DDL e DML", o <code>SELECT</code> volta para o DML.</p></div>
+</div>
+<h2 id="23-ordem-importa-primeiro-ddl-depois-dml">2.3 Ordem importa: "primeiro DDL, depois DML"</h2>
+<p>Várias questões pedem para <strong>relacionar comandos na ordem pedida</strong> ("quais expressões são <strong>respectivamente</strong> comandos do tipo DDL e DML"). Nesses casos, acertar a família de cada comando não basta — <strong>a posição também é o gabarito</strong>:</p>
+<ul>
+<li><code>ALTER TABLE e CREATE INDEX</code> → DDL + DDL → errado.</li>
+<li><code>UPDATE e DROP INDEX</code> → DML + DDL → <strong>invertido</strong> → errado.</li>
+<li><code>UPDATE e INSERT INTO</code> → DML + DML → errado.</li>
+<li><code>ALTER DATABASE e UPDATE</code> → DDL + DML → <strong>única que respeita a ordem</strong> → correta.</li>
+<li><code>INSERT</code> seguido de <code>CREATE TABLE</code> → DML + DDL → <strong>a ordem pedida</strong> → correta.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>"Respeitivamente" (ou "seguida de") é a palavra mais perigosa do enunciado. Antes de olhar as letras, monte mentalmente a <strong>dupla</strong> (família do 1º, família do 2º). Se o enunciado pediu DDL e depois DML, procure a alternativa que é <strong>(DDL, DML)</strong> — as três irmãs restantes caem sozinhas. Invertendo a ordem do enunciado para DML e depois DDL, a resposta vira <code>INSERT</code> + <code>CREATE TABLE</code>. <strong>A letra da alternativa muda, a técnica não.</strong></p></div>
+</div>
+<h2 id="24-comando-inexistente-a-armadilha-preferida">2.4 Comando inexistente: a armadilha preferida</h2>
+<p>Muita questão não cobra classificação — cobra <strong>se o comando existe</strong>. Atenção a sintaxes que soam SQL mas não são:</p>
+<ul>
+<li><strong><code>MODIFY</code> não atualiza dados.</strong> Em SQL o comando para alterar valor é <code>UPDATE</code> (DML). Onde existe <code>MODIFY</code>, é o Oracle <code>ALTER TABLE... MODIFY (coluna tipo)</code>, que altera a <strong>estrutura</strong> (DDL), não o dado ( → <strong>Errado</strong>).</li>
+<li><strong><code>SELECT</code> sem lista de colunas.</strong> <code>SELECT FROM tabela</code> é sintaxe inválida: ou você nomeia as colunas, ou usa <code>*</code>.</li>
+<li><strong><code>EXTRACT ALL COLUMN</code></strong> não é palavra-chave de SQL alguma.</li>
+<li><strong><code>DELETE TABLE</code></strong> não existe — é <code>DROP TABLE</code> (item "onde eu erraria" abaixo).</li>
+<li><strong><code>ON DELETE CASCADE</code></strong> não é <em>instrução</em> DDL: é <strong>ação referencial</strong> declarada dentro de uma restrição de integridade referencial, não um comando autônomo.</li>
+<li><strong><code>LEFT INNER JOIN</code></strong> não existe: junção só interna (<code>INNER</code>) ou só externa (<code>LEFT</code>/<code>RIGHT</code>/<code>FULL</code>). "LEFT INNER" mistura os dois.</li>
+<li><strong><code>WHERE</code> é cláusula de DML</strong>, nunca de DDL.</li>
+<li><strong><code>SELECT * INTO</code></strong> é outra coisa (cria tabela a partir de consulta); para inserir linha, é <code>INSERT INTO</code>.</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Regex mental de 2 segundos antes de marcar "isso não existe": <em>o comando está agindo sobre <strong>linha</strong>, sobre <strong>estrutura</strong>, ou é só uma <strong>cláusula</strong> dentro de outro comando?</em> <code>WHERE</code>, <code>ON</code>, <code>HAVING</code> e <code>CASCADE</code> são <strong>cláusulas</strong> — nunca contam como "comando da DDL". Esse é o raciocínio que resolve inteira.</p></div>
+</div>
+<h2 id="25-triggers-dml-em-tabela-ddl-em-banco">2.5 Triggers: DML em tabela, DDL em banco</h2>
+<p>Questão recorrente sobre triggers no PL/SQL do Oracle. O que precisa estar claro:</p>
+<ul>
+<li><strong>Trigger de tabela (ou de visão)</strong> dispara por evento <strong>DML</strong>: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>. É o caso comum, e pode ser condicional com cláusula <code>WHEN</code> avaliada a cada linha afetada.</li>
+<li><strong>Trigger de DDL existe no Oracle</strong>, mas é de <strong>escopo de banco/esquema</strong> (<code>BEFORE</code>/<code>AFTER DDL ON DATABASE</code> ou <code>ON SCHEMA</code>), não de tabela. Por isso a afirmação "se o trigger for criado em uma tabela ou visão, o evento será DDL" é <strong>falsa</strong> — o escopo já contradiz.</li>
+<li>O termo <strong>"trigger de transição cruzada"</strong> não existe na terminologia do Oracle.</li>
+<li><strong>Prioridade entre instruções dentro de trigger</strong> não existe por padrão: o controle de concorrência é do SGBD.</li>
+</ul>
+<div class="callout callout-conexao">
+  <div class="callout-title"><span class="callout-icon">🔗</span> CONEXAO</div>
+  <div class="callout-body"><p>Aqui está a ponte para <strong>Segurança da Informação</strong>: trigger é o parente próximo de <em>auditoria de logs</em>. Em ITIL 4 e na LGPD, "quem registrou, quando e o que mudou" é requisito de rastreabilidade — e é exatamente o que o par <code>OLD</code>/<code>NEW</code> entrega. Guarde o par para a questão de trigger e reaproveite na disciplina que pedir rastreabilidade de alterações.</p></div>
+</div>
+<h2 id="3-drop-x-truncate-x-delete-o-trio-que-a-fgv-roteia">3. DROP x TRUNCATE x DELETE — o trio que a FGV roteia</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>O que remove</th>
+<th>Estrutura?</th>
+<th>Log?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DROP</strong></td>
+<td>A tabela <strong>como objeto</strong> (estrutura + dados + índices)</td>
+<td>❌ some</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>TRUNCATE</strong></td>
+<td><strong>Todos os registros</strong>, mantém estrutura</td>
+<td>Continua</td>
+<td>mínimo/desmarcável</td>
+</tr>
+<tr>
+<td><strong>DELETE</strong></td>
+<td><strong>Registros selecionados</strong>, mantém estrutura</td>
+<td>Continua</td>
+<td>✅ registra tudo (<code>WHERE</code> opcional)</td>
+</tr>
+</tbody>
+</table>
+<p>e são a mesma pergunta com roupas diferentes: <em>"remover definitivamente a tabela, 'inclusive a estrutura'"</em> → <strong>DROP TABLE</strong>.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>A palavra-chave <strong>"inclusive sua estrutura"</strong> separa DROP de TRUNCATE/DELETE. "Apagar tudo mas manter a tabela" → TRUNCATE. O <code>DELETE</code> lê linha por linha e grava no log de auditoria — associe <strong>DELETE ao registro</strong>, <strong>DROP ao objeto</strong>.</p></div>
+</div>
+<h2 id="31-constraints-as-regras-declarativas-de-integridade">3.1 Constraints — as regras declarativas de integridade</h2>
+<p><strong>Constraint</strong> é a regra declarativa que o campo carrega para proteger a integridade dos dados: <code>PRIMARY KEY</code>, <code>UNIQUE</code>, <code>NOT NULL</code>, <code>FOREIGN KEY</code>, <code>CHECK</code>.</p>
+<ul>
+<li><code>UNIQUE</code> + <code>NOT NULL</code> → número de processo único e obrigatório.</li>
+<li><code>CHECK (status IN ('ABERTO','FECHADO','EM_ANDAMENTO'))</code> → domínio fechado de valores.</li>
+<li><code>AUTO_INCREMENT</code>/<code>SERIAL</code> → gera o ID, mas quem garante a <strong>restrição</strong> é a <strong>constraint</strong>, não a sequence.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>A sequence/serial apenas <em>gera</em> o número — não garante PRIMARY KEY, UNIQUE, NOT NULL ou CHECK. Pergunta "qual mecanismo garante as regras de integridade?" → <strong>constraints</strong>; "qual gera o próximo valor?" → <strong>sequence</strong>. Pegadinha clássica: olhar o autoincremento e marcar sequence.</p></div>
+</div>
+<h2 id="32-insert-into-a-sintaxe-certa-de-inserir">3.2 INSERT INTO — a sintaxe certa de inserir</h2>
+<p>Para <strong>adicionar nova linha</strong> em tabela existente:</p>
+<pre><code class="language-sql">INSERT INTO tabela (coluna1, coluna2) VALUES (valor1, valor2);
+</code></pre>
+<p>armou a cilada com sintaxes "quase SQL": <code>UPDATE</code> altera linhas existentes, <code>ALTER TABLE</code> muda a estrutura, <code>SELECT * INTO</code> e <code>INSERT NEW</code> <strong>não são sintaxe válida</strong> de inserção.</p>
+<h2 id="4-ordem-logica-de-execucao-do-select">4. Ordem lógica de execução do SELECT</h2>
+<p>A ordem <strong>lógica</strong> (não é a ordem que você digita):</p>
+<ol>
+<li><code>FROM</code></li>
+<li><code>JOIN / ON</code></li>
+<li><code>WHERE</code></li>
+<li><code>GROUP BY</code></li>
+<li><code>HAVING</code></li>
+<li><code>SELECT</code></li>
+<li><code>DISTINCT</code></li>
+<li><code>ORDER BY</code></li>
+<li><code>LIMIT / OFFSET</code></li>
+</ol>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Pergunte-se sempre: <strong>já agrupou?</strong> Se a condição é sobre um <strong>grupo</strong> (média, contagem por departamento), é <code>HAVING</code> — o <code>WHERE</code> já passou, e o <code>ORDER BY</code> só ordena. Condição sobre <strong>linha individual</strong> = <code>WHERE</code>.</p></div>
+</div>
+<h2 id="41-ordenar-limitar-o-trio-que-parece-a-mesma-coisa">4.1 Ordenar × limitar — o trio que parece a mesma coisa</h2>
+<table>
+<thead>
+<tr>
+<th>Cláusula</th>
+<th>Faz o quê</th>
+<th>É cega pra ordem?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ORDER BY</strong></td>
+<td><strong>Ordena</strong> o resultado (maior → menor, etc.)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>LIMIT</strong></td>
+<td><strong>Corta</strong> a quantidade de linhas retornadas</td>
+<td>✅ sim — sozinho não é "top N", depende de ORDER BY antes</td>
+</tr>
+<tr>
+<td><strong>TOP</strong></td>
+<td>Limita quantidade (SQL Server / outros bancos)</td>
+<td>✅ sim</td>
+</tr>
+<tr>
+<td><strong>OFFSET</strong></td>
+<td><strong>Pula</strong> N linhas antes de começar a retornar</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>"Listar começando pelas varas com mais processos" → já tem <code>GROUP BY</code> + <code>COUNT(*)</code>, falta <strong>ordenar o resultado agregado</strong> → <strong>ORDER BY</strong> <code>total_processos DESC</code>. TOP/LIMIT limitam volume, não ordem. E em PostgreSQL, paginar é <strong>LIMIT 20 OFFSET 40</strong> — <em>não</em> <code>START</code> (START é palavra de transação).</p></div>
+</div>
+<h2 id="42-joins-quem-preserva-as-linhas-de-quem">4.2 Joins — quem preserva as linhas de quem</h2>
+<p>Cada junção "preserva" um conjunto diferente de linhas:</p>
+<table>
+<thead>
+<tr>
+<th>Junção</th>
+<th>Preserva</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>INNER</strong></td>
+<td>Só quem tem correspondência dos dois lados</td>
+</tr>
+<tr>
+<td><strong>RIGHT</strong></td>
+<td>Todas da <strong>direita</strong></td>
+</tr>
+<tr>
+<td><strong>LEFT</strong></td>
+<td>Todas da <strong>esquerda</strong></td>
+</tr>
+<tr>
+<td><strong>FULL OUTER</strong></td>
+<td>Todas de <strong>ambos</strong></td>
+</tr>
+<tr>
+<td><strong>CROSS</strong></td>
+<td>Combina tudo com tudo (produto cartesiano)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p>Palavra do enunciado = mapa: "listar também os clientes <strong>sem pedidos</strong>" + "tabela da <strong>esquerda</strong> (CLIENTE)" → <strong>LEFT OUTER JOIN</strong>. A pegadinha é trocar por RIGHT ou FULL quando o enunciado fixar o lado da esquerda.</p></div>
+</div>
+<h2 id="5-agregacoes-e-contagem">5. Agregações e contagem</h2>
+<ul>
+<li><code>COUNT(*)</code> → conta <strong>linhas</strong> que atendem o critério.</li>
+<li><code>SUM</code> → soma <strong>valores numéricos</strong> de coluna (não conta registro!).</li>
+<li>Padrão do servidor em 2+ órgãos: <code>GROUP BY ID_SERVIDOR HAVING COUNT(DISTINCT ID_ORGAO) &gt;= 2</code>.</li>
+</ul>
+<h3 id="distinct-unique-a-dupla-que-a-fgv-troca">DISTINCT × UNIQUE — a dupla que a FGV troca</h3>
+<ul>
+<li><strong>DISTINCT</strong> → cláusula do <strong>SELECT</strong>: remove duplicatas <strong>do resultado exibido</strong>.</li>
+<li><strong>UNIQUE</strong> → <strong>constraint de esquema</strong>: impede dados duplicados <strong>de entrarem</strong> na tabela (ex.: dois CPFs iguais).</li>
+<li><code>KEY</code> (MySQL) é sinônimo de <strong>INDEX</strong> (DDL); <code>NULL</code> é ausência de valor; <code>DEFAULT</code> é valor padrão de preenchimento — todos distratores.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>DISTINCT <strong>tira</strong> duplicata na hora de exibir; UNIQUE <strong>bloqueia</strong> na porta de entrada. Banca troca os papéis: "cláusula para consulta retornar apenas valores diferentes" → <strong>DISTINCT</strong>.</p>
+<p><strong>📋 RESUMO</strong>
+Contagem pede <strong>COUNT + WHERE</strong>; agrupamento filtrado pede <strong>GROUP BY + HAVING</strong>. <code>COUNT(DISTINCT...)</code> = "quantas <strong>coisas diferentes</strong> dentro do grupo".</p></div>
+</div>
+<h2 id="6-gatilhos-old-e-new">6. Gatilhos: OLD e NEW</h2>
+<p>As variáveis de transição do trigger:</p>
+<ul>
+<li><strong>INSERT</strong> → só <code>NEW</code> (o valor novo que entra).</li>
+<li><strong>DELETE</strong> → só <code>OLD</code> (o registro antigo que sai — não existe "exclusão nova").</li>
+<li><strong>UPDATE</strong> → <code>OLD</code> <strong>e</strong> <code>NEW</code> juntos (o antes e o depois).</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>Pergunta certeira da banca: "qual variável no DELETE?" → <strong>OLD</strong>. A armadilha é achar que NEW também existe — a linha <strong>morre</strong>, não gera versão nova.</p>
+<p><strong>🔴 ALERTA</strong>
+E o evento que dispara o trigger? Trigger <strong>de tabela/visao</strong> responde a evento <strong>DML</strong> (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>). Trigger de <strong>DDL</strong> existe no Oracle, mas é cadastrado no escopo de <strong>banco ou esquema</strong> (<code>ON DATABASE</code>/<code>ON SCHEMA</code>) — logo, a frase "trigger criado em tabela ou visão com evento DDL" é falsa por escopo, e "trigger de transição cruzada" não é nomenclatura Oracle. Detalhes em 2.5.</p></div>
+</div>
+<h2 id="7-view-procedure-e-trigger-o-trio-de-objetos">7. View, Procedure e Trigger — o trio de objetos</h2>
+<table>
+<thead>
+<tr>
+<th>Objeto</th>
+<th>O que é</th>
+<th>Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>View</strong></td>
+<td>"Tabela virtual" — select salvo, sem copiar dados</td>
+<td><code>CREATE VIEW v AS SELECT...</code></td>
+</tr>
+<tr>
+<td><strong>Procedure</strong></td>
+<td>Bloco de comandos reutilizável, aceita parâmetros</td>
+<td>chamado sob demanda</td>
+</tr>
+<tr>
+<td><strong>Trigger</strong></td>
+<td>Executa <strong>sozinha</strong> diante de evento DML</td>
+<td>auditoria automática</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>VEJO → FAÇO → ACONTECE</strong>: <strong>V</strong>iew (consulto) → <strong>P</strong>rocedure (chamo) → <strong>T</strong>rigger (acontece sozinho). é a questão-mãe desse trio.</p></div>
+</div>
+<h2 id="8-indices-e-o-otimizador-performance">8. Índices e o otimizador (performance)</h2>
+<ul>
+<li><strong>Índice composto B-Tree</strong> segue a <strong>regra do prefixo à esquerda</strong> (<em>leftmost prefix</em>): a consulta só aproveita se filtrar pela <strong>primeira coluna</strong> (ou sequência começando nela). Não é obrigatório citar todas as colunas.</li>
+<li><strong>Índice não é garantia</strong>: o otimizador escolhe por <strong>custo</strong>; estatísticas <strong>desatualizadas</strong> fazem ele "achar" que o índice não compensa e cair num <em>table scan</em> — mesmo com índice adequado.</li>
+<li><strong>EXPLAIN PLAN</strong> mostra o <strong>caminho de acesso</strong> escolhido — é o recurso para diagnosticar <em>full table scan</em> causado por <strong>conversões implícitas de tipos</strong>. Não serve para auditoria, criptografia, backup ou reordenação física.</li>
+<li><strong>Densidade de página</strong>: página quase vazia = <strong>muita leitura de disco</strong> para a mesma quantidade de linhas → mais I/O e mais pressão no Buffer Pool. Densidade baixa é convite ao <em>table scan</em>.</li>
+<li><strong>Page Split só existe em rowstore</strong> (B-tree): quando a página enche, ela se divide. Índice <strong>Columnstore</strong> não sofre <em>page split</em> — os dados novos vão para a <strong>Delta Store</strong> e depois são <strong>comprimidos em Rowgroups</strong>.</li>
+<li><strong>Fragmentação muda o plano de execução</strong>: com índice fragmentado e densidade baixa, o otimizador <strong>prefere o table scan</strong> por custo — um índice esburacado vira "o melhor a fazer é varrer tudo". Índices <strong>pouco fragmentados são excelentes</strong>; não deixe a banca inverter a semântica.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>Conversão implícita (coluna numérica comparada com string) <strong>invalida o uso de índice</strong> → full scan. Quando a opção mencionar "conversão implícita + índice", é plano de execução.</p></div>
+</div>
+<h3 id="particionamento-fisico-de-vldb-partition-pruning">Particionamento Físico de VLDB (<em>Partition Pruning</em>)</h3>
+<p>Bancos de Dados Muito Grandes (<em>Very Large Data Bases</em> - VLDB) utilizam particionamento físico horizontal para viabilizar manutenção e alto desempenho:</p>
+<ul>
+<li><strong>Partition Pruning (Poda de Partições):</strong> É a técnica essencial de otimização em que o SGBD, ao analisar os predicados da cláusula <code>WHERE</code>, <strong>ignora fisicamente</strong> as partições que comprovadamente não contêm dados da consulta. Exemplo: se a consulta filtra vendas de <code>2024</code>, partições de <code>2022</code> e <code>2023</code> não sofrem leitura de disco.</li>
+<li><strong>Manutenção Granular:</strong> Operações como backup, reconstrução de índices (<em>rebuild</em>) e descarte de dados velhos (<code>DROP PARTITION</code>) podem ser feitas <strong>no nível da partição individual</strong>, sem exigir bloqueio ou manutenção da tabela inteira.</li>
+<li><strong>Paralelismo no Oracle:</strong> A execução paralela opera intensamente em consultas (<code>SELECT</code> / DQL), comandos DML em lote e instruções DDL — desconfie de alternativas que afirmem ser "exclusiva de DDL".</li>
+</ul>
+<hr />
+<h2 id="81-a-triade-da-exclusao-no-sql">8.1 A Tríade da Exclusão no SQL</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Subconjunto</th>
+<th>O que faz</th>
+<th>Log e Transação</th>
+<th>Cláusula WHERE?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DROP TABLE</strong></td>
+<td><strong>DDL</strong></td>
+<td>Dinamita o prédio inteiro: apaga a estrutura do dicionário de dados e todos os registros.</td>
+<td>DDL (autocommit implícito)</td>
+<td><strong>Não</strong></td>
+</tr>
+<tr>
+<td><strong>TRUNCATE TABLE</strong></td>
+<td><strong>DDL</strong></td>
+<td>Esvazia o prédio mantendo a carcaça: desaloca páginas de dados rapidamente. Reseta auto-incremento.</td>
+<td>DDL (log mínimo)</td>
+<td><strong>Não</strong></td>
+</tr>
+<tr>
+<td><strong>DELETE FROM</strong></td>
+<td><strong>DML</strong></td>
+<td>Retira os móveis cômodo a cômodo: apaga linhas específicas.</td>
+<td>DML (log completo por linha, gera rollback)</td>
+<td><strong>Sim</strong> (opcional)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="82-divisao-relacional-em-sql-a-div-b">8.2 Divisão Relacional em SQL ($A \div B$)</h2>
+<p>A Divisão Relacional responde a perguntas do tipo: <em>"Quais alunos estão matriculados em <strong>TODAS</strong> as turmas?"</em> ou <em>"Quais clientes compraram <strong>TODOS</strong> os produtos do catálogo?"</em>.</p>
+<p>Como o SQL não possui um operador direto <code>DIVIDE BY</code>, a divisão relacional é codificada pelo molde do <strong>duplo NOT EXISTS correlacionado</strong> (dupla negação lógica: <em>"selecione o aluno para o qual NÃO EXISTE turma em que NÃO EXISTA matrícula"</em>):</p>
+<pre><code class="language-sql">SELECT A.Nome
+FROM Aluno A
+WHERE NOT EXISTS (
+    SELECT T.TurmaID
+    FROM Turma T
+    WHERE NOT EXISTS (
+        SELECT M.TurmaID
+        FROM Matricula M
+        WHERE M.AlunoID = A.AlunoID AND M.TurmaID = T.TurmaID
+    )
+);
+</code></pre>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>Molde da Divisão:</strong> Encontrou <code>NOT EXISTS</code> aninhado com outro <code>NOT EXISTS</code> correlacionado testando duas entidades vinculadas? O gabarito é <strong>Divisão Relacional</strong> (o teste de quem atendeu a "TODOS" os itens da outra tabela).</p></div>
+</div>
+<hr />
+<h2 id="83-restricoes-de-tabela-e-valores-padrao">8.3 Restrições de Tabela e Valores Padrão</h2>
+<ul>
+<li><strong>PRIMARY KEY = UNIQUE + NOT NULL:</strong> Todo SGBD relacional impõe que uma chave primária rejeite valores repetidos e rejeite nulos simultaneamente.</li>
+<li><strong>DEFAULT:</strong> Define a "rede de segurança" da inserção. Se o comando <code>INSERT</code> omitir o campo, o SGBD aplica automaticamente o valor padrão especificado. Isso <strong>não impede</strong> alterações posteriores via <code>UPDATE</code>.</li>
+</ul>
+<h2 id="9-onde-eu-erraria-e-por-que">9. Onde eu erraria e por quê?</h2>
+<p>Eu marcaria "DELETE TABLE" com cara de comando válido — mas <strong>não existe</strong>; a remoção de objeto é <code>DROP TABLE</code>. E em questão de índice composto eu diria "o otimizador reordena os predicados e tanto faz a ordem" — <strong>falso</strong>: a ordem das colunas é fixa e vital, por causa do prefixo à esquerda.</p>
+<p>Nos itens novos, meus três candidatos naturais de erro são:</p>
+<ol>
+<li><strong><code>MODIFY</code> como sinônimo de <code>UPDATE</code>.</strong> Parece a palavra que o português sugere e não existe para atualizar dado.</li>
+<li><strong><code>COMMIT</code> puxado para DML</strong> só porque "é um comando SQL como outro qualquer".</li>
+<li><strong><code>WHERE</code>/<code>ON DELETE CASCADE</code> promovidos a "comando da DDL"</strong> só porque aparecem dentro de um <code>CREATE TABLE</code> — são <strong>cláusulas</strong>, não instruções.</li>
+<li><strong>Sequência de <code>CREATE TABLE</code> / <code>INSERT</code> / <code>GRANT</code> fora de ordem</strong>: o instinto acerta as três famílias e mesmo assim erra a alternativa, porque a posição não bate.</li>
+<li><strong><code>ALTER TABLE</code> que "afrouxa" dado existente</strong>: penso só na família (DDL, certa) e ignoro que a alternativa exige <strong>adicionar</strong> restrição sobre coluna com repetidos.</li>
+</ol>
+<h2 id="10-o-que-revisar-e-quando_1">10. O que revisar e quando?</h2>
+<ul>
+<li><strong>A matriz comando → família (2.1)</strong> — é o item de maior retorno: sozinha responde 25 das 39 questões novas. Revisar na véspera de prova.</li>
+<li><strong>As quatro viagens da banca (2.2)</strong> — <code>SELECT</code> DML×DQL, <code>COMMIT</code> fora da DML, <code>TRUNCATE</code> como DDL, <code>DENY</code> como dialeto. São 4 frases para decorar.</li>
+<li><strong>"Respectivamente" (2.3)</strong> — técnica de leitura, não conteúdo. Vale treinar em qualquer lista de comandos.</li>
+<li><strong>Comandos inexistentes (2.4)</strong> — <code>MODIFY</code>, <code>EXTRACT ALL COLUMN</code>, <code>SELECT FROM</code>, <code>DELETE TABLE</code>, <code>LEFT INNER JOIN</code>. Memorizar a lista curta; é rendimento alto.</li>
+<li><strong>Mapa dos subgrupos (DDL/DML/DCL/DTL/DQL)</strong> — cobrança recorrente em nível "classifique os comandos".</li>
+<li><strong>DROP × TRUNCATE × DELETE</strong> — praticamente anual.</li>
+<li><strong>HAVING/WHERE + agregações</strong> — forte tendência FGV 2026.</li>
+<li><strong>Triggers: escopo × evento</strong> (2.5 e seção 6) — Oracle cai bastante.</li>
+<li><strong>Índices/otimizador</strong> — a novidade da FGV 2026/2027; vale revisão antes de simulado.</li>
+</ul>
+<h2 id="11-licao-para-outras-materias_1">11. Lição para outras matérias</h2>
+<p>A lógica de <strong>subgrupos com responsabilidades separadas</strong> (definição × manipulação × controle) é a mesma do <strong>ITIL 4</strong>: cada prática tem seu "quem define" e "quem executa". E a lição do otimizador — <em>ter o recurso (índice) ≠ ser obrigado a usá-lo</em> — é o mesmo "possuir não é utilizar" que a FGV adora em <strong>Governança</strong> (prontidão tecnológica × adoção efetiva).</p>
+<p>E há uma lição de <strong>técnica de prova</strong> que vale para qualquer disciplina: as 25 questões de classificação não eram 25 conteúdos diferentes, eram <strong>um</strong> conteúdo com 25 disfarces. Quando a banca repete o mesmo formato, o ganho não está em estudar 25 itens — está em achar o <strong>molde</strong>. Do mesmo jeito que "integridade referencial × integridade de domínio" (tema T04) reaparece com palavras novas, aqui o molde é sempre <em>estrutura × conteúdo × permissão × transação</em>. Treine o molde e você mata a família inteira.</p>
+<hr />
+<h1 id="banco-de-dados-t10-propriedades-acid-das-transacoes">Banco de Dados T10 — Propriedades ACID das Transações</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Edital Dataprev 2026 — <strong>Banco de Dados, tópico 10: SGBD e suas propriedades</strong> (gerência de transações). Questões-fonte na íntegra: (quatro situações, quatro propriedades) (atomicidade) e (durabilidade) no <code>Banco_de_Questões.md</code>. Complementa <code>Banco_T10_SGBD_Arquitetura_ANSI_SPARC</code>.</p></div>
+</div>
+<h2 id="1-do-que-se-trata_4">1. Do que se trata?</h2>
+<p>Pensa no caixa do mercado: você passa o cartão, o sistema autoriza, o produto sai da prateleira e o débito cai na sua conta. Se a luz cair no meio desses passos, você não quer ficar sem produto e com o dinheiro debitado. Uma <strong>transação</strong> é exatamente esse "pacote de operações que ou acontece inteiro, ou não acontece nada" — e o <strong>ACID</strong> é o contrato de confiança que o SGBD assina para cumprir a promessa.</p>
+<table>
+<thead>
+<tr>
+<th>Letra</th>
+<th>Propriedade</th>
+<th>O que garante</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td><strong>Atomicidade</strong></td>
+<td>Tudo ou nada: executa por completo <strong>ou</strong> é completamente desfeita (<em>rollback</em>), sem estado parcial</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td><strong>Consistência</strong></td>
+<td>A transação leva o banco de um <strong>estado válido para outro estado válido</strong>, respeitando regras e integridade</td>
+</tr>
+<tr>
+<td><strong>I</strong></td>
+<td><strong>Isolamento</strong></td>
+<td>Transações <strong>concorrentes não se interferem</strong> indevidamente (nada de ler valor sujo de quem ainda está rodando)</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td><strong>Durabilidade</strong></td>
+<td>Depois do <strong>commit</strong>, os efeitos ficam gravados <strong>mesmo</strong> com falha de energia, pane ou reinício</td>
+</tr>
+</tbody>
+</table>
+<p>É a receita doce de banco: <strong>atomicidade, consistência, isolamento e durabilidade</strong> — nessa ordem, sempre.</p>
+<h2 id="2-por-que-cai-em-prova_1">2. Por que cai em prova?</h2>
+<p>Porque a FGV 2026 parou de cobrar "decorre as quatro letras" e passou a contar <strong>um caso concreto</strong> e pedir qual propriedade foi violada. Três das quatro questões novas de Banco de Dados deste dump são ACID — em três provas diferentes (TCE-PE, NAV Brasil e MPE-ES). É sinal forte de que o tema está quente.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Palavra do enunciado = propriedade: <strong>"rollback"</strong> ou <strong>"estado parcial"</strong> → atomicidade · <strong>"transações simultâneas"</strong> ou <strong>"leitura suja"</strong> → isolamento · <strong>"regras de integridade / estado válido"</strong> → consistência · <strong>"após o commit, mesmo em caso de falha"</strong> → durabilidade.</p></div>
+</div>
+<h2 id="3-como-as-partes-se-conectam">3. Como as partes se conectam?</h2>
+<ul>
+<li><strong>T07-09 (SQL):</strong> <code>COMMIT</code> e <code>ROLLBACK</code> são comandos <strong>DTL</strong> — são o "botão" que liga e desliga a promessa ACID na prática ( já tentou vendê-los como DDL).</li>
+<li><strong>T02 (Abordagem relacional):</strong> a <strong>integridade transacional</strong> é o quinto tipo de integridade — ela cuida do dado <em>durante</em> a transação, enquanto entidade e referencial cuidam do dado <em>em repouso</em>.</li>
+<li><strong>T10 (ANSI/SPARC):</strong> os três níveis de visão explicam <em>como</em> o esquema é apresentado; o ACID explica <em>como</em> o dado se comporta quando alguém escreve. São camadas diferentes — não misture.</li>
+<li><strong>Redes/Infra:</strong> descreve falha entre <strong>dois servidores regionais</strong> — aí entra transação distribuída, o ACID "escalado", que a banca só costuma encostar no enunciado.</li>
+</ul>
+<h2 id="4-pegadinhas-classicas">4. Pegadinhas clássicas</h2>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p>- <strong>Atomicidade × durabilidade:</strong> a primeira evita <strong>estado parcial antes do commit</strong>; a segunda garante o resultado <strong>depois do commit</strong>. As duas falam de "falha", e a banca conta com você não perceber o <strong>recorte temporal</strong>.
+- <strong>Persistência:</strong> é o senso comum do "ficou guardado", mas <strong>não é letra do ACID</strong> — o nome técnico exigido é <strong>durabilidade</strong>.
+- <strong>Disponibilidade:</strong> palavra de IA/DI que soa de sistema, mas <strong>não integra o ACID</strong>. Distrator fora do conjunto.
+- <strong>Isolamento × atomicidade:</strong> uma não é o "oposto" da outra no sentido de anular — são funções distintas: atomicidade é para transação <strong>sozinha</strong> (tudo ou nada), isolamento é para transação <strong>no meio das outras</strong> (cada uma no seu espaço).</p></div>
+</div>
+<h2 id="5-o-que-separa-quem-acerta-de-quem-erra">5. O que separa quem acerta de quem erra?</h2>
+<p>Quem acerta <strong>localiza o momento do problema</strong> antes de ler as alternativas:</p>
+<table>
+<thead>
+<tr>
+<th>Pergunta de bolso</th>
+<th>Resposta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Falha <strong>no meio</strong>, sobrou metade gravada?</td>
+<td>Atomicidade</td>
+</tr>
+<tr>
+<td>Uma transação <strong>leu valor temporário</strong> de outra em execução?</td>
+<td>Isolamento</td>
+</tr>
+<tr>
+<td>Confirmou e <strong>some depois da queda</strong> do servidor?</td>
+<td>Durabilidade</td>
+</tr>
+<tr>
+<td>Fim de transação <strong>violou regra de integridade</strong>?</td>
+<td>Consistência</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> ALERTA</div>
+  <div class="callout-body"><p>é a questão-mãe dessa tabela: I = atomicidade, II = isolamento, III = durabilidade, IV = consistência → <strong>A</strong>. Se você marcar pela primeira palavra que achar "forte" no enunciado, erra — o enunciado de I e III fala de falha nos dois casos, e elas ficam em lados opostos da linha do commit.</p></div>
+</div>
+<h2 id="6-onde-eu-erraria-e-por-que">6. Onde eu erraria e por quê?</h2>
+<p>Eu marcaria <strong>durabilidade</strong> na situação I só porque aparece "falha de energia". É tentador: energia cortada grita "dado perdido, durabilidade!". Mas leia o enunciado: a falha foi <strong>antes da conclusão</strong>, e o estrago é <em>metade gravada, metade não</em> — isso é atomicidade. A durabilidade só entra quando a transação <strong>já foi confirmada</strong> e ainda assim se perde (situação III). A mesma pegadinha aparece em, onde o gatilho textual é "totalidade <strong>ou</strong> completamente desfeita".</p>
+<h2 id="7-como-memorizar-sem-decorar">7. Como memorizar sem decorar?</h2>
+<p>Imagine a transferência <strong>João → Maria: R$ 100</strong> (tira R$ 100 de João e põe R$ 100 em Maria):</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p>- <strong>A — Atomicidade:</strong> não pode tirar de João e esquecer de pôr em Maria. <strong>Tudo ou nada.</strong>
+- <strong>C — Consistência:</strong> depois da operação, o banco continua obedecendo às suas regras. <strong>Continua correto.</strong>
+- <strong>I — Isolamento:</strong> se várias transferências correm juntas, nenhuma enxerga o meio da outra. <strong>Cada transação no seu espaço.</strong>
+- <strong>D — Durabilidade:</strong> fez COMMIT? Ficou registrado, mesmo que o sistema caia. <strong>Gravou = ficou.</strong></p>
+<p>Frase de fita: <strong>ACID = Tudo ou nada + Correto + Separado + Permanente.</strong></p></div>
+</div>
+<h2 id="8-o-que-revisar-e-quando">8. O que revisar e quando?</h2>
+<ul>
+<li>antes de qualquer simulado — são as três formulações que a FGV usou em 2026 (sequência de propriedades, definição isolada e "após o commit").</li>
+<li>Revisar <strong>junto com T07-09</strong>, porque a banca costuma amarrar ACID aos comandos <code>COMMIT</code>/<code>ROLLBACK</code> (DTL).</li>
+<li>Se aparecer <strong>transação distribuída / dois servidores</strong>, o núcleo cobrado continua sendo o ACID clássico — não entre em pânico procurando protocolos de consenso.</li>
+</ul>
+<h2 id="9-licao-para-outras-materias">9. Lição para outras matérias</h2>
+<div class="callout callout-conexao">
+  <div class="callout-title"><span class="callout-icon">🔗</span> CONEXAO</div>
+  <div class="callout-body"><p>O padrão "ler o <strong>recorte temporal</strong> antes de responder" é o mesmo de <strong>Legislação</strong> (qual artigo/parágrafo vale na data dos fatos) e de <strong>Português</strong> (qual tempo verbal o enunciado pede). E o ACID é a versão técnica de qualquer governança: <strong>promessa só vale se houver mecanismo que a garanta</strong> — atomicidade é política de tudo-ou-nada, durabilidade é logging, isolamento é segregação de funções (COBIT/ITIL amam esse paralelo).</p></div>
+</div>
+<hr />
+<h1 id="banco-de-dados-t10-sgbd-arquitetura-ansisparc">Banco de Dados T10 — SGBD: Arquitetura ANSI/SPARC</h1>
+<h2 id="1-tres-niveis-de-arquitetura">1. Três Níveis de Arquitetura</h2>
+<table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>Visão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Externo</strong></td>
+<td>Visão <strong>individual</strong> de cada usuário</td>
+</tr>
+<tr>
+<td><strong>Conceitual</strong></td>
+<td>Visão da <strong>comunidade</strong> (visão global)</td>
+</tr>
+<tr>
+<td><strong>Interno</strong></td>
+<td>Visão do <strong>meio de armazenamento</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-independencia-de-dados">2. Independência de Dados</h2>
+<p><strong>Independência de dados</strong> — capacidade de modificar a definição de um esquema de um nível <strong>sem afetar</strong> a definição de esquema de um nível <strong>mais alto</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Escopo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Independência física de dados</strong></td>
+<td>Esquema <strong>físico</strong></td>
+</tr>
+<tr>
+<td><strong>Independência lógica de dados</strong></td>
+<td>Esquema <strong>lógico</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>📌 Dica para questões</strong>
+- Alteração no nível interno sem impacto no conceitual → <strong>independência física</strong>.
+- Alteração no esquema conceitual/lógico sem impacto nas visões externas → <strong>independência lógica</strong>.</p>
+</blockquote>
+<hr />
+<h1 id="banco-de-dados-t11-banco-de-dados-nosql">Banco de Dados T11 — Banco de dados NoSQL</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Edital Dataprev 2026 — <strong>Banco de Dados, tópico 11: Banco de dados NoSQL</strong> (estava pendente no índice até 27/09/2026). Questões-fonte: (chave-valor × SGBD relacional), na seção <code>## Banco de Dados</code> de <code>docs/Questões/Banco_de_Questões.md</code>.</p></div>
+</div>
+<h2 id="1-do-que-se-trata_5">1. Do que se trata?</h2>
+<p>Pensa na despensa relacional: tudo com etiqueta, prateleira com medida, nada fora do lugar — ótimo para não perder nada, péssimo quando a família dobra e a despensa não cabe mais na parede. O <strong>NoSQL</strong> nasceu dessa dor: bancos que <strong>afrouxam as regras do modelo relacional</strong> para conseguir crescer em largura (muitas máquinas, não uma máquina mais gorda) sem drama de migração de esquema.</p>
+<p>As características que costumam cair na prova:</p>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>O que significa no dia a dia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Escalabilidade horizontal</strong></td>
+<td>Cresce <strong>adicionando máquinas</strong> ao cluster, não aumentando o servidor único</td>
+</tr>
+<tr>
+<td><strong>Schema-free / esquema flexível</strong></td>
+<td>A forma do registro não é fixada no banco — quem modela é a aplicação</td>
+</tr>
+<tr>
+<td><strong>Suporte nativo a replicação</strong></td>
+<td>Cópia dos dados é coisa do projeto, não gambiarra de backup</td>
+</tr>
+<tr>
+<td><strong>API simples</strong></td>
+<td>Acesso direto (pegar/escrever), sem gramática de consulta pesada</td>
+</tr>
+<tr>
+<td><strong>Consistência eventual</strong></td>
+<td>Pode haver atraso até todas as cópias convergirem — o sistema promete <strong>convergir</strong>, não ser instantâneo</td>
+</tr>
+</tbody>
+</table>
+<p>O tópico 11 do edital andava sem material aqui justamente porque a cobrança era tímida — e ela mudou de patamar com a FGV 2026.</p>
+<h2 id="2-por-que-cai-em-prova_2">2. Por que cai em prova?</h2>
+<p>Porque o edital colocou <strong>"Banco de dados NoSQL" como tópico próprio</strong> e a FGV começou a cobrar do jeito que gosta: <strong>comparação com o relacional</strong>. Em 2026 (AL-RO) ela descreveu uma aplicação de cache de sessões em NoSQL Chave-Valor e pediu <strong>a principal vantagem frente a um SGBD relacional tradicional</strong> — ou seja, não pediu definição, pediu <em>escolha do modelo certo para o caso</em>.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p>Palavra-chave do enunciado = modelo: <strong>cache, sessões, carrinhos, tokens, latência mínima, "busca pela chave"</strong> → <strong>chave-valor</strong>. <strong>Documento JSON complexo</strong> → documental. <strong>Relação entre entidades / rede social</strong> → grafo. <strong>Foreign keys, ACID, joins ricos</strong> → relacional (está fora de NoSQL — é o concorrente da questão).</p></div>
+</div>
+<h2 id="3-como-as-partes-se-conectam_1">3. Como as partes se conectam?</h2>
+<ul>
+<li><strong>T06 — Modelagem dimensional:</strong> a desnormalização já citada lá tem sua versão radical no NoSQL: o registro vira <strong>um bloco único</strong>, sem join interno nem externo. Mesma lógica, grau maior.</li>
+<li><strong>T10 — Propriedades ACID:</strong> a <strong>consistência eventual</strong> é o contrato oposto ao "commit já vale em toda parte". São duas promessas diferentes de coerência — confundir as duas é confundir idiomas.</li>
+<li><strong>T02 — Abordagem relacional:</strong> no NoSQL, a <strong>integridade referencial</strong> não é garantida por FK — quem zela pela coerência entre registros é a <strong>aplicação</strong>. Trocaram o guarda do banco pelo guarda da porta.</li>
+<li><strong>Infra / Redes:</strong> escalabilidade horizontal e replicação nativa são os mesmos temas de <strong>cluster, alta disponibilidade e nuvem</strong> (Suporte e Infraestrutura) — o NoSQL só empurra essa discussão para dentro do modelo de dados.</li>
+</ul>
+<h2 id="4-as-pegadinhas-classicas_1">4. As pegadinhas clássicas</h2>
+<p>é a questão-mãe: cada distrator descreve <strong>outro modelo</strong> (ou o concorrente relacional).</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>Descreve na verdade</th>
+<th>Por que é cilada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A — esquemas flexíveis + JSON complexo</td>
+<td><strong>Documental</strong></td>
+<td>Soa "NoSQL" demais para ser errado, mas não é o chave-valor</td>
+</tr>
+<tr>
+<td>B — FK + transações ACID completas</td>
+<td><strong>Relacional</strong></td>
+<td>É o concorrente, não a vantagem do chave-valor</td>
+</tr>
+<tr>
+<td>C — escalabilidade horizontal + latência de milissegundos + busca pelo endereço do valor</td>
+<td><strong>Chave-valor</strong></td>
+<td>A conta fecha: acesso só pela chave, sem join, sem consulta ad hoc</td>
+</tr>
+<tr>
+<td>D — linguagem declarativa rica + JOINS</td>
+<td><strong>Relacional</strong></td>
+<td>Vantagem de lá, não daqui</td>
+</tr>
+<tr>
+<td>E — redes sociais, foco na relação entre entidades</td>
+<td><strong>Grafo</strong></td>
+<td>Outro NoSQL, outra vocação</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p><strong>Schema-free não é sinônimo de chave-valor</strong> — é quase sinônimo de <em>NoSQL inteiro</em> (e a que usa esse argumento é justamente a do modelo <strong>documental</strong>). A pegadinha da FGV é misturar os tipos de NoSQL entre si e ainda importar vantagens do relacional para dentro deles. Leia o que a <strong>aplicação</strong> faz, não o que a alternativa tem de "bonito em geral".</p></div>
+</div>
+<h2 id="5-o-que-separa-quem-acerta-de-quem-erra_1">5. O que separa quem acerta de quem erra?</h2>
+<p>Quem acerta <strong>descreve a aplicação antes de olhar as alternativas</strong> — é a pergunta "o que esse sistema faz o dia inteiro?" que aponta o modelo:</p>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Forma dos dados</th>
+<th>Feito para...</th>
+<th>Sinal no enunciado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chave-valor</strong></td>
+<td>par <code>chave → valor</code></td>
+<td>cache, sessão, carrinho, token</td>
+<td>"latência mínima", "acesso pela chave"</td>
+</tr>
+<tr>
+<td><strong>Documental</strong></td>
+<td>documento JSON/XML inteiro</td>
+<td>conteúdo com formato variável</td>
+<td>"documentos JSON complexos"</td>
+</tr>
+<tr>
+<td><strong>Grafo</strong></td>
+<td>nós + arestas</td>
+<td>relações e caminhos</td>
+<td>"rede social", "relação entre entidades"</td>
+</tr>
+<tr>
+<td><strong>Colunar</strong></td>
+<td>colunas agrupadas por família</td>
+<td>análise de volume em massa</td>
+<td>leitura por coluna, relatório de milhares de linhas</td>
+</tr>
+<tr>
+<td><em>Relacional (o concorrente)</em></td>
+<td>tabelas + JOIN</td>
+<td>integridade e consulta complexa</td>
+<td>"FK", "ACID", "joins", "linguagem declarativa"</td>
+</tr>
+</tbody>
+</table>
+<p>A chave-valor não faz JOIN nem consulta complexa — por isso oferece <strong>altíssimo desempenho, baixa latência e grande escalabilidade horizontal</strong>: quando a aplicação conhece a chave, a busca é <strong>direta</strong>, sem varredura. Baixíssima latência (em milissegundos ou menos), alto desempenho de leitura e escrita e fácil crescimento por novos servidores.</p>
+<h2 id="6-onde-eu-erraria-e-por-que_1">6. Onde eu erraria e por quê?</h2>
+<p>Eu marcaria a letra <strong>A</strong> — "esquemas flexíveis e JSON" é a frase mais NoSQL que existe, e schema-free está na lista de características do tópico. Só que a pergunta é <strong>principal vantagem do chave-valor frente ao relacional</strong>, e esquema flexível é o forte do modelo <strong>documental</strong>. E na letra <strong>B</strong> eu hesitaria: ACID, FK e integridade soam "corretos demais" para serem distratores — mas é exatamente o pacote do <strong>relacional tradicional</strong>, o outro lado da comparação. Erramos quando respondemos pela <em>qualidade</em> da alternativa em vez da <em>pertencência</em> ao modelo cobrado.</p>
+<h2 id="7-como-memorizar-sem-decorar_1">7. Como memorizar sem decorar?</h2>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p>Características do NoSQL numa frase de bolso: <strong>"Sem esquema, sem join, com chave, com réplica e com paciência."</strong> — paciência = <strong>consistência eventual</strong> (espera as cópias convergirem). E chave-valor = <strong>armário de gavetas numeradas</strong>: você chega com o número da gaveta, abre e pega — não existe "procurar por cor nas outras gavetas". Quem tem a chave, tem o valor.</p></div>
+</div>
+<h2 id="8-o-que-revisar-e-quando_1">8. O que revisar e quando?</h2>
+<ul>
+<li>é a questão-NoSQL do banco — revise-a antes de qualquer simulado; o formato que a FGV usou (enunciado aplicativo + comparação com relacional) é o mais provável de se repetir.</li>
+<li>Releia <strong>T10 (ACID)</strong> junto: consistência eventual × atomicidade/durabilidade é o par que a banca troca com mais frequência.</li>
+<li>Releia <strong>T06 (desnormalização)</strong>: o argumento "registro em bloco único, sem join" é o mesmo, com outro nome.</li>
+<li><strong>T12 (banco em memória)</strong>, <strong>T13 (data lakes/Big Data)</strong> e <strong>T14 (IA/Big Data)</strong> seguem pendentes — este T11 é a porta de entrada do bloco "não relacionais" do edital.</li>
+</ul>
+<h2 id="9-licao-para-outras-materias_1">9. Lição para outras matérias</h2>
+<div class="callout callout-conexao">
+  <div class="callout-title"><span class="callout-icon">🔗</span> CONEXAO</div>
+  <div class="callout-body"><p>Três reciclagens: <strong>escalabilidade horizontal e replicação</strong> = mesmo tema de <strong>Infraestrutura</strong> (cluster, alta disponibilidade, nuvem) e de <strong>Redes</strong> (distribuir carga em vez de centralizar); <strong>consistência eventual</strong> = a ideia de que <em>redes convergem</em> — dá tempo, mas não é instantâneo; <strong>schema-free</strong> = cuidado com <strong>Governança de TI</strong>: empurrar a regra para a aplicação não elimina a regra, só tira do catálogo — quem não tem esquema no banco precisa ter metadados na cabeça da equipe, senão vira <em>data swamp</em> (T01, Introdução).</p></div>
+</div>
+      </article>
+    </main>
+  </div>
+
+  <button class="mobile-toc-btn" onclick="toggleMobileToc()">📑 Sumário</button>
+
+  <script>
+    // Barra de progresso de leitura
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // Tema claro / escuro
+    if (localStorage.getItem('resumo_theme') === 'light') {
+      document.body.classList.add('light-mode');
+    }
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('resumo_theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+
+    // Controle de fonte
+    let curFont = parseInt(localStorage.getItem('resumo_font') || '16', 10);
+    document.documentElement.style.setProperty('--font-size', curFont + 'px');
+    function changeFont(delta) {
+      curFont = Math.min(22, Math.max(13, curFont + delta));
+      document.documentElement.style.setProperty('--font-size', curFont + 'px');
+      localStorage.setItem('resumo_font', curFont);
+    }
+
+    // Filtro do Sumário Lateral
+    function filterToc(q) {
+      const term = q.toLowerCase().trim();
+      document.querySelectorAll('#toc-list .toc-link').forEach(a => {
+        a.style.display = a.textContent.toLowerCase().includes(term) ? 'block' : 'none';
+      });
+    }
+
+    // Menu mobile
+    function toggleMobileToc() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    function closeMobileToc() {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    // Busca rápida por parágrafos/seções
+    function highlightSearch(q) {
+      const term = q.trim().toLowerCase();
+      const article = document.getElementById('md-article');
+      const blocks = article.querySelectorAll('p, li, h1, h2, h3, td, .callout');
+      if (!term) {
+        blocks.forEach(b => b.style.opacity = '1');
+        return;
+      }
+      let firstMatch = null;
+      blocks.forEach(b => {
+        const match = b.textContent.toLowerCase().includes(term);
+        b.style.opacity = match ? '1' : '0.22';
+        if (match && !firstMatch) firstMatch = b;
+      });
+    }
+  </script>
+</body>
+</html>

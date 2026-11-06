@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Língua Inglesa — Resumo Consolidado TIC</title>
+  <meta name="theme-color" content="#0b1120">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #0f172a;
+      --surface-card: #152036;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-strong: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #06b6d4;
+      --code-bg: #090d16;
+      --font-size: 16px;
+    }
+    body.light-mode {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-card: #f1f5f9;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --text-strong: #0f172a;
+      --text-muted: #475569;
+      --code-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      font-size: var(--font-size);
+      line-height: 1.7;
+      transition: background 0.2s, color 0.2s;
+    }
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #38bdf8);
+      width: 0%;
+      z-index: 9999;
+    }
+    .top-Wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 16px 0;
+    }
+    .reader-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+    }
+    body.light-mode .reader-toolbar {
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .toolbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tb-btn {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .tb-btn:hover {
+      border-color: var(--accent);
+    }
+    .tb-pdf {
+      background: rgba(16, 185, 129, 0.14);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .disc-select {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      max-width: 260px;
+    }
+    .search-input {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      width: 190px;
+    }
+    .layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 28px;
+      padding: 24px 16px 60px;
+      align-items: start;
+    }
+    .sidebar {
+      position: sticky;
+      top: 68px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 14px;
+    }
+    .sidebar-header {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toc-filter {
+      width: 100%;
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+    .toc-link {
+      display: block;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.80rem;
+      padding: 5px 8px;
+      border-radius: 6px;
+      line-height: 1.35;
+      margin-bottom: 2px;
+      transition: all 0.12s;
+    }
+    .toc-link:hover {
+      background: var(--surface-card);
+      color: var(--text-strong);
+    }
+    .toc-h1 {
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      border-left: 3px solid var(--accent);
+      padding-left: 8px;
+    }
+    .toc-h2 {
+      padding-left: 18px;
+      font-size: 0.76rem;
+    }
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 36px;
+      min-width: 0;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+    .hero-banner {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 26px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+    .hero-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    /* Tipografia do Conteúdo Markdown */
+    .md-body h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-strong);
+      margin: 36px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      line-height: 1.3;
+    }
+    .md-body h1:first-child {
+      margin-top: 0;
+    }
+    .md-body h2 {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin: 28px 0 12px;
+      line-height: 1.35;
+    }
+    body.light-mode .md-body h2 {
+      color: #0284c7;
+    }
+    .md-body h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin: 20px 0 8px;
+    }
+    .md-body h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 16px 0 6px;
+    }
+    .md-body p {
+      margin-bottom: 14px;
+    }
+    .md-body ul, .md-body ol {
+      margin: 0 0 16px 24px;
+    }
+    .md-body li {
+      margin-bottom: 6px;
+    }
+    .md-body strong {
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.88em;
+      color: #f472b6;
+    }
+    body.light-mode .md-body code {
+      color: #be185d;
+    }
+    .md-body pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 14px 0 18px;
+    }
+    .md-body pre code {
+      background: transparent;
+      padding: 0;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+    .md-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+    .md-body blockquote {
+      border-left: 4px solid #64748b;
+      background: var(--surface-card);
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 14px 0;
+      color: var(--text-muted);
+    }
+    /* Tabelas Responsivas */
+    .md-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 22px;
+      font-size: 0.9rem;
+      display: block;
+      overflow-x: auto;
+    }
+    .md-body th, .md-body td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+    }
+    .md-body th {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    /* Callouts Estilo Obsidian */
+    .callout {
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 18px 0;
+      border-left: 5px solid #38bdf8;
+      background: var(--surface-card);
+    }
+    .callout-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-strong);
+    }
+    .callout-body p:last-child { margin-bottom: 0; }
+    .callout-resumo { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.08); }
+    .callout-pegadinha { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.09); }
+    .callout-alerta { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.09); }
+    .callout-dica { border-left-color: #10b981; background: rgba(16, 185, 129, 0.09); }
+    .callout-memorizar { border-left-color: #a855f7; background: rgba(168, 85, 247, 0.09); }
+    .callout-conexao { border-left-color: #14b8a6; background: rgba(20, 184, 166, 0.09); }
+
+    .mobile-toc-btn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+    }
+    mark.hl {
+      background: #facc15;
+      color: #0f172a;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        display: none;
+        position: fixed;
+        inset: 60px 16px 76px 16px;
+        z-index: 99;
+        max-height: none;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      }
+      .sidebar.open { display: block; }
+      .mobile-toc-btn { display: inline-flex; align-items: center; gap: 6px; }
+      .content-card { padding: 20px 16px; }
+    }
+  </style>
+<style id="portal-nav-css">
+  .portal-top-bar {
+    width: 100%;
+    margin: 0 0 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    z-index: 100;
+  }
+  .portal-top-bar a.ptb-brand {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .portal-top-bar a.ptb-brand:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .portal-top-bar .ptb-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .portal-top-bar a.ptb-btn {
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .portal-top-bar a.ptb-btn:hover {
+    transform: translateY(-1px);
+  }
+  /* Quiz Game (Verde) */
+  .portal-top-bar a.ptb-quiz {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+  }
+  .portal-top-bar a.ptb-quiz:hover, .portal-top-bar a.ptb-quiz.active {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+  }
+  /* Fichas de Revisão (Âmbar) */
+  .portal-top-bar a.ptb-fichas {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.28);
+  }
+  .portal-top-bar a.ptb-fichas:hover, .portal-top-bar a.ptb-fichas.active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+  }
+  /* Plano UFRRJ (Azul Celeste) */
+  .portal-top-bar a.ptb-ufrrj {
+    color: #38bdf8;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(14, 165, 233, 0.28);
+  }
+  .portal-top-bar a.ptb-ufrrj:hover, .portal-top-bar a.ptb-ufrrj.active {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+  }
+  /* Plano Transpetro (Roxo) */
+  .portal-top-bar a.ptb-transpetro {
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.28);
+  }
+  .portal-top-bar a.ptb-transpetro:hover, .portal-top-bar a.ptb-transpetro.active {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: #c084fc;
+  }
+  /* Resumos Consolidados (Rosa/Ciano) */
+  .portal-top-bar a.ptb-resumos {
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.12);
+    border: 1px solid rgba(244, 114, 182, 0.28);
+  }
+  .portal-top-bar a.ptb-resumos:hover, .portal-top-bar a.ptb-resumos.active {
+    background: rgba(244, 114, 182, 0.25);
+    border-color: #f472b6;
+  }
+  .portal-top-bar a.ptb-btn.active {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+    font-weight: 800;
+  }
+  @media (max-width: 680px) {
+    .portal-top-bar .ptb-text-extra { display: none !important; }
+    .portal-top-bar a.ptb-btn { font-size: 0.72rem; padding: 4px 7px; gap: 4px; }
+    .portal-top-bar a.ptb-brand { font-size: 0.78rem; }
+  }
+  @media (max-width: 440px) {
+    .portal-top-bar { padding: 6px 10px; gap: 6px; }
+    .portal-top-bar .ptb-actions { gap: 4px; }
+    .portal-top-bar a.ptb-btn { font-size: 0.70rem; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+  <div class="top-Wrapper">    <div class="portal-top-bar">
+      <a href="index.html" class="ptb-brand" title="Voltar ao Portal Principal">
+        <span>🏠</span>
+        <span>Portal<span class="ptb-text-extra"> de Estudos</span></span>
+      </a>
+      <div class="ptb-actions">
+        <a href="quiz.html" class="ptb-btn ptb-quiz" title="Quiz Game TIC (Simulado e Prática)">
+          <span>🎮</span>
+          <span>Quiz<span class="ptb-text-extra"> Game</span></span>
+        </a>
+        <a href="fichas.html" class="ptb-btn ptb-fichas" title="Fichas de Revisão Offline">
+          <span>📑</span>
+          <span>Fichas</span>
+        </a>
+        <a href="resumos.html" class="ptb-btn ptb-resumos active" title="Cadernos e Resumos Consolidados por Disciplina">
+          <span>📚</span>
+          <span>Resumos</span>
+        </a>
+        <a href="ufrrj_quadro.html" class="ptb-btn ptb-ufrrj" title="Quadro e Plano de Estudos UFRRJ 2026">
+          <span>🏛️</span>
+          <span><span class="ptb-text-extra">Plano </span>UFRRJ</span>
+        </a>
+        <a href="transpetro_quadro.html" class="ptb-btn ptb-transpetro" title="Quadro e Plano de Estudos Transpetro 2026">
+          <span>⚓</span>
+          <span><span class="ptb-text-extra">Plano </span>Transpetro</span>
+        </a>
+      </div>
+    </div>
+</div>
+
+  <div class="reader-toolbar">
+    <div class="toolbar-inner">
+      <div class="toolbar-left">
+        <a href="resumos.html" class="tb-btn" title="Voltar para Todos os Resumos">📚 Resumos</a>
+        <select class="disc-select" onchange="if(this.value) location.href=this.value" aria-label="Trocar Disciplina">
+          <option value="resumo_portugues.html">📝 Língua Portuguesa</option>
+<option value="resumo_ingles.html" selected>🌐 Língua Inglesa</option>
+<option value="resumo_raciocinio_logico.html">🧮 Raciocínio Lógico</option>
+<option value="resumo_legislacao.html">⚖️ Legislação (Proteção de Dados, Transparência e Regime Jurídico)</option>
+<option value="resumo_informatica.html">💻 Noções de Informática</option>
+<option value="resumo_governanca_ti.html">📊 Gestão e Governança de Tecnologia da Informação</option>
+<option value="resumo_redes.html">🌐 Redes de Computadores</option>
+<option value="resumo_infraestrutura.html">🖥️ Suporte e Infraestrutura</option>
+<option value="resumo_banco_de_dados.html">🗄️ Banco de Dados</option>
+<option value="resumo_atualidades_ia.html">🤖 Atualidades e Inteligência Artificial</option>
+<option value="resumo_ciberseguranca.html">🛡️ Cibersegurança</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <input type="search" id="doc-search" class="search-input" placeholder="🔍 Buscar no texto..." oninput="highlightSearch(this.value)">
+        <button class="tb-btn" onclick="changeFont(-1)" title="Diminuir Fonte">A-</button>
+        <button class="tb-btn" onclick="changeFont(1)" title="Aumentar Fonte">A+</button>
+        <button class="tb-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar Tema Claro/Escuro">☀️/🌙</button>
+        <a href="pdfs/Ingles_Consolidado.pdf" class="tb-btn tb-pdf" target="_blank" title="Baixar versão em PDF">📥 PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span>📑 Índice de Tópicos (6)</span>
+      </div>
+      <input type="search" class="toc-filter" placeholder="Filtrar tópicos..." oninput="filterToc(this.value)">
+      <nav id="toc-list">
+        <a href="#ingles-t01-conectivos-de-coesao-e-relacoes-logicas" class="toc-link toc-h1" onclick="closeMobileToc()">Inglês T01 — Conectivos de Coesão e Relações Lógicas</a>
+<a href="#1-tabela-mestra-de-conectivos-linking-words" class="toc-link toc-h2" onclick="closeMobileToc()">1. Tabela-Mestra de Conectivos (Linking Words)</a>
+<a href="#2-a-mecanica-da-fgv-na-prova" class="toc-link toc-h2" onclick="closeMobileToc()">2. A Mecânica da FGV na Prova</a>
+<a href="#3-resumo-pratico-para-resolucao-rapida" class="toc-link toc-h2" onclick="closeMobileToc()">3. Resumo Prático para Resolução Rápida</a>
+<a href="#ingles-t01-estrategias-de-leitura-parafrase-e-interpretacao" class="toc-link toc-h1" onclick="closeMobileToc()">Inglês T01 — Estratégias de Leitura, Paráfrase e Interpretação</a>
+<a href="#1-as-quatro-tecnicas-fundamentais-de-leitura" class="toc-link toc-h2" onclick="closeMobileToc()">1. As Quatro Técnicas Fundamentais de Leitura</a>
+<a href="#2-a-anatomia-dos-itens-de-verdadeiro-ou-falso-true-false" class="toc-link toc-h2" onclick="closeMobileToc()">2. A Anatomia dos Itens de Verdadeiro ou Falso (True / False)</a>
+<a href="#3-intertextualidade-charges-e-cantigas" class="toc-link toc-h2" onclick="closeMobileToc()">3. Intertextualidade, Charges e Cantigas</a>
+<a href="#4-checklist-de-sobrevivencia-na-prova-de-ingles" class="toc-link toc-h2" onclick="closeMobileToc()">4. Checklist de Sobrevivência na Prova de Inglês</a>
+<a href="#ingles-t01-modais-adverbios-e-formacao-de-palavras" class="toc-link toc-h1" onclick="closeMobileToc()">Inglês T01 — Modais, Advérbios e Formação de Palavras</a>
+<a href="#1-verbos-modais-modal-verbs-e-usos-discursivos" class="toc-link toc-h2" onclick="closeMobileToc()">1. Verbos Modais (Modal Verbs) e Usos Discursivos</a>
+<a href="#2-formacao-de-palavras-prefixos-sufixos-e-neologismos" class="toc-link toc-h2" onclick="closeMobileToc()">2. Formação de Palavras: Prefixos, Sufixos e Neologismos</a>
+<a href="#3-processos-de-criacao-lexical-compounding-vs-blending" class="toc-link toc-h2" onclick="closeMobileToc()">3. Processos de Criação Lexical: Compounding vs Blending</a>
+<a href="#4-adverbios-e-relacoes-semanticas-especiais" class="toc-link toc-h2" onclick="closeMobileToc()">4. Advérbios e Relações Semânticas Especiais</a>
+<a href="#ingles-t01-tempos-verbais-voz-passiva-contracoes-e-pronomes" class="toc-link toc-h1" onclick="closeMobileToc()">Inglês T01 — Tempos Verbais, Voz Passiva, Contrações e Pronomes</a>
+<a href="#1-o-panorama-dos-tempos-verbais-verb-tenses" class="toc-link toc-h2" onclick="closeMobileToc()">1. O Panorama dos Tempos Verbais (Verb Tenses)</a>
+<a href="#2-decodificando-contracoes-verbais-criticas" class="toc-link toc-h2" onclick="closeMobileToc()">2. Decodificando Contrações Verbais Críticas</a>
+<a href="#3-caso-genitivo-possessive-case-em-substantivos" class="toc-link toc-h2" onclick="closeMobileToc()">3. Caso Genitivo (Possessive Case) em Substantivos</a>
+<a href="#4-voz-passiva-passive-voice" class="toc-link toc-h2" onclick="closeMobileToc()">4. Voz Passiva (Passive Voice)</a>
+<a href="#5-referencia-pronominal-e-coesao-anaforica" class="toc-link toc-h2" onclick="closeMobileToc()">5. Referência Pronominal e Coesão Anafórica</a>
+<a href="#ingles-t01-vocabulario-contextual-expressoes-idiomaticas-e-interpretacao" class="toc-link toc-h1" onclick="closeMobileToc()">Inglês T01 — Vocabulário Contextual, Expressões Idiomáticas e Interpretação</a>
+<a href="#1-glossario-estrategico-de-concurso-vocabulario-de-alto-rendimento" class="toc-link toc-h2" onclick="closeMobileToc()">1. Glossário Estratégico de Concurso (Vocabulário de Alto Rendimento)</a>
+<a href="#2-expressoes-idiomaticas-e-phrasal-verbs-em-redes-e-sistemas" class="toc-link toc-h2" onclick="closeMobileToc()">2. Expressões Idiomáticas e Phrasal Verbs em Redes e Sistemas</a>
+<a href="#3-collocations-de-gestao-make-vs-do" class="toc-link toc-h2" onclick="closeMobileToc()">3. Collocations de Gestão: MAKE vs DO</a>
+<a href="#4-o-filtro-de-polaridade-e-sinonimia-da-banca" class="toc-link toc-h2" onclick="closeMobileToc()">4. O Filtro de Polaridade e Sinonímia da Banca</a>
+<a href="#ingles-questoes-aposentado" class="toc-link toc-h1" onclick="closeMobileToc()">Ingles — Questões (aposentado)</a>
+      </nav>
+    </aside>
+
+    <main class="content-card">
+      <div class="hero-banner">
+        <span class="hero-tag">🌐 Inglês Técnico &amp; Leitura</span>
+        <h1 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text-strong);">Língua Inglesa</h1>
+        <div class="hero-meta">
+          <span>📖 <strong>6</strong> tópicos principais</span>
+          <span>⏱️ Leitura estimada: <strong>~24 min</strong> (4,774 palavras)</span>
+          <span>🔄 Atualizado em: <strong>06/11/2026</strong></span>
+        </div>
+      </div>
+
+      <article class="md-body" id="md-article">
+        <h1 id="lingua-inglesa">Língua Inglesa</h1>
+<blockquote>
+<p><strong>Repositório Central de Concursos de TIC</strong> · UFRRJ &amp; Transpetro 2026</p>
+<p><strong>Caderno Consolidado de Língua Inglesa</strong> — teoria completa, mnemônicos e pegadinhas de prova.
+Gerado automaticamente em 06/11/2026.</p>
+</blockquote>
+<hr />
+<h1 id="ingles-t01-conectivos-de-coesao-e-relacoes-logicas">Inglês T01 — Conectivos de Coesão e Relações Lógicas</h1>
+<h2 id="1-tabela-mestra-de-conectivos-linking-words">1. Tabela-Mestra de Conectivos (Linking Words)</h2>
+<p>Conectivos e marcadores discursivos estabelecem a lógica interna entre orações e parágrafos. Em provas da FGV e do CESPE, a banca frequentemente cobra o <strong>valor semântico</strong> ou pede a substituição de um conectivo por outro de valor equivalente sem alteração de sentido.</p>
+<table>
+<thead>
+<tr>
+<th>Conectivo / Expressão</th>
+<th>Relação Lógica</th>
+<th>Equivalência Direta</th>
+<th>Tradução / Uso no Texto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Yet / Nevertheless</strong></td>
+<td>Concessão / Ressalva / Contraste</td>
+<td><strong>However, nonetheless</strong></td>
+<td>"No entanto / apesar disso" — quebra de expectativa.</td>
+</tr>
+<tr>
+<td><strong>Despite this / In spite of this</strong></td>
+<td>Concessão / Contraste</td>
+<td><strong>However, even so</strong></td>
+<td>"Apesar disso" — contrapõe duas realidades conflitantes.</td>
+</tr>
+<tr>
+<td><strong>Moreover / Furthermore / Besides</strong></td>
+<td>Adição / Continuidade de tese</td>
+<td><strong>In addition, also</strong></td>
+<td>"Além disso" — soma argumentos no mesmo sentido.</td>
+</tr>
+<tr>
+<td><strong>Therefore / Consequently / Thus</strong></td>
+<td>Conclusão / Consequência</td>
+<td><strong>As a result, hence</strong></td>
+<td>"Portanto / por conseguinte" — decorrência lógica direta.</td>
+</tr>
+<tr>
+<td><strong>Indeed</strong></td>
+<td>Ênfase / Corroboração / Reforço</td>
+<td><strong>In fact, truly, certainly</strong></td>
+<td>"De fato / realmente" — valida e fortalece premissa anterior.</td>
+</tr>
+<tr>
+<td><strong>Due to / Owing to</strong></td>
+<td>Causa / Motivo</td>
+<td><strong>Because of, on account of</strong></td>
+<td>"Devido a / por causa de" — aponta a causa originária.</td>
+</tr>
+<tr>
+<td><strong>As well as</strong></td>
+<td>Adição / Inclusão</td>
+<td><strong>Including, and also</strong></td>
+<td>"Bem como / incluindo" — inclui elemento no conjunto.</td>
+</tr>
+<tr>
+<td><strong>Like</strong> (preposição)</td>
+<td>Exemplificação / Ilustração</td>
+<td><strong>Such as, for instance</strong></td>
+<td>"Como / tais como" — ilustra categoria ampla com caso real.</td>
+</tr>
+<tr>
+<td><strong>Rather than</strong></td>
+<td>Exclusão / Preferência inversa</td>
+<td><strong>Instead of</strong></td>
+<td>"Em vez de / ao invés de" — pretere o segundo pelo primeiro.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-a-mecanica-da-fgv-na-prova">2. A Mecânica da FGV na Prova</h2>
+<h3 id="21-a-regra-do-yet-e-a-dualidade-de-ouro">2.1 A Regra do "Yet" e a Dualidade de Ouro</h3>
+<p>A conjunção <strong>yet</strong> pode atuar de duas formas na língua inglesa:
+1. <strong>Advérbio temporal:</strong> Ao final de frases negativas ou interrogativas ("<em>I haven't deployed the code yet</em>" = ainda não).
+2. <strong>Conjunção coordenativa de contraste:</strong> Em início ou meio de períodos argumentativos, atuando exatamente como <strong>but</strong> ou <strong>nevertheless</strong>.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A Quebra de Expectativa do "Yet"</div>
+  <div class="callout-body"><p>Conectivo em início de período se resolve pela <strong>relação lógica com a frase anterior</strong>, e não pelo tema geral do texto.
+Se a primeira frase apresenta uma constatação ("os mais vulneráveis sofrem o pior impacto climática") e a segunda apresenta o paradoxo ("no entanto, são os que menos poluem" — <em>yet contribute the least</em>), a função sintática é inquestionavelmente de <strong>contraste</strong> (<em>contrast</em>).</p></div>
+</div>
+<h3 id="22-concessao-e-contraste-com-despite-this">2.2 Concessão e Contraste com "Despite This"</h3>
+<p>A expressão <strong>"Despite this"</strong> introduz concessão ou quebra de expectativa entre dois dados objetivos:
+- <em>Premissa 1:</em> 74,8% dos professores aprovam o uso teórico de Inteligência Artificial.
+- <em>Premissa 2:</em> Apenas 39,2% fazem uso contínuo na prática diária.
+- <em>Conexão:</em> <em>"Despite this, daily adoption remains low"</em> → Equivale perfeitamente a <strong>However</strong> ou <strong>Nevertheless</strong>.</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> A Regra da Polaridade (Tática do "4 contra 1")</div>
+  <div class="callout-body"><p>Em questões de múltiplos conectivos onde a banca pede para substituir o termo destacado, analise a polaridade das alternativas:
+Se o termo é <em>Despite this</em> (contraste) e as opções trazem:
+A) Thus (conclusão)
+B) Hence (conclusão)
+C) However (contraste)
+D) Similarly (comparação)
+E) Accordingly (conclusão)
+Três alternativas representam conclusão (Thus, Hence, Accordingly) e uma comparação (Similarly). A única dissonante e correta é <strong>However</strong>!</p></div>
+</div>
+<h3 id="23-o-marcador-discursivo-indeed-e-a-triade-da-enfase">2.3 O Marcador Discursivo "Indeed" e a Tríade da Ênfase</h3>
+<p>O advérbio <strong>Indeed</strong> funciona como marcador discursivo que valida, ratifica e aprofunda uma afirmação prévia.
+- Se o autor declara que a comunicação governamental não ocorre no vácuo e, em seguida, inicia o período com <em>"Indeed, the analysis has become urgent..."</em>, sua função é de <strong>ênfase</strong> (<em>emphasis</em>) ou corroboração, jamais de dúvida, concessão ou mera adição neutra.
+- <em>A Tríade da Ênfase:</em> <code>Indeed</code>, <code>In fact</code> e <code>Certainly</code> formam o trio clássico de reafirmação enfática.</p>
+<h3 id="24-a-prova-real-do-such-as-para-a-preposicao-like">2.4 A Prova Real do "Such As" para a Preposição "Like"</h3>
+<p>A palavra <strong>like</strong> tem múltiplos papéis (verbo gostar, adjetivo semelhante, preposição exemplificativa).
+- Quando posicionada imediatamente após uma categoria geral (<em>"natural changes"</em>) e antes de elementos concretos (<em>"like seasonal plant shifts"</em>), ela atua como <strong>preposição de exemplificação</strong> (<em>example</em>).
+- <em>Teste de substituição:</em> Troque mentalmente por <strong>such as</strong> ou <strong>for example</strong>. Se a frase mantiver a integridade lógica, a função é de exemplificação.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Distratores de Causa: "Due to"</div>
+  <div class="callout-body"><p>Ao cobrar o sentido de <strong>due to</strong> (causa direta), a banca costuma incluir distratores enganosos:
+- Locuções de <em>anterioridade</em> (<em>ahead of</em> — à frente de / antes de).
+- Locuções de <em>substituição</em> (<em>instead of</em> — em vez de).
+- Locuções de <em>indiferença/concessão</em> (<em>regardless of</em>, <em>irrespective of</em> — independentemente de).
+Identifique sempre se o elemento introduz o <strong>motivo gerador</strong> (causa). Se ligar fato à sua causa, a equivalência é estrita com <strong>because of</strong>.</p></div>
+</div>
+<hr />
+<h2 id="3-resumo-pratico-para-resolucao-rapida">3. Resumo Prático para Resolução Rápida</h2>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Síntese de Relações Lógicas</div>
+  <div class="callout-body"><p>- Oposição de ideias / Quebra de expectativa → <strong>Yet, However, Despite this, Nevertheless</strong>.
+- Soma de argumentos na mesma direção → <strong>Moreover, Furthermore, In addition, As well as</strong>.
+- Dedução lógica / Efeito de ação anterior → <strong>Therefore, Consequently, Thus, Hence</strong>.
+- Reafirmação com fortalecimento → <strong>Indeed, In fact</strong>.
+- Causa e origem → <strong>Due to, Because of, Owing to</strong>.
+- Apresentação de casos ilustrativos → <strong>Like, Such as, For instance</strong>.</p>
+<p><strong>🔴 Conectivos de Tempo e Limite: "Until" (Até que)</strong>
+A palavra <strong>until</strong> estabelece uma fronteira estritamente temporal. Quando associada a sentenças negativas (<em>doesn't buzz until...</em>), ela indica que a ação principal fica suspensa e só se efetiva no exato instante em que o evento seguinte ocorre:
+- <em>"My phone doesn’t buzz <strong>until</strong> a real human calls"</em> = Meu telefone não toca/vibra <strong>até que</strong> um humano de verdade ligue. A relação semântica é de <strong>tempo</strong>, não de condição, causa ou oposição.</p></div>
+</div>
+<hr />
+<h1 id="ingles-t01-estrategias-de-leitura-parafrase-e-interpretacao">Inglês T01 — Estratégias de Leitura, Paráfrase e Interpretação</h1>
+<h2 id="1-as-quatro-tecnicas-fundamentais-de-leitura">1. As Quatro Técnicas Fundamentais de Leitura</h2>
+<p>Em provas de concurso com textos longos e vocabulário denso, ler o texto inteiro palavra por palavra antes de olhar as questões é a receita para perder tempo. A resolução eficiente apoia-se em quatro técnicas complementares:</p>
+<table>
+<thead>
+<tr>
+<th>Estratégia</th>
+<th>Definição Operacional</th>
+<th>Quando Aplicar na Prova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scanning</strong></td>
+<td>Rastreamento visual rápido buscando <strong>dados específicos</strong> (números, datas, nomes próprios, siglas, termos entre aspas).</td>
+<td>Itens de T/F que citam estatísticas, porcentagens ou nomes de órgãos e tecnologias.</td>
+</tr>
+<tr>
+<td><strong>Skimming</strong></td>
+<td>Leitura panorâmica em diagonal (título, primeiro e último períodos de cada parágrafo) para captar a <strong>ideia central / tese</strong>.</td>
+<td>Questões sobre "The main purpose of the text" ou "The author's primary goal".</td>
+</tr>
+<tr>
+<td><strong>Inferencing</strong></td>
+<td><strong>Dedução lógica</strong> do sentido de palavras desconhecidas ou intenções veladas a partir de pistas contextuais imediatas.</td>
+<td>Questões de sentido lexical contextual e atitude do autor (<em>irony, concern, criticism</em>).</td>
+</tr>
+<tr>
+<td><strong>Summarizing</strong></td>
+<td>Síntese mental dos argumentos principais e contra-argumentos de cada bloco textual.</td>
+<td>Questões de confronto entre textos (Texto I vs Texto II) ou intertextualidade.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-a-anatomia-dos-itens-de-verdadeiro-ou-falso-true-false">2. A Anatomia dos Itens de Verdadeiro ou Falso (True / False)</h2>
+<p>A FGV e o CESPE utilizam armadilhas recorrentes para converter assertivas verdadeiras em falsas. Fique alerta aos quatro padrões de distorção:</p>
+<h3 id="21-a-armadilha-dos-falsos-antonimos-temporais">2.1 A Armadilha dos Falsos Antônimos Temporais</h3>
+<p>A banca frequentemente inverte o eixo cronológico para falsear uma assertiva:
+- <em>Texto original:</em> Os crimes ambientais na Amazônia impõem desafios aos órgãos públicos há muito tempo (<em>"have long posed challenges"</em>).
+- <em>Assertiva da banca (Falsa):</em> A assertiva afirma que o problema surgiu apenas recentemente (<em>"only recently gained prominence"</em>).
+- <em>Regra prática:</em> Se o texto declara que o problema é histórico e persistente, assertivas com marcadores de novidade (<em>recently, newly, lately</em>) são falsas.</p>
+<h3 id="22-atencao-aos-verbos-temporais-criticos-o-perigo-do-predates">2.2 Atenção aos Verbos Temporais Críticos: O Perigo do "Predates"</h3>
+<p>O verbo inglês <strong>to predate</strong> significa <strong>anteceder</strong> no tempo (ocorrer antes de):
+- Se o texto afirma que o modelo unidirecional (<em>one-to-many</em>) predominava até o início dos anos 2000 e só depois houve a transição para a comunicação em rede (<em>many-to-many</em>), o modelo em rede <strong>sucedeu</strong> o modelo anterior, e <strong>não</strong> o antecedeu.
+- Afirmar que o modelo interativo <em>predates</em> o ano 2000 é falso.</p>
+<h3 id="23-o-terror-dos-extremos-generalizacoes-e-adverbios-absolutos">2.3 O Terror dos Extremos: Generalizações e Advérbios Absolutos</h3>
+<p>Em assertivas de compreensão, palavras como <code>uniform</code>, <code>wholly</code>, <code>entirely</code>, <code>solely</code>, <code>never</code> ou <code>always</code> acendem alerta vermelho:
+- Se o texto explica que a mudança climática atinge desproporcionalmente os vulneráveis (<em>intertwined with inequality</em>), assertivas que falam em "impacto uniforme" (<em>uniform impact</em>) são falsas.
+- Se o texto diz que muitos países ainda enfrentam dificuldades, a assertiva que afirma que os desafios foram "totalmente resolvidos" (<em>wholly addressed</em>) é falsa.</p>
+<h3 id="24-causa-antropica-vs-eventos-naturais">2.4 Causa Antrópica vs. Eventos Naturais</h3>
+<p>Em temas de sustentabilidade e tecnologia:
+- Desmatamento, extração ilegal de madeira e invasão de terras são ações causadas pelo homem (<strong>crimes de origem antrópica</strong>), e não fenômenos da natureza (<strong>natural events</strong>). A banca troca esses termos para invalidar itens.</p>
+<hr />
+<h2 id="3-intertextualidade-charges-e-cantigas">3. Intertextualidade, Charges e Cantigas</h2>
+<h3 id="31-a-pressuposicao-pragmatica-em-charges-e-cartuns">3.1 A Pressuposição Pragmática em Charges e Cartuns</h3>
+<p>Tirinhas e charges condensam críticas sociais em pequenas pistas verbais e visuais:
+- <em>Cena:</em> Um guarda adverte um viajante no controle de segurança: <em>"Don't try to sneak a water bottle past security <strong>this time</strong>."</em>
+- <em>Dêitico temporal:</em> O marcador <strong>"this time"</strong> (desta vez) opera uma pressuposição pragmática inescapável: indica contraste com o passado, provando que o personagem <strong>já tentou ou transgrediu a regra em ocasião anterior</strong> (<em>transgressed the rule on a previous occasion</em>).
+- <em>Verbo:</em> <strong>To sneak</strong> denota ação furtiva e clandestina, eliminando qualquer hipótese de inocência médica ou desconhecimento.</p>
+<h3 id="32-cantigas-infantis-nursery-rhymes-e-o-eixo-dos-contrastes">3.2 Cantigas Infantis (<em>Nursery Rhymes</em>) e o Eixo dos Contrastes</h3>
+<p>Em textos literários clássicos ou rimas tradicionais:
+- <strong>Contraste vs Contradição:</strong> Contraste é a contraposição poética de elementos opostos (açúcar/tempero vs lesmas/caramujos; meninos vs meninas). Contradição é quebra de coerência lógica. Cantigas de roda apoiam-se em <strong>contrastes estéticos e conceituais</strong>.
+- Cantigas infantis de tradição oral valem-se de repetições métricas e pares binários contrastantes como recursos mnemônicos.</p>
+<h3 id="33-a-extrapolacao-pedagogica-legitima-a-bncc">3.3 A Extrapolação Pedagógica Legítima: A BNCC</h3>
+<p>Em provas da área de educação e tecnologia:
+- Quando o texto retrata o uso "desenfreado" de redes sociais por estudantes e o impacto na resiliência escolar, e a questão indaga a finalidade do ensino de tecnologia conforme o currículo nacional (BNCC), o objetivo central é sempre promover o <strong>uso crítico, ético e consciente da tecnologia</strong> (<em>critical and conscious use</em>), transformando o aluno de mero consumidor passivo em agente reflexivo.</p>
+<hr />
+<h2 id="4-checklist-de-sobrevivencia-na-prova-de-ingles">4. Checklist de Sobrevivência na Prova de Inglês</h2>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Passo a Passo de Resolução</div>
+  <div class="callout-body"><p>1. <strong>Leia o enunciado e as opções primeiro:</strong> Identifique se a pergunta é de localização pontual (scanning), ideia central (skimming) ou inferência lexical.
+2. <strong>Localize a âncora textual:</strong> Encontre o parágrafo ou frase indicada no enunciado antes de olhar o texto inteiro.
+3. <strong>Confronte as alternativas lado a lado:</strong>
+- Descarte opções com extrapolações conceituais que o texto não autorizou.
+- Descarte opções com advérbios absolutos (<em>wholly, solely, uniform</em>).
+- Fique atento a inversões temporais (<em>predate, recently</em>).
+4. <strong>Nas questões de vocabulário:</strong> Isole a frase original, teste a polaridade semântica da frase e substitua pelo termo da alternativa para confirmar a coerência.</p>
+<p><strong>📋 Textos Instrucionais e Modo Imperativo em Manuais de TIC</strong>
+Textos de configuração de sistemas e tutoriais de smartphones (iOS/Android) possuem tipologia <strong>instrucional/prescritiva</strong>.
+Suas características definitivas de prova são:
+1. Verbos no início de oração na forma-base (infinitivo sem "to"): <em>Go to Settings</em>, <em>Turn on</em>, <em>Select</em>, <em>Tap</em>, <em>Scroll down</em>.
+2. O valor semântico é de <strong>instrução, orientação ou comando operacional</strong> (e nunca mera hipótese, dúvida ou obrigação moral subjetiva).</p></div>
+</div>
+<hr />
+<h1 id="ingles-t01-modais-adverbios-e-formacao-de-palavras">Inglês T01 — Modais, Advérbios e Formação de Palavras</h1>
+<h2 id="1-verbos-modais-modal-verbs-e-usos-discursivos">1. Verbos Modais (Modal Verbs) e Usos Discursivos</h2>
+<p>Verbos modais acompanham verbos principais no infinitivo (sem <em>to</em>) para expressar a atitude do falante em relação à ação: obrigação, necessidade, permissão, possibilidade, habilidade ou recomendação.</p>
+<table>
+<thead>
+<tr>
+<th>Modal</th>
+<th>Valor Semântico Primário</th>
+<th>Exemplo Típico de Prova</th>
+<th>Distratores da Banca</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MUST</strong> (afirmativo)</td>
+<td><strong>Necessidade / Obrigação mandatória</strong></td>
+<td><em>"Critical systems must be protected from intrusion."</em></td>
+<td>Não confundir com mera sugestão ou permissão.</td>
+</tr>
+<tr>
+<td><strong>MUST NOT</strong></td>
+<td><strong>Proibição expressa</strong></td>
+<td><em>"Users must not share authentication credentials."</em></td>
+<td>Oposto da permissão; interdição total.</td>
+</tr>
+<tr>
+<td><strong>SHOULD</strong></td>
+<td><strong>Sugestão / Recomendação / Conselho (<em>advice</em>)</strong></td>
+<td><em>"They should be engaged as partners in governance."</em></td>
+<td>Não é obrigação legal (must) nem imposição rígida.</td>
+</tr>
+<tr>
+<td><strong>MAY</strong> (descritivo)</td>
+<td><strong>Possibilidade objetiva</strong> (sem concessor)</td>
+<td><em>"AI systems may introduce unintended algorithmic bias."</em></td>
+<td>Confundir com permissão concedida.</td>
+</tr>
+<tr>
+<td><strong>MAY</strong> (interativo)</td>
+<td><strong>Permissão formal concedida</strong></td>
+<td><em>"Yes, you may access the audit logs."</em></td>
+<td>Confundir com habilidade física (can).</td>
+</tr>
+<tr>
+<td><strong>MIGHT</strong></td>
+<td><strong>Possibilidade remota / incerteza</strong></td>
+<td><em>"Quantum computing might break current encryption."</em></td>
+<td>Não denota certeza nem permissão.</td>
+</tr>
+<tr>
+<td><strong>CAN</strong></td>
+<td><strong>Capacidade / Habilidade operacional</strong></td>
+<td><em>"Modern tooling can process millions of log lines."</em></td>
+<td>Não confundir com obrigação ou pedido formal.</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A Balança do "Dever": Should vs. Must</div>
+  <div class="callout-body"><p>Para não cair no distrator da obrigatoriedade, estabeleça a linha divisória entre os dois modais de dever:
+- <strong>MUST / HAVE TO:</strong> Obrigação cogente, necessidade incontornável, lei rígida, diretriz compulsória.
+- <strong>SHOULD / OUGHT TO:</strong> Recomendação ideal, conselho prudente, melhor prática (<em>good practice</em>), postura sugerida pelo autor.
+Se o texto argumentativo orienta que certas comunidades ou partes interessadas devem ser tratadas como parceiras (<em>"They should be engaged as partners"</em>), a função discursiva é de <strong>sugestão</strong> (<em>suggestion / recommendation</em>), e não mandado judicial.</p>
+<p><strong>⚠️ A Régua do Modal "May"</strong>
+O modal <strong>may</strong> em textos técnicos e jornalísticos costuma expressar <strong>possibilidade</strong> (<em>possibility</em>).
+Para expressar <strong>permissão</strong> (<em>permission</em>), o texto exige a presença de uma autoridade, protocolo ou interlocutor concedendo licença formal (ex.: <em>"Visitors may enter upon badge inspection"</em>). Na ausência de agente autorizador, marque possibilidade.</p></div>
+</div>
+<hr />
+<h2 id="2-formacao-de-palavras-prefixos-sufixos-e-neologismos">2. Formação de Palavras: Prefixos, Sufixos e Neologismos</h2>
+<p>A FGV testa frequentemente a morfologia derivacional para avaliar se o candidato reconhece o valor semântico de afixos e a classe gramatical resultante.</p>
+<h3 id="21-o-prefixo-de-excesso-over-">2.1 O Prefixo de Excesso: "Over-"</h3>
+<p>O prefixo <strong>over-</strong> indica excesso, exagero ou superação além dos limites normais:
+- <strong>Overcareful / Overcautious:</strong> Excessivamente cauteloso (pecar pelo excesso de prudência).
+- <strong>Overbuilding:</strong> Construção com redundância estrutural muito além do estritamente necessário (típico da engenharia que "peca pelo excesso de cautela" — <em>erred on the side of caution</em>).
+- <strong>Overlook:</strong> Olhar por cima / deixar passar / ignorar (cuidado: falso cognato contextual, não significa supervisionar!).
+- <strong>Overstate:</strong> Exagerar uma afirmação (oposto de <em>understate</em>).</p>
+<h3 id="22-o-sufixo-de-plenitude-ful">2.2 O Sufixo de Plenitude: "-ful"</h3>
+<p>O sufixo <strong>-ful</strong> junta-se a substantivos para formar adjetivos que indicam abundância, presença ou causação de uma qualidade:
+- <code>harm</code> (dano/prejuízo) + <code>-ful</code> → <strong>harmful</strong> (prejudicial, nocivo).
+- <code>care</code> (cuidado) + <code>-ful</code> → <strong>careful</strong> (cuidadoso).
+- <code>use</code> (utilidade) + <code>-ful</code> → <strong>useful</strong> (útil).
+- <em>Antônimo clássico:</em> O sufixo privativo <strong>-less</strong> (ex.: <em>harmless</em> = inofensivo; <em>careless</em> = descuidado).</p>
+<h3 id="23-a-decomposicao-do-sufixo-y">2.3 A Decomposição do Sufixo "-y"</h3>
+<p>O sufixo <strong>-y</strong> atua na derivação adjetival, transformando substantivos em adjetivos que expressam estado, tendência ou característica:
+- <code>trend</code> (tendência/moda) + <code>-y</code> → <strong>trendy</strong> = o que está na moda, é amplamente adotado no presente (<strong>currently popular</strong>).
+- <code>risk</code> (risco) + <code>-y</code> → <strong>risky</strong> (arriscado).
+- <code>health</code> (saúde) + <code>-y</code> → <strong>healthy</strong> (saudável).</p>
+<h3 id="24-o-sufixo-nominalizador-ness">2.4 O Sufixo Nominalizador: "-ness"</h3>
+<p>O sufixo <strong>-ness</strong> junta-se a adjetivos para forjar substantivos abstratos de estado ou qualidade:
+- <em>tender</em> → <strong>tenderness</strong> (ternura).
+- <em>lively</em> → <strong>liveliness</strong> (vivacidade).
+- <em>drowsy</em> → <strong>drowsiness</strong> (sonolência).
+- <em>idle</em> → <strong>idleness</strong> (inatividade/ócio).</p>
+<hr />
+<h2 id="3-processos-de-criacao-lexical-compounding-vs-blending">3. Processos de Criação Lexical: Compounding vs Blending</h2>
+<table>
+<thead>
+<tr>
+<th>Processo</th>
+<th>Definição Morfológica</th>
+<th>Exemplo de Prova</th>
+<th>Distinção Crucial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Compounding</strong> (Composição)</td>
+<td>Fusão de <strong>duas bases lexicais plenas</strong> reconhecíveis sem perda de letras</td>
+<td>life + long → <strong>lifelong</strong><br>air + space → <strong>airspace</strong></td>
+<td>Não há truncamento ou perda fonética de nenhuma das palavras-base.</td>
+</tr>
+<tr>
+<td><strong>Blending</strong> (Fusão Lexical)</td>
+<td>Fusão com <strong>truncamento / corte</strong> parcial de uma ou ambas as palavras</td>
+<td>breakfast + lunch → <strong>brunch</strong><br>smoke + fog → <strong>smog</strong></td>
+<td>Exige obrigatoriamente corte fonético em ao menos uma base.</td>
+</tr>
+<tr>
+<td><strong>Affixation</strong> (Derivação)</td>
+<td>Raiz lexical associada a prefixos ou sufixos gramaticais</td>
+<td>un- + bridle + -ed → <strong>unbridled</strong></td>
+<td>O afixo isolado não funciona como palavra autônoma.</td>
+</tr>
+<tr>
+<td><strong>Conversion</strong> (Conversão)</td>
+<td>Mudança de classe gramatical sem alteração de forma</td>
+<td><em>to access</em> (verbo) ↔ <em>access</em> (substantivo)</td>
+<td>A grafia e o som permanecem rigorosamente idênticos.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-adverbios-e-relacoes-semanticas-especiais">4. Advérbios e Relações Semânticas Especiais</h2>
+<ul>
+<li><strong>EVEN:</strong> Advérbio de inclusão enfatizada que marca <strong>informação inesperada ou surpreendente</strong> ("até mesmo", "inclusive"). Ex.: <em>"He even identified zero-day vulnerabilities"</em>.</li>
+<li><strong>NEARLY:</strong> Advérbio de aproximação que modifica numerais ou marcos temporais ("quase", "aproximadamente").</li>
+<li><strong>HOMONYMY:</strong> Palavras com <strong>grafia e pronúncia idênticas</strong>, mas significados completamente distintos (ex.: <em>ruler</em> = régua / soberano).</li>
+<li><strong>HOMOGRAPHY:</strong> Mesma grafia, pronúncia e sentidos distintos (ex.: <em>lead</em> /liːd/ = conduzir; <em>lead</em> /lɛd/ = chumbo).</li>
+<li><strong>HOMOPHONY:</strong> Mesma pronúncia, grafias distintas (ex.: <em>to / too / two</em>; <em>sea / see</em>).</li>
+</ul>
+<hr />
+<h1 id="ingles-t01-tempos-verbais-voz-passiva-contracoes-e-pronomes">Inglês T01 — Tempos Verbais, Voz Passiva, Contrações e Pronomes</h1>
+<h2 id="1-o-panorama-dos-tempos-verbais-verb-tenses">1. O Panorama dos Tempos Verbais (Verb Tenses)</h2>
+<p>A FGV e o CESPE adoram explorar a morfologia e o valor aspectual dos tempos verbais em textos jornalísticos, técnicos e acadêmicos. O segredo não é decorar regras soltas, mas enxergar os três eixos da língua:</p>
+<h3 id="11-o-eixo-simple-fatos-e-acoes-pontuais">1.1 O Eixo "Simple" (Fatos e Ações Pontuais)</h3>
+<ul>
+<li><strong>Simple Present:</strong> Fatos permanentes, verdades científicas, rotinas e definições teóricas.</li>
+<li><em>Auxiliares:</em> <code>DO</code> (I, YOU, WE, THEY) e <code>DOES</code> (HE, SHE, IT) em perguntas e negativas.</li>
+<li><em>Afirmativa:</em> Ganha <code>-s/-es</code> na 3ª pessoa do singular.</li>
+<li><strong>Simple Past:</strong> Ações concluídas em um momento determinado no passado (com data, marcador temporal ou contexto pretérito fechado).</li>
+</ul>
+<h3 id="12-o-eixo-continuous-progressive-acoes-em-andamento">1.2 O Eixo "Continuous" / "Progressive" (Ações em Andamento)</h3>
+<ul>
+<li><strong>Present Continuous:</strong> Ação ocorrendo no momento da fala ou tendência contemporânea transitória. Formado obrigatoriamente por: <code>am/is/are + verb-ing</code>.</li>
+<li><strong>Past Continuous:</strong> Ação em curso que foi interrompida ou servia de pano de fundo no passado. Formado por: <code>was/were + verb-ing</code>.</li>
+</ul>
+<h3 id="13-o-eixo-perfect-conexao-entre-tempos">1.3 O Eixo "Perfect" (Conexão entre Tempos)</h3>
+<ul>
+<li><strong>Present Perfect (<code>have/has + past participle</code>):</strong> Conecta o passado com o presente. Descreve uma ação que ocorreu em tempo indefinido, cujos frutos ainda ecoam no presente, ou que começou no passado e ainda continua viva.</li>
+<li><strong>Past Perfect (<code>had + past participle</code>):</strong> É o "passado do passado" (<em>mais-que-perfeito</em>). Estabelece qual de duas ações no passado aconteceu <strong>primeiro</strong>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Comparação Crítica</th>
+<th>Primeiro Termo</th>
+<th>Segundo Termo</th>
+<th>Exemplo Prático</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple Past vs. Present Perfect</strong></td>
+<td><strong>Simple Past:</strong> Fato datado, passado e encerrado.</td>
+<td><strong>Present Perfect:</strong> Sem data exata ou com relevância viva no presente.</td>
+<td><em>Past:</em> I <strong>lost</strong> my badge yesterday.<br><em>Perfect:</em> I <strong>have lost</strong> my badge (estou sem ele agora).</td>
+</tr>
+<tr>
+<td><strong>Simple Past vs. Past Perfect</strong></td>
+<td><strong>Simple Past:</strong> A ação mais recente no passado.</td>
+<td><strong>Past Perfect:</strong> A ação mais remota, que ocorreu antes da outra.</td>
+<td>The server <strong>had crashed</strong> (1ª) when the engineer <strong>arrived</strong> (2ª).</td>
+</tr>
+<tr>
+<td><strong>Present Perfect vs. Present Perfect Cont.</strong></td>
+<td><strong>Present Perfect:</strong> Foco no resultado ou conclusão.</td>
+<td><strong>Present Perfect Cont.:</strong> Foco na duração contínua ou esforço prolongado.</td>
+<td><em>Perfect:</em> I <strong>have read</strong> the report (concluído).<br><em>Cont.:</em> I <strong>have been reading</strong> it (ainda lendo).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-decodificando-contracoes-verbais-criticas">2. Decodificando Contrações Verbais Críticas</h2>
+<p>As contrações ortográficas com apóstrofo são as maiores armadilhas de leitura rápida da banca:</p>
+<h3 id="21-o-misterio-da-contracao-d">2.1 O Mistério da Contração "'d"</h3>
+<p>A forma <code>'d</code> só pode representar duas palavras na língua inglesa:
+1. <strong>HAD:</strong> Quando seguida de verbo no <strong>particípio passado</strong> (<code>'d + past participle</code>). Forma o <em>Past Perfect</em>.
+   - Exemplo clássico de prova: <em>"where he'd got this information from"</em> = <em>he <strong>had got</strong> (ou gotten)</em> → <strong>Past Perfect</strong> (e não conditional nem simple past!).
+2. <strong>WOULD:</strong> Quando seguida de verbo no <strong>infinitivo sem to</strong> (<code>'d + base verb</code>). Forma o condicional (<em>Future in the Past</em>).
+   - Exemplo: <em>"he'd go"</em> = <em>he <strong>would go</strong></em>.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A armadilha do "'d got"</div>
+  <div class="callout-body"><p>Em leitura dinâmica, o candidato desatento lê apenas a palavra "got" e marca <em>Simple Past</em>. Mas a presença do apóstrofo <code>'d</code> (<code>had</code>) seguido do particípio <code>got</code> transforma a estrutura em <strong>Past Perfect</strong>! Lembre-se: em inglês britânico e internacional, o particípio de <em>get</em> é frequentemente <em>got</em> (ao lado de <em>gotten</em>).</p></div>
+</div>
+<h3 id="22-o-triplo-papel-do-s">2.2 O Triplo Papel do "'s"</h3>
+<p>O apóstrofo com "s" (<code>'s</code>) só pode desempenhar três papéis morfológicos:
+1. <strong>Contração do verbo TO BE:</strong> <em>is</em> (ex.: <em>"That's"</em> = <em>That is</em>; <em>"He's"</em> = <em>He is</em>).
+2. <strong>Contração do verbo auxiliar TO HAVE:</strong> <em>has</em> no Present Perfect (ex.: <em>"He's worked here"</em> = <em>He has worked</em>).
+3. <strong>Marca de posse (Caso Genitivo / Possessive Case):</strong> Indica pertencimento entre dois substantivos (ex.: <em>"Brazil's AI systems"</em> = os sistemas de IA do Brasil).</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> O Teste do Pronome</div>
+  <div class="callout-body"><p>Pronomes retos e demonstrativos (<strong>I, you, he, she, it, that</strong>) <strong>NUNCA</strong> recebem <code>'s</code> para indicar posse! Eles já possuem pronomes possessivos próprios (<em>my, your, his, her, its</em>).
+Logo, se vir <code>That's</code>, <code>It's</code> ou <code>He's</code>, trata-se obrigatoriamente de <strong>contração verbal</strong>, jamais de caso possessivo.
+Apóstrofo também <strong>nunca</strong> marca pluralidade regular em inglês!</p></div>
+</div>
+<hr />
+<h2 id="3-caso-genitivo-possessive-case-em-substantivos">3. Caso Genitivo (<em>Possessive Case</em>) em Substantivos</h2>
+<p>O Caso Genitivo expressa posse, origem ou relação de pertencimento:
+- <strong>Substantivo no singular:</strong> Acrescenta-se <code>'s</code> (ex.: <em>"the company's policy"</em> = a política da empresa).
+- <strong>Substantivo no plural já terminado em "s":</strong> Acrescenta-se <strong>apenas o apóstrofo</strong> <code>'</code> (ex.: <em>"the partners' collaboration"</em> = a colaboração dos parceiros).
+- <strong>Substantivos com plural irregular sem "s":</strong> Acrescenta-se <code>'s</code> (ex.: <em>"children's rights"</em>, <em>"women's access"</em>).</p>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Diferença Crítica: Contração vs Posse</div>
+  <div class="callout-body"><p>- <em>"The partner's arrived"</em> → Contração (<em>The partner has arrived</em>).
+- <em>"The partners' collaboration"</em> → Caso Genitivo plural (a colaboração dos parceiros).</p></div>
+</div>
+<hr />
+<h2 id="4-voz-passiva-passive-voice">4. Voz Passiva (<em>Passive Voice</em>)</h2>
+<p>A Voz Passiva é onipresente em textos científicos, relatórios técnicos e enunciados de governança/TIC, pois desloca o foco do agente para o <strong>fato</strong> ou <strong>objeto que sofre a ação</strong>.</p>
+<h3 id="41-a-formula-imutavel-da-voz-passiva">4.1 A Fórmula Imutável da Voz Passiva</h3>
+<p>$$\text{Sujeito Paciente} + \mathbf{Verbo\ To\ Be\ (conjugado)} + \mathbf{Verbo\ Principal\ no\ Partic\acute{i}pio\ Passado\ (Past\ Participle)}$$</p>
+<p>Exemplos clássicos de prova:
+- <em>"When suspicious activity <strong>is detected</strong>..."</em> → <code>is</code> (Simple Present) + <code>detected</code> (particípio) = <strong>Simple Present, Passive Voice</strong>.
+- <em>"Modern drones <strong>were used</strong> to monitor..."</em> → <code>were</code> (Simple Past) + <code>used</code> (particípio) = <strong>Simple Past, Passive Voice</strong>.
+- <em>"Official messages <strong>are drowned out</strong> by noise..."</em> → <code>are</code> (Simple Present) + <code>drowned out</code> (particípio do phrasal verb) = <strong>Simple Present, Passive Voice</strong>.
+- <em>"What are books <strong>made of</strong>?"</em> → <code>are</code> (Simple Present) + <code>made</code> (particípio de <em>make</em>) = <strong>Simple Present, Passive Voice</strong>.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A Regra do "To Be" Controlador</div>
+  <div class="callout-body"><p>Na voz passiva, o verbo principal está <strong>eternamente congelado no particípio passado</strong>. Quem manda no tempo verbal é unicamente o verbo <strong>to be</strong>:
+- <code>is / are</code> + particípio = Presente Passivo.
+- <code>was / were</code> + particípio = Passado Passivo.
+- <code>will be</code> + particípio = Futuro Passivo.
+- <code>has been / have been</code> + particípio = Present Perfect Passivo.</p></div>
+</div>
+<hr />
+<h2 id="5-referencia-pronominal-e-coesao-anaforica">5. Referência Pronominal e Coesão Anafórica</h2>
+<p>O pronome (<em>it, they, them, this...</em>) retoma um antecedente textual para evitar repetições. Em provas de concurso, a escolha do antecedente segue critérios estritos:</p>
+<ol>
+<li><strong>Compatibilidade de Número e Gênero:</strong> Pronomes plurais (<em>they, them</em>) só podem retomar núcleos plurais.</li>
+<li><strong>Compatibilidade Semântica e Sintática:</strong> O antecedente precisa ter capacidade lógica de realizar ou sofrer a ação do verbo que segue.</li>
+<li><strong>Rastreio Reverso e Núcleo do Sintagma:</strong> O pronome geralmente retoma o <strong>núcleo</strong> do sintagma nominal imediatamente anterior.</li>
+<li>Exemplo: <em>"increasing the chances of stopping environmental <strong>crimes</strong> before <strong>they</strong> happen"</em> → O pronome <code>they</code> retoma <strong>crimes</strong> (o evento criminoso que "acontece"), e não as "chances" nem a "tecnologia".</li>
+<li><strong>Pronome IT vs ITS:</strong></li>
+<li><code>IT</code> = pronome sujeito ou objeto para coisas, animais, conceitos abstratos.</li>
+<li><code>ITS</code> = pronome adjetivo possessivo (dele/dela), <strong>sempre sem apóstrofo</strong>.</li>
+<li><code>IT'S</code> = contração de <em>it is</em> ou <em>it has</em>, <strong>sempre com apóstrofo</strong>.</li>
+</ol>
+<hr />
+<h1 id="ingles-t01-vocabulario-contextual-expressoes-idiomaticas-e-interpretacao">Inglês T01 — Vocabulário Contextual, Expressões Idiomáticas e Interpretação</h1>
+<h2 id="1-glossario-estrategico-de-concurso-vocabulario-de-alto-rendimento">1. Glossário Estratégico de Concurso (Vocabulário de Alto Rendimento)</h2>
+<p>A FGV e o CESPE não cobram tradução por decoreba de dicionário: o foco é a <strong>equivalência contextual</strong>, a <strong>sinonímia discursiva</strong> e o reconhecimento de <strong>campos semânticos</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Termo / Expressão no Texto</th>
+<th>Equivalência / Sentido de Prova</th>
+<th>Campo Semântico e Contexto de Uso</th>
+<th>Distratores Típicos da Banca</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>hinder</strong></td>
+<td><strong>limit</strong> (limitar, dificultar, obstruir)</td>
+<td>Barreiras estruturais ao avanço tecnológico ou pedagógico.</td>
+<td>Expand, facilitate, foster (antônimos).</td>
+</tr>
+<tr>
+<td><strong>tackle</strong></td>
+<td><strong>grapple with</strong> (enfrentar, combater, lidar com)</td>
+<td>Enfrentamento ativo de problemas complexos (ex.: <em>tackle climate change</em>).</td>
+<td>Avoid, ignore, bypass (evitar/ignorar).</td>
+</tr>
+<tr>
+<td><strong>introducing</strong></td>
+<td><strong>bringing in</strong> (implementar, introduzir, incorporar)</td>
+<td>Adoção de novos padrões, margens de segurança ou processos técnicos.</td>
+<td>Removing, discarding, phasing out (remover).</td>
+</tr>
+<tr>
+<td><strong>the keys to the kingdom</strong></td>
+<td><strong>full control</strong> (controle total, acesso irrestrito)</td>
+<td>Metáfora para privilégios máximos de administração ou acesso a dados.</td>
+<td>Partial visibility, limited trial (acesso restrito).</td>
+</tr>
+<tr>
+<td><strong>erred on the side of caution</strong></td>
+<td><strong>overcareful</strong> (excessivamente cauteloso)</td>
+<td>Postura de engenharia que prefere superdimensionar a arriscar falha.</td>
+<td>Reckless, negligent, hasty (imprudente).</td>
+</tr>
+<tr>
+<td><strong>trendy</strong></td>
+<td><strong>currently popular</strong> (atualmente popular, na moda)</td>
+<td>Ferramentas ou abordagens em alta no mercado tecnológico atual.</td>
+<td>Outdated, obsolete, permanent (defasado/eterno).</td>
+</tr>
+<tr>
+<td><strong>unbridled</strong></td>
+<td><strong>uncontrolled</strong> → resulta em <strong>harmful</strong></td>
+<td>Uso sem freios de redes sociais e exposição excessiva de jovens.</td>
+<td>Moderate, restrained, beneficial (moderado).</td>
+</tr>
+<tr>
+<td><strong>undermined</strong></td>
+<td><strong>weakened, sabotaged</strong> (minado, enfraquecido)</td>
+<td>Ação contínua que corrói uma relação pedagógica ou sistema seguro.</td>
+<td>Strengthened, bolstered, enhanced (fortalecido).</td>
+</tr>
+<tr>
+<td><strong>watertight</strong></td>
+<td><strong>flawless, leak-proof</strong> (infalível, hermético)</td>
+<td>Sistemas ou argumentos alegadamente perfeitos e imunes a falhas.</td>
+<td>Fragile, vulnerable, porous (vulnerável).</td>
+</tr>
+<tr>
+<td><strong>clearance of a ship</strong></td>
+<td><strong>despacho / liberação formal do navio</strong></td>
+<td>Documentação e autorização alfandegária e portuária para partida.</td>
+<td>Limpeza (cleaning), iluminação, dimensões.</td>
+</tr>
+<tr>
+<td><strong>maximum draught</strong></td>
+<td><strong>calado máximo</strong> (profundidade submersa do casco)</td>
+<td>Grandeza naval técnica que mede a distância da linha d'água à quilha.</td>
+<td>Maximum length (comprimento), deadweight (porte bruto).</td>
+</tr>
+<tr>
+<td><strong>sneak past</strong></td>
+<td><strong>burlar furtivamente</strong> (passar escondido pela vigilância)</td>
+<td>Ação clandestina de transportar itens proibidos pela segurança.</td>
+<td>Openly declare, legally present (apresentar abertamente).</td>
+</tr>
+<tr>
+<td><strong>aging equipment</strong></td>
+<td><strong>obsolete</strong> (equipamento envelhecido, defasado)</td>
+<td>Infraestrutura legada propensa a falhas e sem capacidade de expansão.</td>
+<td>Widespread, expensive, modern (disseminado/caro).</td>
+</tr>
+<tr>
+<td><strong>resume</strong></td>
+<td><strong>restored</strong> (retomar, restabelecer)</td>
+<td>Restauração de serviços ou voos após paralisação técnica.</td>
+<td>Cancelled, suspended, terminated (cancelado).</td>
+</tr>
+<tr>
+<td><strong>earlier ↔ later</strong></td>
+<td><strong>antônimos temporais diretos</strong></td>
+<td>Marcação de anterioridade versus posterioridade temporal.</td>
+<td>Later vs latter (o último de dois) vs latest (mais recente).</td>
+</tr>
+<tr>
+<td><strong>bear the brunt of</strong></td>
+<td><strong>suportar o pior fardo / impacto principal</strong></td>
+<td>Comunidades vulneráveis que sofrem o impacto de crises globais.</td>
+<td>Dodge, bypass, spare, escape (evitar/escapar).</td>
+</tr>
+<tr>
+<td><strong>delve into</strong></td>
+<td><strong>investigar a fundo / examinar minuciosamente</strong></td>
+<td>Pesquisa rigorosa ou análise aprofundada de um problema.</td>
+<td>Conceal (ocultar), overlook (ignorar), undermine (minar).</td>
+</tr>
+<tr>
+<td><strong>fleeting states</strong></td>
+<td><strong>estados passageiros</strong> (antônimo direto: <strong>lasting</strong>)</td>
+<td>Emoções efêmeras versus traços permanentes e duradouros.</td>
+<td>Brief, short, momentary (sinônimos, não opostos!).</td>
+</tr>
+<tr>
+<td><strong>make room for</strong></td>
+<td><strong>abrir espaço para</strong> (liberar capacidade/recursos)</td>
+<td>Reorganização de layout, servidores ou prioridades de gestão.</td>
+<td>"Quarto" (falso cognato da palavra <em>room</em> isolada).</td>
+</tr>
+<tr>
+<td><strong>tricked into</strong></td>
+<td><strong>deceived</strong> (induzido a erro por artifício, enganado)</td>
+<td>Engenharia social ou fraude que leva o usuário a agir sob engano.</td>
+<td>Convinced by reason, legally advised (aconselhado).</td>
+</tr>
+<tr>
+<td><strong>shoddy</strong></td>
+<td><strong>poor</strong> (de má qualidade, mal feito)</td>
+<td>Execução negligente ou materiais de baixa resistência.</td>
+<td>Thorough, robust, premium (robusto/completo).</td>
+</tr>
+<tr>
+<td><strong>reach a boiling point</strong></td>
+<td><strong>heated</strong> (atingir ponto de ebulição / debate acalorado)</td>
+<td>Discussões públicas ou institucionais que atingem pico de tensão.</td>
+<td>Calmed down, resolved, frozen (apaziguado).</td>
+</tr>
+<tr>
+<td><strong>trade-offs</strong></td>
+<td><strong>compensações / concessões recíprocas</strong></td>
+<td>Equilíbrio entre variáveis conflitantes (ex.: segurança vs velocidade).</td>
+<td>Monolithic win, pure profit (ganho sem custos).</td>
+</tr>
+<tr>
+<td><strong>Real Estate / Realtor</strong></td>
+<td><strong>mercado imobiliário / corretor de imóveis</strong></td>
+<td>Jargão econômico e profissional comum em textos de negócios e IA.</td>
+<td>"Estado real", realeza (falsos cognatos).</td>
+</tr>
+<tr>
+<td><strong>user prompts</strong></td>
+<td><strong>solicitações / comandos de entrada do usuário</strong></td>
+<td>Interação humano-computador em modelos de Inteligência Artificial.</td>
+<td>Pontualidade, presteza (<em>prompt</em> como adjetivo).</td>
+</tr>
+<tr>
+<td><strong>elaborate responses</strong></td>
+<td><strong>respostas detalhadas / complexas</strong></td>
+<td>Capacidade de geração de texto de LLMs (<em>large language models</em>).</td>
+<td>"Respostas elaboradas" no sentido pejorativo.</td>
+</tr>
+<tr>
+<td><strong>otherwise</strong></td>
+<td><strong>caso contrário / de outro modo</strong></td>
+<td>Condicional implícita: <em>would otherwise have taken 1 hour</em> (sem a ferramenta, levaria 1h).</td>
+<td>Outras maneiras (sentido solto).</td>
+</tr>
+<tr>
+<td><strong>tweaks and edits</strong></td>
+<td><strong>pequenos ajustes e refinamentos manuais</strong></td>
+<td>Revisão humana sobre artefatos gerados por ferramentas automáticas.</td>
+<td>Mudanças drásticas, reescrita total.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-expressoes-idiomaticas-e-phrasal-verbs-em-redes-e-sistemas">2. Expressões Idiomáticas e Phrasal Verbs em Redes e Sistemas</h2>
+<h3 id="21-a-bussola-dos-phrasal-verbs-particulas-de-movimento-e-acao">2.1 A Bússola dos Phrasal Verbs: Partículas de Movimento e Ação</h3>
+<p>Em questões de <em>phrasal verbs</em>, a partícula adverbial ou prepositiva dita a direção semântica da ação:
+- <strong>Bring in:</strong> Trazer para dentro de uma rotina ou organização → <strong>introduzir, implementar, contratar</strong>.
+- <strong>Bring about:</strong> Trazer à existência → <strong>causar, provocar, originar</strong>.
+- <strong>Bring up:</strong> Trazer para a superfície da conversa → <strong>levantar um tópico, mencionar (<em>point out</em>)</strong>.
+- <strong>Grapple with / Tackle:</strong> Lutar com / agarrar o problema de frente → <strong>enfrentar ativamente um desafio complexo</strong>.
+- <strong>Drown out:</strong> Afogar/abafar sons externos por excesso de ruído → <strong>encobrir mensagens oficiais na avalanche de desinformação</strong>.
+- <strong>Run after:</strong> Perseguir ativamente → <strong>chase</strong>.
+- <strong>Run out of:</strong> Esgotar recursos ou suprimentos → <strong>ficar sem</strong>.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A Regra da Soberania Figurada: "Keys to the Kingdom"</div>
+  <div class="callout-body"><p>Metáforas associadas a chaves (<em>keys</em>), coroas (<em>crown</em>) e tronos (<em>throne</em>) guardam secularmente a ideia de <strong>soberania, comando absoluto e autoridade máxima</strong>.
+No contexto da computação e segurança de TIC, dar à IA ou a um serviço as "chaves do reino" (<em>keys to the kingdom</em>) significa conceder <strong>controle total</strong> (<em>full control</em>) sobre a infraestrutura, sem barreiras de contenção (<em>fail-safe boundaries</em>).</p></div>
+</div>
+<hr />
+<h2 id="3-collocations-de-gestao-make-vs-do">3. Collocations de Gestão: MAKE vs DO</h2>
+<p>No ambiente corporativo e nos enunciados de TI:
+- <strong>MAKE</strong> associa-se a ações que resultam em algo novo, escolhas ou impactos mensuráveis:
+  - <em>make a decision</em> (tomar decisão)
+  - <em>make an effort</em> (fazer esforço)
+  - <em>make an assumption</em> (fazer suposição)
+  - <em>make progress</em> (fazer progresso)
+  - <em>make a choice</em> (fazer escolha)
+- <strong>DO</strong> associa-se a tarefas rotineiras, funções de trabalho e investigações técnicas:
+  - <em>do research</em> (fazer pesquisa — nunca "make research"!)
+  - <em>do business</em> (fazer negócios)
+  - <em>do the maintenance</em> (fazer manutenção)
+  - <em>do a risk assessment</em> (fazer avaliação de risco)
+  - <em>do harm / do good</em> (causar mal / causar bem)</p>
+<hr />
+<h2 id="4-o-filtro-de-polaridade-e-sinonimia-da-banca">4. O Filtro de Polaridade e Sinonímia da Banca</h2>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> A Regra da Eliminação por Sinonímia</div>
+  <div class="callout-body"><p>Em questões de vocabulário da FGV, se quatro alternativas forem sinônimas entre si ou apontarem para a mesma polaridade (ex.: todas apontam para crescimento ou facilitação: <em>expand, foster, advance, improve</em>), e apenas uma apontar para limitação ou barreira (<em>limit</em>), a resposta correta para uma palavra de conotação restritiva como <strong>hinder</strong> só pode ser a opção discrepante.</p>
+<p><strong>⚠️ Jargões de Negócios e IA: "Real Estate", "Prompts" e "Otherwise"</strong>
+As bancas adoram textos contemporâneos que misturam ferramentas modernas (ChatGPT, IA generativa) com tarefas tradicionais do mercado.
+- <em>Real Estate Agents</em> são corretores de imóveis (e não agentes do Estado ou da realeza!).
+- <em>Listing</em> é o anúncio ou ficha descritiva de um imóvel à venda.
+- O vocábulo <em>otherwise</em> funciona como um marcador condicional negativo: expressa o que aconteceria caso a ferramenta <strong>não</strong> estivesse presente (<em>"a task that would otherwise have taken him an hour"</em> = uma tarefa que, de outro modo / sem o bot, teria lhe custado uma hora ou mais). Não confunda com tempo gasto <em>usando</em> a ferramenta!</p></div>
+</div>
+<hr />
+<h1 id="ingles-questoes-aposentado">Ingles — Questões (aposentado)</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Banco consolidado em <code>docs/Questões/Banco_de_Questões.md</code> (seção Inglês). Este arquivo foi <strong>aposentado</strong> — não recebe mais novas questões.</p></div>
+</div>
+      </article>
+    </main>
+  </div>
+
+  <button class="mobile-toc-btn" onclick="toggleMobileToc()">📑 Sumário</button>
+
+  <script>
+    // Barra de progresso de leitura
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // Tema claro / escuro
+    if (localStorage.getItem('resumo_theme') === 'light') {
+      document.body.classList.add('light-mode');
+    }
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('resumo_theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+
+    // Controle de fonte
+    let curFont = parseInt(localStorage.getItem('resumo_font') || '16', 10);
+    document.documentElement.style.setProperty('--font-size', curFont + 'px');
+    function changeFont(delta) {
+      curFont = Math.min(22, Math.max(13, curFont + delta));
+      document.documentElement.style.setProperty('--font-size', curFont + 'px');
+      localStorage.setItem('resumo_font', curFont);
+    }
+
+    // Filtro do Sumário Lateral
+    function filterToc(q) {
+      const term = q.toLowerCase().trim();
+      document.querySelectorAll('#toc-list .toc-link').forEach(a => {
+        a.style.display = a.textContent.toLowerCase().includes(term) ? 'block' : 'none';
+      });
+    }
+
+    // Menu mobile
+    function toggleMobileToc() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    function closeMobileToc() {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    // Busca rápida por parágrafos/seções
+    function highlightSearch(q) {
+      const term = q.trim().toLowerCase();
+      const article = document.getElementById('md-article');
+      const blocks = article.querySelectorAll('p, li, h1, h2, h3, td, .callout');
+      if (!term) {
+        blocks.forEach(b => b.style.opacity = '1');
+        return;
+      }
+      let firstMatch = null;
+      blocks.forEach(b => {
+        const match = b.textContent.toLowerCase().includes(term);
+        b.style.opacity = match ? '1' : '0.22';
+        if (match && !firstMatch) firstMatch = b;
+      });
+    }
+  </script>
+</body>
+</html>

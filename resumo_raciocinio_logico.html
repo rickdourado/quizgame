@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Raciocínio Lógico — Resumo Consolidado TIC</title>
+  <meta name="theme-color" content="#0b1120">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #0f172a;
+      --surface-card: #152036;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-strong: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --font-size: 16px;
+    }
+    body.light-mode {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-card: #f1f5f9;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --text-strong: #0f172a;
+      --text-muted: #475569;
+      --code-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      font-size: var(--font-size);
+      line-height: 1.7;
+      transition: background 0.2s, color 0.2s;
+    }
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #38bdf8);
+      width: 0%;
+      z-index: 9999;
+    }
+    .top-Wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 16px 0;
+    }
+    .reader-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+    }
+    body.light-mode .reader-toolbar {
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .toolbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tb-btn {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .tb-btn:hover {
+      border-color: var(--accent);
+    }
+    .tb-pdf {
+      background: rgba(16, 185, 129, 0.14);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .disc-select {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      max-width: 260px;
+    }
+    .search-input {
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      width: 190px;
+    }
+    .layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 28px;
+      padding: 24px 16px 60px;
+      align-items: start;
+    }
+    .sidebar {
+      position: sticky;
+      top: 68px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 14px;
+    }
+    .sidebar-header {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toc-filter {
+      width: 100%;
+      background: var(--surface-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+    .toc-link {
+      display: block;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.80rem;
+      padding: 5px 8px;
+      border-radius: 6px;
+      line-height: 1.35;
+      margin-bottom: 2px;
+      transition: all 0.12s;
+    }
+    .toc-link:hover {
+      background: var(--surface-card);
+      color: var(--text-strong);
+    }
+    .toc-h1 {
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      border-left: 3px solid var(--accent);
+      padding-left: 8px;
+    }
+    .toc-h2 {
+      padding-left: 18px;
+      font-size: 0.76rem;
+    }
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 36px;
+      min-width: 0;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+    .hero-banner {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 26px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+    .hero-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    /* Tipografia do Conteúdo Markdown */
+    .md-body h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-strong);
+      margin: 36px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      line-height: 1.3;
+    }
+    .md-body h1:first-child {
+      margin-top: 0;
+    }
+    .md-body h2 {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin: 28px 0 12px;
+      line-height: 1.35;
+    }
+    body.light-mode .md-body h2 {
+      color: #0284c7;
+    }
+    .md-body h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin: 20px 0 8px;
+    }
+    .md-body h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 16px 0 6px;
+    }
+    .md-body p {
+      margin-bottom: 14px;
+    }
+    .md-body ul, .md-body ol {
+      margin: 0 0 16px 24px;
+    }
+    .md-body li {
+      margin-bottom: 6px;
+    }
+    .md-body strong {
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.88em;
+      color: #f472b6;
+    }
+    body.light-mode .md-body code {
+      color: #be185d;
+    }
+    .md-body pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 14px 0 18px;
+    }
+    .md-body pre code {
+      background: transparent;
+      padding: 0;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+    .md-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+    .md-body blockquote {
+      border-left: 4px solid #64748b;
+      background: var(--surface-card);
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 14px 0;
+      color: var(--text-muted);
+    }
+    /* Tabelas Responsivas */
+    .md-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 22px;
+      font-size: 0.9rem;
+      display: block;
+      overflow-x: auto;
+    }
+    .md-body th, .md-body td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+    }
+    .md-body th {
+      background: var(--surface-card);
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+    .md-body tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    /* Callouts Estilo Obsidian */
+    .callout {
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 18px 0;
+      border-left: 5px solid #38bdf8;
+      background: var(--surface-card);
+    }
+    .callout-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-strong);
+    }
+    .callout-body p:last-child { margin-bottom: 0; }
+    .callout-resumo { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.08); }
+    .callout-pegadinha { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.09); }
+    .callout-alerta { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.09); }
+    .callout-dica { border-left-color: #10b981; background: rgba(16, 185, 129, 0.09); }
+    .callout-memorizar { border-left-color: #a855f7; background: rgba(168, 85, 247, 0.09); }
+    .callout-conexao { border-left-color: #14b8a6; background: rgba(20, 184, 166, 0.09); }
+
+    .mobile-toc-btn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+    }
+    mark.hl {
+      background: #facc15;
+      color: #0f172a;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        display: none;
+        position: fixed;
+        inset: 60px 16px 76px 16px;
+        z-index: 99;
+        max-height: none;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      }
+      .sidebar.open { display: block; }
+      .mobile-toc-btn { display: inline-flex; align-items: center; gap: 6px; }
+      .content-card { padding: 20px 16px; }
+    }
+  </style>
+<style id="portal-nav-css">
+  .portal-top-bar {
+    width: 100%;
+    margin: 0 0 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    z-index: 100;
+  }
+  .portal-top-bar a.ptb-brand {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .portal-top-bar a.ptb-brand:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .portal-top-bar .ptb-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .portal-top-bar a.ptb-btn {
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .portal-top-bar a.ptb-btn:hover {
+    transform: translateY(-1px);
+  }
+  /* Quiz Game (Verde) */
+  .portal-top-bar a.ptb-quiz {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+  }
+  .portal-top-bar a.ptb-quiz:hover, .portal-top-bar a.ptb-quiz.active {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+  }
+  /* Fichas de Revisão (Âmbar) */
+  .portal-top-bar a.ptb-fichas {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.28);
+  }
+  .portal-top-bar a.ptb-fichas:hover, .portal-top-bar a.ptb-fichas.active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+  }
+  /* Plano UFRRJ (Azul Celeste) */
+  .portal-top-bar a.ptb-ufrrj {
+    color: #38bdf8;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(14, 165, 233, 0.28);
+  }
+  .portal-top-bar a.ptb-ufrrj:hover, .portal-top-bar a.ptb-ufrrj.active {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+  }
+  /* Plano Transpetro (Roxo) */
+  .portal-top-bar a.ptb-transpetro {
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.28);
+  }
+  .portal-top-bar a.ptb-transpetro:hover, .portal-top-bar a.ptb-transpetro.active {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: #c084fc;
+  }
+  /* Resumos Consolidados (Rosa/Ciano) */
+  .portal-top-bar a.ptb-resumos {
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.12);
+    border: 1px solid rgba(244, 114, 182, 0.28);
+  }
+  .portal-top-bar a.ptb-resumos:hover, .portal-top-bar a.ptb-resumos.active {
+    background: rgba(244, 114, 182, 0.25);
+    border-color: #f472b6;
+  }
+  .portal-top-bar a.ptb-btn.active {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+    font-weight: 800;
+  }
+  @media (max-width: 680px) {
+    .portal-top-bar .ptb-text-extra { display: none !important; }
+    .portal-top-bar a.ptb-btn { font-size: 0.72rem; padding: 4px 7px; gap: 4px; }
+    .portal-top-bar a.ptb-brand { font-size: 0.78rem; }
+  }
+  @media (max-width: 440px) {
+    .portal-top-bar { padding: 6px 10px; gap: 6px; }
+    .portal-top-bar .ptb-actions { gap: 4px; }
+    .portal-top-bar a.ptb-btn { font-size: 0.70rem; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+  <div class="top-Wrapper">    <div class="portal-top-bar">
+      <a href="index.html" class="ptb-brand" title="Voltar ao Portal Principal">
+        <span>🏠</span>
+        <span>Portal<span class="ptb-text-extra"> de Estudos</span></span>
+      </a>
+      <div class="ptb-actions">
+        <a href="quiz.html" class="ptb-btn ptb-quiz" title="Quiz Game TIC (Simulado e Prática)">
+          <span>🎮</span>
+          <span>Quiz<span class="ptb-text-extra"> Game</span></span>
+        </a>
+        <a href="fichas.html" class="ptb-btn ptb-fichas" title="Fichas de Revisão Offline">
+          <span>📑</span>
+          <span>Fichas</span>
+        </a>
+        <a href="resumos.html" class="ptb-btn ptb-resumos active" title="Cadernos e Resumos Consolidados por Disciplina">
+          <span>📚</span>
+          <span>Resumos</span>
+        </a>
+        <a href="ufrrj_quadro.html" class="ptb-btn ptb-ufrrj" title="Quadro e Plano de Estudos UFRRJ 2026">
+          <span>🏛️</span>
+          <span><span class="ptb-text-extra">Plano </span>UFRRJ</span>
+        </a>
+        <a href="transpetro_quadro.html" class="ptb-btn ptb-transpetro" title="Quadro e Plano de Estudos Transpetro 2026">
+          <span>⚓</span>
+          <span><span class="ptb-text-extra">Plano </span>Transpetro</span>
+        </a>
+      </div>
+    </div>
+</div>
+
+  <div class="reader-toolbar">
+    <div class="toolbar-inner">
+      <div class="toolbar-left">
+        <a href="resumos.html" class="tb-btn" title="Voltar para Todos os Resumos">📚 Resumos</a>
+        <select class="disc-select" onchange="if(this.value) location.href=this.value" aria-label="Trocar Disciplina">
+          <option value="resumo_portugues.html">📝 Língua Portuguesa</option>
+<option value="resumo_ingles.html">🌐 Língua Inglesa</option>
+<option value="resumo_raciocinio_logico.html" selected>🧮 Raciocínio Lógico</option>
+<option value="resumo_legislacao.html">⚖️ Legislação (Proteção de Dados, Transparência e Regime Jurídico)</option>
+<option value="resumo_informatica.html">💻 Noções de Informática</option>
+<option value="resumo_governanca_ti.html">📊 Gestão e Governança de Tecnologia da Informação</option>
+<option value="resumo_redes.html">🌐 Redes de Computadores</option>
+<option value="resumo_infraestrutura.html">🖥️ Suporte e Infraestrutura</option>
+<option value="resumo_banco_de_dados.html">🗄️ Banco de Dados</option>
+<option value="resumo_atualidades_ia.html">🤖 Atualidades e Inteligência Artificial</option>
+<option value="resumo_ciberseguranca.html">🛡️ Cibersegurança</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <input type="search" id="doc-search" class="search-input" placeholder="🔍 Buscar no texto..." oninput="highlightSearch(this.value)">
+        <button class="tb-btn" onclick="changeFont(-1)" title="Diminuir Fonte">A-</button>
+        <button class="tb-btn" onclick="changeFont(1)" title="Aumentar Fonte">A+</button>
+        <button class="tb-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar Tema Claro/Escuro">☀️/🌙</button>
+        <a href="pdfs/Raciocinio_Logico_Consolidado.pdf" class="tb-btn tb-pdf" target="_blank" title="Baixar versão em PDF">📥 PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span>📑 Índice de Tópicos (6)</span>
+      </div>
+      <input type="search" class="toc-filter" placeholder="Filtrar tópicos..." oninput="filterToc(this.value)">
+      <nav id="toc-list">
+        <a href="#raciocinio-logico-t01-estruturas-logicas" class="toc-link toc-h1" onclick="closeMobileToc()">Raciocínio Lógico T01 — Estruturas Lógicas</a>
+<a href="#1-o-esqueleto-negue-o-quantificador-e-o-verbo" class="toc-link toc-h2" onclick="closeMobileToc()">1. O esqueleto: negue o quantificador e o verbo</a>
+<a href="#2-todo-com-predicado-composto-a-virada-do-e-para-o-ou" class="toc-link toc-h2" onclick="closeMobileToc()">2. &quot;Todo&quot; com predicado composto: a virada do E para o OU</a>
+<a href="#3-todo-traduzido-para-condicional-e-o-caminho-de-volta" class="toc-link toc-h2" onclick="closeMobileToc()">3. &quot;Todo&quot; traduzido para condicional — e o caminho de volta</a>
+<a href="#4-nenhum-a-seta-invertida" class="toc-link toc-h2" onclick="closeMobileToc()">4. &quot;Nenhum&quot; — a seta invertida</a>
+<a href="#5-deducao-em-cadeia-com-todo-e-nenhum" class="toc-link toc-h2" onclick="closeMobileToc()">5. Dedução em cadeia com &quot;todo&quot; e &quot;nenhum&quot;</a>
+<a href="#6-diagramas-e-conjuntos-a-negacao-em-duas-camadas" class="toc-link toc-h2" onclick="closeMobileToc()">6. Diagramas e conjuntos: a negação em duas camadas</a>
+<a href="#7-roteiro-de-ataque-para-todonenhum" class="toc-link toc-h2" onclick="closeMobileToc()">7. Roteiro de ataque para &quot;todo&quot;/&quot;nenhum&quot;</a>
+<a href="#8-problemas-de-associacao-logica-e-deducao-por-eliminacao" class="toc-link toc-h2" onclick="closeMobileToc()">8. Problemas de Associação Lógica e Dedução por Eliminação</a>
+<a href="#raciocinio-logico-t02-logica-de-argumentacao" class="toc-link toc-h1" onclick="closeMobileToc()">Raciocínio Lógico T02 — Lógica de Argumentação</a>
+<a href="#1-o-que-e-argumentacao-na-prova" class="toc-link toc-h2" onclick="closeMobileToc()">1. O que é argumentação na prova?</a>
+<a href="#2-inducao-deducao" class="toc-link toc-h2" onclick="closeMobileToc()">2. Indução × Dedução</a>
+<a href="#3-formas-validas-de-argumento" class="toc-link toc-h2" onclick="closeMobileToc()">3. Formas válidas de argumento</a>
+<a href="#4-contrapositiva-na-pratica" class="toc-link toc-h2" onclick="closeMobileToc()">4. Contrapositiva na prática</a>
+<a href="#5-cadeia-de-condicionais-efeito-domino" class="toc-link toc-h2" onclick="closeMobileToc()">5. Cadeia de condicionais (&quot;efeito dominó&quot;)</a>
+<a href="#6-associacao-de-vinculos-metodo-da-tabela" class="toc-link toc-h2" onclick="closeMobileToc()">6. Associação de vínculos: método da tabela</a>
+<a href="#7-diagramas-para-universais" class="toc-link toc-h2" onclick="closeMobileToc()">7. Diagramas para universais</a>
+<a href="#8-erros-que-eu-cometeria-e-por-que" class="toc-link toc-h2" onclick="closeMobileToc()">8. Erros que eu cometeria (e por quê)</a>
+<a href="#raciocinio-logico-t03-logica-proposicional" class="toc-link toc-h1" onclick="closeMobileToc()">Raciocínio Lógico T03 — Lógica Proposicional</a>
+<a href="#1-leis-de-morgan" class="toc-link toc-h2" onclick="closeMobileToc()">1. Leis de Morgan</a>
+<a href="#2-negacao-composta-por-conectivo" class="toc-link toc-h2" onclick="closeMobileToc()">2. Negação Composta (por conectivo)</a>
+<a href="#3-equivalencias-notaveis" class="toc-link toc-h2" onclick="closeMobileToc()">3. Equivalências Notáveis</a>
+<a href="#36-tabela-tana-negacao-de-quantificadores" class="toc-link toc-h2" onclick="closeMobileToc()">3.6 Tabela TANA: negação de quantificadores</a>
+<a href="#4-bicondicional" class="toc-link toc-h2" onclick="closeMobileToc()">4. Bicondicional</a>
+<a href="#5-condicional-e-a-vera-fischer" class="toc-link toc-h2" onclick="closeMobileToc()">5. Condicional e a &quot;Vera Fischer&quot;</a>
+<a href="#6-exemplos-aplicados" class="toc-link toc-h2" onclick="closeMobileToc()">6. Exemplos Aplicados</a>
+<a href="#7-diagramas-e-conectivos" class="toc-link toc-h2" onclick="closeMobileToc()">7. Diagramas e Conectivos</a>
+<a href="#8-argumentacao-quais-formas-sao-validas" class="toc-link toc-h2" onclick="closeMobileToc()">8. Argumentação: quais formas são válidas?</a>
+<a href="#9-tautologia-o-metodo-de-quebrar-nos-parenteses" class="toc-link toc-h2" onclick="closeMobileToc()">9. Tautologia: o método de &quot;quebrar nos parênteses&quot;</a>
+<a href="#10-negacao-de-desigualdades" class="toc-link toc-h2" onclick="closeMobileToc()">10. Negação de desigualdades</a>
+<a href="#11-dicas-de-comando-e-mnemonicos-fgv" class="toc-link toc-h2" onclick="closeMobileToc()">11. Dicas de comando e mnemônicos FGV</a>
+<a href="#12-condicao-suficiente-condicao-necessaria" class="toc-link toc-h2" onclick="closeMobileToc()">12. Condição suficiente × condição necessária</a>
+<a href="#13-as-equivalencias-que-a-fgv-repete" class="toc-link toc-h2" onclick="closeMobileToc()">13. As equivalências que a FGV repete</a>
+<a href="#14-tabela-verdade-na-marra-marca-registrada-fgv" class="toc-link toc-h2" onclick="closeMobileToc()">14. Tabela-verdade &quot;na marra&quot; (marca registrada FGV)</a>
+<a href="#15-argumentacao-em-cadeia" class="toc-link toc-h2" onclick="closeMobileToc()">15. Argumentação em cadeia</a>
+<a href="#16-contra-exemplo-de-condicional" class="toc-link toc-h2" onclick="closeMobileToc()">16. Contra-exemplo de condicional</a>
+<a href="#17-negacao-de-expressoes-de-quantidade" class="toc-link toc-h2" onclick="closeMobileToc()">17. Negação de expressões de quantidade</a>
+<a href="#18-reajuste-temporal-na-contrapositiva" class="toc-link toc-h2" onclick="closeMobileToc()">18. Reajuste temporal na contrapositiva</a>
+<a href="#12-condicional-falsa-e-determinacao-categorica-de-valores" class="toc-link toc-h2" onclick="closeMobileToc()">12. Condicional Falsa e Determinação Categórica de Valores</a>
+<a href="#13-precedencia-de-operadores-em-testes-logicos-aritmeticos" class="toc-link toc-h2" onclick="closeMobileToc()">13. Precedência de Operadores em Testes Lógicos Aritméticos</a>
+<a href="#raciocinio-logico-t04-logica-de-primeira-ordem" class="toc-link toc-h1" onclick="closeMobileToc()">Raciocínio Lógico T04 — Lógica de Primeira Ordem</a>
+<a href="#1-negacao-de-quantificadores" class="toc-link toc-h2" onclick="closeMobileToc()">1. Negação de Quantificadores</a>
+<a href="#2-exemplos" class="toc-link toc-h2" onclick="closeMobileToc()">2. Exemplos</a>
+<a href="#3-mnemonicos-de-mesa-epa" class="toc-link toc-h2" onclick="closeMobileToc()">3. Mnemônicos de mesa (EPA)</a>
+<a href="#4-negacao-com-dois-quantificadores" class="toc-link toc-h2" onclick="closeMobileToc()">4. Negação com DOIS quantificadores</a>
+<a href="#5-quantificador-de-morgan-no-predicado-composto" class="toc-link toc-h2" onclick="closeMobileToc()">5. Quantificador + De Morgan no predicado composto</a>
+<a href="#6-ponte-todo-condicional" class="toc-link toc-h2" onclick="closeMobileToc()">6. Ponte &quot;Todo&quot; ↔ condicional</a>
+<a href="#7-todo-e-a-contrapositiva-na-pratica" class="toc-link toc-h2" onclick="closeMobileToc()">7. &quot;Todo&quot; e a contrapositiva na prática</a>
+<a href="#8-quadro-de-negacoes-com-questoes" class="toc-link toc-h2" onclick="closeMobileToc()">8. Quadro de negações com questões</a>
+<a href="#9-contra-exemplo-de-proposicao-universal" class="toc-link toc-h2" onclick="closeMobileToc()">9. Contra-exemplo de proposição universal</a>
+<a href="#10-formulas-bem-formadas-fbf-e-sintaxe-de-predicados" class="toc-link toc-h2" onclick="closeMobileToc()">10. Fórmulas Bem Formadas (FBF) e Sintaxe de Predicados</a>
+<a href="#11-diagramas-logicos-silogismos-e-hipoteses-genealogicas" class="toc-link toc-h2" onclick="closeMobileToc()">11. Diagramas Lógicos, Silogismos e Hipóteses Genealógicas</a>
+<a href="#raciocinio-logico-t05-complementaridade-e-raciocinio-espacial" class="toc-link toc-h1" onclick="closeMobileToc()">Raciocínio Lógico T05 — Complementaridade e Raciocínio Espacial</a>
+<a href="#1-complementaridade-no-maximo-pelo-menos" class="toc-link toc-h2" onclick="closeMobileToc()">1. Complementaridade &quot;no máximo ↔ pelo menos&quot;</a>
+<a href="#2-raciocinio-espacial-dados-e-faces-opostas" class="toc-link toc-h2" onclick="closeMobileToc()">2. Raciocínio espacial: dados e faces opostas</a>
+<a href="#3-principio-da-casa-dos-pombos" class="toc-link toc-h2" onclick="closeMobileToc()">3. Princípio da casa dos pombos</a>
+<a href="#4-geometria-retangulo-e-o-centro" class="toc-link toc-h2" onclick="closeMobileToc()">4. Geometria: retângulo e o centro</a>
+<a href="#5-menor-caminho-em-malha-distancia-de-manhattan" class="toc-link toc-h2" onclick="closeMobileToc()">5. Menor caminho em malha: distância de Manhattan</a>
+<a href="#6-mesa-circular-primeira-e-ultima-e-divisor" class="toc-link toc-h2" onclick="closeMobileToc()">6. Mesa circular: &quot;primeira e última&quot; é divisor</a>
+<a href="#7-sequencia-por-recorrencia-caminhe-de-tras-para-frente" class="toc-link toc-h2" onclick="closeMobileToc()">7. Sequência por recorrência: caminhe de trás para frente</a>
+<a href="#8-combinacao-com-repeticao-estrelas-e-barras" class="toc-link toc-h2" onclick="closeMobileToc()">8. Combinação com repetição — estrelas e barras</a>
+<a href="#9-permutacao-com-repeticao-e-a-tecnica-do-bloco" class="toc-link toc-h2" onclick="closeMobileToc()">9. Permutação com repetição e a técnica do bloco</a>
+<a href="#10-regra-de-tres-teste-a-grandeza-antes" class="toc-link toc-h2" onclick="closeMobileToc()">10. Regra de três: teste a grandeza ANTES</a>
+<a href="#11-matriz-nn-paridade-das-diagonais" class="toc-link toc-h2" onclick="closeMobileToc()">11. Matriz n×n: paridade das diagonais</a>
+<a href="#12-intersecao-de-intervalos-maior-inicio-menor-fim" class="toc-link toc-h2" onclick="closeMobileToc()">12. Interseção de intervalos: maior início, menor fim</a>
+<a href="#13-ordenacao-de-idades-fila-crescente" class="toc-link toc-h2" onclick="closeMobileToc()">13. Ordenação de idades: fila crescente</a>
+<a href="#14-torneio-mata-mata-1-jogo-1-eliminacao" class="toc-link toc-h2" onclick="closeMobileToc()">14. Torneio mata-mata: 1 jogo = 1 eliminação</a>
+<a href="#15-sistema-de-idades-travem-o-referencial-de-tempo" class="toc-link toc-h2" onclick="closeMobileToc()">15. Sistema de idades: travem o referencial de tempo</a>
+<a href="#16-fracoes-e-o-problema-das-partes-metodo-visual-das-barrinhas" class="toc-link toc-h2" onclick="closeMobileToc()">16. Frações e o Problema das Partes (Método Visual das Barrinhas)</a>
+<a href="#17-aumentos-sucessivos-em-porcentagem-regra-pratica-s-m-j" class="toc-link toc-h2" onclick="closeMobileToc()">17. Aumentos Sucessivos em Porcentagem — Regra Prática S-M-J</a>
+<a href="#18-geometria-plana-area-composta-e-regiao-restante" class="toc-link toc-h2" onclick="closeMobileToc()">18. Geometria Plana — Área Composta e Região Restante</a>
+<a href="#19-divisao-inversamente-proporcional-a-tecnica-do-tapa" class="toc-link toc-h2" onclick="closeMobileToc()">19. Divisão Inversamente Proporcional — A Técnica do &quot;Tapa&quot;</a>
+<a href="#20-teoria-dos-conjuntos-o-macete-do-excesso-passou-do-total" class="toc-link toc-h2" onclick="closeMobileToc()">20. Teoria dos Conjuntos — O Macete do Excesso (&quot;Passou do Total?&quot;)</a>
+<a href="#21-problemas-de-idades-com-marco-temporal-futuro-passar-pela-primeira-vez" class="toc-link toc-h2" onclick="closeMobileToc()">21. Problemas de Idades com Marco Temporal Futuro (&quot;Passar pela Primeira Vez&quot;)</a>
+<a href="#raciocinio-questoes-aposentado" class="toc-link toc-h1" onclick="closeMobileToc()">Raciocinio — Questões (aposentado)</a>
+      </nav>
+    </aside>
+
+    <main class="content-card">
+      <div class="hero-banner">
+        <span class="hero-tag">🧮 Lógica Proposicional &amp; Conjuntos</span>
+        <h1 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text-strong);">Raciocínio Lógico</h1>
+        <div class="hero-meta">
+          <span>📖 <strong>6</strong> tópicos principais</span>
+          <span>⏱️ Leitura estimada: <strong>~74 min</strong> (14,841 palavras)</span>
+          <span>🔄 Atualizado em: <strong>06/11/2026</strong></span>
+        </div>
+      </div>
+
+      <article class="md-body" id="md-article">
+        <h1 id="raciocinio-logico">Raciocínio Lógico</h1>
+<blockquote>
+<p><strong>Repositório Central de Concursos de TIC</strong> · UFRRJ &amp; Transpetro 2026</p>
+<p><strong>Caderno Consolidado de Raciocínio Lógico</strong> — teoria completa, mnemônicos e pegadinhas de prova.
+Gerado automaticamente em 06/11/2026.</p>
+</blockquote>
+<hr />
+<h1 id="raciocinio-logico-t01-estruturas-logicas">Raciocínio Lógico T01 — Estruturas Lógicas</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> Onde entra este conteúdo</div>
+  <div class="callout-body"><p>Tópico 1 do edital: "Estruturas lógicas". Na prática de prova, o item aparece como <strong>quantificadores</strong> (<strong>todo</strong>, <strong>algum</strong>, <strong>nenhum</strong>, <strong>pelo menos um</strong>) e como leitura de <strong>proposições categóricas</strong> — e quase sempre o comando é <strong>negar</strong> ou <strong>encontrar a equivalente</strong>.</p>
+<p><strong>Não confunda com os vizinhos:</strong> a negação de "todo/nenhum" com dois quantificadores e o <code>∀/∃</code> formal estão em Raciocinio_T04_Logica_de_Primeira_Ordem; o que você faz com a negação depois (De Morgan, NEOUMA) está em Raciocinio_T03_Logica_Proposicional; e a soma de hipóteses para chegar numa conclusão está em Raciocinio_T02_Logica_de_Argumentacao.</p></div>
+</div>
+<hr />
+<h2 id="1-o-esqueleto-negue-o-quantificador-e-o-verbo">1. O esqueleto: negue o quantificador e o verbo</h2>
+<p>O erro clássico não está em aplicar De Morgan e sim em <strong>esquecer de negar o quantificador</strong>. A regra é mecânica:</p>
+<table>
+<thead>
+<tr>
+<th>Original</th>
+<th>Negação</th>
+<th>Por quê</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Todo</strong> A é B</td>
+<td><strong>Algum</strong> (pelo menos um) A <strong>não</strong> é B</td>
+<td>o oposto de "todos" é "existe um que escapa"</td>
+</tr>
+<tr>
+<td><strong>Algum</strong> A é B</td>
+<td><strong>Nenhum</strong> A é B</td>
+<td>o oposto de "existe um" é "zero existem"</td>
+</tr>
+<tr>
+<td><strong>Nenhum</strong> A é B</td>
+<td><strong>Algum</strong> (pelo menos um) A é B</td>
+<td>idem: nega a universal negativa</td>
+</tr>
+<tr>
+<td><strong>"Se e somente se"</strong> (todo A é B <strong>e</strong> todo B é A)</td>
+<td><strong>OU... OU</strong> (exclusivo)</td>
+<td>bicondicional ↔ é disjunção exclusiva</td>
+</tr>
+<tr>
+<td><strong>"Se...então"</strong> com "todo"</td>
+<td>predicado do "então" <strong>ou</strong> a negação do "se"</td>
+<td>NEOUMA</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> O trio do quantificador</div>
+  <div class="callout-body"><p><strong>TODO</strong> é universal afirmativa → nega virando <strong>algum/não</strong>. <strong>NENHUM</strong> é universal negativa → nega virando <strong>algum</strong>. <strong>ALGUM</strong> é particular afirmativa → nega virando <strong>nenhum</strong>. Guarde o par: quem é oposto de "todos" é "existe um"; quem é oposto de "existe um" é "nenhum".</p></div>
+</div>
+<hr />
+<h2 id="2-todo-com-predicado-composto-a-virada-do-e-para-o-ou">2. "Todo" com predicado composto: a virada do E para o OU</h2>
+<p>Este é o item que mais a banca repete, e o erro acontece em uma palavra.</p>
+<ul>
+<li><strong>Original:</strong> "Todo A <strong>e</strong> B é C" — a conjunção está <strong>dentro do quantificador</strong>.</li>
+<li>
+<p><strong>Negação:</strong> vira <strong>"Algum A e B não é C"</strong> — o <code>E</code> <strong>continua sendo E</strong>, porque faz parte do sujeito ("todo Funk e todo Pagode tocou" → "algum Funk e Pagode não tocou").</p>
+</li>
+<li>
+<p><strong>Original:</strong> "Todo A é B <strong>ou</strong> C" — aqui o <code>OU</code> está no predicado.</p>
+</li>
+<li><strong>Negação:</strong> "<strong>Algum</strong> A <strong>não é B nem C</strong>" — o <code>OU</code> vira "<strong>nem</strong>", porque nega-se o predicado inteiro.</li>
+</ul>
+<p>O mesmo vale para o "se...então":</p>
+<ul>
+<li>"<strong>Todo</strong> A, <strong>se</strong> B, então C" → nega → "<strong>Algum</strong> A <strong>e</strong> B <strong>e</strong> não C".</li>
+<li>"Todo A é B, <strong>ou</strong> não é C" → nega → "<strong>Algum</strong> A é B <strong>e</strong> é C" (a dupla negação se concentra: os dois "não" se cancelam e o OU vira E).</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> O E que não vira OU</div>
+  <div class="callout-body"><p>Se o conectivo está <strong>dentro do quantificador</strong> (sujeito), ele <strong>sobrevive</strong> à negação. Se está <strong>depois</strong> (predado), ele é <strong>trocado</strong>. "Todo servidor <strong>e</strong> usuário" nega para "algum servidor <strong>e</strong> usuário não" — com E. Mas "todo servidor é <strong>ou</strong> cliente" nega para "algum servidor não é cliente <strong>nem</strong>..." — com nem.</p>
+<p><strong>💡 "Nem" é OU com dois "não"</strong>
+<code>P v Q</code> negado = <code>~P ^ ~Q</code>, que em português se lê como "<strong>nem</strong> P <strong>nem</strong> Q". Quando o gabarito estiver cheio de "nem", acendeu a luz de que o original era um <strong>OU</strong> dentro do predicado de um "todo".</p></div>
+</div>
+<hr />
+<h2 id="3-todo-traduzido-para-condicional-e-o-caminho-de-volta">3. "Todo" traduzido para condicional — e o caminho de volta</h2>
+<p>Muita questão de FGV entrega o enunciado em frase de "todo" e pede a <strong>equivalente</strong> em condicional. O caminho é sempre o mesmo:</p>
+<p>$$\text{Todo } A \text{ é } B \;\equiv\; \text{Se } A \text{ então } B \;\equiv\; \neg A \lor B$$</p>
+<ul>
+<li>"Todo servidor público tem formação em TI" ≡ "Se é servidor público, <strong>então</strong> tem formação em TI".</li>
+<li>E a negação dela: "<strong>Algum</strong> servidor público <strong>não</strong> tem formação em TI".</li>
+</ul>
+<p>Repare que o "todo" vira <strong>condicional</strong> (e não "e" entre duas frases): "todo A é B <strong>e</strong> todo B é A" já é o <strong>se e somente se</strong>.</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> "Todo" não vira "e"</div>
+  <div class="callout-body"><p>"Todo A é B" <strong>não</strong> é "A é B" (seria só sobre um único A). Tampouco é "todo A <strong>e</strong> todo B". O "todo" generaliza — ele só vira <code>-&gt;</code> ou <code>v</code> (NEOUMA) quando você o converte. Misturar "todo" com conjunção é o erro que a banca denuncia.</p></div>
+</div>
+<hr />
+<h2 id="4-nenhum-a-seta-invertida">4. "Nenhum" — a seta invertida</h2>
+<p>O "nenhum" tem um truque próprio, e ele derruba a questão do "método do chip":</p>
+<p>$$\text{Nenhum } A \text{ é } B \;\equiv\; \text{Todo } A \text{ não é } B \;\equiv\; B \rightarrow \neg A$$</p>
+<p>Perceba o <strong>consequente e antecedente trocados</strong> na forma condicional. "Nenhum animal é invertebrado" é o mesmo que "se é invertebrado, <strong>então não</strong> é animal" — e também o mesmo que "se é animal, <strong>então</strong> é vertebrado".</p>
+<p>Na negação, o "nenhum" vira "algum": "Nenhum A é B" negado é "<strong>Algum</strong> A é B" (sem o "não" extra, porque a negação do "nenhum" já devolve a afirmação).</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Nenhum vira seta ao contrário</div>
+  <div class="callout-body"><p>"Nenhum A é B" = "B → ¬A" = "A → ¬B". A seta de "nenhum" sempre nasce apontando <strong>da condição negativa para a positiva</strong>, nunca de A para B. É a <strong>contrapositiva</strong> do "todo".</p></div>
+</div>
+<hr />
+<h2 id="5-deducao-em-cadeia-com-todo-e-nenhum">5. Dedução em cadeia com "todo" e "nenhum"</h2>
+<p>Quando o enunciado traz afirmações universais e você precisa concluir algo, some as hipóteses como quem resolve um sistema. As regras de encadeamento que resolvem a questão:</p>
+<ul>
+<li><strong>Todo A é B</strong> + <strong>Todo B é C</strong> ∴ <strong>Todo A é C</strong> (transitividade do "todo").</li>
+<li><strong>Nenhum A é B</strong> + <strong>Todo B é C</strong> ∴ <strong>Nenhum A é C</strong> (o "nenhum" absorve quem está no meio).</li>
+<li><strong>Todo A é B</strong> + <strong>Algum A é C</strong> ∴ <strong>Algum B é C</strong> (o "algum" puxa um exemplo que também é B).</li>
+</ul>
+<p>O detalhe que a banca gosta de esconder: o "todo" <strong>não</strong> transporta quando muda de sujeito. "Todo A é B" + "Todo B é A" <strong>não</strong> dá "todo A é A" (é redundante, mas nada além disso); e "Todo A é B" + "Algum C é B" <strong>não</strong> diz nada sobre A e C — os B podem ser os mesmos ou não. Sem <strong>comum</strong> denominador, não há dedução.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Quem some, quem puxa</div>
+  <div class="callout-body"><p><strong>"Todo"</strong> transporta de A até B se a próxima afirmação falar de B. <strong>"Algum"</strong> serve de "elo concreto": se eu sei que <strong>algum</strong> A é B, e todo B é C, então <strong>algum</strong> A é C. Já "nenhum" é barreira: bloqueia qualquer contato na sua frente.</p></div>
+</div>
+<hr />
+<h2 id="6-diagramas-e-conjuntos-a-negacao-em-duas-camadas">6. Diagramas e conjuntos: a negação em duas camadas</h2>
+<p>O "todo"/"nenhum" também aparece como <strong>conjunto</strong> (interseção, diferença, complementar). A leitura é a mesma:</p>
+<ul>
+<li>"Todo A é B" = o conjunto A está <strong>dentro</strong> de B (A ⊂ B) = diagrama, A contido em B.</li>
+<li>"Nenhum A é B" = A e B são <strong>disjuntos</strong> (A ∩ B = ∅).</li>
+<li><strong>Negação de "todo A é B"</strong> = "existe elemento de A fora de B" = <strong>A ⊄ B</strong> (tem um ponto escapando).</li>
+<li><strong>Negação de "nenhum"</strong> = "existe um A que também é B" = <strong>A ∩ B ≠ ∅</strong> (os conjuntos se tocam).</li>
+</ul>
+<p>Numa questão de interseção de intervalos, o comando "é correto afirmar" quer que você teste se <strong>todo ponto</strong> do conjunto está no outro (subconjunto) ou se existe <strong>ao menos um ponto</strong> em comum — e "existe ao menos um" é justamente a <strong>negação do "todo"</strong>.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> ⊂ não é ⊆</div>
+  <div class="callout-body"><p>Cuidado com o gráfico: "<strong>Todo</strong> A é B" é subconjunto <strong>sem</strong> igualdade (<code>⊂</code>); se a questão disser "todo" mas o diagrama mostrar A <strong>igual</strong> a B, a afirmação de "todo" continua verdadeira, mas a de "somente os elementos de A são de B" já é falsa. Leia a seta do diagrama, não só o nome do conjunto.</p></div>
+</div>
+<hr />
+<h2 id="7-roteiro-de-ataque-para-todonenhum">7. Roteiro de ataque para "todo"/"nenhum"</h2>
+<ol>
+<li><strong>Leia o comando</strong>: é negação, equivalente ou valoração? "Não é correto que todo…" é negação; "é equivalente a" é equivalência; "se … então" é condicional.</li>
+<li><strong>Negue o quantificador primeiro</strong>: todo↔algum, algum↔nenhum.</li>
+<li><strong>Só depois</strong> mexe no verbo interno (De Morgan), lembrando: E do sujeito sobrevive, OU do predicado vira "nem".</li>
+<li><strong>Reescreva tudo sem negação</strong> e compare com a alternativa letra a letra — a banca só oferece a correta na forma limpa.</li>
+</ol>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Cola do capítulo</div>
+  <div class="callout-body"><p>- todo → <strong>algum/não</strong>; algum → <strong>nenhum</strong>; nenhum → <strong>algum</strong>.
+- "todo A é B" ≡ "se A, então B" ≡ "~A ou B".
+- "nenhum A é B" ≡ "B → ~A".
+- E no sujeito <strong>fica</strong>; OU no predicado vira <strong>nem</strong>.
+- Se e somente se ↔ vira <strong>OU... OU</strong> na negação.</p></div>
+</div>
+<hr />
+<h2 id="8-problemas-de-associacao-logica-e-deducao-por-eliminacao">8. Problemas de Associação Lógica e Dedução por Eliminação</h2>
+<h3 id="81-deducao-direta-por-falsidade-universal-de-palpites">8.1 Dedução Direta por Falsidade Universal de Palpites</h3>
+<p>Quando o examinador relata palpites dados por várias pessoas e informa que <strong>"todos estavam completamente enganados"</strong>:
+- <strong>Técnica de corte:</strong> todo papel/atributo atribuído a um indivíduo nas declarações é <strong>FALSO</strong> e deve ser sumariamente eliminado para aquele indivíduo.
+- Se existiam 5 papéis possíveis e 4 foram palpitados para uma mesma pessoa ao longo do texto, o único papel que <strong>ninguém mencionou</strong> para ela é obrigatoriamente o seu papel correto.</p>
+<h3 id="82-matriz-de-atributos-com-restricoes-de-contagem">8.2 Matriz de Atributos com Restrições de Contagem</h3>
+<p>Problemas com múltiplos atributos cruzados (ex.: 5 modalidades esportivas, com divisão de horários [3 manhã, 2 tarde] e formas de pagamento [3 por aula, 2 mensal]):
+1. <strong>Contabilidade de vagas:</strong> anote o total de vagas de cada categoria antes de analisar as pistas.
+2. <strong>Pares com atributos distintos:</strong> se duas modalidades têm atributos distintos (ex.: uma é manhã e outra é tarde), elas consomem exatamente <strong>1 vaga de cada tipo</strong>. Subtraia dos totais disponíveis para descobrir o perfil restante.
+3. <strong>Pares com atributos iguais:</strong> se duas modalidades têm o mesmo atributo e restavam exatamente 2 vagas daquele tipo, elas ocupam compulsoriamente essas vagas.
+4. <strong>Isolamento da intersecção:</strong> ao cruzar as restrições, a única modalidade que atende simultaneamente aos dois critérios solicitados (ex.: "Mensal e Tarde") é obtida por exclusão matemática.</p>
+<hr />
+<div class="callout callout-conexao">
+  <div class="callout-title"><span class="callout-icon">🔗</span> Ponte com outras matérias</div>
+  <div class="callout-body"><p>Toda essa negação de "todo"/"nenhum" é a <strong>mesma mecânica</strong> das Leis de Morgan que você usa em proposições (T03): negar um "E" vira "OU", negar um "OU" vira "E". E a "cadeia de condicionais" (modus tollens) é a ferramenta do T02/tópico 2 para transformar essas hipóteses em uma conclusão. Se você domina um, domina o outro.</p>
+<p><strong>⚠️ PEGADINHA</strong>
+<strong>Sentenças Abertas x Proposições Falsas:</strong>
+1. <strong>Equação com incógnita solta ($X^2 + 3X + 2 = 0$)</strong> ou frase com pronome indefinido (<em>"Ele é o melhor jogador"</em>) são <strong>sentenças abertas</strong> (não são proposições).
+2. <strong>O Trio Proibido (EX-IN-IM):</strong> Frases <strong>EX</strong>clamativas, <strong>IN</strong>terrogativas e <strong>IM</strong>perativas NUNCA são proposições.
+3. <strong>Afirmação factualmente errada (<em>"O Noroeste fica entre o Norte e o Leste"</em>):</strong> É uma <strong>proposição lógica perfeita</strong>, de valor lógico FALSO ($F$).</p></div>
+</div>
+<hr />
+<h1 id="raciocinio-logico-t02-logica-de-argumentacao">Raciocínio Lógico T02 — Lógica de Argumentação</h1>
+<h2 id="1-o-que-e-argumentacao-na-prova">1. O que é argumentação na prova?</h2>
+<p>Argumentação é <strong>extrair uma conclusão a partir de premissas</strong>. A FGV ama pedir isso com cara de "a partir do texto, é correto concluir que...". Nesse tipo de questão você não é dono da verdade: você é escravo das premissas. Se a conclusão não nascer delas, ela é só o seu palpite.</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> A regra de ouro</div>
+  <div class="callout-body"><p><strong>Não invente premissa.</strong> Se o enunciado não disse, considere falso/indeterminado. A frase que "faz sentido no mundo real" mas não deriva do texto é o distrator favorito da banca ("todo servidor com estabilidade que trabalha no atendimento fala inglês" — só disso não sai que quem fala inglês trabalha no atendimento).</p></div>
+</div>
+<hr />
+<h2 id="2-inducao-deducao">2. Indução × Dedução</h2>
+<ul>
+<li><strong>Dedução</strong>: do <strong>geral</strong> para o <strong>particular</strong>. "Todos os feijões do saco são pretos → estes feijões são pretos."</li>
+<li><strong>Indução</strong>: do <strong>particular</strong> para o <strong>geral</strong>. "Estes feijões do saco são pretos → todos os feijões do saco são pretos."</li>
+</ul>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A régua da direção</div>
+  <div class="callout-body"><p><strong>DEDUÇÃO = DETALHE</strong> (se uma coisa vale para todo mundo, vale pra você). <strong>INDUÇÃO = INVENÇÃO</strong> (observo alguns, e acho que todos são assim). Mnemônico: "D" de Dedução = Deriva/Desce; "I" de Indução = <strong>I</strong>magino tudo a partir de poucos.</p></div>
+</div>
+<p><strong>Sofisma</strong> é o raciocínio que <em>parece</em> lógico mas não é — a conclusão não decorre das premissas ou apenas repete a premissa. Dedução com conclusão falsa não é sofisma: a forma pode estar certa (válida) e a premissa, errada.</p>
+<hr />
+<h2 id="3-formas-validas-de-argumento">3. Formas válidas de argumento</h2>
+<table>
+<thead>
+<tr>
+<th>Forma</th>
+<th>Padrão</th>
+<th>Quando usar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Modus ponens</strong></td>
+<td><code>P → Q</code>, <code>P</code> ∴ <code>Q</code></td>
+<td>Afirma o antecedente</td>
+</tr>
+<tr>
+<td><strong>Modus tollens</strong></td>
+<td><code>P → Q</code>, <code>¬Q</code> ∴ <code>¬P</code></td>
+<td>Nega o consequente</td>
+</tr>
+<tr>
+<td><strong>Silogismo hipotético</strong></td>
+<td><code>A → B</code>, <code>B → C</code> ∴ <code>A → C</code></td>
+<td>Encadeia condicionais</td>
+</tr>
+<tr>
+<td><strong>Silogismo disjuntivo</strong></td>
+<td><code>P ∨ Q</code>, <code>¬P</code> ∴ <code>Q</code></td>
+<td>Exclui uma alternativa do "ou"</td>
+</tr>
+<tr>
+<td><strong>Cadeia universal</strong></td>
+<td>"Todo sapo é verde", "Nenhum verde vive na água" ∴ "nenhum sapo vive na água"</td>
+<td>Encadeia "todo/nenhum"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Proibidas (falácias formais):</strong> recíproca (<code>Q → P</code>) e inversa (<code>¬P → ¬Q</code>) <strong>não</strong> derivam de <code>P → Q</code>. A única virada que preserva a verdade é a <strong>contrapositiva</strong> (<code>¬Q → ¬P</code>).</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A tabela completa dos quatro padrões</div>
+  <div class="callout-body"><p>| Padrão | Nome | Válido? |
+|---|---|---|
+| <code>P → Q ; P</code> ∴ <code>Q</code> | Modus ponens | <strong>V</strong> |
+| <code>P → Q ; ¬Q</code> ∴ <code>¬P</code> | Modus tollens | <strong>V</strong> |
+| <code>P ∨ Q ; ¬P</code> ∴ <code>Q</code> | Silogismo disjuntivo | <strong>V</strong> |
+| <code>P → Q ; Q → R</code> ∴ <code>P → R</code> | Transitividade | <strong>V</strong> |
+| <code>P → Q ; Q</code> ∴ <code>P</code> | <strong>Afirmação do consequente</strong> | <strong>F</strong> |
+| <code>P → Q ; ¬P</code> ∴ <code>¬Q</code> | <strong>Negação do antecedente</strong> | <strong>F</strong> |</p>
+<p>Regra de bolso: nas <strong>condicionais</strong>, a única premissa extra que funciona é o <strong>mesmo antecedente</strong> (ponens) ou a <strong>negação do consequente</strong> (tollens). Qualquer outra combinação quebra.</p>
+<p><strong>⚠️ Afirmação do consequente — a falácia que a banca veste de caso de negócio</strong>
+"Se o projeto atrasar, ele é reavaliado. O projeto Nexus foi reavaliado. Logo, o Nexus atrasou."
+Parece convincente porque o segundo texto é real, mas a conclusão não tem garantia nenhuma: o comitê pode ter reavaliado o projeto por auditoria extraordinária, reestruturação ou pedido do cliente. O equivalente doméstico: "Se chove, a rua fica molhada. A rua está molhada. Logo, choveu." Choveu — mas talvez a mangueira do vizinho tenha regado o jardim.</p>
+<p>Na prova, essa falácia costuma aparecer <strong>descrita</strong> ("inválido, pois...") e não nomeada. Então aprenda a ler a justificativa, não o rótulo:
+- "o atraso implica a reavaliação, <strong>mas não permite concluir</strong>, a partir da reavaliação, que houve atraso" → <strong>é</strong> a afirmação do consequente. Correta.
+- "inválido, <strong>pois a premissa é falsa na prática</strong>" → errada: você saiu da lógica e entrou no mundo real.
+- "inválido, <strong>pois não se sabe se as premissas são verdadeiras</strong>" → errada: validade não depende de sabermos a verdade das premissas.</p>
+<p><strong>⚠️ Falácia da negação do antecedente</strong>
+De <code>(Dano ∧ (Premeditado ∨ Lucro)) → Crime</code>, <strong>NÃO</strong> se conclui "dano não premeditado <strong>e</strong> sem lucro → não é crime". Negar o <strong>antecedente</strong> não derruba o consequente: a lei não é "se e somente se" — pode haver crime por outra regra. Só se anda <strong>para frente</strong> (modus ponens) ou se usa a <strong>contrapositiva</strong> (negar o consequente arrasta o antecedente). Quem "nega e conclui" está cometendo a mesma falácia formal da inversa.</p>
+<p><strong>⚠️ O modus tollens com "apenas um"</strong>
+Premissa: "Se apenas um entre João e Maria mora no Butantã, então o elefante é azul" + "o elefante não é azul". Negar <code>P → Q</code> com o consequente falso derruba o antecedente: "apenas um mora" é <strong>falso</strong>. A negação de "apenas um" (ou exclusivo) tem <strong>dois</strong> cenários: <strong>ambos</strong> moram OU <strong>nenhum</strong> mora. A resposta certa precisa abraçar os dois — e é aí que mora o OU final: "galinha verde <strong>ou</strong> cavalo amarelo".</p></div>
+</div>
+<hr />
+<h2 id="4-contrapositiva-na-pratica">4. Contrapositiva na prática</h2>
+<p>"Todo servidor com estabilidade <strong>e</strong> que trabalha no atendimento fala inglês" ≡ <code>(E ∧ A) → I</code>.</p>
+<p>A equivalência é a contrapositiva: <code>¬I → ¬(E ∧ A)</code>. Mas negar <code>E ∧ A</code> exige <strong>De Morgan</strong>: <code>¬E ∨ ¬A</code>. Ou seja: "se não fala inglês, então **não tem estabilidade OU não trabalha no atendimento".</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> O conectivo que derruba</div>
+  <div class="callout-body"><p>Quase todo mundo inverte e nega certo, mas mantém o "<strong>e</strong>" — e a resposta usa o "<strong>ou</strong>". Contrapositiva de antecedente conjuntivo <strong>sempre</strong> converte o "e" em "ou".</p></div>
+</div>
+<hr />
+<h2 id="5-cadeia-de-condicionais-efeito-domino">5. Cadeia de condicionais ("efeito dominó")</h2>
+<p>Monte as implicações em sequência e comece pela proposição que você sabe que é verdadeira (ou falsa):</p>
+<ul>
+<li><code>curso ∨ não-estudo</code>, sabendo <code>¬curso</code> → estudou.</li>
+<li><code>X → Y</code>, <code>¬Y → Z</code>, e <code>¬Z</code> é V → em <code>¬Y → Z</code>, o antecedente <code>¬Y</code> tem de ser F (F → V), logo <strong>Y é verdadeiro</strong>, e X fica indeterminado.</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> O Dominó Reverso (Modus Tollens em cadeia)</div>
+  <div class="callout-body"><p>Quando a banca estruturar uma sequência longa de premissas condicionais ($A \rightarrow B$, $B \rightarrow C$, $C \rightarrow D$) e a afirmação categórica final negar a última consequência ($\neg D$), aplique o dominó reverso: se o último elemento caiu negando, <strong>todos os antecedentes anteriores também são negados</strong> ($\neg C$, $\neg B$, $\neg A$). Em bancas com múltiplos itens sobre o mesmo texto-base (estilo Cebraspe), desenhe a cadeia de trás para frente uma única vez e gabarite a sequência inteira.</p>
+<p><strong>💡 Leitura de "F → V"</strong>
+Em <code>F → V</code> o consequente "V" é um dado que <strong>não diz nada</strong> sobre o antecedente — ele pode ser V ou F. Só a linha <code>V → F</code> (Vera Fischer) é proibida de verdade.</p></div>
+</div>
+<hr />
+<h2 id="6-associacao-de-vinculos-metodo-da-tabela">6. Associação de vínculos: método da tabela</h2>
+<p>Problemas de associação ("pessoas ↔ profissões ↔ cidades", "pessoas ↔ setores ↔ cores") resolvem em <strong>duas dimensões por vez</strong>:</p>
+<ol>
+<li>Procure a <strong>âncora absoluta</strong>: "Carlos é o advogado", "quem trabalha no Financeiro usa cinza".</li>
+<li>Elimine as opções que a âncora derruba ("Analice usa amarelo → não é Financeiro").</li>
+<li>Só depois que a primeira dimensão fechar, cruze a segunda (cidade/cor).</li>
+<li>Quem sobra em uma dimensão é a posição "de trás para frente" (André não é médico → é engenheiro → Bruno é o médico).</li>
+</ol>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Ritual de prova</div>
+  <div class="callout-body"><p>Faça <strong>colunas de hipóteses</strong> (nome / profissão / cidade) e ligue com setas. Nunca cruze as duas dimensões ao mesmo tempo — é onde a maioria força um "chute lógico".</p></div>
+</div>
+<hr />
+<h2 id="7-diagramas-para-universais">7. Diagramas para universais</h2>
+<p>"Todo A é B" = círculo de A dentro do círculo de B. O que o diagrama garante:</p>
+<ul>
+<li><strong>Fora do círculo de B</strong> não existe A.</li>
+<li>Dizer que quem é B também é A (recíproca) é <strong>proibido</strong> — há B fora de A.</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> O teste do absurdo (2 minutos que decidem a questão)</div>
+  <div class="callout-body"><p>Quando o enunciado pedir para classificar um argumento como válido ou inválido, faça assim:
+1. Suponha as <strong>premissas verdadeiras</strong> e a <strong>conclusão falsa</strong>.
+2. Se essa combinação gerar <strong>contradição</strong> (uma premissa virando F), o argumento é <strong>válido</strong>.
+3. Se não gerar contradição, o argumento é <strong>inválido</strong> — e basta exibir aquele cenário como contraexemplo.</p>
+<p>Exemplo com <code>P → Q</code> e <code>Q</code>, conclusão <code>P</code>: com P = F e Q = V nada explode (um aspersor também molha a rua) → inválido. Com <code>P → Q</code> e <code>P</code>, conclusão <code>¬Q</code>: se P = V, a premissa <code>V → F</code> é F, contradição → válido.</p></div>
+</div>
+<h3 id="lendo-regiao-sombreada-o-que-o-e-e-o-apenas-significam">Lendo região sombreada (o que o "e" e o "apenas" significam)</h3>
+<table>
+<thead>
+<tr>
+<th>Palavra na alternativa</th>
+<th>Região do diagrama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"e"</strong></td>
+<td><strong>interseção</strong> (dentro das duas formas)</td>
+</tr>
+<tr>
+<td><strong>"ou"</strong></td>
+<td><strong>união</strong> (dentro de uma <strong>ou</strong> outra, ou das duas)</td>
+</tr>
+<tr>
+<td><strong>"apenas / somente"</strong></td>
+<td>parte <strong>exclusiva</strong> — a parte de uma forma que está <strong>fora</strong> da outra</td>
+</tr>
+</tbody>
+</table>
+<p>E atenção no <strong>ponto de corte</strong> do enunciado:</p>
+<ul>
+<li>"40 anos <strong>ou menos</strong>" inclui quem tem exatamente 40.</li>
+<li>"<strong>menos de</strong> 40 anos" exclui quem tem 40.</li>
+</ul>
+<p>Se o círculo do diagrama é "40 ou mais", a parte <strong>de fora</strong> dele é necessariamente "menos de 40" — nunca "40 ou menos". Esse par de palavras aparece junto e é apegadinha padrão.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Formato não é conjunto</div>
+  <div class="callout-body"><p>Triângulo, losango e retângulo são apenas rótulos visuais. Todo diagrama de Venn pode (e deve) ser redesenhado como círculos. Se você começar a tentar "saber" o que significa um triângulo, trava. Leia pela legenda e redesenhe.</p>
+<p><strong>🔗 Ponte com outras matérias</strong>
+Universal "todo" ≡ condicional <code>se...então</code> — essa tradução vai aparecer na <strong>lógica de primeira ordem</strong> (T04) e volta aqui na argumentação ( e são a mesma família: cada uma aborda um lado da moeda).</p></div>
+</div>
+<hr />
+<h2 id="8-erros-que-eu-cometeria-e-por-que">8. Erros que eu cometeria (e por quê)</h2>
+<ul>
+<li><strong>Testar cenário único no "apenas um"</strong>: quando o ou-exclusivo é negado, o certo é "ambos OU nenhum" — venho com pressa e elejo "ambos", mas aí a alternativa "nenhum" também seria garantida. Resposta com OU é a única que não escolhe.</li>
+<li><strong>Manter o "e" na contrapositiva</strong>: a negação da conjunção é automática (De Morgan). Se eu "esqueço" de trocar, caio na de.</li>
+<li><strong>Confundir indução com dedução válida</strong>: indução pode ser razoável, mas a garantia lógica só existe na dedução; a banca separa <strong>direção</strong> de <strong>validade</strong>.</li>
+<li><strong>Discutir se a premissa é verdadeira</strong>: o enunciado pede a <em>estrutura</em>. Assim que eu começo a perguntar "será que o comitê realmente reavalia projetos atrasados?", já saí da lógica — e a alternativa que faz isso é sempre distrator.</li>
+<li><strong>Aceitar que as alternativas sejam "variações da mesma coisa"</strong>: a banca adora oferecer três alternativas que só trocam dois conectivos. A e B podem ter os mesmos termos e ainda assim estar erradas — o que muda é a <strong>ordem</strong> dos termos ou o <strong>conectivo</strong>.</li>
+</ul>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Roteiro de questão de argumentação</div>
+  <div class="callout-body"><p>1) Traduza as premissas em símbolos (→, ∨, ∧). 2) Marque a proposição "absoluta" (a única V/F conhecida). 3) Opere só por formas válidas (modus tollens, contrapositiva, cadeia, silogismo disjuntivo, De Morgan). 4) Confira o conectivo e a <strong>ordem</strong> da resposta (E × OU). 5) Nada que não derivou do texto é resposta. 6) Se pedirem validade, não discuta veracidade.</p></div>
+</div>
+<hr />
+<h1 id="raciocinio-logico-t03-logica-proposicional">Raciocínio Lógico T03 — Lógica Proposicional</h1>
+<h2 id="1-leis-de-morgan">1. Leis de Morgan</h2>
+<ul>
+<li><strong>Negação da conjunção</strong>: troca o <strong>E</strong> pelo <strong>OU</strong> e nega ambas.</li>
+<li><code>P ^ Q = ¬P v ¬Q</code></li>
+<li><strong>Negação da disjunção</strong>: troca o <strong>OU</strong> pelo <strong>E</strong> e nega ambas.</li>
+<li><strong>Negação em dois níveis</strong>: para negar <code>Dano ∧ (Premeditado ∨ Lucro)</code>, negue o <strong>E</strong> principal e <strong>renego</strong> também o bloco interno — <code>¬Dano ∨ (¬Premeditado ∧ ¬Lucro)</code>.</li>
+<li><strong>"Não é verdade que (X e Y)"</strong> é exatamente De Morgan: <code>¬X ∨ ¬Y</code> — mas o <strong>OU inclusivo</strong> só abre <strong>possibilidades</strong>, nunca certezas absolutas ("João pode morar num apartamento").</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> O espelho de De Morgan na resolução relâmpago</div>
+  <div class="callout-body"><p>Leu a frase original com conectivo <strong>"e"</strong>? A negação <strong>obrigatoriamente</strong> terá um <strong>"ou"</strong> ligando as proposições simples negadas. Leu com <strong>"ou"</strong>? A negação <strong>obrigatoriamente</strong> terá um <strong>"e"</strong>. Na hora da prova: circule o conectivo central e elimine de cara todas as alternativas que mantiveram o conectivo original ou que foram transformadas em condicionais.</p></div>
+</div>
+<hr />
+<h2 id="2-negacao-composta-por-conectivo">2. Negação Composta (por conectivo)</h2>
+<table>
+<thead>
+<tr>
+<th>Conectivo</th>
+<th>Como negar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E</strong> (^)</td>
+<td>Nega tudo e troca pelo <strong>OU</strong></td>
+</tr>
+<tr>
+<td><strong>OU</strong> (v)</td>
+<td>Nega tudo e troca pelo <strong>E</strong></td>
+</tr>
+<tr>
+<td><strong>OU... OU</strong> (⊻)</td>
+<td>Troca pelo <strong>SE, E SOMENTE SE</strong></td>
+</tr>
+<tr>
+<td><strong>SE... ENTÃO</strong> (→)</td>
+<td><strong>Mantém a primeira e nega a segunda</strong> (regra do <strong>MANÉ</strong>) e troca o "então" pelo <strong>E</strong></td>
+</tr>
+<tr>
+<td><strong>SE E SOMENTE SE</strong> (↔)</td>
+<td>Troca pelo <strong>OU... OU</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="21-a-armadilha-semantica-vs-sintatica-na-negacao">2.1 A Armadilha Semântica vs. Sintática na Negação</h3>
+<p>Em questões de lógica proposicional, as bancas (especialmente FUNDATEC e Quadrix) colocam distratores baseados no "senso comum" da linguagem natural para induzir o candidato ao erro:</p>
+<ul>
+<li><strong>Negação Sintática Estrita:</strong> A negação formal não interpreta o significado social ou prático das palavras; ela apenas altera o valor lógico da proposição original inserindo ou removendo a partícula negativa.</li>
+<li><em>Exemplo de Prova:</em> Se uma proposição afirma "João foi aprovado em todas as etapas", a negação lógica correta é rigorosamente: <strong>"João NÃO foi aprovado em todas as etapas"</strong>.</li>
+<li><em>Distrator Clássico (Erro Semântico):</em> "João foi reprovado em pelo menos uma etapa". Embora no mundo real quem não passa em todas tenha sido reprovado em alguma, a lógica formal não presume que "reprovar" é o oposto binário estrito de "aprovar" (João poderia ter faltado, desistido ou tido sua inscrição indeferida).</li>
+<li><em>Regra de Ouro:</em> Prefira sempre a alternativa que preserva os verbos exatos do texto original, apenas manipulando a partícula "não".</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p><strong>A Ditadura do Texto da Banca:</strong> Na lógica formal de concurso, não faça suposições do mundo real. Negação sintática tem precedência absoluta sobre equivalências semânticas coloquiais.</p></div>
+</div>
+<h3 id="22-o-funil-do-cruzamento-condicional-bicondicional">2.2 O Funil do Cruzamento: Condicional + Bicondicional</h3>
+<p>Quando a banca fornece duas premissas envolvendo os mesmos termos:
+1. Uma <strong>Condicional Verdadeira</strong> (<code>P → Q</code> = V)
+2. Uma <strong>Bicondicional Falsa</strong> (<code>P ↔ Q</code> = F)</p>
+<p>A resolução é imediata pelo método do funil:
+- Pela premissa 2, a bicondicional só é Falsa quando <code>P</code> e <code>Q</code> têm <strong>valores lógicos opostos</strong> (um V e outro F).
+- Isso restringe o universo a apenas dois pares: <code>(V, F)</code> ou <code>(F, V)</code>.
+- Teste o par <code>(V, F)</code> na condicional da premissa 1: geraria a "Vera Fischer" (<code>V → F = F</code>), contradizendo a premissa de que a condicional é Verdadeira.
+- Logo, o par <code>(V, F)</code> é eliminado! O único par válido é <strong><code>P = F</code> e <code>Q = V</code></strong>.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Atalho Relâmpago</div>
+  <div class="callout-body"><p>Se <code>P → Q</code> é V e <code>P ↔ Q</code> é F, <strong>o antecedente P é OBRIGATORIAMENTE FALSO e o consequente Q é OBRIGATORIAMENTE VERDADEIRO</strong>.</p></div>
+</div>
+<h3 id="23-negacao-de-condicional-composta-com-consequente-conjuntivo">2.3 Negação de Condicional Composta com Consequente Conjuntivo</h3>
+<p>Estrutura cobrada com frequência em cargos de nível superior e fiscal:
+- Fórmula original: <code>P → (Q ∧ R)</code>
+- Passo 1 (Regra do MANÉ): Mantém o antecedente <code>P</code> e nega o consequente <code>(Q ∧ R)</code> com conectivo E:
+  <code>P ∧ ~(Q ∧ R)</code>
+- Passo 2 (Lei de De Morgan no parêntese): Negam-se ambas as parcelas e troca-se o conectivo <code>∧</code> por <code>∨</code>:
+  <code>P ∧ (~Q ∨ ~R)</code>
+- Tradução: <em>"Ocorre P, E (não ocorre Q OU não ocorre R)"</em>.
+- Cuidado com o distrator: a banca tenta colocar <code>P ∧ (~Q ∧ ~R)</code>, mantendo o conectivo 'E' dentro do parêntese.</p>
+<h2 id="3-equivalencias-notaveis">3. Equivalências Notáveis</h2>
+<h3 id="31-neouma-nega-a-primeira-mantem-a-segunda">3.1 NEOUMA (Nega a primeira, mantém a segunda)</h3>
+<ul>
+<li><code>P -&gt; Q</code> é equivalente a <code>~P v Q</code></li>
+<li>Aplicar NEOUMA é <strong>negar a primeira afirmação (composta ou não) e trocar pelo OU</strong>.</li>
+</ul>
+<h3 id="32-mane-mantem-a-primeira-e-nega-a-segunda">3.2 MANÉ (Mantém a primeira e nega a segunda)</h3>
+<ul>
+<li>Negação de <code>P -&gt; Q</code> = <code>P ^ ~Q</code></li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A negação de "Se... então" NUNCA é outro "Se... então"</div>
+  <div class="callout-body"><p>Ao pedir a negação de uma condicional $P \rightarrow Q$, a banca sempre coloca alternativas começando com "Se...". Lembre-se: negar uma implicação exige quebrá-la em uma conjunção ($P \wedge \neg Q$). A condicional negada SEMPRE vira uma frase com o conectivo <strong>"e"</strong>, jamais outro condicional.</p></div>
+</div>
+<h3 id="33-contrapositiva-inverte-e-nega-tudo">3.3 Contrapositiva (inverte e nega tudo)</h3>
+<ul>
+<li>A equivalência lógica do <strong>SE, ENTÃO</strong> é inverter e negar tudo:</li>
+<li><code>M -&gt; P</code> ≡ <code>~P -&gt; ~M</code></li>
+</ul>
+<p><strong>Exemplo:</strong></p>
+<ul>
+<li>"Se manuseia material, então deve estar de luvas <strong>e</strong> deve utilizar óculos" → <code>P -&gt; (L ^ O)</code></li>
+<li>Contrapositiva: "Se <strong>não</strong> está de luvas <strong>ou</strong> <strong>não</strong> utiliza óculos, então <strong>não</strong> manuseia material" → <code>(~L v ~O) -&gt; ~P</code></li>
+</ul>
+<h3 id="34-casos-especiais-de-equivalencia">3.4 Casos especiais de equivalência</h3>
+<ul>
+<li><strong>Consequente disjuntivo</strong>: <code>P -&gt; (Q v R)</code> vira <code>~P v Q v R</code> — a ordem dos termos do <strong>OU é livre</strong> (comutatividade/associatividade), então um gabarito "trocado" ainda é a mesma equivalência.</li>
+<li><strong>Antecedente conjuntivo</strong>: <code>(C ^ M) -&gt; S</code> exige <strong>De Morgan</strong> antes da NEOUMA: resultado é <code>~C v ~M v S</code>. Ex.: "se o carro foi pego e a multa foi paga" → "o carro não foi pego <strong>ou</strong> a multa não foi paga <strong>ou</strong>...".</li>
+<li><strong>Antecedente disjuntivo na contrapositiva</strong>: <code>(P v Q) -&gt; R</code> ≡ <code>~R -&gt; (~P ^ ~Q)</code> — negar o antecedente <strong>disjuntivo</strong> exige De Morgan, então a contrapositiva <strong>tem E</strong>, não OU.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Equivalência disjuntiva no consequente: a cartada da FGV</div>
+  <div class="callout-body"><p>Em <code>P -&gt; (Q v R)</code> ("Se Márcia é gaúcha, então torce pro Grêmio ou pro Inter"), a contrapositiva clássica seria <code>(~Q ^ ~R) -&gt; ~P</code>. Mas a FGV frequentemente <strong>não coloca</strong> essa opção nas alternativas!
+A banca converte a condicional na sua forma disjuntiva completa: <code>~P v Q v R</code>. Pela comutatividade do "ou", ela isola outra proposição para reabrir uma nova condicional:
+<code>~P v Q v R ≡ Q v (~P v R) ≡ ~Q -&gt; (~P v R)</code>
+Tradução: <em>"Se Márcia NÃO torce pro Grêmio, então NÃO é gaúcha OU torce pro Inter."</em>
+Se você procura a contrapositiva clássica com "e" e não encontra, procure a opção que nega um dos termos do "ou" no antecedente e mantém o restante no consequente disjuntivo.</p></div>
+</div>
+<h3 id="35-distributiva-repetidos-vao-pra-fora">3.5 Distributiva: "repetidos vão pra fora"</h3>
+<ul>
+<li><code>(~p v q) ^ (~p v r)</code> ≡ <strong><code>~p v (q ^ r)</code></strong> — o termo que <strong>se repete nos dois parênteses (<code>~p</code>) sai para fora</strong> e o restante entra no parêntese.</li>
+<li>Analogia numérica: <code>2·3 + 2·4 = 2·(3+4)</code> (comentário Luffy Concurseiro). Caminho inverso (expandir) é o "chuveirinho": <code>~p v (q ^ r)</code> → <code>(~p v q) ^ (~p v r)</code>.</li>
+</ul>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> O mnemônico da mesa</div>
+  <div class="callout-body"><p>"<strong>REPETIDOS VÃO PRA FORA</strong> e coloca o que sobrar dentro dos parênteses" — bater o olho em dois parênteses com um termo igual nos dois é sinal de distributiva.</p>
+<p><strong>💡 Dica</strong>
+- A negação da conjunção é a <strong>disjunção das negações</strong>.
+- Só a <strong>contrapositiva</strong> preserva a verdade de uma condicional: a <strong>recíproca</strong> (<code>Q -&gt; P</code>) e a <strong>inversa</strong> (<code>~P -&gt; ~Q</code>) <strong>não são válidas</strong> — pegadinha clássica de bancas.</p></div>
+</div>
+<hr />
+<h2 id="36-tabela-tana-negacao-de-quantificadores">3.6 Tabela TANA: negação de quantificadores</h2>
+<p>O §17 cuida de "no máximo / no mínimo / exatamente". O caso mais cobrado é o <strong>quantificador</strong>, que tem balde próprio:</p>
+<table>
+<thead>
+<tr>
+<th>Original</th>
+<th>Negação</th>
+<th>Memória</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Todo</strong> T é A</td>
+<td><strong>Algum</strong> T <strong>não</strong> é A</td>
+<td>Todo vira <strong>P</strong>elo menos um <strong>E</strong>xiste <strong>A</strong>lgum, com "não"</td>
+</tr>
+<tr>
+<td><strong>Algum</strong> T é A</td>
+<td><strong>Nenhum</strong> T é A</td>
+<td>Algum &lt;-&gt; Nenhum</td>
+</tr>
+<tr>
+<td><strong>Nenhum</strong> T é A</td>
+<td><strong>Algum</strong> T é A</td>
+<td>Nenhum &lt;-&gt; Algum</td>
+</tr>
+<tr>
+<td><strong>Algum</strong> T não é A</td>
+<td><strong>Todo</strong> T é A</td>
+<td>Fecha o ciclo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TANA</strong> em quatro linhas:</p>
+<pre><code class="language-text">T  odo      -&gt;  A lgum não
+A lgum      -&gt;  Nenhum
+Nenhum      -&gt;  A lgum
+A lgum não  -&gt;  T odo
+</code></pre>
+<p>Mnemônico do "algum": <strong>P</strong>elo menos <strong>E</strong>xiste <strong>A</strong>lgum = <strong>PEA</strong>. O oposto é <strong>NE</strong>nhum ou <strong>TO</strong>do <strong>N</strong>ão.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> "Alguns homens sabem cozinhar" e "alguns homens NÃO sabem cozinhar" não são opostos</div>
+  <div class="callout-body"><p>As duas frases podem ser <strong>verdadeiras ao mesmo tempo</strong> (um sabe, o outro não). O teste infalível: <em>a negação de uma proposição nunca pode ser verdadeira ao mesmo tempo que ela</em>. Se as duas cabem juntas, não são negação uma da outra. O oposto lógico de "algum" é "<strong>nenhum</strong>", e só.</p>
+<p>O mesmo vale para "todos os homens sabem cozinhar": essa é <strong>conclusão</strong> a partir de "alguns sabem", não negação.</p>
+<p><strong>⚠️ Negar "todos ... <strong>e</strong> ..." tem três etapas</strong>
+Tome "Todas as pessoas apreendidas têm 21 anos ou mais <strong>e</strong> são do sexo masculino". A negação exige:
+1. <strong>Quantificador</strong>: "Todas" → "Pelo menos uma".
+2. <strong>Conectivo</strong>: o "e" vira "ou".
+3. <strong>Conteúdo</strong>: nega os termos → "menos de 21 anos", "do sexo feminino".</p>
+<p>Resultado: "Pelo menos uma das pessoas apreendidas tem menos de 21 anos <strong>ou</strong> é do sexo feminino".</p>
+<p>A alternativa que acerta o quantificador e erra o conectivo é a que mais aparece — e ela está errada. Repare também que o "ou" que já estava <strong>dentro</strong> do trecho "21 anos <strong>ou</strong> mais" <strong>não</strong> é o conectivo principal e não muda. O que muda é o "e" entre as duas condições.</p>
+<p><strong>🔴 "Piora" não é a negação de "melhora"</strong>
+A negação de "melhora" é "<strong>não melhora</strong>". "Piora" é o <strong>oposto</strong>, não a negação — alguém pode simplesmente ficar igual. Quando a contrapositiva oferece "piora" no lugar de "não melhora", a alternativa está errada. Essa troca de substantivo por verbo é uma das mais antigas do repertório da banca.</p>
+<p>E atenção ao "nem todo": "nem todo cidadão contribui" é a forma mais chique de escrever "<strong>algum</strong> cidadão não contribui". Se a contrapositiva de "se todos contribuem, então o país melhora" precisa de "algum não contribui" e a alternativa escreve "nem todo", as duas são a mesma proposição — e a alternativa está <strong>certa</strong>.</p>
+<p><strong>🧠 "Todo A é B" em três formatos</strong>
+| Forma | Fórmula |
+|---|---|
+| Condicional | <code>A → B</code> |
+| Contrapositiva | <code>~B → ~A</code> |
+| Silogismo disjuntivo | <code>~A ∨ B</code> |</p>
+<p>E o diagrama é um círculo <strong>dentro</strong> do outro — nunca dois círculos sobrepostos. Isso significa que o conjunto de A está <strong>contido</strong> em B, e que existem B fora de A. Dizer o contrário (que todo B é A) é a recíproca: proibido.</p></div>
+</div>
+<hr />
+<h2 id="4-bicondicional">4. Bicondicional</h2>
+<ul>
+<li>O <strong>bicondicional</strong> (<code>&lt;--&gt;</code>) é <strong>V</strong> quando os valores são <strong>iguais</strong>.</li>
+<li><code>P -&gt; Q</code> equivale a <code>~P v Q</code>; portanto <code>(P -&gt; Q) &lt;--&gt; (~P v Q)</code> é uma <strong>tautologia</strong> (ambas as proposições são equivalentes).</li>
+</ul>
+<h3 id="41-bicondicional-ou-exclusivo-a-confusao-que-a-banca-explora">4.1 Bicondicional × OU EXCLUSIVO — a confusão que a banca explora</h3>
+<p>Os dois exigem que "os dois lados concordem", mas discordam em <strong>um único ponto</strong>: quando os dois lados são falsos.</p>
+<table>
+<thead>
+<tr>
+<th>Situação</th>
+<th><code>P &lt;--&gt; Q</code> (se e somente se)</th>
+<th><code>P ⊕ Q</code> (ou ... ou / apenas um)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V, V</td>
+<td><strong>V</strong></td>
+<td><strong>F</strong></td>
+</tr>
+<tr>
+<td>F, F</td>
+<td><strong>V</strong></td>
+<td><strong>F</strong></td>
+</tr>
+<tr>
+<td>V, F</td>
+<td>F</td>
+<td><strong>V</strong></td>
+</tr>
+<tr>
+<td>F, V</td>
+<td>F</td>
+<td><strong>V</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Relação útil: <strong><code>P ⊕ Q</code> ≡ <code>(P v Q) ^ ~(P ^ Q)</code></strong> — "pelo menos um, mas não os dois".</p>
+<p>E o atalho mais valioso para a prova: o <strong>OU exclusivo</strong> é a <strong>negação do bicondicional</strong>, <code>P ⊕ Q ≡ ~(P &lt;--&gt; Q)</code>. Por isso, ao negar um "se e somente se" o resultado não é "apenas um deles": é "<strong>os dois</strong> ou <strong>nenhum</strong>".</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> "Se e somente se" não é "se" com cara de "se"</div>
+  <div class="callout-body"><p>Quando o enunciado diz que <strong>dois</strong> conceitos são <strong>equivalentes</strong> (ex.: "ser do sexo feminino <strong>se e somente se</strong> apresentar um dos graus previstos em lei"), a negação <strong>não</strong> é "basta um dos dois". É "<strong>nem sempre</strong> um implica o outro": pode ser que os dois valham, ou que nenhum valha. A banca escreve a distração como "basta um dos dois" justamente para você escolher a negação errada.</p>
+<p>E o mesmo cuidado para "ou": se o enunciado usar <strong>"ou"</strong> sem "exclusivamente", ele é <strong>inclusivo</strong> — os dois podem valer. Só o "ou ... ou" (ou "apenas um") é exclusivo. A negação do inclusivo é "<strong>nenhum</strong>"; a do exclusivo é "<strong>os dois ou nenhum</strong>".</p></div>
+</div>
+<h3 id="42-as-tres-classes-de-formula">4.2 As três classes de fórmula</h3>
+<table>
+<thead>
+<tr>
+<th>Classe</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tautologia</strong></td>
+<td><strong>Sempre verdadeira</strong></td>
+</tr>
+<tr>
+<td><strong>Contradição</strong></td>
+<td><strong>Sempre falsa</strong></td>
+</tr>
+<tr>
+<td><strong>Contingência</strong></td>
+<td>Depende — é a única que interessa quando o comando é "determine o valor"</td>
+</tr>
+</tbody>
+</table>
+<p>Reconhecer sem montar tabela:</p>
+<ul>
+<li><strong>Tautologias</strong>: <code>P v ~P</code>; <code>P ^ ~P -&gt; Q</code>; <code>P -&gt; (P v Q)</code>; <code>P &lt;--&gt; P</code>; <code>P -&gt; (Q -&gt; P)</code>.</li>
+<li><strong>Contradições</strong>: <code>P ^ ~P</code>; <code>P ^ (~P v R)</code>; <code>(P v ~P) ^ ~R</code>.</li>
+<li><strong>Contingência</strong>: qualquer coisa que não caia nas duas de cima.</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> Contradição disfarçada</div>
+  <div class="callout-body"><p><code>P v ~P</code> é tautologia, mas <code>(P v ~P) ^ R</code> <strong>não</strong> é contradição nem tautologia: se <code>R</code> for verdadeiro, o resultado é <strong>V</strong>. A disjunção que cobre tudo só "anula" o lado esquerdo quando o conectivo for <strong>E</strong>. Com <strong>OU</strong>, o lado verdadeiro engole o falso e salva a fórmula inteira. Já <code>(P ^ ~P) v R</code> também não é contradição — basta <code>R = V</code>.</p>
+<p><strong>💡 Quando o comando é "classifique", use o atalho</strong>
+Não monte tabela de 8 linhas. Tente <strong>forçar o F</strong> (se não conseguir, é tautologia) e tente <strong>forçar o V</strong> (se não conseguir, é contradição). Se conseguir os dois, é contingência — e aí sim o comando "determine o valor" não tem resposta única.</p></div>
+</div>
+<h3 id="43-resumo-de-memorizacao-equivalencia-e-negacao-da-bicondicional">4.3 Resumo de Memorização: Equivalência e Negação da Bicondicional</h3>
+<table>
+<thead>
+<tr>
+<th>O que você quer fazer?</th>
+<th>Estrutura Resultante</th>
+<th>Exemplo em Linguagem Natural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Equivalência da Bicondicional</strong> <em>(dizer a mesma verdade)</em></td>
+<td>$\sim P \leftrightarrow \sim Q$</td>
+<td>"NÃO é B <strong>se e somente se</strong> NÃO é T"</td>
+</tr>
+<tr>
+<td><strong>Negação da Bicondicional</strong> <em>(tornar a proposição falsa)</em></td>
+<td>$P \veebar Q$ <strong>ou</strong> $P \leftrightarrow \sim Q$</td>
+<td>"<strong>Ou</strong> é B, <strong>ou</strong> é T" <br> "É B <strong>se e somente se</strong> NÃO é T"</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Negando a bicondicional com um "não"</div>
+  <div class="callout-body"><p>Para negar $P \leftrightarrow Q$, basta negar <strong>um único lado</strong>: $P \leftrightarrow \sim Q$ ou $\sim P \leftrightarrow Q$. Se você negar os dois lados ao mesmo tempo ($\sim P \leftrightarrow \sim Q$), você obtém uma <strong>equivalência</strong>, e não uma negação!</p></div>
+</div>
+<hr />
+<h2 id="5-condicional-e-a-vera-fischer">5. Condicional e a "Vera Fischer"</h2>
+<p>Na condicional (<code>-&gt;</code>), <strong>apenas V → F é FALSO</strong> (Vera Fischer).</p>
+<ul>
+<li>Se <code>P ^ Q = V</code> é falso:</li>
+<li><code>P -&gt; ~Q</code> = <code>V -&gt; F</code> = <strong>F</strong> (só vale Vera Fischer)</li>
+<li><code>~Q -&gt; P</code> = <code>F -&gt; V</code> = <strong>V</strong> (não vale na condicional)</li>
+</ul>
+<p><strong>Exemplo:</strong></p>
+<ul>
+<li>Afirmações verdadeiras: o carro é preto (C), a moto não é branca (~M), a bicicleta é vermelha (B).</li>
+<li>Quando <code>(~B ^ C) -&gt; M</code> será verdadeira?</li>
+<li><code>(F ^ V) -&gt; F</code> = <code>F -&gt; F</code> = <strong>V</strong> (apenas V→F é falsa).</li>
+</ul>
+<p><strong>Valoração encadeada com bloco duplo:</strong>
+- Se <code>(a ^ b) -&gt; (c v d)</code> é <strong>FALSA</strong> → só pode ser <code>V -&gt; F</code>: logo <code>a</code> e <code>b</code> são <strong>V</strong> e <code>c</code> e <code>d</code> são <strong>F</strong>. Mate o bloco inteiro de cada lado, não letra por letra.</p>
+<h3 id="51-consequente-conjuntivo-desmorona-com-um-f">5.1 Consequente conjuntivo desmorona com um F</h3>
+<ul>
+<li><code>(q v t) -&gt; (p ^ r ^ s)</code> = <strong>V</strong> e <code>s</code> é <strong>F</strong> → o consequente <code>(p ^ r ^ s)</code> é <strong>F</strong> (conjunção basta um F) → para a condicional continuar V, o antecedente <code>(q v t)</code> tem de ser <strong>F</strong> → <code>q</code> e <code>t</code> são <strong>F</strong>.</li>
+<li><code>p</code> e <code>r</code> ficam <strong>indeterminados</strong> — a banca não entregou e você não precisa deles. Quem insiste em "descobrir p/r" marca cenário possível (A/B) em vez da garantia (C).</li>
+</ul>
+<h3 id="52-condicional-falsa-mate-os-blocos">5.2 Condicional FALSA: mate os blocos</h3>
+<ul>
+<li>"Se a calça é verde <strong>e</strong> a camisa é rosa, então o sapato é <strong>branco ou</strong> o cinto é marrom" é <strong>FALSA</strong> → só a linha <strong>V → F</strong>:</li>
+<li>Antecedente <code>(calça ∧ camisa)</code> V → calça V, camisa V.</li>
+<li>Consequente <code>(sapato ∨ cinto)</code> F → sapato <strong>não</strong> branco, cinto <strong>não</strong> marrom.</li>
+<li>Valorando <code>se...então</code>, a resposta é a que parte de premissa <strong>falsa</strong>: "se a calça não é verde (F), então o cinto é marrom (F)" = <code>F -&gt; F</code> = <strong>V</strong>. Atalho: entre condicionais, ache a de antecedente F.</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> FALSA pede valoração, não negação</div>
+  <div class="callout-body"><p>Quando o enunciado diz que a condicional <strong>é falsa</strong>, a FGV pede para extrair os valores (Vera Fischer) e valorar as alternativas — <strong>não</strong> para negar a frase. A mesma banca ora pede negação, ora pede literalidade: leia o comando antes de operar.</p></div>
+</div>
+<h3 id="53-condicional-falsa-com-inequacoes-algebricas">5.3 Condicional Falsa com Inequações Algébricas</h3>
+<p>Quando a questão pergunta quando uma proposição condicional com inequações é FALSA (ex.: <em>"Se x ≤ y, então x + 2y &lt; 5"</em>):
+1. <strong>Antecedente deve ser VERDADEIRO</strong>: $x \le y$. Se uma alternativa apresentar $x &gt; y$, o antecedente é Falso e a condicional é automaticamente Verdadeira ($F \to \dots = V$) — elimine sem calcular o resto!
+2. <strong>Consequente deve ser FALSO</strong>: a negação de $x + 2y &lt; 5$ é $x + 2y \ge 5$.
+3. Teste os pares $(x, y)$: a única combinação que cumpre $V \to F$ é a resposta correta.</p>
+<h3 id="54-condicional-falsa-com-consequente-disjuntivo-e-aritmetica">5.4 Condicional Falsa com Consequente Disjuntivo e Aritmética</h3>
+<p>Quando a sentença <em>"Se A é par, então B é ímpar ou C não é primo"</em> é dita <strong>FALSA</strong>:
+- Antecedente $V \implies A$ é <strong>par</strong>.
+- Consequente $F \implies$ a disjunção inteira é Falsa:
+  - <em>"B é ímpar"</em> é Falso $\implies B$ é <strong>par</strong>.
+  - <em>"C não é primo"</em> é Falso $\implies C$ é <strong>primo</strong>.
+- <strong>Conclusão aritmética imediata:</strong> como $A$ e $B$ são números pares, qualquer multiplicação contendo fatores pares gera resultado par. Logo, o produto $A \times B \times C$ é <strong>necessariamente PAR</strong> (enquanto a soma depende de $C$ ser o primo 2 ou outro ímpar).</p>
+<hr />
+<h2 id="6-exemplos-aplicados">6. Exemplos Aplicados</h2>
+<p><strong>Ex. 1 — Todos os voos sofreram atrasos <code>ou</code> foram cancelados</strong>
+→ Pelo menos um voo <strong>não</strong> sofreu atraso <strong>e</strong> <strong>não</strong> foi cancelado.</p>
+<p><strong>Ex. 2 — Todos os voos sofreram atrasos <code>e</code> foram cancelados</strong>
+→ Pelo menos um voo <strong>não</strong> sofreu atraso <strong>ou</strong> <strong>não</strong> foi cancelado.</p>
+<p><strong>Ex. 3 — "Se a bola é branca e a caixa não é azul, então a ficha é vermelha"</strong>
+→ Aplicar NEOUMA: "A bola <strong>não</strong> é branca <strong>ou</strong> a caixa <strong>é</strong> azul <strong>ou</strong> a ficha é vermelha".</p>
+<p><strong>Ex. 4 — "O carro é azul ou verde e há no máximo 3 pessoas no carro" (afirmação falsa)</strong>
+1. Negar a primeira: "O carro não é azul <strong>nem</strong> verde";
+2. Negar a segunda: "no máximo 3" → "<strong>pelo menos 4</strong>";
+3. Trocar o <strong>E</strong> pelo <strong>OU</strong>;
+4. Resultado: "O carro não é azul nem verde, <strong>ou</strong> há <strong>pelo menos 4</strong> pessoas no carro".</p>
+<hr />
+<h2 id="7-diagramas-e-conectivos">7. Diagramas e Conectivos</h2>
+<ul>
+<li><strong>Interseção</strong> está relacionada ao conectivo <strong>E</strong>.</li>
+</ul>
+<hr />
+<h2 id="8-argumentacao-quais-formas-sao-validas">8. Argumentação: quais formas são válidas?</h2>
+<ul>
+<li>Premissa <code>A -&gt; R</code> + premissa <code>~R</code> ∴ <strong><code>~A</code></strong> → <strong>modus tollens</strong> (negar o consequente arrasta a negação do antecedente) — forma válida.</li>
+<li>Só a <strong>contrapositiva</strong> conserva o valor lógico da premissa; <strong>recíproca</strong> e <strong>inversa</strong> são falácias formais.</li>
+<li>Não <strong>invente premissas</strong>: se a questão não disse algo, considere-o falso (não afirme "alguém registrou depois" se o enunciado não registrou).</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> Pegadinha</div>
+  <div class="callout-body"><p>Silogismos com "todo"/"se...então" pedem a conclusão <strong>literalmente</strong> derivada. Uma frase que parece plausível mas não deriva das premissas é só uma ressalva da sua mente, não a resposta.</p></div>
+</div>
+<h2 id="9-tautologia-o-metodo-de-quebrar-nos-parenteses">9. Tautologia: o método de "quebrar nos parênteses"</h2>
+<p>Para saber se <code>P ⨀ ¬P ⨂ (Q -&gt; (Q v R))</code> é tautologia:</p>
+<ol>
+<li>Quebre pela conjunção <strong>central</strong> (<code>⋀</code>) — ela é a <strong>âncora</strong>: os dois blocos têm de ser <strong>sempre V</strong>.</li>
+<li>Dentro de cada bloco, descubra o conectivo oculto: <code>P ⨀ ¬P</code> só é sempre V se ⨀ = <strong>v</strong> (terceiro excluído); <code>Q -&gt; (Q v R)</code> é <strong>sempre V</strong> (se Q é F, <code>F-&gt;F</code> é V; se Q é V, <code>V-&gt;V</code> é V).</li>
+<li>Ambos os blocos sempre V → a fórmula inteira é <strong>tautológica</strong>.</li>
+</ol>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Rápido de prova</div>
+  <div class="callout-body"><p><code>P v ¬P</code> (terceiro excluído) e <code>Q -&gt; (Q v R)</code> (absorção da disjunção) já são conhecidas como verdadeiras — identifique esses "esqueletos" antes de montar tabela.</p></div>
+</div>
+<h3 id="91-tautologia-o-metodo-do-forcar-o-falso">9.1 Tautologia: o método do "forçar o Falso"</h3>
+<p>Depois de dominar a quebra nos parênteses, use o <strong>testador de falhas</strong>: tente <strong>fazer a proposição dar F</strong>. Se for impossível, é tautologia.</p>
+<ul>
+<li><code>(p ^ q) -&gt; (p v q)</code>: para o antecedente ser V é obrigatório <code>p = q = V</code>; aí o consequente é <code>V v V = V</code> → <code>V -&gt; V</code>, impossível chegar a <code>V -&gt; F</code> → <strong>tautologia</strong>.</li>
+<li><code>(p v q) -&gt; (p ^ q)</code>: falha com <code>p = V, q = F</code> (<code>V -&gt; F = F</code>) → contingência ( distrator).</li>
+<li>Esqueleto decorável: <strong>"conjunção implica disjunção" sempre V</strong> (a disjunção absorve a conjunção).</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Atalho de mesa</div>
+  <div class="callout-body"><p>Tautologia clássica da FGV tem <strong>letra repetida nos dois lados</strong> e condicional com consequente disjuntivo — filtre essas antes de valerar tudo.</p></div>
+</div>
+<h3 id="92-as-quatro-grandes-tautologias-de-inferencia-logica">9.2 As Quatro Grandes Tautologias de Inferência Lógica</h3>
+<p>Muitas questões de prova cobram a identificação de tautologias com fórmulas extensas que assustam o candidato. Na realidade, toda <strong>regra clássica de inferência válida</strong> estruturada com a conjunção de suas premissas implicando a conclusão é uma <strong>Tautologia Incondicional</strong>:</p>
+<ol>
+<li><strong>Regra da Simplificação (O Gatilho do E):</strong></li>
+<li>Fórmula: <code>(p ∧ q) → p</code> e <code>(p ∧ q) → q</code></li>
+<li>Leitura: "Se eu tenho maçã e banana, com certeza eu tenho maçã".</li>
+<li>
+<p>Por que é Tautologia: Para falsear a condicional (Vera Fischer: $V     o F$), precisaríamos de $p = F$. Mas se $p = F$, o antecedente <code>(F ∧ q)</code> torna-se Falso imediatamente, resultando em $F     o F = V$. Impossível ser Falsa.</p>
+</li>
+<li>
+<p><strong>Silogismo Disjuntivo:</strong></p>
+</li>
+<li>Fórmula: <code>((A ∨ B) ∧ ~B) → A</code> ou <code>((A ∨ B) ∧ ~A) → B</code></li>
+<li>Leitura: "Tenho A ou B; não tenho B; logo, necessariamente tenho A".</li>
+<li>
+<p>Se uma disjunção é verdadeira e uma das partes foi negada, a outra parte obrigatoriamente sustenta a verdade.</p>
+</li>
+<li>
+<p><strong>Modus Ponens (Afirmação do Antecedente):</strong></p>
+</li>
+<li>Fórmula: <code>((p → q) ∧ p) → q</code></li>
+<li>
+<p>Leitura: "Se chove, molha; choveu; logo, molhou".</p>
+</li>
+<li>
+<p><strong>Modus Tollens (Negação do Consequente):</strong></p>
+</li>
+<li>Fórmula: <code>((p → q) ∧ ~q) → ~p</code></li>
+<li>Leitura: "Se chove, molha; não molhou; logo, não choveu".</li>
+</ol>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>Esqueleto das Inferências:</strong> Toda inferência válida na forma <code>(Premissa 1 ∧ Premissa 2) → Conclusão</code> é uma Tautologia. Não perca tempo desenhando tabela-verdade de 8 linhas!</p></div>
+</div>
+<h3 id="93-o-casal-perfeito-terceiro-excluido-vs-lei-da-nao-contradicao">9.3 O Casal Perfeito: Terceiro Excluído vs. Lei da Não-Contradição</h3>
+<ul>
+<li><strong>Princípio do Terceiro Excluído:</strong> <code>P ∨ ~P</code></li>
+<li>Uma proposição ou é verdadeira ou sua negação é verdadeira; não há terceira opção.</li>
+<li>Tabela-verdade: SEMPRE Verdadeira (<strong>Tautologia</strong>).</li>
+<li><strong>Lei da Não-Contradição:</strong> <code>P ∧ ~P</code></li>
+<li>É impossível uma proposição ser simultaneamente verdadeira e falsa no mesmo contexto.</li>
+<li>Tabela-verdade: SEMPRE Falsa (<strong>Contradição</strong>).</li>
+<li><strong>Negação da Contradição vira Tautologia:</strong></li>
+<li><code>~(P ∧ ~P)</code> = SEMPRE Verdadeira (<strong>Tautologia</strong>).</li>
+<li>É uma das pegadinhas mais amadas pela FUNDATEC e Quadrix: a banca coloca <code>~(P ∧ ~P)</code> como alternativa para o candidato achar que é negação simples.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p><strong>A Armadilha da Bicondicional vs. Implicação:</strong>
+- <code>(p ∧ q) → (p ∨ q)</code> é <strong>TAUTOLOGIA</strong> (conjunção implica disjunção; ter os dois garante ter pelo menos um).
+- <code>(p ∧ q) ↔ (p ∨ q)</code> é <strong>CONTINGÊNCIA</strong> (não são equivalentes! Se p=V e q=F, o lado OU é V e o lado E é F, gerando F ↔ V = Falso).
+- <code>(p ∨ q) → (p ∧ q)</code> é <strong>CONTINGÊNCIA</strong> (ter pelo menos um não garante ter ambos; falha com p=V, q=F).</p></div>
+</div>
+<h3 id="94-operacoes-com-proposicoes-logicamente-equivalentes">9.4 Operações com Proposições Logicamente Equivalentes</h3>
+<p>Se a banca afirma que a proposição composta $A$ é logicamente equivalente à proposição composta $B$ ($A \equiv B$):
+- A bicondicional entre elas <code>A ↔ B</code> é SEMPRE uma <strong>Tautologia</strong> (pois ambas sempre terão valores lógicos idênticos em todas as linhas: $V \leftrightarrow V = V$ e $F \leftrightarrow F = V$).
+- A disjunção exclusiva entre elas <code>A ⊻ B</code> (ou <code>A ⩒ B</code>) é SEMPRE uma <strong>Contradição</strong> (pois o XOR exige valores opostos para ser verdadeiro; valores idênticos sempre geram Falso).</p>
+<h2 id="10-negacao-de-desigualdades">10. Negação de desigualdades</h2>
+<table>
+<thead>
+<tr>
+<th>Original</th>
+<th>Negação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x ≥ a</code></td>
+<td><code>x &lt; a</code></td>
+</tr>
+<tr>
+<td><code>x ≤ a</code></td>
+<td><code>x &gt; a</code></td>
+</tr>
+<tr>
+<td><code>x &gt; a</code></td>
+<td><code>x ≤ a</code></td>
+</tr>
+<tr>
+<td><code>x &lt; a</code></td>
+<td><code>x ≥ a</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ou seja: trocar o sinal pela forma <strong>estrita oposta</strong> — o <code>≥</code> vira <code>&lt;</code>, o <code>≤</code> vira <code>&gt;</code>, e vice-versa (negado o símbolo de comparação, negar a igualdade cobrada junto).</p>
+<h2 id="11-dicas-de-comando-e-mnemonicos-fgv">11. Dicas de comando e mnemônicos FGV</h2>
+<ul>
+<li><strong>"Negativa" ≠ "Negação"</strong>: julgamento da premissa (V/F) é diferente de transformação lógica (MANÉ/De Morgan). Leia o comando antes de operar.</li>
+<li>Se a banca <strong>não</strong> deu uma informação, a afirmativa sobre ela é <strong>falsa</strong>.</li>
+<li>Pede negação e <strong>nenhuma alternativa é uma negação</strong>? A resposta certa é uma <strong>equivalência</strong>.</li>
+<li><strong>"É correto concluir que..."</strong> costuma pedir <strong>equivalência</strong> disfarçada — teste contrapositiva (inverte, nega, nega) antes de marcar ("se eu faço o desjejum, então não acordei tarde").</li>
+<li>Mnemônicos de mesa: <strong>"regra do exigente"</strong> — a conjunção (^) só é V com os dois V; <strong>"só não avacalha"</strong> — a disjunção (v) basta um V; <strong>"nem"</strong> = "e não"; contrapositiva = <strong>"inverte, nega, nega" ("in ne ne")</strong>; equivalência = <strong>NEOUMA/NEYMAR</strong> (nega a 1ª, troca por OU, mantém a 2ª).</li>
+</ul>
+<hr />
+<h2 id="12-condicao-suficiente-condicao-necessaria">12. Condição suficiente × condição necessária</h2>
+<p><strong>Regra de ouro:</strong> em <code>P → Q</code>, o <strong>antecedente (P) é condição suficiente</strong> de Q (quem garante); o <strong>consequente (Q) é condição necessária</strong> de P (o que é exigido).</p>
+<ul>
+<li>(FGV 2009, MEC): "Ser baiano é condição <strong>suficiente, mas não necessária</strong> para ser brasileiro". Quem é baiano é brasileiro (garante), mas dá para ser brasileiro sem ser baiano.</li>
+<li>Pegadinha clássica: alternativa que diz "necessária <strong>E</strong> suficiente ao mesmo tempo" → sempre errada em condicional simples.</li>
+</ul>
+<p>** (FGV 2013, DETRAN-MA) — a montagem que derruba:**
+- Premissa: <code>(~X ∧ Y) → Z</code>, com Z <strong>não</strong> acontecendo.
+- Contrapositiva: <code>~Z → (X ∨ ~Y)</code>. Como <code>~Z</code> é <strong>V</strong>, vale <code>X ∨ ~Y</code>.
+- <code>X ∨ ~Y</code> é exatamente <code>Y → X</code> → <strong>Y é condição suficiente para X</strong>.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Quem é quem</div>
+  <div class="callout-body"><p>Suficiente = <strong>antecedente</strong> (promove). Necessária = <strong>consequente</strong> (precisa). Se a questão inverte, você cai — confira sempre qual lado é garantia e qual é exigência.</p></div>
+</div>
+<hr />
+<h2 id="13-as-equivalencias-que-a-fgv-repete">13. As equivalências que a FGV repete</h2>
+<ul>
+<li><strong><code>A → B ≡ ~A ∨ B</code></strong> (regra do <strong>NÉ-OU</strong>) (FGV 2018, MPE-AL): gabarito "<strong>~A ou B</strong>".</li>
+<li><strong><code>P ∨ Q ≡ ~P → Q</code></strong> (FGV 2013, AL-MT): "Chego atrasado <strong>ou</strong> saio cedo" ≡ "<strong>Se não</strong> chego atrasado, então saio cedo". Pegadinha: iniciar o "se" pelo termo <strong>não</strong> negado altera o valor.</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Mesmo família</div>
+  <div class="callout-body"><p>Contrapositiva, NÉ-OU e a disjunção→condicional são as três equivalências que "caem demais" — decore o trio junto, não uma de cada vez.</p></div>
+</div>
+<hr />
+<h2 id="14-tabela-verdade-na-marra-marca-registrada-fgv">14. Tabela-verdade "na marra" (marca registrada FGV)</h2>
+<ul>
+<li>(FGV 2013, SUDENE): com <strong>três premissas</strong> (duas condicionais + uma disjunção) que precisam ser <strong>todas V</strong>, monte a tabela e procure a proposição <strong>sempre verdadeira</strong> nas linhas úteis — aqui, <strong>"Jair é cearense"</strong>. Testar só os casos em que a disjunção é V é o atalho.</li>
+<li>(FGV 2019, MPE-RJ): <strong>confira as contas primeiro, depois os conectivos</strong> — 30% de 120 = <strong>36 (V)</strong>; 25% de 140 = <strong>35 (F)</strong>. Então: <code>V∧F = F</code>; <code>V∨F = V</code>; <code>F→V = V</code> → corretas <strong>II e III</strong>.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Ordem de ataque</div>
+  <div class="callout-body"><p>A FGV esconde o conectivo simples atrás de uma conta "fácil" com porcentagem. Quem pula a conta e vai direto para a tabela erra o sentido das letras.</p></div>
+</div>
+<h3 id="141-onde-comecar-a-tabela-sempre-pela-conjuncao">14.1 Onde começar a tabela: sempre pela conjunção</h3>
+<p>A ordem que economiza tempo: <strong>primeiro as conjunções, depois as condicionais, por último as bicondicionais</strong>.</p>
+<p>Exemplo com cinco proposições: <code>(B ∧ C) → A</code>, <code>B ↔ A</code>, <code>~C</code>, <code>(A ∧ B) → C</code>, <code>(~A ↔ B) → C</code>.</p>
+<ol>
+<li><strong>Ache a proposição solta e use-a como âncora</strong>. <code>~C</code> é F. Então a conjunção <code>(A ∧ B) → C</code> é verdadeira <strong>apenas</strong> se <code>A ∧ B</code> for F — morre <strong>um</strong> dos dois e o outro fica livre.</li>
+<li><strong>Bicondicional é o divisor de águas</strong>: <code>B ↔ A</code> impõe que <code>A</code> e <code>B</code> sejam iguais. Cruze isso com o passo 1: se <code>A = V</code>, então <code>B = V</code> e o par dá V — impossível, porque a premissa exigiria <code>C = V</code>. Logo <code>A = F</code>, e então <code>B = F</code>.</li>
+<li><strong>Feche na ordem</strong>: <code>(B ∧ C) → A</code> = <code>(F ... ) → F</code> = <strong>V</strong> de qualquer jeito. E <code>(~A ↔ B) → C</code> = <code>(V ↔ F) → F</code> = <code>F → F</code> = <strong>V</strong>.</li>
+</ol>
+<p>Você chegou nas duas sem tabelar 32 linhas. A regra: <strong>a proposição com valor conhecido é a âncora; a conjunção morre com um F; o bicondicional amarra os pares</strong>.</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> <code>~</code> não é "está errado"</div>
+  <div class="callout-body"><p><code>~C</code> significa "<strong>não</strong> é verdade que C". Não significa que C é mentira. <code>~C</code> = <strong>F</strong> quer dizer apenas que a proposição "C" não se sustenta. Confundir <code>~</code> com <code>F</code> é erro de leitura, não de lógica — e ele muda toda a conta.</p></div>
+</div>
+<h3 id="142-assinale-a-sequencia-correta-o-jogo-das-permutacoes">14.2 "Assinale a sequência correta" — o jogo das permutações</h3>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Quando nenhuma alternativa bate no gabarito</div>
+  <div class="callout-body"><p>Em questões que pedem a classificação V/F de 4 assertivas sobre fórmulas lógicas (ex.: <code>F = (p → q) ∧ (¬p → ¬q)</code>), a tabela-verdade dá <strong>F, V, V, F</strong>.
+Ocasionalmente nenhuma das alternativas da banca corresponde exatamente a essa sequência por erro material ou permutação inconsistente no edital.
+Isso acontece: a banca publica gabaritos preliminares com falhas. O método seguro:
+1) Resolva as assertivas e escreva a sua sequência no rascunho.
+2) Se nenhuma alternativa bater, o problema é da elaboração da questão.
+3) Marque a alternativa mais plausível para recurso posterior e siga adiante sem perder tempo.</p></div>
+</div>
+<p>Quando o comando pede a <strong>sequência de V/F</strong> de um conjunto de proposições, o número de alternativas é pequeno e a distribution é previsível. Existem 2 sequências possíveis (VVV / VVF) e 2^3 = 8 combinações — mas a banca <strong>só oferece 4</strong> por serem as combinações de um <strong>"se...então e apenas se"</strong> mal construído.</p>
+<p><strong>O método que não erra:</strong></p>
+<ol>
+<li>Localize o <strong>"se e somente se"</strong> (ou "se...então, e apenas se") na sequência pedida. Essa proposição vai ser V ou F.</li>
+<li><strong>Force o valor dela.</strong> Se a sequência inteira é V, o bicondicional precisa ser V, o que obriga as duas proposições a terem o <strong>mesmo</strong> valor.</li>
+<li><strong>Verifique as outras três</strong> com essa restrição. Três verificações, não 64.</li>
+<li>Se nenhuma das 4 alternativas sobreviver, é porque você leu o <strong>quantificador</strong> do enunciado errado — volte a ele.</li>
+</ol>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A sequência "V, F, V, F" às vezes não é a resposta</div>
+  <div class="callout-body"><p>Com <code>se P e apenas se Q</code> (isto é, <code>P ↔ Q</code>) e <code>Q</code> verdadeiro, a proposição "P" é <strong>também</strong> verdadeira — logo a sequência que começa "V, F" já viola o bicondicional. Quando a banca escreve "se P <strong>e apenas se</strong> Q", leia como "P <strong>se e somente se</strong> Q", e não como uma condicional simples. O "apenas se" é sempre <strong>bicondicional</strong> na cabeça.</p>
+<p><strong>🧠 Quatro letras, três perguntas</strong>
+Antes de escolher, pergunte três vezes: (1) <strong>Vira o par</strong> — a sequência respeita o "se e somente se"? (2) <strong>Conta</strong> — quantas proposições são, e a alternativa tem essa quantidade? (3) <strong>Troca</strong> — a alternativa que parece a certa por simetria costuma ter só uma letra trocada, e é exatamente por isso que ela está errada.</p></div>
+</div>
+<hr />
+<h2 id="15-argumentacao-em-cadeia">15. Argumentação em cadeia</h2>
+<h3 id="151-efeito-domino">15.1 Efeito dominó</h3>
+<ul>
+<li>Comece pela <strong>proposição simples</strong> (ex.: "Tiago não foi ao curso" = V) e derrube as disjunções em sequência: <code>curso ∨ não-estudo</code> → não estudou; <code>trabalho ∨ estudo</code> → trabalhou; <code>escritório ∨ não-trabalho</code> → foi ao escritório. Gabarito: <strong>foi ao escritório e trabalhou</strong>.</li>
+</ul>
+<h3 id="152-cadeia-de-condicionais-com-vera-fischer">15.2 Cadeia de condicionais com Vera Fischer</h3>
+<ul>
+<li><code>X→Y</code>; <code>~Y→Z</code>; e sabemos <code>~Z</code>. Como <code>~Z</code> é V, em <code>~Y→Z</code> o <code>~Y</code> tem de ser <strong>F</strong> (F→V) → <strong>Y é B</strong>. X continua <strong>indeterminado</strong>.</li>
+</ul>
+<h3 id="153-dilema-construtivo">15.3 Dilema construtivo</h3>
+<ul>
+<li>Reorganize as premissas colocando a <strong>disjunção por último</strong> e deduza a proposição comum (clubes: Moto Club, Sampaio Corrêa e Maranhão).</li>
+</ul>
+<h3 id="154-ordenacao-relativa">15.4 Ordenação relativa</h3>
+<ul>
+<li>Com apenas relações parciais (<code>S&gt;R</code>, <code>F&lt;P</code>, <code>P&gt;R</code>), é <strong>proibido afirmar</strong> quem é o topo ou o último — mas dá para garantir que <strong>Sebastião não é o mais novo</strong> (R é mais novo que S e que P).</li>
+</ul>
+<h3 id="155-quem-mente-e-o-dia-da-declaracao">15.5 Quem mente e o dia da declaração</h3>
+<ul>
+<li>Junte as condições dos dois depoimentos e <strong>cuidado com o que a questão pergunta</strong>: era o dia da <strong>declaração</strong> (segunda-feira), não o dia seguinte. Muita gente erra por responder o "amanhã" em vez do dia em que a frase foi dita.</li>
+</ul>
+<h3 id="156-cadeia-de-condicionais-o-elo-quebrado-derruba-os-anteriores">15.6 Cadeia de condicionais: o elo quebrado derruba os anteriores</h3>
+<p>Imagine o fluxo de uma aplicação em três bureaus, com as regras fixas do processo:</p>
+<ul>
+<li><strong>C</strong> — a aplicação está completa</li>
+<li><strong>T</strong> — foi encaminhada à análise técnica</li>
+<li><strong>N</strong> — recebeu número de protocolo</li>
+<li><strong>F</strong> — entrou na fila de processamento</li>
+<li><strong>D</strong> — foi rejeitada por defeito formal</li>
+</ul>
+<p>As regras do processo formam <strong>uma corrente só</strong>:</p>
+<p>$$C \rightarrow T \rightarrow N \rightarrow F \rightarrow \neg D$$</p>
+<p>Numa auditoria descobre-se que a aplicação <strong>não tem protocolo</strong> (<code>¬N</code>, fato verificável). O que dá para concluir?</p>
+<p><strong>A direção "para trás" é a única autorizada pela lógica.</strong> Aplica-se o <em>modus tollens</em> elo por elo, voltando na corrente:</p>
+<ul>
+<li><code>T → N</code> e <code>¬N</code> ⟹ <strong><code>¬T</code></strong> (não foi encaminhada à análise técnica)</li>
+<li><code>C → T</code> e <code>¬T</code> ⟹ <strong><code>¬C</code></strong> (não está completa)</li>
+</ul>
+<p>Juntando as duas com "E": <strong>"a aplicação não está completa e não foi encaminhada à análise técnica"</strong> — que é literalmente o texto da alternativa correta.</p>
+<p><strong>A direção "para frente" não diz nada.</strong> Saber que <code>N</code> não ocorreu <strong>não</strong> permite afirmar se houve ou não <code>F</code>, e muito menos se houve ou não <code>D</code>. A corrente para frente (<code>N → F → ¬D</code>) só garante o que vem <em>depois</em> de um <code>N</code> verdadeiro — e aqui foi justamente o elo <code>N</code> que não ocorreu.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A isca preferida da banca</div>
+  <div class="callout-body"><p>A alternativa que "explica" o problema — <em>"a ausência de protocolo implica o defeito formal"</em> — é justamente a <strong>negação do antecedente</strong>: ela supõe que o elo que não aconteceu simplesmente aconteceu. É a mesma pegadinha de dizer "se chove, então o chão molha; logo, sem chuva, o chão está seco". Numa cadeia, <strong>só se volta</strong>; nunca se avança a partir do elo quebrado.</p>
+<p><strong>🧠 Dominó de uma regra só</strong>
+A condicional só quebra em <code>V → F</code>. Então, numa corrente verdadeira:
+- <strong>começo V</strong> ⟹ o final tem que ser <strong>V</strong> (senão vira <code>V → F</code>);
+- <strong>final F</strong> ⟹ o começo tem que ser <strong>F</strong> (pelo mesmo motivo: se fosse V, daria <code>V → F</code>).
+Todo o dominó é forçado a <strong>voltar negando</strong> cada peça anterior. Guarde só isso e a maioria das questões de cadeia cai.</p></div>
+</div>
+<hr />
+<h2 id="16-contra-exemplo-de-condicional">16. Contra-exemplo de condicional</h2>
+<ul>
+<li>Para refutar <code>Se P então Q</code>, precisa de <strong>P verdadeiro e Q falso</strong> (é exatamente a negação MANÉ).</li>
+<li>(FGV 2013, MPE-MS): <code>x = 14</code> — é <strong>múltiplo de 7</strong> (V) e <strong>não é ímpar</strong> (F) → derruba "se é múltiplo de 7, então é ímpar".</li>
+</ul>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Duas faces do mesmo MANÉ</div>
+  <div class="callout-body"><p>Negação de <code>P→Q</code> e contra-exemplo de <code>P→Q</code> são a <strong>mesma coisa</strong>: <code>P ∧ ~Q</code>. Memorize uma e você resolve as duas pegadinhas.</p></div>
+</div>
+<hr />
+<h2 id="17-negacao-de-expressoes-de-quantidade">17. Negação de expressões de quantidade</h2>
+<table>
+<thead>
+<tr>
+<th>Expressão</th>
+<th>Negação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>No máximo X</strong></td>
+<td><strong>Pelo menos X + 1</strong></td>
+</tr>
+<tr>
+<td><strong>No mínimo X</strong></td>
+<td><strong>No máximo X − 1</strong></td>
+</tr>
+<tr>
+<td><strong>Exatamente X</strong></td>
+<td><strong>Diferente de X</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exemplo:</strong> "há, no máximo, 3 pessoas no carro" → negação "há, pelo menos, 4 pessoas no carro" (AMAZUL 2026).</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> O passo que falta</div>
+  <div class="callout-body"><p>Na negação composta com quantidade, negue as <strong>duas</strong> partes e troque o conectivo: "azul ou verde <strong>e</strong> no máximo 3" → "não é azul nem verde <strong>ou</strong> pelo menos 4". Quem nega só a cor, ou só a quantidade, perde metade da afirmação.</p></div>
+</div>
+<h2 id="18-reajuste-temporal-na-contrapositiva">18. Reajuste temporal na contrapositiva</h2>
+<p>Quando a FGV reposiciona uma afirmação no <strong>dia seguinte</strong>, ajuste os marcadores de tempo <strong>antes</strong> de aplicar a contrapositiva:</p>
+<ul>
+<li>Segunda → Terça: "ontem" (domingo) vira <strong>anteontem</strong>; "depois de amanhã" (quarta) vira <strong>amanhã</strong>.</li>
+<li>Depois disso, faça a contrapositiva na frase já reposicionada.</li>
+</ul>
+<p><strong>Exemplo (AMAZUL 2026):</strong> "Se Maria viajou ontem, então estou de plantão depois de amanhã" (dita segunda) ≡ na terça: "Se <strong>não</strong> estou de plantão <strong>amanhã</strong>, então Maria <strong>não</strong> viajou <strong>anteontem</strong>".</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Duas operações separadas</div>
+  <div class="callout-body"><p>Primeiro <strong>reposicione no tempo</strong>, depois <strong>inverta e negue</strong>. Quem mistura os dois passos perde a questão — a alternativa que "troca só isso" é a pegadinha.</p>
+<p><strong>🔴 ALERTA</strong>
+<strong>Ordem Invertida da Condicional (<em>"A, desde que B"</em>):</strong>
+Quando o texto disser <em>"Receberá o benefício, desde que comprove a renda"</em>, a oração que vem após <em>"desde que"</em> é o <strong>antecedente</strong> (a condição suficiente). Em linguagem formal: $B \rightarrow A$ (Comprovar a renda $\rightarrow$ Receber o benefício).</p></div>
+</div>
+<h3 id="equivalencias-e-negacoes-criticas-guia-rapido-de-prova">Equivalências e Negações Críticas — Guia Rápido de Prova</h3>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>As Três Regras de Ouro da Condicional ($P \to Q$):</strong>
+1. <strong>Negação Lógica (Regra do Mané):</strong> $\neg(P \to Q) \equiv P \wedge \neg Q$ <em>(Mantém a primeira E Nega a segunda)</em>. A negação de uma condicional <strong>NUNCA</strong> é outra condicional!
+2. <strong>Equivalência por Contrapositiva:</strong> $P \to Q \equiv \neg Q \to \neg P$ <em>(Inverte ambos os termos e coloca NÃO em ambos, mantendo o Se... então)</em>.
+3. <strong>Equivalência por Disjunção (Regra do Neoumar):</strong> $P \to Q \equiv \neg P \vee Q$ <em>(Nega a primeira OU mantém a segunda)</em>.</p>
+<p><strong>⚠️ PEGADINHA</strong>
+<strong>Negação de Quantificadores (Todo, Algum, Nenhum):</strong>
+- Para negar <strong>TODO</strong>, usamos <strong>PEA + NÃO</strong>: <em>Pelo menos um NÃO</em>, <em>Existe um que NÃO</em>, <em>Algum NÃO</em>. <em>(Jamais negue Todo com Nenhum!)</em>
+- Para negar <strong>NENHUM</strong>, usamos <strong>PEA</strong>: <em>Pelo menos um É</em>, <em>Existe um que É</em>, <em>Algum É</em>.
+- Para negar <strong>ALGUM</strong>, usamos <strong>NENHUM</strong> <em>(ou Todo... não)</em>.</p></div>
+</div>
+<h2 id="12-condicional-falsa-e-determinacao-categorica-de-valores">12. Condicional Falsa e Determinação Categórica de Valores</h2>
+<p>A condicional material $P \rightarrow Q$ ("Se P, então Q") possui uma característica única em sua tabela-verdade: ela só resulta em valor lógico <strong>FALSO</strong> em exatamente uma das quatro linhas possíveis:</p>
+<p>$$\mathbf{V \rightarrow F = F}$$</p>
+<p>Quando o enunciado de uma questão crava a premissa de que uma condicional é <strong>FALSA</strong>, extrai-se imediatamente uma certeza matemática absoluta sobre cada uma de suas partes:
+1. <strong>O antecedente ($P$) é OBRIGATORIAMENTE VERDADEIRO ($P = V$).</strong>
+2. <strong>O consequente ($Q$) é OBRIGATORIAMENTE FALSO ($Q = F$).</strong></p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> ALERTA</div>
+  <div class="callout-body"><p><strong>Atalho de Resolução:</strong> Se a questão disser: "Considere falsa a afirmação: 'Se José é servidor, então Josias é chefe'", não perca tempo montando equivalências compostas complexas nas alternativas. Procure direto a frase que afirma que <strong>José é servidor</strong> (afirmativa de $P$, necessariamente verdadeira) ou que <strong>Josias não é chefe</strong> (negação de $Q$, necessariamente verdadeira).</p></div>
+</div>
+<hr />
+<h2 id="13-precedencia-de-operadores-em-testes-logicos-aritmeticos">13. Precedência de Operadores em Testes Lógicos Aritméticos</h2>
+<p>Em questões que combinam operações matemáticas com conectivos lógicos:
+1. <strong>1ª Prioridade (Aritmética estrita):</strong> Multiplicações ($\times$) e Divisões ($/$) antes de Adições ($+$) e Subtrações ($-$).
+2. <strong>2ª Prioridade (Operadores Relacionais):</strong> Resolver as igualdades ($=$), desigualdades ($\neq$), maiores ($&gt;$) e menores ($&lt;$), atribuindo $V$ ou $F$ a cada membro.
+3. <strong>3ª Prioridade (Operadores Lógicos):</strong> Resolver os parênteses mais internos, aplicando:
+   - Negação ($\sim$)
+   - Conjunção ($\land$) e Disjunção ($\lor$)
+   - Condicional ($\rightarrow$) e Bicondicional ($\leftrightarrow$)</p>
+<h3 id="negacao-de-condicionais-e-leis-de-de-morgan-atalhos-rapidos-de-prova">Negação de Condicionais e Leis de De Morgan — Atalhos Rápidos de Prova</h3>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> MEMORIZAR</div>
+  <div class="callout-body"><p><strong>Regra do MANÉ (Negação do "Se... então"):</strong>
+- <strong>MA</strong>ntém a primeira parte.
+- <strong>E</strong> (conjunção $\land$).
+- <strong>NE</strong>ga a segunda parte.
+- $\sim(p \to q) \equiv p \land \sim q$.
+- <strong>Atenção especial:</strong> Se a 2ª parte já for negativa ($p \to \sim q$), a negação vira $p \land q$ ("Chove e vou à praia").</p>
+<p><strong>⚠️ PEGADINHA</strong>
+<strong>Armadilha das Leis de De Morgan:</strong>
+- $\sim(p \land q) \equiv \sim p \lor \sim q$ (Nega a 1ª, nega a 2ª e troca "E" por "OU").
+- $\sim(p \lor q) \equiv \sim p \land \sim q$ (Nega a 1ª, nega a 2ª e troca "OU" por "E").
+- A pegadinha preferida das bancas é colocar como distrator a negação de ambas as frases <strong>mantendo o mesmo conectivo</strong> original.</p>
+<p><strong>🔴 ALERTA</strong>
+<strong>Classificação de Fórmulas na Tabela-Verdade:</strong>
+- <strong>Tautologia:</strong> Todos os resultados são Verdadeiros ($V$).
+- <strong>Contradição:</strong> Todos os resultados são Falsos ($F$).
+- <strong>Contingência:</strong> Há mistura de pelo menos um $V$ e pelo menos um $F$.</p></div>
+</div>
+<hr />
+<h1 id="raciocinio-logico-t04-logica-de-primeira-ordem">Raciocínio Lógico T04 — Lógica de Primeira Ordem</h1>
+<h2 id="1-negacao-de-quantificadores">1. Negação de Quantificadores</h2>
+<h3 id="original-negacao">Original → Negação</h3>
+<table>
+<thead>
+<tr>
+<th>Forma</th>
+<th>Negação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Todo</strong> X é Y</td>
+<td><strong>Algum</strong> não é Y</td>
+</tr>
+<tr>
+<td><strong>Algum</strong> X é Y</td>
+<td><strong>Nenhum</strong> X é Y</td>
+</tr>
+<tr>
+<td><strong>Nenhum</strong> X é Y</td>
+<td><strong>Algum</strong> X é Y</td>
+</tr>
+<tr>
+<td><strong>Existe</strong> X que é Y</td>
+<td><strong>Todo</strong> X não é Y</td>
+</tr>
+</tbody>
+</table>
+<h3 id="correspondencias-rapidas">Correspondências rápidas</h3>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>Troca por</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Pelo menos"</td>
+<td>"Nenhum" ou "Todo"</td>
+</tr>
+<tr>
+<td>"Nenhum"</td>
+<td>"Pelo menos" ou "Algum"</td>
+</tr>
+<tr>
+<td>"Existe"</td>
+<td>"Todo"</td>
+</tr>
+<tr>
+<td>"Todo"</td>
+<td>"Existe"</td>
+</tr>
+<tr>
+<td>"Algum"</td>
+<td>"Nenhum"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11-equivalencias-diretas-entre-quantificadores-sinonimos-logicos">1.1 Equivalências Diretas entre Quantificadores (Sinônimos Lógicos)</h3>
+<p>Formas diferentes de enunciar a mesma verdade lógica (não alteram o valor-verdade):</p>
+<table>
+<thead>
+<tr>
+<th>Proposição</th>
+<th>Expressões Equivalentes em Linguagem Natural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Algum A é B</strong></td>
+<td>$\equiv$ <strong>Pelo menos um</strong> A é B <br> $\equiv$ <strong>Existe</strong> A que é B</td>
+</tr>
+<tr>
+<td><strong>Algum A NÃO é B</strong></td>
+<td>$\equiv$ <strong>Pelo menos um</strong> A <strong>não</strong> é B <br> $\equiv$ <strong>Existe</strong> A que <strong>não</strong> é B</td>
+</tr>
+<tr>
+<td><strong>Nenhum A é B</strong></td>
+<td>$\equiv$ <strong>Todos</strong> os A <strong>NÃO</strong> são B <br> $\equiv$ <strong>Não existe</strong> A que seja B</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Conversão de "Nenhum" em Condicional ("Se... então")</div>
+  <div class="callout-body"><p>A proposição "Nenhum A é B" é perfeitamente simétrica: equivale a "Nenhum B é A". E quando a banca a converte para a forma condicional, a equivalência rigorosa é: <strong>"Se é A, então NÃO é B"</strong> ($A \rightarrow \neg B$). A banca tenta induzir o erro com "Se não é B, então é A", que é a falácia da inversão.</p></div>
+</div>
+<hr />
+<h2 id="2-exemplos">2. Exemplos</h2>
+<ul>
+<li>
+<p><strong>Todos</strong> os voos sofreram atrasos <strong>ou</strong> foram cancelados
+ → <strong>Pelo menos</strong> um voo <strong>não</strong> sofreu atraso <strong>e</strong> <strong>não</strong> foi cancelado.</p>
+</li>
+<li>
+<p><strong>Todos</strong> os voos sofreram atrasos <strong>e</strong> foram cancelados
+ → <strong>Pelo menos</strong> um voo <strong>não</strong> sofreu atraso <strong>ou</strong> <strong>não</strong> foi cancelado.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>📌 Dica para questões</strong>
+- A negação liga o quantificador à troca de conectivo: negar o quantificador <strong>e</strong> negar os predicados, trocando <strong>E ↔ OU</strong>.</p>
+</blockquote>
+<hr />
+<h2 id="3-mnemonicos-de-mesa-epa">3. Mnemônicos de mesa (EPA)</h2>
+<ul>
+<li>Negação de <strong>"Todo A é B"</strong> = <strong>EPA + NÃO</strong> → "<strong>E</strong>xiste / <strong>P</strong>elo menos um / <strong>A</strong>lgum A <strong>não</strong> é B".</li>
+<li>Negação de <strong>"Nenhum A é B"</strong> = <strong>EPA</strong> → "Existe / Pelo menos um / Algum A é B".</li>
+<li>Sinônimos FGV: <strong>"Todo" = "qualquer"</strong>; <strong>"Nenhum" = "ninguém"</strong>; <strong>universal (∀)</strong>: TODO e NENHUM são termos diferentes; <strong>existencial (∃)</strong>: Algum, Existe e Pelo menos um são <strong>equivalentes</strong>.</li>
+</ul>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A régua em três toques</div>
+  <div class="callout-body"><p><strong>Todo</strong> → (algum/existe/pelo menos um) + <strong>negar o resto</strong>. <strong>Algum</strong> → <strong>nenhum</strong> + repetir o resto. <strong>Nenhum</strong> → <strong>algum</strong> + repetir o resto. Esse "repetir o resto" é onde a banca esconde a pegadinha do predicado composto.</p></div>
+</div>
+<h3 id="31-as-3-pegadinhas-classicas-das-bancas-em-quantificadores">3.1 As 3 Pegadinhas Clássicas das Bancas em Quantificadores</h3>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> 1. A Negação de "TODOS" NUNCA é "NENHUM"</div>
+  <div class="callout-body"><p>- <em>Errado:</em> A negação de "Todos os gatos são pretos" é "Nenhum gato é preto".
+- <em>Certo:</em> A negação é <strong>"Pelo menos um gato não é preto"</strong> (ou "Existe gato que não é preto", "Algum gato não é preto"). Para destruir a regra de que <em>todos</em> cumprem algo, basta exibir um único elemento que fuja à regra.</p>
+<p><strong>⚠️ 2. A Negação de "NENHUM" NUNCA é "TODOS"</strong>
+- <em>Errado:</em> A negação de "Nenhum aluno passou" é "Todos os alunos passaram".
+- <em>Certo:</em> A negação é <strong>"Algum aluno passou"</strong> (ou "Pelo menos um aluno passou").</p>
+<p><strong>🧠 3. O Trio PEA é Rigorosamente Idêntico</strong>
+Sempre que a banca utilizar <strong>P</strong>elo menos um, <strong>E</strong>xiste ou <strong>A</strong>lgum, trate-os exatamente com a mesma força lógica dentro das proposições categóricas existenciais.</p></div>
+</div>
+<hr />
+<h2 id="4-negacao-com-dois-quantificadores">4. Negação com DOIS quantificadores</h2>
+<ul>
+<li>Trocar <strong>∀ ↔ ∃ em cada posição</strong> e <strong>negar a proposição interna</strong>.</li>
+<li>Ex.: "Para todo x existe y tal que x = y" → "Existe x tal que, para todo y, <strong>x ≠ y</strong>". O "=" vira "≠".</li>
+<li>Leitura: <strong>"tal que"</strong> = "que / que satisfaz / com a propriedade de".</li>
+</ul>
+<h3 id="41-sentenca-com-quantificador-universal-e-condicional-interna">4.1 Sentença com quantificador universal e condicional interna</h3>
+<ul>
+<li>Estrutura formal: $\forall X, [X &gt; 0 \to \exists Y (Y^2 = X)]$.</li>
+<li>Regra de ataque em 2 passos:</li>
+<li>O quantificador universal inicial troca para existencial: $\exists X$.</li>
+<li>A condicional interna é negada pelo mnemônico <strong>MANÉ</strong> (Mantém a primeira E Nega a segunda):<ul>
+<li>Mantém antecedente: $X &gt; 0$.</li>
+<li>Troca condicional por conjunção: "E".</li>
+<li>Nega consequente: $\sim[\exists Y (Y^2 = X)] \equiv \forall Y (Y^2 \ne X)$.</li>
+</ul>
+</li>
+<li>Resultado final: <em>"Existe um número X tal que X &gt; 0 e qualquer que seja o número Y tem-se que Y² ≠ X"</em>.</li>
+</ul>
+<h3 id="42-dominio-universal-com-predicado-existencial">4.2 Domínio universal com predicado existencial</h3>
+<ul>
+<li>Enunciado da banca: "Em qualquer feira livre da cidade há pelo menos uma barraca que vende tapioca" ($\forall F, \exists B \in F : V(B)$).</li>
+<li>Negação lógica: <em>"Existe ao menos uma feira livre da cidade em que nenhuma barraca vende tapioca"</em> ($\exists F, \forall B \in F : \sim V(B)$).</li>
+<li>O primeiro quantificador universal vira existencial ("Existe ao menos uma feira..."); o existencial interno vira negação universal ("nenhuma barraca vende...").</li>
+</ul>
+<hr />
+<h2 id="5-quantificador-de-morgan-no-predicado-composto">5. Quantificador + De Morgan no predicado composto</h2>
+<ul>
+<li><code>∀A (É B ^ É C)</code> → negação = <code>∃A (não é B v não é C)</code> — "Todo A é B <strong>e</strong> C" vira "Algum A <strong>não é B ou não é C</strong>".</li>
+<li>É a mesma dança: troca o quantificador, nega os dois predicados e troca <strong>E ↔ OU</strong>.</li>
+</ul>
+<hr />
+<h2 id="6-ponte-todo-condicional">6. Ponte "Todo" ↔ condicional</h2>
+<ul>
+<li><strong>"Todo matemático brasileiro conhece fractais"</strong> ≡ <strong>"Se é matemático e é brasileiro, então conhece fractais"</strong>.</li>
+<li>A recíproca por contrapositiva nega o "e" via De Morgan: "Se <strong>não</strong> conhece fractais, então <strong>não</strong> é matemático <strong>ou não</strong> é brasileiro".</li>
+<li>Com "ou" no consequente (<code>P -&gt; (Q v R)</code>), a negação da premissa "todo/no mínimo" segue a regra da seção 3/4 normalmente — o "ou" é apenas o consequente da condicional equivalente.</li>
+</ul>
+<div class="callout callout-conexao">
+  <div class="callout-title"><span class="callout-icon">🔗</span> Conexão com outra matéria</div>
+  <div class="callout-body"><p>A mesma virada "todo → se...então" aparece em <strong>argumentação</strong> (modus tollens) e na <strong>estrutura de questões de lógica argumentativa</strong> — quantificadores e condicional são a mesma família na prova da FGV.</p></div>
+</div>
+<hr />
+<h2 id="7-todo-e-a-contrapositiva-na-pratica">7. "Todo" e a contrapositiva na prática</h2>
+<ul>
+<li><strong>"Todo gato preto é manso"</strong> = <code>P → M</code> ≡ <strong>"todo gato que não é manso não é preto"</strong> (<code>~M → ~P</code>) (FGV 2010 CODESP).</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Equivalência ≠ negação</div>
+  <div class="callout-body"><p>A contrapositiva (pedida em) é <strong>equivalência</strong>. A <strong>negação</strong> seria "existe gato não manso e preto" — quem marca a negação quando pedem equivalência erra por precipitação.</p></div>
+</div>
+<ul>
+<li><strong>"Todo parlamentar conhece a Constituição"</strong> = <code>P → C</code> ≡ <strong>"se não conhece a Constituição, então não é parlamentar"</strong> (<code>~C → ~P</code>) (FGV 2018 AL-RO).</li>
+<li>Método rápido do diagrama: desenhe um círculo (parlamentares) dentro do outro (quem conhece a Constituição) — <strong>fora do círculo maior não há ninguém do círculo menor</strong>.</li>
+</ul>
+<hr />
+<h2 id="8-quadro-de-negacoes-com-questoes">8. Quadro de negações com questões</h2>
+<table>
+<thead>
+<tr>
+<th>Frase falsa</th>
+<th>Conclusão garantida</th>
+<th>Questão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Nenhum gato é verde"</td>
+<td>Algum gato <strong>é</strong> verde</td>
+<td>(DETRAN-MA 2013)</td>
+</tr>
+<tr>
+<td>"Todos os lápis são vermelhos"</td>
+<td>Algum lápis <strong>não</strong> é vermelho</td>
+<td>(MPE-MS 2013)</td>
+</tr>
+<tr>
+<td>"Todo estado sofre com seca <strong>ou</strong> com excesso de chuva"</td>
+<td>Algum estado <strong>não</strong> sofre com seca <strong>e não</strong> sofre com excesso de chuva</td>
+<td>(SUDENE 2013)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>negação de universal <strong>negativa</strong> = particular <strong>afirmativa</strong> (troca "nenhum" por "algum"), sem mexer no predicado.</li>
+<li>negar "todo" <strong>não</strong> autoriza "nenhum" nem "todo não" — só o "algum não".</li>
+<li>negue o quantificador (todo → algum), <strong>De Morgan</strong> no "ou" interno (vira "e") e negue os dois predicados. Opção que "inverte o excesso" (sofre excesso de chuva) é pegadinha.</li>
+</ul>
+<hr />
+<h2 id="9-contra-exemplo-de-proposicao-universal">9. Contra-exemplo de proposição universal</h2>
+<ul>
+<li>Para refutar "Todo A é B", apresente um elemento que seja <strong>A e não B</strong> (<code>A ∧ ~B</code>).</li>
+<li>(FGV 2013, SEGEP-MA): o contra-exemplo de "Todo agente penitenciário é do sexo masculino" é <strong>Amanda, do sexo feminino e agente penitenciária</strong>.</li>
+<li>A ordem <code>A ∧ ~B</code> ou <code>~B ∧ A</code> é <strong>indiferente</strong>; o que importa é negar o <strong>predicado (predicado composto)</strong>, e não o verbo.</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> Negar o lado certo</div>
+  <div class="callout-body"><p>Contra-exemplo nega a <strong>propriedade</strong>, não o sujeito. Se o enunciado diz "A é B", para refutar você precisa de alguém que <strong>é A</strong> e que <strong>não é B</strong> — nunca "não é A".</p></div>
+</div>
+<h2 id="10-formulas-bem-formadas-fbf-e-sintaxe-de-predicados">10. Fórmulas Bem Formadas (FBF) e Sintaxe de Predicados</h2>
+<p>Na Lógica de Primeira Ordem (LPO), as sentenças em linguagem natural são traduzidas por meio de constantes, variáveis, predicados e quantificadores. Para que uma expressão seja válida, ela precisa atender às regras de formação de uma <strong>Fórmula Bem Formada (FBF)</strong>.</p>
+<h3 id="101-a-regra-de-ouro-dos-conectivos-em-lpo">10.1 A Regra de Ouro dos Conectivos em LPO</h3>
+<p>A correlação entre o quantificador e o conectivo lógico obedece a uma disciplina sintática estrita:</p>
+<table>
+<thead>
+<tr>
+<th>Proposição Categórica</th>
+<th>Quantificador</th>
+<th>Conectivo Obrigatório</th>
+<th>Estrutura Formal (FBF)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Universal Afirmativa</strong> ("Todo H é M")</td>
+<td>Universal ($\forall$)</td>
+<td><strong>Condicional ($\rightarrow$)</strong></td>
+<td>$\forall x (H(x) \rightarrow M(x))$</td>
+</tr>
+<tr>
+<td><strong>Particular Afirmativa</strong> ("Algum H é M")</td>
+<td>Existencial ($\exists$)</td>
+<td><strong>Conjunção ($\land$)</strong></td>
+<td>$\exists x (H(x) \land M(x))$</td>
+</tr>
+<tr>
+<td><strong>Universal Negativa</strong> ("Nenhum H é M")</td>
+<td>Universal ($\forall$)</td>
+<td><strong>Condicional com Negação</strong></td>
+<td>$\forall x (H(x) \rightarrow \sim M(x))$</td>
+</tr>
+<tr>
+<td><strong>Particular Negativa</strong> ("Algum H não é M")</td>
+<td>Existencial ($\exists$)</td>
+<td><strong>Conjunção com Negação</strong></td>
+<td>$\exists x (H(x) \land \sim M(x))$</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> PEGADINHA</div>
+  <div class="callout-body"><p><strong>A Armadilha do Todo com E:</strong> A banca adora colocar a alternativa $\forall x (H(x) \land M(x))$ para a frase "Todo homem é mortal". Em lógica, essa fórmula afirma que "absolutamente todo objeto existente no universo é simultaneamente homem e mortal" (incluindo pedras, oceanos e estrelas). A condicional $\forall x (H(x) \rightarrow M(x))$ é a única correta porque não exige nada dos elementos que não são homens ($F \rightarrow qualquer\ coisa = V$).</p></div>
+</div>
+<hr />
+<h2 id="11-diagramas-logicos-silogismos-e-hipoteses-genealogicas">11. Diagramas Lógicos, Silogismos e Hipóteses Genealógicas</h2>
+<h3 id="111-silogismos-categoricos-com-conjuntos-disjuntos">11.1 Silogismos Categóricos com Conjuntos Disjuntos</h3>
+<p>Ao analisar argumentos com quantificadores ("Todo", "Algum", "Nenhum"):
+1. Se o conjunto $P$ (Programadores) possui interseção com $Prof$ (Professores);
+2. E o conjunto $D$ (Digitadores) é totalmente disjunto de $Prof$ ($D \cap Prof = \emptyset$);
+3. <strong>Não se pode concluir que nenhum programador é digitador!</strong> O conjunto $D$ pode perfeitamente se sobrepor à parte de $P$ que não é professor. Para o argumento ser válido, a conclusão tem que ser necessária em 100% dos diagramas possíveis. Se for possível desenhar um contraexemplo, a dedução é inválida.</p>
+<h3 id="112-hipoteses-genealogicas-em-logica-dedutiva">11.2 Hipóteses Genealógicas em Lógica Dedutiva</h3>
+<p>Ao resolver relações de parentesco estruturadas em gerações:
+- Mapeie categoricamente: G1 (Bisavós), G2 (Avós / Tios-avós), G3 (Pais / Tios), G4 (Bisnetos).
+- Nunca preencha "lacunas" com pressuposições. Se um indivíduo da G4 é bisneto de Breno, seus pais obrigatoriamente pertencem à G3. Se a G3 já possui membros que podem ser os pais, deduzir categoricamente que outro membro qualquer da família é o avô torna o item falso.</p>
+<h3 id="negacao-de-quantificadores-categoricos-o-mnemonico-pea-nao">Negação de Quantificadores Categóricos — O Mnemônico PEA + NÃO</h3>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> DICA</div>
+  <div class="callout-body"><p><strong>Regras Absolutas de Negação Categórica:</strong>
+1. <strong>Para negar o TODO:</strong> NUNCA use "Nenhum". Use <strong>PEA + NÃO</strong>:
+- <strong>P</strong>elo menos um não é...
+- <strong>E</strong>xiste um que não é...
+- <strong>A</strong>lgum não é...
+2. <strong>Para negar o ALGUM / EXISTE:</strong> Troque pelo <strong>NENHUM</strong> (ou "Todo... NÃO é").
+- $\sim(\text{Algum } A \text{ é } B) \equiv \text{Nenhum } A \text{ é } B$.
+3. <strong>Pegadinha do Antônimo:</strong> Se a banca não trouxer "Nenhum", procure "Todo" com o oposto lógico do predicado (ex.: "Nenhum candidato errou" $\equiv$ "Todo candidato acertou").</p></div>
+</div>
+<hr />
+<h1 id="raciocinio-logico-t05-complementaridade-e-raciocinio-espacial">Raciocínio Lógico T05 — Complementaridade e Raciocínio Espacial</h1>
+<h2 id="1-complementaridade-no-maximo-pelo-menos">1. Complementaridade "no máximo ↔ pelo menos"</h2>
+<p>Quando a FGV fala de "no máximo X" e "pelo menos Y" na mesma grandeza de total <strong>T</strong>, vale:</p>
+<ul>
+<li><strong>"No máximo X"</strong> = "Não mais que X" = intervalo <strong>de 0 a X</strong> → seu complemento é <strong>"pelo menos T − X"</strong>.</li>
+<li><strong>"Pelo menos Y"</strong> = "No mínimo Y" = <strong>de Y a T</strong> → seu complemento é <strong>"no máximo T − Y"</strong>.</li>
+</ul>
+<p><strong>Exemplo de mesa</strong>: se algo diz "pelo menos 6" quando o total é 12, o texto quer dizer <strong>de 6 a 11</strong> — e sua negação/complemento é "<strong>no máximo 5</strong>" = "não mais que 5" = <strong>de 0 a 5</strong>.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A FGV troca as palavras, não o intervalo</div>
+  <div class="callout-body"><p>A mesma grandeza aparece como "pelo menos 6", "no mínimo 6" ou "de 6 a 11". Quando a alternativa troca só o rótulo mas mantém o intervalo, ela é <strong>certa</strong>. Pegadinha clássica é eleger a opção que inverte o intervalo (ex.: "de 7 a 12").</p>
+<p><strong>💡 Teste rápido</strong>
+Confira se as duas descrições "cobrem" o mesmo universo: some os extremos. Se "pelo menos 6" e "no máximo 5" forem ditos sobre o mesmo universo de tamanho 11, elas se tocam no limite — são complementares exatas.</p></div>
+</div>
+<h3 id="11-contagem-global-some-tudo-e-divida-nunca-sala-por-sala">1.1 Contagem global: some tudo e divida (nunca sala por sala)</h3>
+<p>Vários problemas de fluxo dão a impressão de que você precisa visitar <strong>uma unidade de cada vez</strong>. Quase nunca precisa. Se o enunciado diz que <strong>todas as pessoas entraram e saíram</strong> e que a saída é <strong>sempre dividida meio a meio entre duas portas</strong>, a conta é de <strong>uma vez só</strong>:</p>
+<p>$$X = \frac{\text{soma de todas as entradas}}{4}$$</p>
+<p>Exemplo resolvido: as salas recebem 20, 20, 12 e 24 → <code>20 + 20 + 12 + 24 = 76</code>. Como em cada sala metade sai por uma porta e metade pela outra, o total que sai por <strong>cada</strong> porta é <code>76 ÷ 4 = 19</code>.</p>
+<p>O caminho sala por sala também chega em 19, mas passa por quatro etapas de soma (32 → 36 → 40 → 38). Dá o mesmo resultado e custa o triplo de atenção — e cada etapa é uma chance de somar errado.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> O atalho das duas metades</div>
+  <div class="callout-body"><p>"Metade por porta" significa que o total de saídas se divide por <strong>2</strong> (as metades) e cada metade se divide por <strong>2</strong> (as duas portas). Juntando: <strong>divida por 4</strong>. Se amanhã o enunciado disser "um terço sai por cada uma das três saídas", a regra continua sendo a mesma — some tudo e divida pelo número de saídas.</p>
+<p>Só não aplique quando o texto mandar <strong>uma das portas em proporção diferente</strong> (ex.: "70% saem pela porta X"). Aí o atalho de dividir falha e a sala por sala é mesmo necessária.</p>
+<p><strong>⚠️ O número que isca</strong>
+As alternativas costumam oferecer os valores intermediários da conta (32, 36, 40, 38 — os totais de cada sala) e o total geral (76). Quem parou no meio do caminho marca um desses números e erra. <strong>A resposta pedida é sempre a última divisão</strong>, nunca a soma parcial. Marque no papel a seta do fluxo antes de calcular, e só preencha a alternativa quando a conta fechar.</p></div>
+</div>
+<h3 id="12-complementaridade-com-de-morgan-no-maximo-x-nao-tem-a-nem-b">1.2 Complementaridade com De Morgan: "No máximo X não têm A nem B"</h3>
+<p>A FGV combina a regra da complementaridade numérica com as <strong>Leis de De Morgan</strong>:</p>
+<ol>
+<li><strong>Afirmação original:</strong> <em>"Em um grupo de 11 pessoas, no máximo 5 pessoas não possuem doutorado, nem seguem carreira acadêmica."</em></li>
+<li><strong>Grupo original:</strong> pessoas que não têm doutorado E não têm carreira acadêmica: $(\neg D \land \neg C)$.</li>
+<li><strong>Grupo complementar (negação via De Morgan):</strong>
+   $$\neg(\neg D \land \neg C) = D \lor C \quad (\text{"possuem doutorado OU seguem carreira acadêmica"})$$</li>
+<li><strong>Cálculo da complementaridade numérica:</strong></li>
+<li>Se o grupo original tem <strong>no máximo 5</strong>, o grupo complementar deve ter <strong>pelo menos o restante</strong>:
+   $$\text{Pelo menos } (11 - 5) = 6 \text{ pessoas}$$</li>
+<li><strong>Sentença equivalente final:</strong>
+   <em>"Pelo menos 6 pessoas de um grupo formado por 11 pessoas possuem doutorado OU seguem uma carreira acadêmica."</em></li>
+</ol>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> O Macete da Complementaridade</div>
+  <div class="callout-body"><p><strong>"No máximo X do grupo A"</strong> equivale a <strong>"Pelo menos (Total − X) do grupo complementar Não-A"</strong>.
+Para achar o grupo complementar com conectivo "nem/e", troque por "ou" (De Morgan).
+- "Pelo menos 6" = "No mínimo 6" = "De 6 a 11".
+- "No máximo 5" = "Não mais que 5" = "De 0 a 5".</p></div>
+</div>
+<hr />
+<h2 id="2-raciocinio-espacial-dados-e-faces-opostas">2. Raciocínio espacial: dados e faces opostas</h2>
+<ul>
+<li>Em qualquer dado comum, <strong>faces opostas somam 7</strong>: 1↔6, 2↔5, 3↔4.</li>
+<li>Soma das faces <strong>invisíveis</strong> = <strong>21 − soma das faces visíveis</strong> (para um dado inteiro) — ou simplesmente some as 3 opostas.</li>
+</ul>
+<p><strong>Exemplo resolvido:</strong>
+- <strong>Dado 1</strong> — visíveis 6, 2, 3 → opostas 1, 5, 4 = <strong>10</strong>
+- <strong>Dado 2</strong> — visíveis 5, 6, 4 → opostas 2, 1, 3 = <strong>6</strong>
+- Soma das faces ocultas dos dois dados = <strong>10 + 6 = 16</strong></p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Não some a face visível que também ocupa o topo</div>
+  <div class="callout-body"><p>Quando um dado está empilhado sobre outro, a face de contato é oculta para os dois lados ao mesmo tempo — confira <strong>cada par de opostas</strong> por dado antes de somar totais.</p>
+<p><strong>📋 Regra de ouro</strong>
+Faces opostas = <strong>7</strong>. Soma oculta de um dado = <strong>21 − (soma das visíveis)</strong>. Com mais de um dado, resolva um a um e some.</p></div>
+</div>
+<hr />
+<h2 id="3-principio-da-casa-dos-pombos">3. Princípio da casa dos pombos</h2>
+<ul>
+<li>Se <strong>12 contratados</strong> têm idades entre <strong>20 e 30</strong> anos, há <strong>11 valores inteiros</strong> possíveis → <strong>pelo menos 2 têm a mesma idade</strong> ( somente a afirmativa III).</li>
+<li>Não dá para afirmar média 25 nem que alguém tem exatamente 25 (todos poderiam ter 29, por exemplo).</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Pombos e gavetas</div>
+  <div class="callout-body"><p>A FGV mistura o princípio (garante repetição quando há mais pombos que gavetas) com afirmações "perfumadas" de média. Só o que o princípio garante é a <strong>repetição</strong> — média e valores exatos são invenção.</p></div>
+</div>
+<hr />
+<h2 id="4-geometria-retangulo-e-o-centro">4. Geometria: retângulo e o centro</h2>
+<ul>
+<li>Em um <strong>retângulo</strong>, as <strong>diagonais são iguais</strong> e o <strong>centro equidista dos vértices</strong> (é o encontro das diagonais).</li>
+<li>Assim, três pessoas nos vértices A, B, C de um retângulo <strong>6×8</strong> caminham a mesma distância até Maria (gabarito <code>a = b = c</code>): metade da diagonal = <strong>5 m</strong> (diagonal = 10).</li>
+</ul>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Sem conta</div>
+  <div class="callout-body"><p>Muitas vezes a geometria da FGV é <strong>uma propriedade, não uma conta</strong> — reconhecer "diagonais iguais no retângulo" resolve antes do Pitágoras.</p></div>
+</div>
+<hr />
+<h2 id="5-menor-caminho-em-malha-distancia-de-manhattan">5. Menor caminho em malha: distância de Manhattan</h2>
+<p>Quando só dá para andar pelas linhas da malha (horizontal/vertical), o menor caminho é a <strong>soma das diferenças</strong> nas duas dimensões — nunca a "linha reta" (euclidiana):</p>
+<ul>
+<li>A(2,1) e B(−3,5): <code>|2 − (−3)| + |5 − 1| = 5 + 4 = 9</code> lados → <code>9 × 100 m = 900 m</code>.</li>
+</ul>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> A linha reta que não existe</div>
+  <div class="callout-body"><p><code>√(5² + 4²) = 6,4</code> → 640 m é a. Ela só existe se o mapa tiver atalho diagonal. Se o texto fala em "vias da malha", é L (Manhattan), não reta. A FGV até coloca o 640 de distrator para premiar quem decora a pegadinha.</p></div>
+</div>
+<h3 id="51-caminho-em-malha-obliqua-some-os-vetores-nao-os-numeros">5.1 Caminho em malha oblíqua: some os vetores, não os números</h3>
+<p>Quando cada direção da figura tem um <strong>número</strong> e a malha é triangular (não quadrada), o número do caminho é uma <strong>sequência de vetores</strong>. Dois passos resolvem:</p>
+<ol>
+<li><strong>Desenhe o caminho informado</strong> e marque o ponto de chegada. Você não precisa de fórmula nenhuma — só do lápis.</li>
+<li><strong>O caminho inverso é o simétrico.</strong> Um movimento que parte do ponto final e chega ao inicial é o <strong>deslocamento contrário</strong>, então cada vetor troca de sentido. Em malha triangular isso normalmente significa inverter a <strong>sequência de vetores</strong> (não somar os dígitos) na ordem inversa — mas <strong>confira desenhando</strong>, porque o caminho de ida pode repetir direções.</li>
+</ol>
+<p>O erro clássico é tentar somar os números: <code>1+3+2+6+1 = 13</code> não significa nada. <strong>A soma dos dígitos é distractor</strong>; o que importa é o desenho.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Quando o enunciado tem imagem, não há atalho</div>
+  <div class="callout-body"><p>Estas questões malham dentro de uma figura, e o texto sozinho não informa a geometria. A tática é: <strong>desenhe duas vezes</strong> — o caminho de ida e o caminho de volta. Se a imagem não carregar na prova, marque a questão e volte depois; sem a figura não há como deduzir, e chutar é tempo jogado fora.</p></div>
+</div>
+<hr />
+<h2 id="6-mesa-circular-primeira-e-ultima-e-divisor">6. Mesa circular: "primeira e última" é divisor</h2>
+<p>Se a primeira pessoa pega a bala 1 e também a última (125), ela pegou sempre as balas <code>múltiplo de N + 1</code>. Logo:</p>
+<p>$$\text{última bala} = \text{múltiplo de } N + 1 \quad\Rightarrow\quad N \text{ divide } (125 - 1) = 124$$</p>
+<p>Divisores de 124: 1, 2, 4, <strong>31</strong>, 62, 124 → gabarito <strong>D (31)</strong> (4 voltas completas, 31×4 = 124, e a 125ª recomeça na Bruna).</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Resto, não divisão cheia</div>
+  <div class="callout-body"><p>Testar <code>125/N</code> (em vez de <code>124/N</code>) não dá divisor e a pessoa chuta. A sacada é: a bala que "fecha ciclo" menos 1 é o múltiplo de N.</p></div>
+</div>
+<hr />
+<h2 id="7-sequencia-por-recorrencia-caminhe-de-tras-para-frente">7. Sequência por recorrência: caminhe de trás para frente</h2>
+<p><code>tₙ = 2·tₙ₋₁ − 3</code> com t5 = 35. Em vez de montar a sequência inteira, <strong>inverta a fórmula</strong>:</p>
+<p>$$t_{n-1} = \frac{t_n + 3}{2}$$</p>
+<p>t4 = (35+3)/2 = 19; t3 = (19+3)/2 = 11; t2 = (11+3)/2 = <strong>7</strong>. Prova real: 7 → 11 → 19 → 35.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Inverter é mais rápido</div>
+  <div class="callout-body"><p>"Na ida multiplica por 2 e subtrai 3" → "na volta soma 3 e divide por 2". Caminhar de trás para frente evita escrever/cobrir a sequência coberta pela definição da recorrência.</p></div>
+</div>
+<h3 id="71-fibonacci-a-regra-declarada-manda">7.1 Fibonacci: a regra declarada manda</h3>
+<p>"2, 3, 5, 8, 13, 21,.." — cada termo <strong>a partir do terceiro</strong> é a soma dos dois anteriores → o próximo é <code>13 + 21 = 34</code>.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Não invente regra que o enunciado não disse</div>
+  <div class="callout-body"><p>28/32 saem de "diferenças crescentes" (1, 2, 3, 5...), padrão que a sequência só <em>sugere</em> depois. O enunciado amarra o vínculo "terceiro termo = soma dos dois anteriores" — é a soma honesta de <strong>13 + 21</strong>.</p></div>
+</div>
+<hr />
+<h2 id="8-combinacao-com-repeticao-estrelas-e-barras">8. Combinação com repetição — estrelas e barras</h2>
+<p>Distribuir 4 bônus idênticos entre 4 pessoas (A, B, C, D) com possibilidade de mais de um por pessoa = soluções inteiras não negativas de <code>A+B+C+D = 4</code>:</p>
+<p>$$C_{n+k-1,\ k-1} = C_{7,3} = 35$$</p>
+<p>Reta de restrição "desde que ninguém fique com todos": subtraia os 4 casos (A=4 / B=4 / C=4 / D=4) → <strong>31</strong>.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> Bolinhas e tracinhos</div>
+  <div class="callout-body"><p><strong>4 itens + 3 barras</strong> (separando as 4 pessoas) = 7 posições, escolha 3 barras: <code>C(7,3)</code>. A frase "desde que/que não" no enunciado quase sempre vira um desconto no final (35 − 4).</p></div>
+</div>
+<hr />
+<h2 id="9-permutacao-com-repeticao-e-a-tecnica-do-bloco">9. Permutação com repetição e a técnica do bloco</h2>
+<p>7 pastas (3 vermelhas, 2 amarelas, 2 verdes); verdes <strong>não adjacentes</strong>:</p>
+<ol>
+<li><strong>Total</strong>: <code>7!/(3!·2!·2!) = 210</code>.</li>
+<li><strong>Proibidos</strong>: amarre [VV] num bloco único → 6 itens: <code>6!/(3!·2!·1!) = 60</code>.</li>
+<li><strong>Válidas</strong>: <code>210 − 60 = 150</code>.</li>
+</ol>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> "Menos o que é proibido"</div>
+  <div class="callout-body"><p>Os três erros clássicos: esquecer a divisão pelas repetidas (7! = 420), esquecer de amarrar o bloco (210) e somar em vez de subtrair. Unir [VV] como um item e dividir pelas repetições é o caminho.</p></div>
+</div>
+<hr />
+<h2 id="10-regra-de-tres-teste-a-grandeza-antes">10. Regra de três: teste a grandeza ANTES</h2>
+<ul>
+<li>20 tomadas por andar, 5 por dia → 4 dias/andar; 10 andares → 40 dias; no 20º dia, 5 andares (proporção direta).</li>
+<li>menos funcionários → <strong>mais</strong> tempo (inversa): 29 meses × 4/3 = 38,67 meses → 3 anos, 2 meses e 20 dias. A pegadinha B multiplica por 0,75 (direta).</li>
+<li>panela = "6 adultos OU 10 crianças" → unifique na <strong>moeda criança</strong> (40 = 4 panelas; 25 comeram; sobram 15 "crianças" → 1,5 panela → 9 adultos).</li>
+</ul>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> A pergunta que salva</div>
+  <div class="callout-body"><p>Antes de montar a conta, pergunte: "se esse lado cresce, o outro cresce ou cai?" Direta cresce junto; inversa troca de sentido. A panela é o caso de <strong>equivalência</strong> (não é regra de três de grandezas repetidas) — converter para uma moeda única evita somar adultos com crianças.</p></div>
+</div>
+<hr />
+<h2 id="11-matriz-nn-paridade-das-diagonais">11. Matriz n×n: paridade das diagonais</h2>
+<p>Prefilha "tabuleiro de xadrez" (cores alternadas em linha e coluna). As duas diagonais terão a <strong>mesma cor</strong> exatamente quando n for <strong>ímpar</strong> (3×3 e 5×5: as diagonais passam pela casa central comum); n par separa as duas diagonais em cores distintas.</p>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Teste com n = 3 e n = 4</div>
+  <div class="callout-body"><p>Dois desenhos matam a questão: 3×3 (iguais) e 4×4 (diferentes). A banca oferece "primo", "quadrado perfeito" e "maior que 2" como distratores de quem raciocina sobre propriedades do número em vez de testar a paridade.</p></div>
+</div>
+<hr />
+<h2 id="12-intersecao-de-intervalos-maior-inicio-menor-fim">12. Interseção de intervalos: maior início, menor fim</h2>
+<p>Para <code>A ∩ B</code> em retas (ou eixos do plano cartesiano), sem desenhar:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Coluna do INÍCIO</th>
+<th>Coluna do FIM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regra</td>
+<td>escolha o <strong>MAIOR</strong></td>
+<td>escolha o <strong>MENOR</strong></td>
+</tr>
+<tr>
+<td>x (A: −3 a 1; B: −2 a 2)</td>
+<td>−2</td>
+<td>1 → x ∈ [−2, 1]</td>
+</tr>
+<tr>
+<td>y (A: 3 a 5; B: 1 a 4)</td>
+<td>3</td>
+<td>4 → y ∈ [3, 4]</td>
+</tr>
+</tbody>
+</table>
+<p>Resposta: <code>{x ∈ [−2,1] e y ∈ [3,4]}</code>. O plano cartesiano é só "roupagem" — a regra vale para qualquer par de intervalos.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> As duas colunas</div>
+  <div class="callout-body"><p><strong>Esquerda (início): o MAIOR. Direita (fim): o MENOR.</strong> Essa é a versão aritmética da interseção — quem desenha no calor da prova demora o dobro e mistura os extremos.</p></div>
+</div>
+<hr />
+<h2 id="13-ordenacao-de-idades-fila-crescente">13. Ordenação de idades: fila crescente</h2>
+<p>Monte uma <strong>fila crescente</strong> e encaixe fato a fato:</p>
+<ol>
+<li>"Elisa mais nova que Beth e mais velha que Carla" → <code>Carla – Elisa – Beth</code>.</li>
+<li>"Denise mais nova que Carla" → <code>Denise – Carla – Elisa – Beth</code>.</li>
+<li>"Aline mais nova que Beth; Elisa mais nova que Aline" → <code>Denise – Carla – Elisa – Aline – Beth</code> → mais velha: <strong>Beth</strong>.</li>
+</ol>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Atalho por eliminação</div>
+  <div class="callout-body"><p>Exclua quem aparece como "<strong>mais nova que alguém</strong>" — quem nunca aparece como mais nova é o topo. Aqui só Beth nunca foi "mais nova que...".</p></div>
+</div>
+<hr />
+<h2 id="14-torneio-mata-mata-1-jogo-1-eliminacao">14. Torneio mata-mata: 1 jogo = 1 eliminação</h2>
+<p>Com 10 equipes, sobra 1 campeã → <strong>9 eliminações = 9 jogos</strong>. A contagem por eliminação mata a questão sem desenhar chaveamento.</p>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Não caia em combinação</div>
+  <div class="callout-body"><p><code>C(10,2) = 45</code> conta <strong>confrontos possíveis</strong>, não jogos de um torneio — a FGV oferece 24/64/90 como isca de quem confunde. <strong>Jogos = equipes − 1.</strong></p></div>
+</div>
+<hr />
+<h2 id="15-sistema-de-idades-travem-o-referencial-de-tempo">15. Sistema de idades: travem o referencial de tempo</h2>
+<p>"Daqui a 13 anos, Pedro terá a idade que Quincas <strong>tem hoje</strong>" = <code>x + 13 = y</code> (referencial: hoje). "Daqui a 23 anos, Quincas terá o <strong>dobro da idade atual</strong> de Pedro" = <code>y + 23 = 2x</code>. Substituindo: <code>x = 36</code>, <code>y = 49</code> → produto <code>36 × 49 = 1.764</code>.</p>
+<div class="callout callout-alerta">
+  <div class="callout-title"><span class="callout-icon">🔴</span> "Tem hoje" é a armadilha</div>
+  <div class="callout-body"><p>Quem monta <code>y + 13</code> (idade "daqui a 13 anos" do Quincas) ou <code>2(x+13)</code> desanda e inventa produtos falsos (946/1.820). Sublinhe o <strong>referencial</strong>: hoje × daqui a N anos.</p></div>
+</div>
+<hr />
+<h2 id="16-fracoes-e-o-problema-das-partes-metodo-visual-das-barrinhas">16. Frações e o Problema das Partes (Método Visual das Barrinhas)</h2>
+<p>Em problemas de frações sucessivas sobre o valor restante (<em>"gastou 3/7 da quantia; depois 1/4 do que sobrou; restaram R$ 96,00"</em>), evite armar equações algébricas com MMC fracionário. O <strong>método visual das barrinhas</strong> resolve em segundos:</p>
+<ol>
+<li><strong>Divisão inicial:</strong> Desenhe uma barra dividida em <strong>7 pedaços iguais</strong>.</li>
+<li>1ª despesa: gastou 3 pedaços $\to$ <strong>sobram 4 pedaços</strong>.</li>
+<li><strong>Segunda despesa (fração do restante):</strong></li>
+<li>Gastou 1/4 do que havia sobrado. Como sobraram exatamente 4 pedaços, $1/4 \times 4 = 1$ pedaço gasto.</li>
+<li><strong>Sobras e valor unitário:</strong></li>
+<li>Sobraram $4 - 1 = 3$ pedaços.</li>
+<li>O valor restante é R$ 96,00. Logo, cada pedaço vale:
+     $$\text{Valor de 1 pedaço} = \frac{96}{3} = 32$$</li>
+<li><strong>Valor total inicial:</strong></li>
+<li>Como a barra toda tinha 7 pedaços originais:
+     $$\text{Total inicial} = 7 \times 32 = \text{R\$} 224,00$$</li>
+</ol>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> Fração sobre o restante</div>
+  <div class="callout-body"><p>Sempre atente para o texto: a fração é sobre o <strong>total</strong> ou sobre o <strong>que sobrou</strong>? Se for sobre o restante, desenhe os pedaços restantes e fatie apenas eles.</p></div>
+</div>
+<hr />
+<h2 id="17-aumentos-sucessivos-em-porcentagem-regra-pratica-s-m-j">17. Aumentos Sucessivos em Porcentagem — Regra Prática S-M-J</h2>
+<p>Diante de dois aumentos percentuais sucessivos (ex.: 15% e 20%), a resposta <strong>nunca</strong> é a soma simples (15 + 20 = 35% é o distrator óbvio). Aplique a <strong>Regra S-M-J (Soma, Multiplica e Junta)</strong>:</p>
+<ul>
+<li><strong>S (Soma simples das taxas):</strong> $15 + 20 = 35$</li>
+<li><strong>M (Multiplica recuando uma casa decimal em cada):</strong> $1,5 \times 2,0 = 3$</li>
+<li><strong>J (Junta / Soma os dois resultados):</strong> $35 + 3 = 38\%$</li>
+</ul>
+<p><em>Por que funciona?</em>
+Adotando a base 100:
+1. Começa com 100.
+2. 1º aumento (+15%): $100 \to 115$.
+3. 2º aumento (+20% sobre 115): $20\% \times 115 = 23 \to 115 + 23 = 138$.
+4. Variação total sobre a base 100: $138 - 100 = 38\%$.</p>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> S-M-J para aumentos</div>
+  <div class="callout-body"><p>Para taxas $A\%$ e $B\%$: <strong>Soma</strong> ($A+B$) + <strong>Multiplicação com vírgula recuada</strong> ($\frac{A}{10} \times \frac{B}{10}$).
+Exemplo: 10% e 30% $\to S = 40$; $M = 1 \times 3 = 3$; $J = 40 + 3 = 43\%$.</p></div>
+</div>
+<hr />
+<h2 id="18-geometria-plana-area-composta-e-regiao-restante">18. Geometria Plana — Área Composta e Região Restante</h2>
+<p>Problemas típicos de terreno ou quintal com piscina interna: <em>"quintal retangular de 10 m por 20 m com piscina circular de 6 m de diâmetro, adotando $\pi = 3$"</em>.</p>
+<ol>
+<li><strong>Estratégia:</strong> Subtrair a área da figura interna da área da figura externa:
+   $$\text{Área Restante} = \text{Área do Retângulo} - \text{Área do Círculo}$$</li>
+<li><strong>Área do Retângulo:</strong>
+   $$\text{Área} = \text{base} \times \text{altura} = 20 \times 10 = 200 \text{ m}^2$$</li>
+<li><strong>Área do Círculo (Cuidado com o Diâmetro!):</strong></li>
+<li>O enunciado deu o <strong>diâmetro</strong> = 6 m. O raio é a metade: $r = 3$ m.
+   $$\text{Área} = \pi \times r^2 = 3 \times (3^2) = 3 \times 9 = 27 \text{ m}^2$$</li>
+<li><strong>Cálculo da área restante:</strong>
+   $$\text{Área Restante} = 200 - 27 = 173 \text{ m}^2$$</li>
+</ol>
+<div class="callout callout-pegadinha">
+  <div class="callout-title"><span class="callout-icon">⚠️</span> Diâmetro × Raio</div>
+  <div class="callout-body"><p>A fórmula da área circular exige o <strong>raio</strong> ($A = \pi r^2$). Usar o diâmetro direto na fórmula ($3 \times 6^2 = 108$) gera o distrator clássico da banca (200 − 108 = 92). Lembre-se sempre: $r = \frac{D}{2}$.</p></div>
+</div>
+<hr />
+<h2 id="19-divisao-inversamente-proporcional-a-tecnica-do-tapa">19. Divisão Inversamente Proporcional — A Técnica do "Tapa"</h2>
+<p>Distribuir um bônus de R$ 8.400,00 entre três servidores de forma <strong>inversamente proporcional (I.P.)</strong> ao número de faltas: Carlos (3 faltas), Mariana (4 faltas) e Roberto (6 faltas).</p>
+<p>Quem faz pelo método tradicional inverte as frações ($1/3, 1/4, 1/6$), tira o MMC (12) e perde minutos preciosos. A <strong>Técnica do Tapa</strong> converte I.P. para Diretamente Proporcional (D.P.) instantaneamente:</p>
+<ol>
+<li><strong>Esconda (tapa) o número da pessoa e multiplique os outros dois:</strong></li>
+<li><strong>Carlos (tapa o 3):</strong> $4 \times 6 = 24$ partes</li>
+<li><strong>Mariana (tapa o 4):</strong> $3 \times 6 = 18$ partes</li>
+<li><strong>Roberto (tapa o 6):</strong> $3 \times 4 = 12$ partes</li>
+<li><strong>Some as partes totais:</strong>
+   $$\text{Total de partes} = 24 + 18 + 12 = 54 \text{ partes}$$</li>
+<li><strong>Calcule a parte solicitada (Mariana):</strong></li>
+<li>Mariana tem 18 partes de um total de 54:
+     $$\text{Fração da Mariana} = \frac{18}{54} = \frac{1}{3}$$</li>
+<li>Valor recebido:
+     $$\text{Valor} = \frac{8.400}{3} = \text{R\$} 2.800,00$$</li>
+</ol>
+<div class="callout callout-memorizar">
+  <div class="callout-title"><span class="callout-icon">🧠</span> A Técnica do Tapa</div>
+  <div class="callout-body"><p>Para 3 grandezas inversamente proporcionais a $a, b, c$:
+- Proporção de A: $b \times c$
+- Proporção de B: $a \times c$
+- Proporção de C: $a \times b$
+Transforma divisão inversa em direta sem frações nem MMC.</p></div>
+</div>
+<hr />
+<h2 id="20-teoria-dos-conjuntos-o-macete-do-excesso-passou-do-total">20. Teoria dos Conjuntos — O Macete do Excesso ("Passou do Total?")</h2>
+<p>Em pesquisas com dois conjuntos ($A$ e $B$) e uma quantidade que não escolheu nenhum: <em>"350 funcionários pesquisados: 240 preferem alongamento, 110 meditação e 30 nenhum dos dois. Quantos preferem ambos?"</em></p>
+<p>Em vez de montar equação de Venn ($240 - x + x + 110 - x + 30 = 350$), use o <strong>Macete do Excesso</strong>:</p>
+<ol>
+<li><strong>Some todos os dados declarados:</strong>
+   $$\text{Soma} = 240 + 110 + 30 = 380$$</li>
+<li><strong>Compare com o total real de pessoas:</strong></li>
+<li>Se a soma deu 380 e o hospital só tem 350 pessoas, o que "passou" do total foi contado duas vezes — é exatamente a <strong>interseção</strong>:
+   $$\text{Interseção (Ambos)} = \text{Soma declarada} - \text{Total real} = 380 - 350 = 30$$</li>
+</ol>
+<div class="callout callout-resumo">
+  <div class="callout-title"><span class="callout-icon">📋</span> Fórmula relâmpago do excesso</div>
+  <div class="callout-body"><p>$$A \cap B = (n(A) + n(B) + n(\text{Nenhum})) - \text{Total}$$
+Deu 380 no papel e o total é 350? O excesso de 30 é quem faz os dois. Conta feita em 5 segundos de cabeça!</p></div>
+</div>
+<hr />
+<h2 id="21-problemas-de-idades-com-marco-temporal-futuro-passar-pela-primeira-vez">21. Problemas de Idades com Marco Temporal Futuro ("Passar pela Primeira Vez")</h2>
+<p>Problemas envolvendo múltiplos indivíduos que fazem aniversário no mesmo dia com diferenças constantes de idade (ex.: três irmãos em que Hugo é 2 anos mais novo que Ivan e 2 anos mais velho que Gabriel).</p>
+<p>Quando o enunciado pergunta quando a soma das idades terá <strong>passado de um valor limite (ex.: 100) pela primeira vez</strong>:</p>
+<ol>
+<li><strong>Defina as variáveis no presente:</strong></li>
+<li>Seja $I$ a idade do mais velho (Ivan).</li>
+<li>Hugo: $H = I - 2$.</li>
+<li>Gabriel: $G = I - 4$.</li>
+<li>Soma hoje: $S_0 = I + (I - 2) + (I - 4) = 3I - 6$.</li>
+<li><strong>Evolução temporal (daqui a $T$ anos):</strong></li>
+<li>Com 3 pessoas, cada ano adiciona 3 unidades à soma total:
+     $$S_T = S_0 + 3T = 3I - 6 + 3T$$</li>
+<li><strong>Condição "pela primeira vez no ano $T$":</strong></li>
+<li>No ano $T$, a soma <strong>ultrapassa</strong> o limite: $S_T &gt; 100$.</li>
+<li>No ano imediatamente anterior ($T - 1$), a soma <strong>ainda não havia passado</strong>: $S_{T-1} \le 100$.</li>
+<li>Essa dupla desigualdade cria um intervalo numérico que delimita <strong>exatamente um único número inteiro</strong> para a idade.</li>
+</ol>
+<div class="callout callout-dica">
+  <div class="callout-title"><span class="callout-icon">💡</span> O atalho dos testes rápidos</div>
+  <div class="callout-body"><p>Se as alternativas trazem valores próximos (ex.: 21, 22, 23, 24, 25), você pode testar o valor do mais velho: com $I = 25$, as idades são 25, 23, 21 (soma hoje = 69). Daqui a 10 anos a soma será $69 + 30 = 99 \le 100$; daqui a 11 anos a soma será $69 + 33 = 102 &gt; 100$. Bateu com perfeição.</p></div>
+</div>
+<hr />
+<h1 id="raciocinio-questoes-aposentado">Raciocinio — Questões (aposentado)</h1>
+<div class="callout callout-info">
+  <div class="callout-title"><span class="callout-icon">ℹ️</span> INFO</div>
+  <div class="callout-body"><p>Banco consolidado em <code>docs/Questões/Banco_de_Questões.md</code> (seção Raciocínio Lógico). Este arquivo foi <strong>aposentado</strong> — não recebe mais novas questões.</p></div>
+</div>
+      </article>
+    </main>
+  </div>
+
+  <button class="mobile-toc-btn" onclick="toggleMobileToc()">📑 Sumário</button>
+
+  <script>
+    // Barra de progresso de leitura
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // Tema claro / escuro
+    if (localStorage.getItem('resumo_theme') === 'light') {
+      document.body.classList.add('light-mode');
+    }
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('resumo_theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+
+    // Controle de fonte
+    let curFont = parseInt(localStorage.getItem('resumo_font') || '16', 10);
+    document.documentElement.style.setProperty('--font-size', curFont + 'px');
+    function changeFont(delta) {
+      curFont = Math.min(22, Math.max(13, curFont + delta));
+      document.documentElement.style.setProperty('--font-size', curFont + 'px');
+      localStorage.setItem('resumo_font', curFont);
+    }
+
+    // Filtro do Sumário Lateral
+    function filterToc(q) {
+      const term = q.toLowerCase().trim();
+      document.querySelectorAll('#toc-list .toc-link').forEach(a => {
+        a.style.display = a.textContent.toLowerCase().includes(term) ? 'block' : 'none';
+      });
+    }
+
+    // Menu mobile
+    function toggleMobileToc() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    function closeMobileToc() {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    // Busca rápida por parágrafos/seções
+    function highlightSearch(q) {
+      const term = q.trim().toLowerCase();
+      const article = document.getElementById('md-article');
+      const blocks = article.querySelectorAll('p, li, h1, h2, h3, td, .callout');
+      if (!term) {
+        blocks.forEach(b => b.style.opacity = '1');
+        return;
+      }
+      let firstMatch = null;
+      blocks.forEach(b => {
+        const match = b.textContent.toLowerCase().includes(term);
+        b.style.opacity = match ? '1' : '0.22';
+        if (match && !firstMatch) firstMatch = b;
+      });
+    }
+  </script>
+</body>
+</html>

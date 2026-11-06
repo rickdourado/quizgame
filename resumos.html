@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cadernos & Resumos Consolidados — Concursos de TIC</title>
+  <meta name="theme-color" content="#090d16">
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #0f172a;
+      --surface-card: #141e33;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 20px 16px 48px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      padding: 18px 0 24px;
+    }
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    p.sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 640px;
+      margin: 0 auto 18px;
+    }
+    .search-bar {
+      max-width: 440px;
+      margin: 0 auto 24px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .resumo-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .resumo-card:hover {
+      transform: translateY(-3px);
+      border-color: #38bdf8;
+    }
+    .rc-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .rc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .rc-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .rc-header h2 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .rc-stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .rc-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-read {
+      flex: 1;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.84rem;
+      padding: 10px 12px;
+      border-radius: 10px;
+      text-align: center;
+      transition: opacity 0.15s;
+    }
+    .btn-read:hover { opacity: 0.9; }
+    .btn-pdf {
+      text-decoration: none;
+      background: var(--surface);
+      color: #cbd5e1;
+      border: 1px solid var(--border);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 10px 12px;
+      border-radius: 10px;
+    }
+    .btn-pdf:hover { border-color: #10b981; color: #10b981; }
+  </style>
+<style id="portal-nav-css">
+  .portal-top-bar {
+    width: 100%;
+    margin: 0 0 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    z-index: 100;
+  }
+  .portal-top-bar a.ptb-brand {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .portal-top-bar a.ptb-brand:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .portal-top-bar .ptb-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .portal-top-bar a.ptb-btn {
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .portal-top-bar a.ptb-btn:hover {
+    transform: translateY(-1px);
+  }
+  /* Quiz Game (Verde) */
+  .portal-top-bar a.ptb-quiz {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+  }
+  .portal-top-bar a.ptb-quiz:hover, .portal-top-bar a.ptb-quiz.active {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+  }
+  /* Fichas de Revisão (Âmbar) */
+  .portal-top-bar a.ptb-fichas {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.28);
+  }
+  .portal-top-bar a.ptb-fichas:hover, .portal-top-bar a.ptb-fichas.active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+  }
+  /* Plano UFRRJ (Azul Celeste) */
+  .portal-top-bar a.ptb-ufrrj {
+    color: #38bdf8;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(14, 165, 233, 0.28);
+  }
+  .portal-top-bar a.ptb-ufrrj:hover, .portal-top-bar a.ptb-ufrrj.active {
+    background: rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+  }
+  /* Plano Transpetro (Roxo) */
+  .portal-top-bar a.ptb-transpetro {
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.28);
+  }
+  .portal-top-bar a.ptb-transpetro:hover, .portal-top-bar a.ptb-transpetro.active {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: #c084fc;
+  }
+  /* Resumos Consolidados (Rosa/Ciano) */
+  .portal-top-bar a.ptb-resumos {
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.12);
+    border: 1px solid rgba(244, 114, 182, 0.28);
+  }
+  .portal-top-bar a.ptb-resumos:hover, .portal-top-bar a.ptb-resumos.active {
+    background: rgba(244, 114, 182, 0.25);
+    border-color: #f472b6;
+  }
+  .portal-top-bar a.ptb-btn.active {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+    font-weight: 800;
+  }
+  @media (max-width: 680px) {
+    .portal-top-bar .ptb-text-extra { display: none !important; }
+    .portal-top-bar a.ptb-btn { font-size: 0.72rem; padding: 4px 7px; gap: 4px; }
+    .portal-top-bar a.ptb-brand { font-size: 0.78rem; }
+  }
+  @media (max-width: 440px) {
+    .portal-top-bar { padding: 6px 10px; gap: 6px; }
+    .portal-top-bar .ptb-actions { gap: 4px; }
+    .portal-top-bar a.ptb-btn { font-size: 0.70rem; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+        <div class="portal-top-bar">
+      <a href="index.html" class="ptb-brand" title="Voltar ao Portal Principal">
+        <span>🏠</span>
+        <span>Portal<span class="ptb-text-extra"> de Estudos</span></span>
+      </a>
+      <div class="ptb-actions">
+        <a href="quiz.html" class="ptb-btn ptb-quiz" title="Quiz Game TIC (Simulado e Prática)">
+          <span>🎮</span>
+          <span>Quiz<span class="ptb-text-extra"> Game</span></span>
+        </a>
+        <a href="fichas.html" class="ptb-btn ptb-fichas" title="Fichas de Revisão Offline">
+          <span>📑</span>
+          <span>Fichas</span>
+        </a>
+        <a href="resumos.html" class="ptb-btn ptb-resumos active" title="Cadernos e Resumos Consolidados por Disciplina">
+          <span>📚</span>
+          <span>Resumos</span>
+        </a>
+        <a href="ufrrj_quadro.html" class="ptb-btn ptb-ufrrj" title="Quadro e Plano de Estudos UFRRJ 2026">
+          <span>🏛️</span>
+          <span><span class="ptb-text-extra">Plano </span>UFRRJ</span>
+        </a>
+        <a href="transpetro_quadro.html" class="ptb-btn ptb-transpetro" title="Quadro e Plano de Estudos Transpetro 2026">
+          <span>⚓</span>
+          <span><span class="ptb-text-extra">Plano </span>Transpetro</span>
+        </a>
+      </div>
+    </div>
+
+    <header>
+      <h1>📚 Cadernos & Resumos Consolidados</h1>
+      <p class="sub">Teoria completa, mnemônicos, tabelas comparativas e pegadinhas de banca em páginas HTML de leitura rápida para cada disciplina.</p>
+      <div class="search-bar">
+        <input type="search" placeholder="🔍 Filtrar disciplina ou assunto (ex: Redes, ITIL, LGPD, SQL)..." oninput="filterCards(this.value)">
+      </div>
+    </header>
+    <div class="grid" id="cards-grid">
+      
+      <div class="resumo-card" data-title="língua portuguesa gramática &amp; interpretação">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#ec489922;border-color:#ec489955;">📝</div>
+            <div>
+              <span class="rc-tag" style="color:#ec4899;background:#ec48991a;">Gramática &amp; Interpretação</span>
+              <h2>Língua Portuguesa</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>16</strong> tópicos</span>
+            <span>⏱️ <strong>~122 min</strong> leitura</span>
+            <span>📦 <strong>173 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_portugues.html" class="btn-read" style="background:#ec4899;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Portugues_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="língua inglesa inglês técnico &amp; leitura">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#06b6d422;border-color:#06b6d455;">🌐</div>
+            <div>
+              <span class="rc-tag" style="color:#06b6d4;background:#06b6d41a;">Inglês Técnico &amp; Leitura</span>
+              <h2>Língua Inglesa</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>6</strong> tópicos</span>
+            <span>⏱️ <strong>~24 min</strong> leitura</span>
+            <span>📦 <strong>37 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_ingles.html" class="btn-read" style="background:#06b6d4;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Ingles_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="raciocínio lógico lógica proposicional &amp; conjuntos">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#f59e0b22;border-color:#f59e0b55;">🧮</div>
+            <div>
+              <span class="rc-tag" style="color:#f59e0b;background:#f59e0b1a;">Lógica Proposicional &amp; Conjuntos</span>
+              <h2>Raciocínio Lógico</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>6</strong> tópicos</span>
+            <span>⏱️ <strong>~74 min</strong> leitura</span>
+            <span>📦 <strong>95 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_raciocinio_logico.html" class="btn-read" style="background:#f59e0b;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Raciocinio_Logico_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="legislação (proteção de dados, transparência e regime jurídico) lgpd · lai · 8.112 · cf/88 · 14.133">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#eab30822;border-color:#eab30855;">⚖️</div>
+            <div>
+              <span class="rc-tag" style="color:#eab308;background:#eab3081a;">LGPD · LAI · 8.112 · CF/88 · 14.133</span>
+              <h2>Legislação (Proteção de Dados, Transparência e Regime Jurídico)</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>9</strong> tópicos</span>
+            <span>⏱️ <strong>~147 min</strong> leitura</span>
+            <span>📦 <strong>207 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_legislacao.html" class="btn-read" style="background:#eab308;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Legislacao_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="noções de informática so · redes · segurança básica">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#3b82f622;border-color:#3b82f655;">💻</div>
+            <div>
+              <span class="rc-tag" style="color:#3b82f6;background:#3b82f61a;">SO · Redes · Segurança Básica</span>
+              <h2>Noções de Informática</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>7</strong> tópicos</span>
+            <span>⏱️ <strong>~31 min</strong> leitura</span>
+            <span>📦 <strong>43 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_informatica.html" class="btn-read" style="background:#3b82f6;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Informatica_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="gestão e governança de tecnologia da informação itil 4 · cobit 2019 · pmbok · ágil">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#8b5cf622;border-color:#8b5cf655;">📊</div>
+            <div>
+              <span class="rc-tag" style="color:#8b5cf6;background:#8b5cf61a;">ITIL 4 · COBIT 2019 · PMBOK · Ágil</span>
+              <h2>Gestão e Governança de Tecnologia da Informação</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>11</strong> tópicos</span>
+            <span>⏱️ <strong>~164 min</strong> leitura</span>
+            <span>📦 <strong>240 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_governanca_ti.html" class="btn-read" style="background:#8b5cf6;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Governanca_TI_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="redes de computadores tcp/ip · osi · sub-redes · vlan · bgp">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#10b98122;border-color:#10b98155;">🌐</div>
+            <div>
+              <span class="rc-tag" style="color:#10b981;background:#10b9811a;">TCP/IP · OSI · Sub-redes · VLAN · BGP</span>
+              <h2>Redes de Computadores</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>11</strong> tópicos</span>
+            <span>⏱️ <strong>~168 min</strong> leitura</span>
+            <span>📦 <strong>230 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_redes.html" class="btn-read" style="background:#10b981;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Redes_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="suporte e infraestrutura linux · windows server · virtualização">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#14b8a622;border-color:#14b8a655;">🖥️</div>
+            <div>
+              <span class="rc-tag" style="color:#14b8a6;background:#14b8a61a;">Linux · Windows Server · Virtualização</span>
+              <h2>Suporte e Infraestrutura</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>11</strong> tópicos</span>
+            <span>⏱️ <strong>~38 min</strong> leitura</span>
+            <span>📦 <strong>55 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_infraestrutura.html" class="btn-read" style="background:#14b8a6;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Infraestrutura_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="banco de dados sql · normalização · transações · nosql">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#6366f122;border-color:#6366f155;">🗄️</div>
+            <div>
+              <span class="rc-tag" style="color:#6366f1;background:#6366f11a;">SQL · Normalização · Transações · NoSQL</span>
+              <h2>Banco de Dados</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>9</strong> tópicos</span>
+            <span>⏱️ <strong>~55 min</strong> leitura</span>
+            <span>📦 <strong>76 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_banco_de_dados.html" class="btn-read" style="background:#6366f1;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Banco_de_Dados_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="atualidades e inteligência artificial machine learning · llms · ciência de dados">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#a855f722;border-color:#a855f755;">🤖</div>
+            <div>
+              <span class="rc-tag" style="color:#a855f7;background:#a855f71a;">Machine Learning · LLMs · Ciência de Dados</span>
+              <h2>Atualidades e Inteligência Artificial</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>5</strong> tópicos</span>
+            <span>⏱️ <strong>~48 min</strong> leitura</span>
+            <span>📦 <strong>70 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_atualidades_ia.html" class="btn-read" style="background:#a855f7;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Atualidades_IA_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+
+      <div class="resumo-card" data-title="cibersegurança criptografia · firewalls · owasp · iso 27001">
+        <div>
+          <div class="rc-header">
+            <div class="rc-icon" style="background:#ef444422;border-color:#ef444455;">🛡️</div>
+            <div>
+              <span class="rc-tag" style="color:#ef4444;background:#ef44441a;">Criptografia · Firewalls · OWASP · ISO 27001</span>
+              <h2>Cibersegurança</h2>
+            </div>
+          </div>
+          <div class="rc-stats">
+            <span>📑 <strong>7</strong> tópicos</span>
+            <span>⏱️ <strong>~25 min</strong> leitura</span>
+            <span>📦 <strong>36 KB</strong></span>
+          </div>
+        </div>
+        <div class="rc-actions">
+          <a href="resumo_ciberseguranca.html" class="btn-read" style="background:#ef4444;">📖 Ler Online (.HTML)</a>
+          <a href="pdfs/Ciberseguranca_Consolidado.pdf" class="btn-pdf" target="_blank" title="Baixar PDF">📥 PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function filterCards(q) {
+      const term = q.toLowerCase().trim();
+      document.querySelectorAll('#cards-grid .resumo-card').forEach(c => {
+        c.style.display = c.dataset.title.includes(term) ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
