@@ -1,0 +1,40 @@
+{
+  "name": "Portal de Estudos & Quiz Game TIC",
+  "short_name": "Quiz TIC",
+  "description": "Portal de Estudos, Quiz Game gamificado e Fichas de Revisão Offline para Concursos Públicos de TIC",
+  "id": "quiz-tic-portal-pwa",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "lang": "pt-BR",
+  "categories": ["education", "study", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
