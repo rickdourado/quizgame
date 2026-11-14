@@ -4,7 +4,7 @@
  * Armazena 100% dos módulos, questões, leis e resumos no Cache do aparelho.
  */
 
-const CACHE_NAME = 'portal-tic-pwa-v1.2';
+const CACHE_NAME = 'portal-tic-pwa-v1.3';
 
 const CORE_ASSETS = [
   './',
