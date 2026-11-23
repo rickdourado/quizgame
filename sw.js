@@ -4,7 +4,7 @@
  * Armazena 100% dos módulos, questões, leis e resumos no Cache do aparelho.
  */
 
-const CACHE_NAME = 'portal-tic-pwa-v1.3';
+const CACHE_NAME = 'portal-tic-pwa-v1.4';
 
 const CORE_ASSETS = [
   './',
@@ -13,7 +13,6 @@ const CORE_ASSETS = [
   './fichas.html',
   './resumos.html',
   './leis.html',
-  './ufrrj_quadro.html',
   './transpetro_quadro.html',
   
   // Resumos Didáticos por Disciplina
