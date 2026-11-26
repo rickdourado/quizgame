@@ -24,6 +24,7 @@ const CORE_ASSETS = [
   './resumo_governanca_ti.html',
   './resumo_redes.html',
   './resumo_infraestrutura.html',
+  './resumo_sistemas_operacionais.html',
   './resumo_banco_de_dados.html',
   './resumo_atualidades_ia.html',
   './resumo_ciberseguranca.html',
